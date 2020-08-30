@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/member")
-public class LoginController {
+@RequestMapping("/template")
+public class TemplateCheckController {
 
-	@GetMapping("/login")
-	public String login() {
-		return "member/login";
+	@GetMapping("/header")
+	public String header() {
+		return "template/header";
 	}
-
 }
