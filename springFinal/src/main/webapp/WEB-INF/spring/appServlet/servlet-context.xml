@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/img/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.kh.springFinal" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
+	
+	<!-- 단방향 암호화 중에서 BCrypt라는 방식을 쓸 수 있도록 해주는 도구 -->
+	
+	<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	</beans:bean>
+	<!-- 
+		파일업로드
+		
+		주의 : 아이디는 무조건 multipartResolver
+	 -->
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
+		<beans:property name="maxUploadSize" value="10000000"></beans:property>
+		<beans:property name="maxUploadSizePerFile" value="5000000"></beans:property>
+	</beans:bean>
+	
+	<!-- 
+	인터셉터 등록
+	-mvc설정 
+	-->
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/**"/> -->
+<!-- 			<exclude-mapping path="/test"/> -->
+<!-- 			<beans:bean class="com.kh.spring15.intercepter.Testinterceptor"></beans:bean> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
+	<!-- 
+		웹 소켓 작업을 처리하는 서버르 등록
+		- websocket 관련 설정 태그가 필요(namespace를 추가)
+		
+	 -->
+<!-- 	 <beans:bean id="groupServer" class="com.kh.spring97.websocket.WebSocketGroupServer"></beans:bean> -->
+<!-- 	 <beans:bean id="groupServer" class="com.kh.spring97.websocket.WebSocketGroupServer"></beans:bean> --> 
+<!-- 	 <beans:bean id="memberServer" class="com.kh.spring25.websocket.WebSocketMemberServer"></beans:bean> --> 
+<!-- 		 <websocket:handlers> -->
+<!-- 		 	접속주소는 ws://localhost:8080/spring24/basic -->
+<!-- 		 	<websocket:mapping handler="groupServer" path="/group"/> -->
+<!-- 		 	<websocket:mapping handler="groupServer" path="/go"/> -->
+<!-- 		 	<websocket:mapping handler="memberServer" path="/member"/> -->
+		 	
+<!-- 		 	설정추가 : HttpSession의 정보를 가져오기 위한 도구 등록 -->
+<!-- 		 	<websocket:handshake-interceptors> -->
+<!-- 		 		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean> -->
+<!-- 		 	</websocket:handshake-interceptors> -->
+<!-- 		 </websocket:handlers> -->
+
+</beans:beans>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+
+<!-- 
+   Log4j의 설정파일
+   
+   [1]  Log4j의 메시지 체계
+   - TRACE : 프로그램 내에서 발생하는 모든 사소한 작업을 기록 (작성불가) 
+   - DEBUG : 개발할 때 필요에 의해서 확인해야할 부분에 대한 기록 (오류를 찾기 위한 기록)
+   - INFO : 사용자에게 알려줘야할 정보에 대한 기록 
+   - WARN : 실행은 되지만 문제가 생길 소지가 있을 경우의 기록 
+   - ERROR : 실행이 안되는 경우의 기록 
+   - FATAL : 시스템에 치명적인 오류의 기록 (작성불가) 
+   
+   [2] 설정 태그와 역할
+   - logger : 로깅을 수행하기 위한 도구(logger) 설정
+   - root : 전반적인 로깅 설정(logger에서 설정하고 남은 것들에 대한 설정)
+   - appender : 로깅의 대상을 설정하는 도구 
+   
+   [3] 메시지 레이아웃
+   - %p : 메시지 레벨(prority) 숫자 자리수 -왼쪽 
+   - %c : 카테고리 정보 (category). 로깅이 발생한 대상의 정보 
+   - %m : 메시지(message). 실제 로깅 메시지 정보 
+   - %n : 개행(newline). \n을 의미 줄바꿈 
+   - %d : 시간(date)정보. SimpleDateFormat의 형식을 그대로 사용 
+   
+   [4] 사용 가능한 appender
+   - ConsoleAppender : 콘솔에 출력하는 도구
+   - FileAppender : 파일로 출력하는 도구 
+   - DailyRollingFileAppender : 날짜별로 파일에 출력하는 도구 
+   - RollingFileAppender : 용량별로 구분하여 출력하는 도구 
+   
+ -->
+
+   <!-- 콘솔에 출력하는 도구 (Appender) -->
+   <appender name="console" class="org.apache.log4j.ConsoleAppender">
+      <param name="Target" value="System.out" />
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%-5p: %c - %m(%d{yyyy-MM-dd HH:mm:ss}%n" />
+      </layout>
+   </appender>
+   
+   <!-- 파일 출력 도구 -->
+   <appender name="xml" class="org.apache.log4j.FileAppender">
+      <param name="file" value="log.xml"></param>
+      <param name="append" value="true"></param>
+      <layout class="org.apache.log4j.xml.XMLLAyout"></layout>
+   </appender>
+   
+   <!-- 파일 출력 도구 -->
+   <appender name="out" class="org.apache.log4j.FileAppender">
+      <param name="file" value="log.out"></param>
+      <param name="append" value="true"></param>
+      <layout class="org.apache.log4j.xml.XMLLAyout"></layout>
+   </appender>
+   
+   <!-- 날짜별로 파일이 바뀌는 도구 -->
+   <appender name="daily" class="org.apache.log4j.DailyRollingFileAppender">
+      <param name="file" value="D:/log/daily"></param>
+      <param name="append" value="true"></param>
+      <!-- 날짜 패던 -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"></param>
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%-5p: %c - %m (%d{yyyy-MM-dd HH:mm:ss}%n" />
+      </layout>
+   </appender>
+      
+   <!-- Root(최상위) Logger -->
+   <root>
+      <priority value="debug" />
+      <appender-ref ref="console" />
+<!--       <appender-ref ref="daily" /> -->
+   </root>
+   
+</log4j:configuration>
