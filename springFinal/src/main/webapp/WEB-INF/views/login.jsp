@@ -59,7 +59,7 @@
                                     <label for="saveId">
                                         <strong>학번/교직원번호 저장</strong>
                                     </label>
-                                    <a class="pw_id_findare" style="right: 140px;">비밀번호 초기화</a>
+                                    <a class="pw_id_findare" style="right: 140px;">비밀번호 찾기</a>
                                     <a class="pw_id_findare">학번/교직원번호 조회</a>
                             </li>
                         </ul>
@@ -74,10 +74,10 @@
                 </div>
             </div>       
         </div>     
-    </div>
 <!--     <footer> -->
-    	
+  <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 <!--     </footer> -->
+    </div>
 </body>
 
 </html>
