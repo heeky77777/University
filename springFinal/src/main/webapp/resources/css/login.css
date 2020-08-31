@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-   .bg_login{
+   		.bg_login{
             background: url(../img/twice.png) no-repeat center top;
             background-size: cover;
             overflow-x: hidden;
@@ -59,7 +59,8 @@
             color: #676767;
         }
         .left_img{
-        	border-radius: 35px;
+        	border-top-left-radius: 35px;
+            border-bottom-left-radius: 35px;
         }
         .login-left{
             position: relative;
@@ -146,7 +147,7 @@
         .center{
             text-align: center;
         }
-    .col-12{ 
+    	.col-12{ 
         -webkit-box-flex: 0;
          } 
         
