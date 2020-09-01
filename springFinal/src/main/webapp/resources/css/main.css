@@ -1,0 +1,475 @@
+@charset "UTF-8";
+/* /////////////////////////////헤더//////////////////////////////////////// */
+  /*
+            toggle : 두 가지 상태를 왔다갔다 하는 것
+            활성화가 되어있으면 나타나고 아니면 사라지게 만든다 (활성화 상태 : .on 또는 .active)
+        */
+       /*
+            toggle : 두 가지 상태를 왔다갔다 하는 것
+            활성화가 되어있으면 나타나고 아니면 사라지게 만든다 (활성화 상태 : .on 또는 .active)
+        */
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 150px;
+            margin-left: -250px;
+            
+            /*
+                sidebar에 특정 속성에 대한 애니메이션 설정
+                 : margin-left(대상)가 몇 초만에 바뀌게 할 건지 설정
+            
+                <timing function>
+                - linear : 시작부터 끝까지 동일한 속도로 진행
+                - ease-in-out : 처음과 끝이 느리게 진행
+                - ease-in : 처음만 느리게
+                - ease-out : 끝이 느리게
+            */
+            transition: margin-left 0.5s ease-in-out; 
+            
+            
+        }
+        .sidebar.active {
+            
+            margin-left: 0px;
+            
+        }
+       /* .container {
+            position: absolute;
+            margin-left: 0px;
+            padding-right: 0px;
+            padding-left: 0px;
+            transition: margin-left 0.5s ease-in-out;
+            
+        }*/
+        .container2 {
+           /* position: absolute;*/
+            margin-left: 0px;
+            padding-right: 0px;
+            padding-left: 0px;
+            transition: margin-left 0.5s ease-in-out;
+            
+        }
+        /* sidebar에 변화가 생기면 container도 변경 */
+        .sidebar.active + .container2 {
+            margin-left: 250px;
+        
+        }
+        .up_background{
+            background-color: #063e7a;
+            height: 50px;
+        }
+        .up_background2{
+            background-color: #063e7a;
+            height: 50px;
+            display: flex;
+        }
+
+        .list-item{
+            position: relative;
+            display: block;
+            padding: .75rem 1.25rem;
+            background-color: #233144;
+            width: 250px;
+            color: white;
+        }
+        .list-item:hover{
+            position: relative;
+            display: block;
+            padding: .75rem 1.25rem;
+            background-color: #5165e1;
+            color: white;
+        }
+        .list-group-item:hover{
+            background-color: #5165e1;
+            color: white;
+        }
+        .btn_slide{
+            
+            border: 0;
+            outline: 0;
+            color: white;
+            font-size: 30px;
+            left: 10px;
+            overflow: hidden;
+            background-color: #063e7a;
+            margin-left: 20px;
+        }
+        .btn_slide:focus{
+            
+            border: 0;
+            outline: 0;
+            color: white;
+            font-size: 30px;
+            left: 10px;
+            overflow: hidden;
+            background-color: #063e7a;
+            margin-left: 20px;
+        }
+     
+        .title-logo{
+            color: white;
+            
+        }
+        .btn_logout{
+            border: 0;
+            outline: 0;
+            color: white;
+            font-size: 30px;
+            left: 10px;
+            overflow: hidden;
+            background-color: #063e7a;
+            
+        }
+        .btn_info{
+            border: 0;
+            outline: 0;
+            color: white;
+            font-size: 30px;
+            left: 10px;
+            overflow: hidden;
+            background-color: #063e7a;
+            border-top-left-radius: 35px;
+            border-bottom-left-radius: 35px;
+            
+        }
+        .title_font{
+            color: white;
+            font-size: 30px;
+            
+            overflow: hidden;
+        }
+
+        .btn_first{
+            
+            border: 0;
+            outline: 0;
+            color: white;
+            font-size: 30px;
+            left: 10px;
+            overflow: hidden;
+            background-color: #233144;
+            margin-left: 20px;
+        }
+
+        
+        .sidebar_toggle{
+            
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 150px;
+            margin-left: -250px;
+            margin-top: -200px;
+            transition: margin-top 0.5s ease-in-out; 
+            
+            
+        }
+        .sidebar_toggle.active{
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            margin-top: 0px;
+            margin-left: 0px;
+            transition: margin-top 0.5s ease-in-out; 
+            transition: margin-left 0.01s ease-in-out; 
+            
+            
+            
+        }
+
+        
+        .sidebar_toggle2{
+            
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 150px;
+            margin-left: -250px;
+            margin-top: -120px;
+            transition: margin-top 0.5s ease-in-out; 
+            
+        }
+        .sidebar_toggle2.active{
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            margin-top: 0px;
+            margin-left: 0px;
+            transition: margin-top 0.5s ease-in-out; 
+            transition: margin-left 0.01s ease-in-out; 
+            
+            
+        }
+
+        
+        .sidebar_toggle3{
+            
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 150px;
+            margin-left: -250px;
+            margin-top: -210px;
+            transition: margin-top 0.5s ease-in-out; 
+            
+        }
+        .sidebar_toggle3.active{
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            margin-top: 0px;
+            margin-left: 0px;
+            transition: margin-top 0.5s ease-in-out; 
+            transition: margin-left 0.01s ease-in-out; 
+            
+            
+        }
+        .nav-item{
+            border: 1px #aaa;
+        }
+        .nav-list-list{
+            position: relative;
+            display: block;
+            background-color: #233144;
+            width: 250px;
+            color: white;
+            cursor: pointer;
+            
+        }
+        
+        .nav-list-list:hover{
+            background-color: #5165e1;
+            color: white;
+            cursor: pointer;
+            
+            
+        }
+
+       .nav-empty{
+        background-color: #233144;
+        width: 250px;
+        height: 800px;
+       }
+       .nav-item-list{
+           background-color: #293A50;
+       }
+        
+        
+/*     ////////////////////////// 푸터//////////////////////////// */
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* footer 하단 */
+    .footer {
+        position: absolute;
+        width: 100%;
+        background-color: #f0f0f0;
+        border: none;
+        margin-top: 120px;
+        
+    }
+
+    /*
+        .footer .footer_top_line {
+        width: 1px;
+        height: 130px;
+        background-color: #e0e0e0;
+        position: absolute;
+        top: -10px;
+        left: 840px;
+    }
+*/
+
+    .footer_inner {
+        width: 1200px;
+        padding: 55px 20px 20px;
+        margin: 0px auto;
+        text-align: center;
+    }
+
+    /* footer 가로로*/
+    .footer_top,
+    li,
+    .footer_inner_box,
+    .footer_inner_item {
+        list-style: none;
+    }
+
+    .footer_inner_item {
+        display: inline-block;
+        padding: 0px 40px 0px;
+    }
+
+    /* footer 폰트*/
+    .footer .footer_inner_box .footer_inner_item .info_title,
+    .info_title_number,
+    #second_footer>.footer_inner_box {
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 14px;
+        color: #333;
+        letter-spacing: -1.5px;
+    }
+
+    .info_title_number,
+    .footer_bottom_detail {
+        letter-spacing: 0;
+    }
+
+    /* footer_top 세로선*/
+    .footer .footer_inner_separator_line {
+        width: 1px;
+        height: 130px;
+        background-color: #e0e0e0;
+        position: absolute;
+        right: 40%;
+    }
+
+    .footer_bottom {
+        float: right
+    }
+    
+    
+    .bg_footer{
+            background-size: cover;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            width: 100%;
+            min-width: 1112px;
+            z-index: 0;
+            
+        }
+/* 
+    컨텐츠 영역에 대한 폭 제어 스타일 
+    - 모든 article은 가운데 정렬을 원칙으로 한다.
+    - 폭은 w-비율 형태의 class로 5단위로 지원한다.
+*/
+article {
+    margin: auto;
+}
+
+article.w-100 {
+    width: 100%;
+}
+
+article.w-95 {
+    width: 95%;
+}
+
+article.w-90 {
+    width: 90%;
+}
+
+article.w-85 {
+    width: 85%;
+}
+
+article.w-80 {
+    width: 80%;
+}
+
+article.w-75 {
+    width: 75%;
+}
+
+article.w-70 {
+    width: 70%;
+}
+
+article.w-65 {
+    width: 65%;
+}
+
+article.w-60 {
+    width: 60%;
+}
+
+article.w-55 {
+    width: 55%;
+}
+
+article.w-50 {
+    width: 50%;
+}
+
+article.w-45 {
+    width: 45%;
+}
+
+article.w-40 {
+    width: 40%;
+}
+
+article.w-35 {
+    width: 35%;
+}
+
+article.w-30 {
+    width: 30%;
+}
+
+article.w-25 {
+    width: 25%;
+}
+
+article.w-20 {
+    width: 20%;
+}
+
+article.w-15 {
+    width: 15%;
+}
+
+article.w-10 {
+    width: 10%;
+}
+
+.row {
+    margin: 10px 0px;
+    
+}
+
+.row-empty {
+    height: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.head {
+    font-size: 30px;
+}
+
+.middle-font {
+    font-size: 35px;
+}
+
+.small-font {
+    font-size: 25px;
+}
+
+.ssmall-font {
+    font-size: 16px;
+}
+        
