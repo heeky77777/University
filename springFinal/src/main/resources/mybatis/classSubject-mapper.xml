@@ -4,10 +4,15 @@
 
 <mapper namespace="classSubject">
 
+	<!-- seq 조회 -->
+	<select id="subSeq">
+		select class_sub_seq.nextval where dual
+	</select>
+
 	<!-- 강의 등록 -->
 	<insert id="regist" parameterType="classSubjectDto">
 		insert into class_subject values (
-		class_sub_seq.nextval, 1, 1, #{semester_no}, #{class_sub_name}, #{class_sub_type}, #{class_sub_content}, 
+		#{class_sub_no}, 1, 1, #{semester_no}, #{class_sub_name}, #{class_sub_type}, #{class_sub_content}, 
 		#{class_sub_person}, #{class_sub_start}, #{class_sub_end}, #{class_sub_point}, #{class_sub_room}, #{class_sub_week}, #{class_sub_time}, #{start_time}, #{end_time}, sysdate
 		)
 	</insert>

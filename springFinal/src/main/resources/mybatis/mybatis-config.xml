@@ -18,7 +18,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <!-- 	typeAliases : 클래스에 부여하는 별칭 -->
 	<typeAliases>
 		<typeAlias type="com.kh.springFinal.entity.ClassSubjectDto" alias="classSubjectDto"/>
-
 	</typeAliases>
 	
 </configuration>

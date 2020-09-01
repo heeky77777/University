@@ -119,7 +119,7 @@
 	
 	   <div class="row">
 	       <div class="offset-md-3 col-md-6">
-	           <form action="regist" class="form">
+	           <form action="regist" class="form" method="post" enctype="multiipart/form-data">
 	               <div class="form-group">
 	                   <label>강의 명</label>
 	                   <input type="text" name="class_sub_name" class='form-control'>
@@ -148,7 +148,7 @@
 	               </div>
 	               <div class="form-group">
 	                   <label>학점</label>
-	                   <input type="number" name="class_sub_point" class="form-control" min='2' max='3' value='0'>
+	                   <input type="number" name="class_sub_point" class="form-control" min='1' max='3' value='0'>
 	               </div>
 	               <div class="form-group form-inline">
 	                   <label>강의 시간</label>
@@ -184,7 +184,7 @@
 	               <div class="form-group">
 	                   <label>강의 첨부파일</label>
 	                   <br>
-	                   <input type="file">
+	                   <input type="file" name="file" accept=".pdf, .hwp">
 	               </div>
 	               <input type="hidden" name="start_time" value="${year_a}">
 	             <input type="hidden" name="end_time" value="${year_a+1}">
