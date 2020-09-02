@@ -38,7 +38,6 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		classSubjectFileDto.setSub_file_no(sub_file_no);
 		sqlSession.insert("subFile.add", classSubjectFileDto);
 		
-		
 		return sub_file_no;
 	}
 	

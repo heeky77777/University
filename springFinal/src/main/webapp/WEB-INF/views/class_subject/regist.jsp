@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script>
@@ -9,7 +11,7 @@
     	$('#check-btn').click(function(){
         
 	        $.ajax({
-	            url:"${pageContext.request.contextPath}/lecture/lecture_regist?semester_no=" + $('#semester_no').val() + "&lecture_time=" + $('#lecture_time').val() + "&lecture_day=" + $('#lecture_day').val() + "&start_time=" + $('input[name=start_time]').val() + "&end_time=" + $('input[name=end_time]').val() + "&lecture_room=" + $('input[name=lecture_room]').val(),
+	            url:"${pageContext.request.contextPath}/class_subject/check?semester_no=" + $('#semester_no').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&start_time=" + $('input[name=start_time]').val() + "&end_time=" + $('input[name=end_time]').val() + "&class_sub_room=" + $('input[name=class_sub_room]').val(),
 	            type:"get",
 	            success:function(response) {
 	                if(!response){	// 결과 없음 : 사용 가능
@@ -65,8 +67,6 @@
 
 </script>
 
-<jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/header.jsp"></jsp:include>
-
 
 <style>
 	.row-empty {
@@ -109,9 +109,8 @@
 
 
 	<div class="container-fluid">
+
 	
-		 <div class="row-empty"></div>
-	    <div class="row-empty"></div>
 	   
 		<div>
 	       <h2 class="text-center">강의 등록</h2>
@@ -150,10 +149,17 @@
 	                   <label>학점</label>
 	                   <input type="number" name="class_sub_point" class="form-control" min='1' max='3' value='0'>
 	               </div>
+	               <div class="form-group">
+                       <label>학기</label>
+                       <select name="semester_no" id="semester_no" class="form-control">
+                         <option>1</option>		
+                         <option>2</option>		
+                       </select>
+                   </div>
 	               <div class="form-group form-inline">
 	                   <label>강의 시간</label>
 	                   <br>
-	                   <select name="lecture_day" id="class_sub_week" class="form-control">
+	                   <select name="class_sub_week" id="class_sub_week" class="form-control">
 	                       <option>월</option>
 	                       <option>화</option>
 	                       <option>수</option>
@@ -161,7 +167,7 @@
 	                       <option>금</option>
 	                   </select>
 	                   <br>
-	                   <select name="lecture_time" id="class_sub_time" class="form-control">
+	                   <select name="class_sub_time" id="class_sub_time" class="form-control">
 	                       <option>1</option>		
 	                       <option>2</option>		
 	                       <option>3</option>		
@@ -174,7 +180,7 @@
 	                   <label>강의실</label>
 	                   <br>
 	                   <input type="text" name="class_sub_room"  class="form-control">
-	                   <button type="button" class="btn btn-secondary btn-sm" onclick="return regist();">강의실 확인</button>
+	                   <button type="button" id="check-btn" class="btn btn-secondary btn-sm"> <!-- onclick="regist();" -->강의실 확인</button>
 	               </div>
 	               <span id='lecture_check'></span>
 	               <div class="form-group">
@@ -186,10 +192,11 @@
 	                   <br>
 	                   <input type="file" name="file" accept=".pdf, .hwp">
 	               </div>
-	               <input type="hidden" name="start_time" value="${year_a}">
-	             <input type="hidden" name="end_time" value="${year_a+1}">
-	
-	                <button type="submit" class="btn btn-primary btn-block regist-btn">강의 등록</button>
+	               <input type="hidden" name="start_time" value="${year}">
+	               <input type="hidden" name="end_time" value="${year+1}">
+	               
+	               <div class="row-empty"></div>
+	               <button type="submit" class="btn btn-primary btn-block regist-btn">강의 등록</button>
 	
 	            </form>
 	        </div>
@@ -198,5 +205,4 @@
 	</div>
 
 
-
-<jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/footer.jsp"></jsp:include>  
+	<jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/footer.jsp"></jsp:include>  
