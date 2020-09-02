@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ProfessorDto {
 
 	private int profe_no;
-	private int major_no;
+	//private int major_no;
 	private int semester_no;
 	private String profe_name;
 	private String profe_id;
