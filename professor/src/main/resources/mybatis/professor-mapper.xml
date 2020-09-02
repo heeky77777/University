@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+		- namespace : 영역을 외부에서 부르기 위한 별칭
+ -->
+<mapper namespace="professor">
+
+<!--
+	
+	알아야 할 설정값
+	- id : 구문을 외부에서 호출하기 위한 식별값
+	- parameterType : 구문을 실행하기 위해 필요한 데이터 유형(매개변수와 유사)
+	- resultType : 구문이 실행된 결과 유형(반환형과 유사)
+-->
+
+	<!-- 교수 번호 -->
+	<select id="getSequence" resultType="int">
+		SELECT PROFESSOR_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+    <!-- 교수 정보 등록 -->
+	<insert id="regist" parameterType="professorDto">
+		INSERT INTO professor(
+			profe_no, major_no, semester_no, profe_name , profe_id,
+			profe_pw, profe_gender, profe_phone, profe_email, profe_post, 
+			profe_addr, profe_extra_addr, profe_auth, profe_date, profe_img
+			)VALUES(
+			#{profe_no}, #{major_no}, #{semester_no}, #{profe_name}, #{profe_id},
+			#{profe_pw}, #{profe_gender}, #{profe_phone}, #{profe_email}, #{profe_post},
+			#{profe_addr}, #{profe_extra_addr}, #{profe_auth}, SYSDATE, #{profe_img})
+			
+		
+	</insert>
+	
+
+</mapper>
+
+
