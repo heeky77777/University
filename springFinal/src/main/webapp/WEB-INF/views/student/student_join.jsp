@@ -17,7 +17,7 @@
        학과 : <select name="major_no">
              <option>경영학과</option>
              <option>어문학과</option>
-             <option>성악과</option>
+             <option>성악과</option> 
              <option>시스템공학과</option>
           </select>
        학기 : <select name="semester_no">
