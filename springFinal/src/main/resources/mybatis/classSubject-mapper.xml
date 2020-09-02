@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="classSubject">
+
+	<!-- seq 조회 -->
+	<select id="subSeq">
+		select class_sub_seq.nextval where dual
+	</select>
+
+	<!-- 강의 등록 -->
+	<insert id="regist" parameterType="classSubjectDto">
+		insert into class_subject values (
+		#{class_sub_no}, 1, 1, #{semester_no}, #{class_sub_name}, #{class_sub_type}, #{class_sub_content}, 
+		#{class_sub_person}, #{class_sub_start}, #{class_sub_end}, #{class_sub_point}, #{class_sub_room}, #{class_sub_week}, #{class_sub_time}, #{start_time}, #{end_time}, sysdate
+		)
+	</insert>
+	
+	<!-- 강의 중복 검사 조회 -->
+	<select id="getConfirm" resultType="classSubjectDto" parameterType="classSubjectDto">
+		select * from class_subject where semester_no = #{semester_no} and class_sub_time = #{class_sub_time} and class_sub_week = #{class_sub_week} and class_sub_room = #{class_sub_room} and #{start_time} between #{start_time} and #{end_time}
+	</select>
+
+
+</mapper>
