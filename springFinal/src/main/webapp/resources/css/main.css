@@ -38,6 +38,7 @@
         .sidebar.active {
             
             margin-left: 0px;
+            padding-right: 250px;
             
         }
        /* .container {
@@ -218,7 +219,7 @@
             bottom: 0;
             width: 150px;
             margin-left: -250px;
-            margin-top: -210px;
+            margin-top: -275px;
             transition: margin-top 0.5s ease-in-out; 
             
         }

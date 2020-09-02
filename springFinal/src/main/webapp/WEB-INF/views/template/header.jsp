@@ -84,7 +84,10 @@
                             <a class="nav-link" href="#" style="color:white">입학학생 신청관리</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">학생/교수 회원가입</a>
+                            <a class="nav-link" href="#" style="color:white">교수 회원가입</a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="#" style="color:white">학생 회원가입</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                              <a class="nav-link" href="#" style="color:white">회원관리</a>
@@ -104,12 +107,7 @@
                 <span class="col-8 title_font" style="text-align: right;">누구누구님 환영해요</span>
                 <span class="col-4 title_font" style="text-align: center;">KH 대학교</span>
                 
-        </div>
-        <div style="height:1000px">
-        </div>
-    </section>
-    <footer>
-  <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-    </footer>
+       
+   
 </body>
 </html>
