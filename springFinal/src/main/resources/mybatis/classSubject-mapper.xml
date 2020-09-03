@@ -19,7 +19,7 @@
 	
 	<!-- 강의 중복 검사 조회 -->
 	<select id="getConfirm" resultType="classSubjectDto" parameterType="classSubjectDto">
-		select * from class_subject where semester_no = #{semester_no} and class_sub_time = #{class_sub_time} and class_sub_week = #{class_sub_week} and class_sub_room = #{class_sub_room} and #{start_time} between #{start_time} and #{end_time}
+		select * from class_subject where class_sub_room = #{class_sub_room} and class_sub_time = #{class_sub_time} and class_sub_week = #{class_sub_week} and semester_no = #{semester_no} and #{start_time} between #{start_time} and #{end_time}
 	</select>
 	
 	<!-- 강의 목록(전체) -->

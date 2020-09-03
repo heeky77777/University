@@ -19,7 +19,10 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	// 강의실 강의 시간 중복 조회
 	@Override
 	public ClassSubjectDto getConfirm(ClassSubjectDto classSubjectDto) {
+		
 		ClassSubjectDto subDto = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
+		
+
 		return subDto;
 	}
 	

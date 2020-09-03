@@ -21,6 +21,7 @@ public class ClassSubjectRestController {
 	
 	@GetMapping("check")
 	public ClassSubjectDto check(@ModelAttribute ClassSubjectDto classSubjectDto) {
+		
 		return classSubjectDao.getConfirm(classSubjectDto);
 	}
 	

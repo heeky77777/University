@@ -49,9 +49,17 @@
                 <div class="row-empty"></div>
                 
                 <div class="row">
-                    <div class="form-group form-inline">
-                        <label for="">년도&nbsp;</label>
+                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
+                        <label>년도&nbsp;</label>
                             <input type="text" name="" id="" class="form-control">
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
+                        <label>학기&nbsp;</label>
+                        <select name="" id="" class="form-control">
+                            <option value="">1학기</option>
+                            <option value="">2학기</option>
+                        </select>
                     </div>
                 </div>
                 
@@ -64,7 +72,6 @@
                             <option value="">교양</option>
                             <option value="">교필</option>
                         </select>
-    
                     </div>
                     <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
                         <div class="form-inline mr-auto">

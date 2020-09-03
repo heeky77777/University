@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%-- <jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/header.jsp"></jsp:include> --%>
+<jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -9,9 +9,20 @@
 
 	$(function() {
     	$('#check-btn').click(function(){
+    		var semester_no = $('#semester_no').val()
+    		var class_sub_time = $('#class_sub_time').val()
+    		var class_sub_week = $('#class_sub_week').val()
+    		var start_time = $('input[name=start_time]').val()
+    		var end_time = $('input[name=end_time]').val()
+    		var class_sub_room = $('input[name=class_sub_room]').val()
+    		
+    		if(!class_sub_room){
+    			$('#lecture_check').removeClass('pass').addClass('fail').text('요일, 교시, 강의실을 다시 확인해 주세요');
+    			return;
+    		}
         
 	        $.ajax({
-	            url:"${pageContext.request.contextPath}/class_subject/check?semester_no=" + $('#semester_no').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&start_time=" + $('input[name=start_time]').val() + "&end_time=" + $('input[name=end_time]').val() + "&class_sub_room=" + $('input[name=class_sub_room]').val(),
+	        	url:"${pageContext.request.contextPath}/class_subject/check?semester_no=" + semester_no + "&class_sub_time=" + class_sub_time + "&class_sub_week=" + class_sub_week + "&start_time=" + start_time + "&end_time=" + end_time + "&class_sub_room=" + class_sub_room,
 	            type:"get",
 	            success:function(response) {
 	                if(!response){	// 결과 없음 : 사용 가능
@@ -22,28 +33,32 @@
 	                    $('#lecture_check').removeClass('pass').addClass('fail').text('요일, 교시, 강의실을 다시 확인해 주세요');
 	                    return false;				
 	                }
-	            }
+	            },
+                error:function() {
+                	$('#lecture_check').removeClass('pass').addClass('fail').text('요일, 교시, 강의실을 다시 확인해 주세요');
+                }
 	        })
 	
 	    })
 	
 	
 	})
+	
 
 /* 	function regist() {
 		
 		var semester_no = document.querySelector('#semester_no').value;
-		var lecture_time = document.querySelector('#lecture_time').value;
-		var lecture_day = document.querySelector('#lecture_day').value;
+		var class_sub_time = document.querySelector('#class_sub_time').value;
+		var class_sub_week = document.querySelector('#class_sub_week').value;
 		var start_time = document.querySelector('input[name=start_time]').value;
 		var end_time = document.querySelector('input[name=end_time]').value;
-		var lecture_room = document.querySelector('input[name=lecture_room]').value;
+		var class_sub_room = document.querySelector('input[name=class_sub_room]').value;
 		
 		var lecture_check = document.querySelector('#lecture_check');
 		
 		
 		axios({
-			url:"${pageContext.request.contextPath}/lecture/lecture_regist?semester_no=" + semester_no + "&lecture_time=" + lecture_time + "&lecture_day=" + lecture_day + "&start_time=" + start_time + "&end_time=" + end_time + "&lecture_room=" + lecture_room,
+			url:"${pageContext.request.contextPath}/lecture/lecture_regist?semester_no=" + semester_no + "&class_sub_time=" + class_sub_time + "&class_sub_week=" + class_sub_week + "&start_time=" + start_time + "&end_time=" + end_time + "&class_sub_room=" + class_sub_room,
 			method:"get"
 		})
 		.then(
@@ -60,7 +75,6 @@
 					}
 				}
 		)
-		
 
 	} */
 
@@ -119,6 +133,10 @@
 	   <div class="row">
 	       <div class="offset-md-3 col-md-6">
 	           <form action="regist" class="form" method="post" enctype="multiipart/form-data">
+	           
+	               <input type="hidden" name="start_time" value="${year}">
+	               <input type="hidden" name="end_time" value="${year+1}">
+	               
 	               <div class="form-group">
 	                   <label>강의 명</label>
 	                   <input type="text" name="class_sub_name" class='form-control'>
@@ -135,7 +153,7 @@
 	
 	               <div class="form-group">
 	                   <label>학생 정원</label>
-	                   <input type="number" name="class_sub_person" class="form-control" min='10' max='30' value='0'>
+	                   <input type="number" name="class_sub_person" class="form-control" min='5' max='30'>
 	               </div>
 	               <div class="form-group">
 	                   <label>개강일</label>
@@ -147,7 +165,11 @@
 	               </div>
 	               <div class="form-group">
 	                   <label>학점</label>
-	                   <input type="number" name="class_sub_point" class="form-control" min='1' max='3' value='0'>
+	                   <select name="class_sub_point" class="form-control">
+                            <option>1</option>		
+                            <option>2</option>		
+                            <option>3</option>		
+                   	   </select>
 	               </div>
 	               <div class="form-group">
                        <label>학기</label>
@@ -180,7 +202,7 @@
 	                   <label>강의실</label>
 	                   <br>
 	                   <input type="text" name="class_sub_room"  class="form-control">
-	                   <button type="button" id="check-btn" class="btn btn-secondary btn-sm"> <!-- onclick="regist();" -->강의실 확인</button>
+	                   <button type="button" id="check-btn" class="btn btn-secondary btn-sm"><!-- onclick="return regist();" -->강의실 확인</button>
 	               </div>
 	               <span id='lecture_check'></span>
 	               <div class="form-group">
@@ -192,8 +214,6 @@
 	                   <br>
 	                   <input type="file" name="file" accept=".pdf, .hwp">
 	               </div>
-	               <input type="hidden" name="start_time" value="${year}">
-	               <input type="hidden" name="end_time" value="${year+1}">
 	               
 	               <div class="row-empty"></div>
 	               <button type="submit" class="btn btn-primary btn-block regist-btn">강의 등록</button>
