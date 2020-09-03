@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 -->
 
 	<!-- 교수 번호 -->
-	<select id="getSequence" resultType="int">
+	<select id="seq" resultType="int">
 		SELECT PROFESSOR_SEQ.NEXTVAL FROM DUAL
 	</select>
 
@@ -34,7 +34,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</insert>
 
+	<!--교수 단일 조회 -->
+	<select id="getId" parameterType="String" resultType="professorDto">
+		SELECT*FROM professor WHERE profe_id=#{profe_id}
+	</select>
 
+	<!-- 교수 목록 조회 -->
+	<!-- <SELECT id="getList" parameterType="" -->
 	
 	<!-- 교수 삭제 -->
 	<!--  <delete id="del" parameterType="int">

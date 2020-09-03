@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 
 	<typeAlias type = "com.kh.springFinal.entity.ProfessorDto" alias="professorDto"/>
+	<typeAlias type = "com.kh.springFinal.entity.ProfessorFileDto" alias="professorFileDto"/>
 	
 
 		<typeAlias type="com.kh.springFinal.entity.ClassSubjectDto" alias="classSubjectDto"/>
