@@ -1,5 +1,7 @@
 package com.kh.springFinal.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,11 +15,14 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
 	// 강의실 강의 시간 중복 조회
 	@Override
-	public ClassSubjectDto getConfirm() {
-		return sqlSession.selectOne("classSubject.getConfirm");
+	public ClassSubjectDto getConfirm(ClassSubjectDto classSubjectDto) {
+		ClassSubjectDto subDto = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
+		return subDto;
 	}
+	
 	
 	// 강의 등록
 	@Override
@@ -30,6 +35,7 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		return class_sub_no;
 	}
 
+	
 	// 수업 계획서 파일 업로드
 	@Override
 	public int addFile(ClassSubjectFileDto classSubjectFileDto) {
@@ -39,6 +45,20 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		sqlSession.insert("subFile.add", classSubjectFileDto);
 		
 		return sub_file_no;
+	}
+
+	
+	// 강의 리스트(전체)
+	@Override
+	public List<ClassSubjectDto> getList() {
+		return  sqlSession.selectList("classSubject.lectureList");
+	}
+
+	
+	// 강의 리스트 (교수)
+	@Override
+	public List<ClassSubjectDto> profList(int profe_no) {
+		return sqlSession.selectList("classSubject.profList", profe_no);
 	}
 	
 	
