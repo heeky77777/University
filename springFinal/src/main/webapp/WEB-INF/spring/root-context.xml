@@ -25,7 +25,7 @@
 <!-- 		<bean id="testFilter" class="com.kh.spring16.filter.TestFilter"></bean> -->
 		
 		<!-- 
-		데이터베이스 도구를 등록s
+		데이터베이스 도구를 등록
 		- 연결 도구 : 
 			org.springframework.jdbc.datasource.DriverManagerDataSource
 			org.apache.commons.dbcp2.BasicDataSource
@@ -122,3 +122,4 @@
 	   -->
 	   <aop:aspectj-autoproxy/>
 </beans>
+
