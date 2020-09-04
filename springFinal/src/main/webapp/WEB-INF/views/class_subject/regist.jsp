@@ -157,11 +157,11 @@
 	               </div>
 	               <div class="form-group">
 	                   <label>개강일</label>
-	                   <input type="date" name="class_sub_start" class="form-control">
+	                   <input type="date" name="class_sub_start" class="form-control" min='2020-09-10' max='2020-12-23'>
 	               </div>
 	               <div class="form-group">
 	                   <label>종강일</label>
-	                   <input type="date" name="class_sub_end" class="form-control">
+	                   <input type="date" name="class_sub_end" class="form-control" min='2020-09-10' max='2020-12-23'>
 	               </div>
 	               <div class="form-group">
 	                   <label>학점</label>

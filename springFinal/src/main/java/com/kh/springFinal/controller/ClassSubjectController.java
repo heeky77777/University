@@ -51,11 +51,15 @@ public class ClassSubjectController {
 		// 강의 등록
 		int class_sub_no = classSubjectDao.subjectRegist(classSubjectDto);
 		
+		if(class_sub_no == 0) {
+			return "redirect:regist";
+		}
+		
 		// 강의 계획서 업로드
 		classSubjectService.addFile(classSubjectFileDto, file, class_sub_no);
 		
-		
 		return "redirect:list";
+		
 	}
 	
 //	@GetMapping("list")

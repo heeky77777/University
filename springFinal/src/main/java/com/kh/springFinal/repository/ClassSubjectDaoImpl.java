@@ -21,7 +21,6 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	public ClassSubjectDto getConfirm(ClassSubjectDto classSubjectDto) {
 		
 		ClassSubjectDto subDto = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
-		
 
 		return subDto;
 	}
@@ -31,11 +30,17 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	@Override
 	public int subjectRegist(ClassSubjectDto classSubjectDto) {
 		
-		int class_sub_no = sqlSession.selectOne("classSubject.subSeq");
-		classSubjectDto.setClass_sub_no(class_sub_no);
-		sqlSession.insert("classSubject.regist", classSubjectDto);
+		ClassSubjectDto classSubjectCheck = sqlSession.selectOne("classSubject.getLecture", classSubjectDto);
+		int class_sub_no;
+		if(classSubjectCheck == null) {
+			class_sub_no = sqlSession.selectOne("classSubject.subSeq");
+			classSubjectDto.setClass_sub_no(class_sub_no);
+			sqlSession.insert("classSubject.regist", classSubjectDto);
+			return class_sub_no;
+			
+		}
+		return 0;
 		
-		return class_sub_no;
 	}
 
 	
