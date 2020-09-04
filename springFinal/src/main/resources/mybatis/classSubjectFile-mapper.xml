@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="subFile">
+	
+	
+	<!-- 번호 -->
+	<select id="seq" resultType="int">
+		select class_sub_file_seq.nextval from dual
+	</select>
+
+	<!-- 파일 등록 -->
+	<insert id="add" parameterType="classSubjectFileDto">
+		insert into class_sub_file values (#{sub_file_no}, #{class_sub_no}, #{sub_file_name}, #{sub_file_type}, #{sub_file_size})
+	</insert>
+	
+	<!-- 파일 조회 -->
+	<select id="get" resultType="classSubjectFileDto" parameterType="int">
+		select * from class_sub_file where class_sub_no = #{class_sub_no}
+	</select>
+
+
+</mapper>

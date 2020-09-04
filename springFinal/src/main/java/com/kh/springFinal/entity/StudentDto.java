@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class StudentDto {
 	
@@ -28,6 +29,6 @@ public class StudentDto {
 	private String student_img;
 	private String student_milliy;
 	
-	
+
 
 }
