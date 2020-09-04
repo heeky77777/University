@@ -48,5 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                            #{student_milliy})
    
    </insert>
+   
+   <select id="numb" parameterType="int" resultType="studentDto">
+		SELECT * FROM student WHERE student_numb=#{student_numb}
+	</select>
 	
 </mapper>
+

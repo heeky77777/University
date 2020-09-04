@@ -107,6 +107,7 @@
     </aside>
     <section class="container2">
         <div class="up_background container-fluid">
+
           	<button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
 <!-- 	            <form action="logout" method="post"> -->
 	                <span class="col-8 title_font" style="text-align: right;">${userinfo.student_name}님 환영해요</span>
@@ -116,3 +117,4 @@
 	                </c:if>
 	                </span>
 <!-- 	        	</form> -->
+
