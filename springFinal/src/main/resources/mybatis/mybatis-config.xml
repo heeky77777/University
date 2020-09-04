@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 <!-- 	typeAliases : 클래스에 부여하는 별칭 -->
 	<typeAliases>
-<!-- 		<typeAlias type="com.kh.spring97.entity.StudentDto" alias="studentDto"/> -->
+		<typeAlias type="com.kh.springFinal.entity.StudentDto" alias="studentDto"/>
 
 	</typeAliases>
 	
