@@ -25,9 +25,11 @@
 			console.log(response.data);
 			if(!response.data){
 				span_blue.textContent = "사용이 가능한 학번입니다";
+				span_red.textContent ="";
 			}
 			else{
 				span_red.textContent = "이미 등록된 학번입니다";
+				span_blue.textContent = "";
 			}
 		});
 		
