@@ -19,7 +19,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="student_login" parameterType="studentDto" resultType="studentDto">
 		select * from student where student_numb = #{student_numb} and student_pw = #{student_pw}
 	</select>
-	
+	<select id="student_pw" parameterType="studentDto" resultType="studentDto">
+		select * from student where student_name = #{student_name} and student_numb = #{student_numb} and student_birth = #{student_birth}
+	</select>
+	<select id="student_id" parameterType="studentDto" resultType="studentDto">
+		select * from student where student_name = #{student_name} and student_birth = #{student_birth}
+	</select>
 	  <insert id="signup" parameterType="studentDto">
    
       INSERT INTO student VALUES(student_no_seq.nextval, 
