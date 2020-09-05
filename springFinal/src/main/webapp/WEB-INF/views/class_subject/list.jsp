@@ -48,52 +48,53 @@
                 
                 <div class="row-empty"></div>
                 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
-                        <label>년도&nbsp;</label>
-                            <input type="text" name="" id="" class="form-control">
-                    </div>
-                    
-                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
-                        <label>학기&nbsp;</label>
-                        <select name="" id="" class="form-control">
-                            <option value="">1학기</option>
-                            <option value="">2학기</option>
-                        </select>
-                    </div>
-                </div>
-                
-                
-				<div class="row">
-                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
-                        <label>구분&nbsp;</label>
-                        <select name="" id="" class="form-control">
-                            <option value="">전공</option>
-                            <option value="">교양</option>
-                            <option value="">교필</option>
-                        </select>
-                    </div>
-                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
-                        <div class="form-inline mr-auto">
-                            <label>학과&nbsp;</label>
-                            <select name="" id="" class="form-control">
-                                <option value="">선택</option>
-                                <option >경영학과</option>
-                                <option >금융세무학</option>
-                                <option >문예창장학과</option>
-                                <option >도시공학과</option>
-                                <option >시스템공학과</option>
-                                <option >성악과</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="" id="" placeholder="강의 명" class="form-control">
-                            <button class="btn btn-primary btn-sm search-btn">검색</button>
-                        </div>
-    
-                    </div>
-    
-                </div>
+                 <form action="search" method="post">
+	                <div class="row">
+	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
+	                        <label>년도&nbsp;</label>
+	                            <input type="text" name="yearSearch" class="form-control">
+	                    </div>
+	                    
+	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
+	                        <label>학기&nbsp;</label>
+	                        <select name="semesterSearch" id="" class="form-control">
+	                            <option value="1">1학기</option>
+	                            <option value="2">2학기</option>
+	                        </select>
+	                    </div>
+	                </div>
+	                
+	                
+					<div class="row">
+	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
+	                        <label>구분&nbsp;</label>
+	                        <select name="typeSerach" id="" class="form-control">
+	                            <option value="">전공</option>
+	                            <option value="">교양</option>
+	                            <option value="">교필</option>
+	                        </select>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
+	                        <div class="form-inline mr-auto">
+	                            <label>학과&nbsp;</label>
+	                            <select name="majorSearch" id="" class="form-control">
+	                                <option value="">선택</option>
+	                                <option >경영학과</option>
+	                                <option >금융세무학</option>
+	                                <option >문예창장학과</option>
+	                                <option >도시공학과</option>
+	                                <option >시스템공학과</option>
+	                                <option >성악과</option>
+	                            </select>
+	                        </div>
+	                        <div class="form-group">
+	                            <input type="text" name="classSubSearch" id="" placeholder="강의 명" class="form-control">
+	                            <button type="submit" class="btn btn-primary btn-sm search-btn">검색</button>
+	                        </div>
+	    
+	                    </div>
+	                </div>
+			    </form>
 
                 <div class="row-empty"></div>
 
@@ -134,6 +135,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 

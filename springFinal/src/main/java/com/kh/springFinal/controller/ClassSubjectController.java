@@ -75,7 +75,13 @@ public class ClassSubjectController {
 
 	// 
 	@GetMapping("list")
-	public String list(Model model) {
+	public String list(
+					@RequestParam(required = false) String year,
+					@RequestParam(required = false) int semesterSearch,
+					@RequestParam(required = false) String typeSearch,
+					@RequestParam(required = false) String majorSearch,
+					@RequestParam(required = false) String classSubSearch,
+			Model model) {
 		
 		List<ClassSubjectDto> list = classSubjectDao.getList(); 
 		model.addAttribute("list", list);
@@ -83,3 +89,11 @@ public class ClassSubjectController {
 		return "class_subject/list";
 	}
 }
+
+
+
+
+
+
+
+
