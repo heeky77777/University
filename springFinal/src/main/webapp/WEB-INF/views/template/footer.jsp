@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 
+
 	<div class="bg_footer">
     <ul class="footer_inner">
         <!-- 아래 footer -->
