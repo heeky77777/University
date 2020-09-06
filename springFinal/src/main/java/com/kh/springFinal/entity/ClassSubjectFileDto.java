@@ -1,5 +1,9 @@
 package com.kh.springFinal.entity;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,5 +17,17 @@ public class ClassSubjectFileDto {
 	private String sub_file_name;
 	private String sub_file_type;
 	private long sub_file_size;
+	
+	private List<MultipartFile> file;
+	
+	public boolean isFile() {
+		
+		if(file == null) return false;
+		if(file.size() < 1) return false;
+		if(file.get(0).isEmpty()) return false;
+			
+		return true;
+	}
+
 
 }

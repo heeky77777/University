@@ -56,8 +56,9 @@ public class ClassSubjectController {
 		}
 		
 		// 강의 계획서 업로드
-		classSubjectService.addFile(classSubjectFileDto, file, class_sub_no);
-		
+		if(classSubjectFileDto.isFile()) {
+			classSubjectService.addFile(classSubjectFileDto, file, class_sub_no);
+		}
 		return "redirect:list";
 		
 	}

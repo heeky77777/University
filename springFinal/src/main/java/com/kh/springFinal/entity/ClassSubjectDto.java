@@ -1,8 +1,5 @@
 package com.kh.springFinal.entity;
 
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,16 +27,6 @@ public class ClassSubjectDto {
 	private int end_time;
 	private String regist_date;
 	
-	private List<MultipartFile> file;
 	
-	public boolean isFile() {
-		
-		if(file == null) return false;
-		if(file.size() < 1) return false;
-		if(file.get(0).isEmpty()) return false;
-			
-		return true;
-	}
-
 
 }
