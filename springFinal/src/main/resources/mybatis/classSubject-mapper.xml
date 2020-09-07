@@ -5,26 +5,36 @@
 <mapper namespace="classSubject">
 
 	<!-- seq 조회 -->
-	<select id="subSeq">
-		select class_sub_seq.nextval where dual
+	<select id="subSeq" resultType="int">
+		select class_sub_seq.nextval from dual
 	</select>
 
 	<!-- 강의 등록 -->
 	<insert id="regist" parameterType="classSubjectDto">
 		insert into class_subject values (
-		#{class_sub_no}, 1, 1, #{semester_no}, #{class_sub_name}, #{class_sub_type}, #{class_sub_content}, 
-		#{class_sub_person}, #{class_sub_start}, #{class_sub_end}, #{class_sub_point}, #{class_sub_room}, #{class_sub_week}, #{class_sub_time}, #{start_time}, #{end_time}, sysdate
+		#{class_sub_no}, 998, #{semester_no}, 14, #{class_sub_name}, #{class_sub_type}, #{class_sub_content}, 
+		#{class_sub_person}, #{class_sub_start}, #{class_sub_end}, #{class_sub_point}, #{class_sub_room}, #{class_sub_week}, #{class_sub_time}, sysdate
 		)
 	</insert>
 	
+	<!-- 학기 번호 조회 -->
+	<select id="getSemester" parameterType="map" resultType="semesterDto">
+		select * from semester where semester_type = #{semester_type} and to_char(semester_start, 'YYYY') = #{this_year}
+	</select>
+	
+	<!-- 학과 번호 조회(해당 교수) -->
+<!-- 	<select id="getMajorNo" parameterType="int" resultType="int">
+		select major_no from professor where profe_no = #{profe_no}
+	</select> -->
+	
 	<!-- 강의 중복 검사 조회 -->
 	<select id="getConfirm" resultType="classSubjectDto" parameterType="classSubjectDto">
-		select * from class_subject where class_sub_room = #{class_sub_room} and class_sub_time = #{class_sub_time} and class_sub_week = #{class_sub_week} and semester_no = #{semester_no} and #{start_time} between #{start_time} and #{end_time}
+		select * from class_subject where class_sub_room = #{class_sub_room} and class_sub_time = #{class_sub_time} and class_sub_week = #{class_sub_week} and semester_no = #{semester_no}
 	</select>
 	
 	<!-- 강의 조회 -->
 	<select id="getLecture" parameterType="classSubjectDto" resultType="classSubjectDto">
-		select * from class_subject where semester_no = #{semester_no} and class_sub_week = #{class_sub_week} and class_sub_time = #{class_sub_time} and class_sub_name = #{lclass_sub_name} and class_sub_room = #{class_sub_room} 
+		select * from class_subject where semester_no = #{semester_no} and class_sub_week = #{class_sub_week} and class_sub_time = #{class_sub_time} and class_sub_name = #{class_sub_name} and class_sub_room = #{class_sub_room} 
 	</select>
 	
 	<!-- 강의 목록(전체) -->

@@ -16,11 +16,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.MajorDto;
+import com.kh.springFinal.entity.SemesterDto;
 import com.kh.springFinal.repository.ClassSubjectDao;
+import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.service.ClassSubjectService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/class_subject")
+@Slf4j
 public class ClassSubjectController {
 	
 	@Autowired
@@ -29,15 +35,23 @@ public class ClassSubjectController {
 	@Autowired
 	private ClassSubjectService classSubjectService;
 	
+	@Autowired
+	private MajorDao majorDao;
+	
 	
 	// 강의 등록
 	@GetMapping("regist")
 	public String regist(Model model) {
 		
+		// 현재 년도
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		
-		model.addAttribute("year", year);	
+		
+		
+		model.addAttribute("year", year);
+		
+		
 		
 		return "class_subject/regist";
 	}
@@ -46,10 +60,13 @@ public class ClassSubjectController {
 	public String regist(
 						@ModelAttribute ClassSubjectDto classSubjectDto,
 						@ModelAttribute ClassSubjectFileDto classSubjectFileDto,
+						@RequestParam String this_year,
+						@RequestParam String semester_type,
 						@RequestParam MultipartFile file) throws IllegalStateException, IOException {
 		
+		int class_sub_no = classSubjectService.subjectRegist(classSubjectDto, this_year, semester_type);
+		
 		// 강의 등록
-		int class_sub_no = classSubjectDao.subjectRegist(classSubjectDto);
 		
 		if(class_sub_no == 0) {
 			return "redirect:regist";
@@ -63,31 +80,27 @@ public class ClassSubjectController {
 		
 	}
 	
-//	@GetMapping("list")
-//	public String list(
-//						@RequestParam(required = false) int profe_no,
-//						Model model) {
-//		
-//		List<ClassSubjectDto> list = classSubjectDao.profList(profe_no);
-//		model.addAttribute("list", list);
-//		
-//		return "lecture/list";
-//	}
 
-	// 
+	// 강의 목록
 	@GetMapping("list")
-	public String list(
-					@RequestParam(required = false) String year,
-					@RequestParam(required = false) int semesterSearch,
-					@RequestParam(required = false) String typeSearch,
-					@RequestParam(required = false) String majorSearch,
-					@RequestParam(required = false) String classSubSearch,
-			Model model) {
+	public String list(Model model) {
 		
+		List<MajorDto> majorList = majorDao.major_list();
 		List<ClassSubjectDto> list = classSubjectDao.getList(); 
+		model.addAttribute("majorList", majorList);
 		model.addAttribute("list", list);
 		
 		return "class_subject/list";
+	}
+	
+	@PostMapping("list")
+	public String searchList(
+			@RequestParam(required = false) String year,
+			@RequestParam(required = false) int semesterSearch,
+			@RequestParam(required = false) String typeSearch,
+			@RequestParam(required = false) String majorSearch,
+			@RequestParam(required = false) String classSubSearch) {
+		return "redirect:list";
 	}
 }
 

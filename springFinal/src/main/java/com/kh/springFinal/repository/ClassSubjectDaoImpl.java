@@ -1,6 +1,8 @@
 package com.kh.springFinal.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +10,30 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.SemesterDto;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
+@Slf4j
 public class ClassSubjectDaoImpl implements ClassSubjectDao{
 
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	// 학기 조회
+	@Override
+	public SemesterDto getSemester(String this_year, String semester_type) {
+		
+		// 학기 번호 조회
+		Map<String, Object> map = new HashMap<>();
+		map.put("this_year", this_year);
+		map.put("semester_type", semester_type);
+		SemesterDto semesterDto = sqlSession.selectOne("classSubject.getSemester", map);
+		
+		return semesterDto;
+	}
 	
 	// 강의실 강의 시간 중복 조회
 	@Override
@@ -25,7 +44,6 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		return subDto;
 	}
 	
-	
 	// 강의 등록
 	@Override
 	public int subjectRegist(ClassSubjectDto classSubjectDto) {
@@ -33,7 +51,9 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		ClassSubjectDto classSubjectCheck = sqlSession.selectOne("classSubject.getLecture", classSubjectDto);
 		int class_sub_no;
 		if(classSubjectCheck == null) {
+			// 시퀀스 생성
 			class_sub_no = sqlSession.selectOne("classSubject.subSeq");
+			
 			classSubjectDto.setClass_sub_no(class_sub_no);
 			sqlSession.insert("classSubject.regist", classSubjectDto);
 			return class_sub_no;
@@ -59,6 +79,9 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	// 강의 리스트(전체)
 	@Override
 	public List<ClassSubjectDto> getList() {
+		
+		
+		
 		return  sqlSession.selectList("classSubject.lectureList");
 	}
 
@@ -68,7 +91,8 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	public List<ClassSubjectDto> profList(int profe_no) {
 		return sqlSession.selectList("classSubject.profList", profe_no);
 	}
-	
+
+
 	
 	
 }

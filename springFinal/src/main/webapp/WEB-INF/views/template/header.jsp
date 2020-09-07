@@ -73,7 +73,7 @@
                             <a class="nav-link" href="#" style="color:white">교수정보</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">수강등록</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/regist" style="color:white">수강등록</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                              <a class="nav-link" href="#" style="color:white">성적등록</a>

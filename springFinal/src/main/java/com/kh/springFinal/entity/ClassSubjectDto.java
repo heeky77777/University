@@ -1,6 +1,5 @@
 package com.kh.springFinal.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +22,7 @@ public class ClassSubjectDto {
 	private String class_sub_room;
 	private String class_sub_week;
 	private int class_sub_time;
-	private int start_time;
-	private int end_time;
 	private String regist_date;
-	
 	
 
 }

@@ -18,6 +18,7 @@ public class ClassSubjectFileDto {
 	private String sub_file_type;
 	private long sub_file_size;
 	
+
 	private List<MultipartFile> file;
 	
 	public boolean isFile() {
@@ -29,5 +30,6 @@ public class ClassSubjectFileDto {
 		return true;
 	}
 
+	
 
 }

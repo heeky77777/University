@@ -4,12 +4,16 @@ import java.util.List;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.SemesterDto;
 
 public interface ClassSubjectDao {
 	
 	// 강의실 중복확인
 	ClassSubjectDto getConfirm(ClassSubjectDto classSubjectDto);
 
+	// 학기 조회
+	SemesterDto getSemester(String this_year, String semester_type);
+	
 	// 강의 등록
 	int subjectRegist(ClassSubjectDto classSubjectDto);
 
@@ -21,5 +25,8 @@ public interface ClassSubjectDao {
 	
 	// 강의 리스트 (로그인 교수)
 	List<ClassSubjectDto> profList(int profe_no);
+	
+	
+
 
 }

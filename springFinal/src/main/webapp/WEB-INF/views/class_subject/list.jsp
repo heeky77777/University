@@ -48,7 +48,7 @@
                 
                 <div class="row-empty"></div>
                 
-                 <form action="search" method="post">
+                 <form action="list" method="post">
 	                <div class="row">
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>년도&nbsp;</label>
@@ -69,9 +69,9 @@
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>구분&nbsp;</label>
 	                        <select name="typeSerach" id="" class="form-control">
-	                            <option value="">전공</option>
-	                            <option value="">교양</option>
-	                            <option value="">교필</option>
+	                            <option>전공</option>
+	                            <option>교양</option>
+	                            <option>교필</option>
 	                        </select>
 	                    </div>
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
@@ -79,12 +79,9 @@
 	                            <label>학과&nbsp;</label>
 	                            <select name="majorSearch" id="" class="form-control">
 	                                <option value="">선택</option>
-	                                <option >경영학과</option>
-	                                <option >금융세무학</option>
-	                                <option >문예창장학과</option>
-	                                <option >도시공학과</option>
-	                                <option >시스템공학과</option>
-	                                <option >성악과</option>
+	                                <c:forEach var="majorDto" items="${majorList}">
+		                                <option>${majorDto.major_type}</option>
+	                                </c:forEach>
 	                            </select>
 	                        </div>
 	                        <div class="form-group">
