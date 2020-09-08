@@ -104,6 +104,5 @@
                 <span class="col-8 title_font" style="text-align: right;">누구누구님 환영해요</span>
                 <span class="col-4 title_font" style="text-align: center;">KH 대학교</span>
                 
-        </div>
-         <div style="height:1000px">
-        </div>
+        
+        
