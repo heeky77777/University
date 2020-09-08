@@ -2,6 +2,8 @@ package com.kh.springFinal.service;
 
 import java.io.IOException;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
@@ -18,6 +20,9 @@ public interface ClassSubjectService {
 
 	// 강의 계획서 업로드
 	void addFile(ClassSubjectFileDto classSubjectFileDto, MultipartFile file, int class_sub_no) throws IllegalStateException, IOException;
+
+	// 강의 계획서 다운로드
+	ResponseEntity<ByteArrayResource> getDown(int class_sub_no) throws IOException;
 	
 
 }

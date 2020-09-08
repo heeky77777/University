@@ -2,8 +2,14 @@ package com.kh.springFinal.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,6 +64,29 @@ public class ClassSubjectServiceImpl implements ClassSubjectService{
 		file.transferTo(taget);
 		
 		
+	}
+
+	// 강의 계획서 다운로드
+	@Override
+	public ResponseEntity<ByteArrayResource> getDown(int class_sub_no) throws IOException {
+		
+		ClassSubjectFileDto subFileDto = classSubjectDao.getFile(class_sub_no); 
+		if(subFileDto == null) {
+			return ResponseEntity.notFound().build();
+		}
+		else {
+			File taget = new File("D:/upload/final", String.valueOf(subFileDto.getSub_file_no()));
+			byte[] data = FileUtils.readFileToByteArray(taget);
+			ByteArrayResource bres = new ByteArrayResource(data);
+			
+			return ResponseEntity
+										.ok()
+										.contentType(MediaType.APPLICATION_OCTET_STREAM)
+										.contentLength(subFileDto.getSub_file_size())
+										.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+URLEncoder.encode(subFileDto.getSub_file_name(), "UTF-8")+"\"")
+										.header(HttpHeaders.CONTENT_ENCODING, "utf-8")
+										.body(bres);
+		}
 	}
 
 

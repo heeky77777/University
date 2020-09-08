@@ -7,6 +7,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
+<script>
+
+
+	$(function() {
+		$('.plan-btn').click(function() {
+			var subNo = $(this).prev().val();
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/class_subject/planDown?class_sub_no=" + subNo,
+				method:"get",
+				success:function(response) {
+					location.href="${pageContext.request.contextPath}/class_subject/planDown?class_sub_no=" + subNo;
+				},
+				error:function() {
+					alert('파일이 존재하지 않습니다');
+				}				
+			})
+			
+		})		
+	})
+	
+
+</script>
 
 
 
@@ -106,8 +129,8 @@
 	                            <th>이수구분</th>
 	                            <th>강의시간</th>
 	                            <th>제한인원</th>
+	                            <th>강의계획서</th>
 	                            <th>기타</th>
-	                            <th>수업계획서</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
@@ -120,9 +143,12 @@
 		                            <td>${classSubjectDto.class_sub_type}</td>
 		                            <td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time} (${classSubjectDto.class_sub_room})</td>
 		                            <td>${classSubjectDto.class_sub_person}</td>
-		                            <td>-</td>
 		                            <td>
-		                                <button class="btn btn-primary btn-sm plan-btn">수업계획서</button>
+		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}">
+		                                <button type="button" class="btn btn-primary btn-sm plan-btn">강의계획서</button>
+		                            </td>
+		                            <td>
+		                            	수정 / 삭제 
 		                            </td>
 		                        </tr>
 							</c:forEach>

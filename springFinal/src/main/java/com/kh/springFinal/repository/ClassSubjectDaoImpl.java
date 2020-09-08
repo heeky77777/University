@@ -79,17 +79,14 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	// 강의 리스트(전체)
 	@Override
 	public List<ClassSubjectDto> getList() {
-		
-		
-		
 		return  sqlSession.selectList("classSubject.lectureList");
 	}
 
 	
-	// 강의 리스트 (교수)
+	// 강의 계획서 조회
 	@Override
-	public List<ClassSubjectDto> profList(int profe_no) {
-		return sqlSession.selectList("classSubject.profList", profe_no);
+	public ClassSubjectFileDto getFile(int class_sub_no) {
+		return sqlSession.selectOne("subFile.get", class_sub_no);
 	}
 
 

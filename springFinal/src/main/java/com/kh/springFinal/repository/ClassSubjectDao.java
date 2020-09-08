@@ -19,12 +19,13 @@ public interface ClassSubjectDao {
 
 	// 수업 계획서 업로드 
 	int addFile(ClassSubjectFileDto classSubjectFileDto);
-
+	
 	// 강의 리스트(전체)
 	List<ClassSubjectDto> getList();
 	
-	// 강의 리스트 (로그인 교수)
-	List<ClassSubjectDto> profList(int profe_no);
+
+	// 강의 계획서 조회
+	ClassSubjectFileDto getFile(int class_sub_no);
 	
 	
 

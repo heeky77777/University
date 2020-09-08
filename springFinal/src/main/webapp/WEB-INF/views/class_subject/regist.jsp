@@ -21,7 +21,6 @@
         })
 		
 		$('#semester_type').change(function(){
-			
 	        $.ajax({
 	            url:"${pageContext.request.contextPath}/class_subject/semesterDate?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val(),
 	            method:"get",
@@ -141,6 +140,9 @@
         color: red;
         font-size: 14px;
     }
+    label {
+    	margin: 3px;
+    }
 	
 </style>
 
@@ -157,41 +159,31 @@
 	   <div class="row">
 	       <div class="offset-md-3 col-md-6">
 	           <form action="regist" class="form" method="post" enctype="multipart/form-data">
-	           
 	               <div class="form-group">
 	                   <label>강의 명</label>
 	                   <input type="text" name="class_sub_name" class='form-control' required>
 	               </div>
 	
-	               <div class="form-group">
+	               <div class="form-group form-inline">
 	                   <label>전공 선택</label>
 	                   <select name="class_sub_type" class='form-control'>
 	                       <option>전공</option>
 	                       <option>교필</option>
 	                       <option>교양</option>
 	                   </select>
-	               </div>
-	
-	               <div class="form-group">
-	                   <label>학생 정원</label>
-	                   <input type="number" name="class_sub_person" class="form-control" min='5' max='30' required>
-	               </div>
-	               <div class="form-group">
-	                   <label>개강일</label>
-	                   <input type="date" name="class_sub_start" id="class_sub_start" class="form-control" required>
-	               </div>
-	               <div class="form-group">
-	                   <label>종강일</label>
-	                   <input type="date" name="class_sub_end" id="class_sub_end" class="form-control" required>
-	               </div>
-	               <div class="form-group">
 	                   <label>학점</label>
 	                   <select name="class_sub_point" class="form-control">
                             <option>1</option>		
                             <option>2</option>		
                             <option>3</option>		
                    	   </select>
+                   	    <label>학생 정원
+	                   <input type="number" name="class_sub_person" class="form-control" min='5' max='30' required>
+	                   명</label>
 	               </div>
+	               
+					<hr>
+					
                    <div class="form-group form-inline">
                    		<input type="text" name="this_year" value="${year}" class="form-control" readonly>
                        	<label>년도</label>
@@ -217,17 +209,31 @@
                            <option value='8'>6교시</option>				
 	                   </select>
 	               </div>
+	               
 	               <div class="form-group form-inline">
 	                   <label>강의실</label>
 	                   <br>
 	                   <input type="text" name="class_sub_room"  class="form-control" required>
 	                   <button type="button" id="check-btn" class="btn btn-secondary btn-sm"><!-- onclick="return regist();" -->강의실 확인</button>
 	               </div>
+	               
 	               <span id='lecture_check'></span>
+	               
+	               <hr>
+	               
+	               <div class="form-group form-inline">
+	                   <label>수업일
+	                   <input type="date" name="class_sub_start" id="class_sub_start" class="form-control" required>
+	               		~
+	                   <input type="date" name="class_sub_end" id="class_sub_end" class="form-control" required>
+	                   </label>
+	               </div>
+	               
 	               <div class="form-group">
 	                   <label>강의 설명</label>
 	                   <textarea rows="5" cols="50" name="class_sub_content" class="form-control" required></textarea>
 	               </div>
+	               
 	               <div class="form-group">
 	                   <label>강의 첨부파일</label>
 	                   <br>

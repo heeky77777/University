@@ -1,8 +1,11 @@
 package com.kh.springFinal.rest;
 
-import java.util.List;
+
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,10 +46,11 @@ public class ClassSubjectRestController {
 		return classSubjectService.getConfirm(classSubjectDto, this_year, semester_type);
 	}
 	
-	@GetMapping("lecture_list")
-	public List<ClassSubjectDto> list(){
-		List<ClassSubjectDto> list = classSubjectDao.getList(); 
-		return list;
+	// 파일 다운로드
+	@GetMapping("planDown")
+	public ResponseEntity<ByteArrayResource> planDown(@RequestParam int class_sub_no) throws IOException{
+		return classSubjectService.getDown(class_sub_no);
 	}
+	
 	
 }
