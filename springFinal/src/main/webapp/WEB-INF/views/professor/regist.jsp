@@ -1,9 +1,10 @@
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 
 
  <head>
@@ -15,13 +16,14 @@
  function checkId(){
 	
 	 var input = document.querySelector("input[name=profe_id]");
-	 var span = documnet.querySelector("input[name=profe_id]+span");
+	 var span = document.querySelector("input[name=profe_id]+span");
 	 var profeId = input.value;
 	 var regex = /^[a-z0-9]{5,15}$/g; //정규식
 	 var isRight=regex.test(profeId);//정규식에 맞는지 검사 
+	 var sys="admin";
 	 
 
-	 if(profeId.equals("admin")){//관리자 계정이라면
+	 if(profeId.indexOf(sys)!=-1){//관리자 계정이라면
 		 span.textContent = "관리자 계정입니다."
 	 }
 	 else{//관리자 계정이 아니라면
@@ -29,20 +31,21 @@
 		if(isRight){//정규표현식에 맞는 아이디라면
 			
 			axios({
-				url:"${pageContext.request.contextPath}/professor/regist?profe_id="+profe_id,
+				url:"${pageContext.request.contextPath}/rest_professor/check_id?profe_id="+encodeURIComponent(profe_id),
 				method:"get"
 			})
 			.then(function(response){
 				console.log(response.data);
 				if(!response.data){//결과가 없으면 : 사용 가능
-					span.textContent = "사용 가능한 아이디입니다.";	
+					span.textContent = "사용 가능한 아이디입니다.";		
 				}
 				else{//결과 있으면 : 사용 불가
 					span.textContent="이미 사용중인 아이디입니다.";
 				}
 				
-			});
-				else{//정규표현식이 안맞으면
+			})
+		}
+		else{//정규표현식이 안맞으면
 					span.textContent="5~15자리의 영어 소문자와 숫자로만 입력하세요.";
 		}
 	 	
@@ -67,9 +70,12 @@
  
  //비밀번호 재검사
  function recheckPw(){
-	 var pw = document.querySelector("input[name=profe_pw]").value;
-	 var pw2 = document.querySelector(".pw-reinput").value;
-	 var span = document.querySelector(".pw-reinput+span");
+	 var input = document.querySelector("input[name=profe_pw]");
+	 var pw = input.value;
+	 var input2 = document.querySelector("input[name=profe_pw_check]");
+	 var pw2 = input2.value;
+	 console.log(pw2);
+	 var span = document.querySelector("input[name=profe_pw_check]+span");
 	 
 	 var isRight = pw==pw2;
 	 if(!isRight){//다름
@@ -81,7 +87,7 @@
  }
  
  //이메일 형식 검사
- function checkEmail(){
+/*  function checkEmail(){
 	
 	 var regex=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	 var input=document.querySelector("input[name=profe_email]");
@@ -108,43 +114,104 @@
  	 else{//정규식이 안맞으면
  		 span.textContent="이메일이 형식에 맞지 않습니다.";
 		}
- }
+ } */
  
  //핸드폰검사
- //할까말까
+ function checkPhone() {
+	var input = document.querySelector("input[name=profe_phone]");
+	var span = document.querySelector("input[name=profe_phone]+span");
+	var phone = input.value;
+ 	
+	var regex = /^010\d{4}\d{4}$/;
+	var isRight=regex.test(phone);
+	
+	 if(!isRight){//정규표현식이 맞지 않음
+		 	span.textContent = "번호를 올바르게 입력하세요.";
+		 	}
+		 else{//옳은 형식의 번호
+		 	span.textContent="";
+		 	}
+ }
  
  //이미지 선택시 실행할 미리보기 함수
  function preview(){
 	 
-	 var fileTag=document.querySelector("input[name=profe_img]");
+	 var fileTag=document.querySelector("input[name=file]");
  
-	 console.log(fileTag.files);
+	 console.log(fileTag.file);
 	 
 	 if(fileTag.files.length>0){
 		 var reader = new FileReader();
 		 reader.onload = function(data){//data는 읽은 파일의 내용
 		//미리보기 구현
-		var imgTag = document.querySelector("img");
+		var imgTag = document.querySelector("img[name=profe_img]");
 		 imgTag.src = data.target.result;
 		 
 		 };
 		 reader.readAsDataURL(fileTag.files[0]);//읽도록 지시
 	 }
 	 else{//이미지 선택 취소
-		 var imgTag = document.querySelector("img");
+		 var imgTag = document.querySelector("img[name=profe_img]");
 	 	imgTag.src="";
 	 	}
- }
- </script>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+ } 
+	 
+
+//우편번호 찾기 및 주소 입력 자바스크립트
+   function findAddr() {
+       new daum.Postcode({
+           oncomplete: function(data) {
+
+               // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+               var addr = ''; // 주소 변수
+               var extraAddr = ''; // 참고항목 변수
+
+               //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                   addr = data.roadAddress;
+               } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                   addr = data.jibunAddress;
+               }
+
+               // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+               if(data.userSelectedType === 'R'){
+                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                       extraAddr += data.bname;
+                   }
+                   // 건물명이 있고, 공동주택일 경우 추가한다.
+                   if(data.buildingName !== '' && data.apartment === 'Y'){
+                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                   }
+                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                   if(extraAddr !== ''){
+                       extraAddr = ' (' + extraAddr + ')';
+                   }
+               
+               } else {
+                  // document.getElementById("sample6_extraAddress").value = '';
+               }
+
+               // 우편번호와 주소 정보를 해당 필드에 넣는다.
+               document.querySelector("input[name=profe_post]").value = data.zonecode;
+               document.querySelector("input[name=profe_addr]").value = addr;
+               // 커서를 상세주소 필드로 이동한다.
+               document.querySelector("input[name=profe_extra_addr]").focus();
+           }
+       }).open();
+   }
+  </script>
  </head>
+ 
  <body>
  <main>
  	<article>
  	<div>
 <h1>교수 정보 입력</h1>
 </div>
- <form action="regist_result" method="post">
+  <form action="regist" class="form" method="post" enctype="multipart/form-data">
 	
 	<div>
 	<label>이름</label>
@@ -152,69 +219,87 @@
 	</div>
 	
 	<div>
+	<label>학기</label>
+	<input type="radio" id="first" name="semester_no" value="998"> <!--중복방지 네임통일-->
+	<label for="1">1</label>학기
+	<input type="radio" id="second" name="semester_no" value="999">
+	<label for="2">2</label>학기
+	</div>
+	
+
+	<div>
 	<label>학과</label>
-	<!-- <input type="text" value="학과" readonly> -->
-	<select name="major_name" required>
-		<option value="">선택</option>
-		<option value="">경영학과</option>
-		<option value="">금융세무학</option>
-		<option value="">문예창장학과</option>
-		<option value="">도시공학과</option>
-		<option value="">시스템공학과</option>
-		<option value="">성악과</option>
+	<select name="major_no" required>
+		<option>선택</option>
+		<option value="1">1</option><!--경영-->
+		<option value="2">2</option><!--금융세무-->
+		<option value="13">3</option><!--저장되어있는학과1-->
+		<option value="14">4</option><!--저장되어있는학과2-->
+		<option value="15">5</option><!--저장되어있는학과3-->
+		<option value="6">6</option><!--성악-->
 	</select>
 	</div>
 	
 	
 	<div>
 	<label>아이디</label>
-	<input type="text" name="profe_id" onblur="checkId()"  required>
-	<span id="result"></span>
+	<input type="text" name="profe_id" id="profe_id" onblur="checkId()" required>
+	<span></span>
 	</div>
 		
 	<div>
 	<label>비밀번호</label>
-	<input type="text" name="profe_pw" onblur="checkPw()"  required>
+	<input type="password" name="profe_pw"  onblur="checkPw()"  required>
 	<span></span>
 	</div>
 		
 	<div>
 	<label>비밀번호 재확인</label>
-	<input type="text" name="profe_pw_check" class="pw_reinput" onblur="recheckPw()"  required>
+	<input type="password" name="profe_pw_check"  onblur="recheckPw()"  required>
 	<span></span>
 	</div>
 	
 	<div>
 	<label>성별</label>
-	<select name="profe_gender"  required>
-		<option value="female">여성</option>
-		<option value="male">남성</option>
-	</select>
+	<input type="radio" id="female" name="profe_gender" value="여성"> <!--중복방지 네임통일-->
+	<label for="gender">여성</label>
+	<input type="radio" id="male" name="profe_gender" value="남성">
+	<label for="gender2">남성</label> 
+	</div>
+	
+	<div>
+	<label>생년월일</label>
+	<input type="date" name="profe_birth" required>
+	<strong>법정생년월일을 입력하세요</strong>
 	</div>
 	
 	<div>
 	<label>전화번호</label>
-	<input type="text" name="profe_phone" placeholder="'-제외한 전화번호" required>
+	<input type="text" name="profe_phone" onblur="checkPhone()" placeholder="'-제외한 전화번호" required>
+	<span></span>
 	</div>
 	
 	<div>
 	<label>이메일</label>
-	<input type="text" name="profe_email"  onblur="checkEmail()" required>
+	<input type="text" name="profe_email" required> <!-- onblur="checkEmail();" -->
 	<span></span>
 	</div>
 	
 	<div>
 	<label>주소</label>
-	<input type="text" name="profe_post" placeholder="우편번호" required>
-	<input type="text" name="profe_addr" placeholder="기본주소" required>
-	<input type="text" name="profe_extra_addr" placeholder="상세주소" required>
+	<br>
+	 <input type="text" name="profe_post" placeholder="우편번호" required>
+	 <input type="button" onclick="findAddr()" value="우편번호 검색"><br>
+	<input type="text" name="profe_addr"  placeholder="기본주소" required>
+	<input type="text" name="profe_extra_addr"  placeholder="상세주소" required>
+
 	</div>
 	
 	<div>
 	<label>사진</label>
-	<input type="file" name="profe_img" accept="jpg, gif, png" onchange="preview();">
-	<img>
-	</div>
+	<input type="file" name="file" accept=".jpg, .gif, .png"  multiple onchange="preview()">
+	<!-- <img> 미리보기 위치-->
+	</div> 
 	
 	<div>
 	<input type="submit" value="등록">

@@ -34,7 +34,7 @@ public class ClassSubjectController {
 		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
-		
+		                     
 		model.addAttribute("year", year);	
 		
 		return "class_subject/regist";
