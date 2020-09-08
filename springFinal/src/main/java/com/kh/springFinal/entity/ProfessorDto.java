@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 public class ProfessorDto {
 
 	private int profe_no;
-	//private int major_no;
+	private int major_no;
 	private int semester_no;
 	private String profe_name;
 	private String profe_id;
 	private String profe_pw;
 	private String profe_gender;
+	private String profe_birth;
 	private String profe_phone; 
 	private String profe_email;
 	private String profe_post;
@@ -25,8 +26,8 @@ public class ProfessorDto {
 	private String profe_extra_addr;
 	private String profe_auth;
 	private String profe_date;
-	private String profe_img;
 
 
+	
 
 }

@@ -9,6 +9,7 @@ import com.kh.springFinal.entity.ProfessorFileDto;
 public interface ProfessorService {
 
 
-	void add(ProfessorFileDto professorFileDto, MultipartFile file) throws IllegalStateException, IOException;
+
+	void add(ProfessorFileDto professorFileDto, MultipartFile file, int profe_no) throws IllegalStateException, IOException;
 
 }

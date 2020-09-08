@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 
 		- namespace : 영역을 외부에서 부르기 위한 별칭
  -->
-<mapper namespace="professorFile">
+<mapper namespace="profeFile">
 
 <!--
 	
@@ -17,12 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 -->
 
 	<!-- 이미지 시퀀스 -->
-	<select id="seq" resultType="int">
+	<select id="img_seq" resultType="int">
 		SELECT PROFESSOR_FILE_SEQ.NEXTVAL FROM DUAL
 	</select>
 
 	<!--이미지 등록 -->
-	<insert id="add" parameterType="professorFileDto">
+	<insert id="img_add" parameterType="professorFileDto">
 		INSERT INTO professor_file(
 			profe_file_no, profe_no, profe_file_name, profe_file_type, profe_file_size
 			)VALUES(
