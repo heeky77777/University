@@ -1,3 +1,4 @@
+
 package com.kh.springFinal.entity;
 
 import lombok.AllArgsConstructor;
@@ -30,4 +31,3 @@ public class ProfessorDto {
 
 	
 
-}
