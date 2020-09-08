@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	mapper는 구문을 만들 수 있는 영역
+	일반적으로 테이블당 1개씩 mapper를 둔다아
+	
+	-namespace : 영역을 외부에서 부르기 위한 별칭
+	
+	알아야 할 설정값
+	- id : 구문을 외부에서 호출하기 위한 식별값
+	- parameterType : 구문을 실행하기 위해 필요한 데이터유형
+	- resultTypre : 구문이 실행된 결과 유형(반환형과 유사)
+ -->
+ 
+<mapper namespace="student">	
+	<select id="student_login" parameterType="studentDto" resultType="studentDto">
+		select * from student where student_numb = #{student_numb} and student_pw = #{student_pw}
+	</select>
+	<select id="student_pw" parameterType="studentDto" resultType="studentDto">
+		select * from student where student_name = #{student_name} and student_numb = #{student_numb} and student_birth = #{student_birth}
+	</select>
+	<select id="student_id" parameterType="studentDto" resultType="studentDto">
+		select * from student where student_name = #{student_name} and student_birth = #{student_birth}
+	</select>
+	  <insert id="signup" parameterType="studentDto">
+   
+      INSERT INTO student VALUES(student_no_seq.nextval, 
+                           #{student_name},
+                           #{student_numb},
+                           #{student_pw},
+                           #{student_grade},
+                           #{major_no},
+                           #{semester_no},
+                           #{student_state},
+                           #{student_gender},
+                           #{student_birth},
+                           #{student_phone},
+                           #{student_email},
+                           #{student_post},
+                           #{student_addr},
+                           #{student_extra_addr},
+                           '학생',
+                           sysdate,
+                           '1',
+                           #{student_milliy})
+   
+   </insert>
+   
+   <select id="numb" parameterType="int" resultType="studentDto">
+		SELECT * FROM student WHERE student_numb=#{student_numb}
+	</select>
+	
+</mapper>
+
