@@ -82,6 +82,7 @@ public class ClassSubjectServiceImpl implements ClassSubjectService{
 			return ResponseEntity
 										.ok()
 										.contentType(MediaType.APPLICATION_OCTET_STREAM)
+										.contentType(MediaType.APPLICATION_PDF)
 										.contentLength(subFileDto.getSub_file_size())
 										.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+URLEncoder.encode(subFileDto.getSub_file_name(), "UTF-8")+"\"")
 										.header(HttpHeaders.CONTENT_ENCODING, "utf-8")

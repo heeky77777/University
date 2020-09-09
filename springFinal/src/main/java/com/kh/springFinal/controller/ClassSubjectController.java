@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,8 +47,6 @@ public class ClassSubjectController {
 		// 현재 년도
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
-		
-		
 		
 		model.addAttribute("year", year);
 		
@@ -93,14 +92,27 @@ public class ClassSubjectController {
 		return "class_subject/list";
 	}
 	
+	// 강의 검색
 	@PostMapping("list")
 	public String searchList(
-			@RequestParam(required = false) String year,
-			@RequestParam(required = false) int semesterSearch,
-			@RequestParam(required = false) String typeSearch,
-			@RequestParam(required = false) String majorSearch,
-			@RequestParam(required = false) String classSubSearch) {
+			@RequestParam String yearSearch,
+			@RequestParam int semesterSearch,
+			@RequestParam String typeSearch,
+			@RequestParam String majorSearch,
+			@RequestParam String classSubSearch) {
+		
+		
+		
 		return "redirect:list";
+	}
+	
+	// 강의 삭제
+	@GetMapping("delete/{class_sub_no}")
+	public String delete(@PathVariable int class_sub_no) {
+		
+		classSubjectDao.delete(class_sub_no);
+		
+		return "redirect:/class_subject/list";
 	}
 }
 

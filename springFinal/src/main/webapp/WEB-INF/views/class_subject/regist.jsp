@@ -9,6 +9,7 @@
 
 	$(function() {
 		
+		/* 강의 시작, 종료일 표시 */
 		$.ajax({
             url:"${pageContext.request.contextPath}/class_subject/semesterDate?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val(),
             method:"get",
@@ -16,7 +17,7 @@
                 var start_time = response.semester_start.substring(0, 10);
                 var finish_time = response.semester_finish.substring(0, 10);
                 $('#class_sub_start').attr('min', start_time).attr('max', finish_time);
-                $('class_sub_end').attr('min', start_time).attr('max', finish_time);
+                $('#class_sub_end').attr('min', start_time).attr('max', finish_time);
             }
         })
 		
@@ -28,13 +29,14 @@
 	                var start_time = response.semester_start.substring(0, 10);
 	                var finish_time = response.semester_finish.substring(0, 10);
 	                $('#class_sub_start').attr('min', start_time).attr('max', finish_time);
-	                $('class_sub_end').attr('min', start_time).attr('max', finish_time);
+	                $('#class_sub_end').attr('min', start_time).attr('max', finish_time);
 	            }
 	        })
 			
 		})
 		
 		
+		/* 강의실 중복 조회 */
     	$('#check-btn').click(function(){
 			var class_sub_room = $('input[name=class_sub_room]').val()
 
@@ -64,6 +66,12 @@
                 }
 	        })
 	
+	    })
+	    
+	    
+	    /* 강의 등록 확인 */
+	    $('.regist-btn').click(function() {
+	    	
 	    })
 	
 	

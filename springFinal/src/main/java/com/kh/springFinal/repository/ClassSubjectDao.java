@@ -23,9 +23,11 @@ public interface ClassSubjectDao {
 	// 강의 리스트(전체)
 	List<ClassSubjectDto> getList();
 	
-
 	// 강의 계획서 조회
 	ClassSubjectFileDto getFile(int class_sub_no);
+
+	// 
+	void delete(int class_sub_no);
 	
 	
 

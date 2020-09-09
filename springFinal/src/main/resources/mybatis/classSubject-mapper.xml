@@ -12,7 +12,7 @@
 	<!-- 강의 등록 -->
 	<insert id="regist" parameterType="classSubjectDto">
 		insert into class_subject values (
-		#{class_sub_no}, 998, #{semester_no}, 14, #{class_sub_name}, #{class_sub_type}, #{class_sub_content}, 
+		#{class_sub_no}, 25, #{semester_no}, 14, #{class_sub_name}, #{class_sub_type}, #{class_sub_content}, 
 		#{class_sub_person}, #{class_sub_start}, #{class_sub_end}, #{class_sub_point}, #{class_sub_room}, #{class_sub_week}, #{class_sub_time}, sysdate
 		)
 	</insert>
@@ -41,11 +41,31 @@
 	<select id="lectureList" resultType="classSubjectDto">
 		select * from class_subject order by class_sub_no desc
 	</select>
+	
+	<!-- 강의 목록 (담당교수 표시) -->
+	<select id="profeNameView" resultType="classSubjectDto">
+		SELECT * FROM class_subject LEFT OUTER JOIN professor ON class_subject.profe_no = professor.profe_no
+	</select>
+	
 		
 	<!-- 강의 목록(로그인 교수) -->
 	<select id="profList" resultType="classSubjectDto" parameterType="int">
 		select * from class_subject where profe_no = #{profe_no} order by class_sub_no desc
-	</select>	
+	</select>
+	
+	<!-- 강의 검색 -->
+	<select id="searchSub" parameterType="map" resultType="int">
+		SELECT * FROM class_subject cs INNER JOIN semester s ON cs.semester_no = s.semester_no INNER JOIN major m ON cs.major_no = m.major_no 
+		WHERE  to_char(s.semester_start, 'yyyy') = #{yearSearch}	AND s.semester_type = #{semesterSearch} AND cs.class_sub_type = #{typeSerach} AND m.major_type = #{majorSearch} AND instr(cs.class_sub_name, #{}) > 0 
+		order by cs.class_sub_no desc
+	</select>
+	
+	
+	<!-- 강의 삭제 -->
+	<delete id="classSubDel" parameterType="int">
+		delete class_subject where class_sub_no = #{class_sub_no}
+	</delete>
+	
 
 
 </mapper>
