@@ -53,7 +53,9 @@ public class ProfessorController {
 	
 	//정보 수정
 	@GetMapping("/edit")
-	public String edit() {
+	public String edit(Model model, @RequestParam int profe_no) {
+		ProfessorDto professorDto = professorDao.get(profe_no);
+		model.addAttribute("professorDto", professorDto);
 		return "professor/edit";
 	}
 	

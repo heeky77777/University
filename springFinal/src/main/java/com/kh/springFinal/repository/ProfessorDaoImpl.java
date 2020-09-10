@@ -16,9 +16,7 @@ public class ProfessorDaoImpl implements ProfessorDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Autowired
-	private ProfessorDto professorDto;
-	
+
 	
 	//시퀀스 번호
 	@Override
@@ -48,8 +46,8 @@ public class ProfessorDaoImpl implements ProfessorDao {
 	//아이디 단일 조회
 	@Override
 	public ProfessorDto getId(String profe_id) {
-		
-		return sqlSession.selectOne("professor.getId", profe_id);
+		ProfessorDto professorId=sqlSession.selectOne("professor.getId", profe_id);
+		return professorId;
 		
 	}
 	
