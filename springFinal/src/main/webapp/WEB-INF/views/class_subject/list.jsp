@@ -102,7 +102,7 @@
 	                <div class="row">
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>년도&nbsp;</label>
-	                            <input type="text" name="yearSearch" class="form-control" value="${param.yearSearch}"  required>
+	                            <input type="text" name="yearSearch" class="form-control" value="${param.yearSearch}" required>
 	                    </div>
 	                    
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
