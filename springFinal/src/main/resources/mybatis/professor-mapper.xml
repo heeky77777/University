@@ -39,9 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT*FROM professor WHERE profe_no=#{profe_no}
 	</select>
 
-	<!--교수 아이디 단일 조회 -->
-	<select id="getId" parameterType="String" resultType="professorDto">
-		SELECT*FROM professor WHERE profe_id=#{profe_id}
+
+	
+	<!--디테일 페이지 학과 가져오기-->
+	<select id="getMajor" parameterType="int" resultType="String">
+	SELECT m.* FROM PROFESSOR p INNER JOIN MAJOR m ON p.MAJOR_NO = m.MAJOR_NO WHERE p.PROFE_NO = ${major_no}
 	</select>
 
 	<!-- 교수 목록 조회 -->

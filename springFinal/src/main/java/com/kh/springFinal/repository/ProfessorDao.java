@@ -1,6 +1,9 @@
 package com.kh.springFinal.repository;
 
 
+import java.util.List;
+
+import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.ProfessorFileDto;
 
@@ -15,12 +18,15 @@ public interface ProfessorDao {
 	//단일 조회
 	public ProfessorDto get(int profe_no);
 	
-	//단일 아이디 조회
+	//아이디 단일 조회(rest)
 	public ProfessorDto getId(String profe_id);
 	
 	//전체 조회
 	/* public List<ProfessorDto> getList(); */
 
+	
+	//학과명 가져오기
+	public String getMajor(int profe_no);
 	
 	//정보 삭제
 	public void delete(ProfessorDto professorDto);
@@ -30,6 +36,7 @@ public interface ProfessorDao {
 	
 	//이미지 등록
 	int img_regist(ProfessorFileDto professorFileDto);
+
 
 
 	

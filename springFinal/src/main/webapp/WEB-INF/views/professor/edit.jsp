@@ -20,6 +20,7 @@
 <h1>교수 정보 상세 페이지</h1>
 
 <form action="edit" method="post" name="update">
+<input type="hidden" name="profe_no" value="${professorDto.profe_no}">
 	<div>
 	<label>이름</label>
 	<input type="text" name="profe_name" value="${professorDto.profe_name}" required>
@@ -85,14 +86,16 @@
 	
 	<div>
 	<label>사진</label>
-	<input type="file" name="profe_img" accept="jpg, gif, png" onchange="preview();">
-	<img>
-	</div>
+	<input type="file" name="file" accept=".jpg, .gif, .png"  multiple onchange="preview()">
+	<!-- <img> 미리보기 위치-->
+	</div> 
 	
 	<div>
 	<input type="submit" value="수정">
 	</div>
 </form>	
+
+	<a href="#">취소</a>
 	
 </body>
 </html>

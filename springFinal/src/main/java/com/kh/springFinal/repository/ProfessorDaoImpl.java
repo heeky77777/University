@@ -2,6 +2,7 @@ package com.kh.springFinal.repository;
 
 
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,19 +37,24 @@ public class ProfessorDaoImpl implements ProfessorDao {
 	}
 	
 	
-	//단일 조회(정보 수정)
+	//단일 조회(디테일)
 	@Override
 	public ProfessorDto get(int profe_no) {
 		ProfessorDto professor=sqlSession.selectOne("professor.get",profe_no);
 		return professor;
 	}
-	
-	//아이디 단일 조회
+
+	//아이디 단일 조회(아이디검사)
 	@Override
 	public ProfessorDto getId(String profe_id) {
-		ProfessorDto professorId=sqlSession.selectOne("professor.getId", profe_id);
-		return professorId;
-		
+		return sqlSession.selectOne("professor.getId", profe_id);
+	}
+	
+	//학과명 가져오기
+	@Override
+	public String getMajor(int profe_no) {
+		String major =sqlSession.selectOne("professor.getMajor",profe_no);
+		return major;
 	}
 	
 	//정보 삭제
@@ -73,11 +79,8 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		return profe_file_no;
 	}
 
+
+
 	
-	//목록 조회
-	/*
-	 * @Override public List<ProfessorDto> getList() { List<ProfessorDto> list =
-	 * sqlSession.selectList("professor.getList"); return list; }
-	 */
 	
 }

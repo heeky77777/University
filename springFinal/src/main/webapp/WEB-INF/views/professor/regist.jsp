@@ -213,7 +213,7 @@
 </div>
   <form action="regist" class="form" method="post" enctype="multipart/form-data">
 	
-	<div>
+	<div>	
 	<label>이름</label>
 	<input type="text" name="profe_name"  required>
 	</div>
@@ -231,12 +231,12 @@
 	<label>학과</label>
 	<select name="major_no" required>
 		<option>선택</option>
-		<option value="1">1</option><!--경영-->
-		<option value="2">2</option><!--금융세무-->
-		<option value="13">3</option><!--저장되어있는학과1-->
-		<option value="14">4</option><!--저장되어있는학과2-->
-		<option value="15">5</option><!--저장되어있는학과3-->
-		<option value="6">6</option><!--성악-->
+		<option value="21">경영학과</option>
+		<option value="22">금융세무학과</option>
+		<option value="25">문예창작과</option>
+		<option value="23">도시공학과</option>
+		<option value="24">시스템공학과</option>
+		<option value="14">성악과</option>
 	</select>
 	</div>
 	
