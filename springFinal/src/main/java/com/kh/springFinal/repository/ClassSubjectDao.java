@@ -13,6 +13,12 @@ public interface ClassSubjectDao {
 
 	// 학기 조회
 	SemesterDto getSemester(String this_year, String semester_type);
+
+	// 강의 단일 조회(번호로)
+	ClassSubjectDto getSub(int class_sub_no);
+	
+	// 강의 조회(강의 중복 등록 방지)
+	ClassSubjectDto getSubCheck(ClassSubjectDto classSubjectDto, String this_year, String semester_type);
 	
 	// 강의 등록
 	int subjectRegist(ClassSubjectDto classSubjectDto);
@@ -31,6 +37,11 @@ public interface ClassSubjectDao {
 
 	// 강의 삭제
 	void delete(int class_sub_no);
+
+	// 강의 수정
+	void classSubedit(ClassSubjectDto classSubjectDto);
+
+
 
 	
 	

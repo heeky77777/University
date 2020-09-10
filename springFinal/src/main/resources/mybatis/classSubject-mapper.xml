@@ -5,7 +5,7 @@
 <mapper namespace="classSubject">
 
 	<!-- seq 조회 -->
-	<select id="subSeq" resultType="int">
+	<select id="classSubSeq" resultType="int">
 		select class_sub_seq.nextval from dual
 	</select>
 
@@ -22,11 +22,11 @@
 		select * from semester where semester_type = #{semester_type} and to_char(semester_start, 'YYYY') = #{this_year}
 	</select>
 	
-	<!-- 학과 번호 조회(해당 교수) -->
-<!-- 	<select id="getMajorNo" parameterType="int" resultType="int">
-		select major_no from professor where profe_no = #{profe_no}
-	</select> -->
-	
+	<!-- 강의 단일 조회(번호) -->
+	<select id="get" parameterType="int" resultType="classSubjectDto">
+		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no where class_sub_no = #{class_sub_no}
+	</select>
+		
 	<!-- 강의 중복 검사 조회 -->
 	<select id="getConfirm" resultType="classSubjectDto" parameterType="classSubjectDto">
 		select * from class_subject where class_sub_room = #{class_sub_room} and class_sub_time = #{class_sub_time} and class_sub_week = #{class_sub_week} and semester_no = #{semester_no}
@@ -44,7 +44,7 @@
 	
 	<!-- 강의 목록 (담당교수 표시) -->
 	<select id="profeNameView" resultType="classSubjectDto">
-		SELECT * FROM class_subject LEFT OUTER JOIN professor ON class_subject.profe_no = professor.profe_no
+		SELECT * FROM class_subject LEFT OUTER JOIN professor ON class_subject.profe_no = professor.profe_no order by class_sub_no desc
 	</select>
 	
 		
@@ -54,10 +54,9 @@
 	</select>
 	
 	<!-- 강의 검색 -->
-	<select id="searchSub" parameterType="map" resultType="classSubjectDto">
+	<select id="searchClassSub" parameterType="map" resultType="classSubjectDto">
 		SELECT * FROM class_subject cs INNER JOIN semester s ON cs.semester_no = s.semester_no INNER JOIN major m ON cs.major_no = m.major_no 
 		WHERE  to_char(s.semester_start, 'yyyy') = #{yearSearch}	AND s.semester_type = #{semesterSearch} AND cs.class_sub_type = #{typeSearch} AND m.major_type = #{majorSearch} AND instr(cs.class_sub_name, #{classSubSearch}) > 0
-		 
 	</select>
 	
 	
@@ -65,6 +64,15 @@
 	<delete id="classSubDel" parameterType="int">
 		delete class_subject where class_sub_no = #{class_sub_no}
 	</delete>
+	
+	
+	<!-- 강의 수정 -->
+	<update id="classSubEdit" parameterType="classSubjectDto">
+		update class_subject set class_sub_name = #{class_sub_name}, class_sub_type = #{class_sub_type}, class_sub_point = #{class_sub_point}, class_sub_person = #{class_sub_person}, semester_no = #{semester_no}, 
+		class_sub_week = #{class_sub_week}, class_sub_time = #{class_sub_time}, class_sub_room = #{class_sub_room}, class_sub_start = #{class_sub_start}, class_sub_end = #{class_sub_end}, class_sub_content = #{class_sub_content} 
+		where class_sub_no = #{class_sub_no}
+	</update>
+	
 	
 
 

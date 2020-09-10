@@ -15,18 +15,17 @@
         $('.add-btn').click(function() {
         	location.href="${pageContext.request.contextPath}/class_subject/regist";
         })
-		
         
         /* 파일 다운로드 */
 		$('.plan-btn').click(function() {
 			var subNo = $(this).prev().val();
 			
 			$.ajax({
-				url:"${pageContext.request.contextPath}/class_subject/planDown?class_sub_no=" + subNo,
+				url:"${pageContext.request.contextPath}/classSubject/planDown?class_sub_no=" + subNo,
 				method:"get",
 				contentType: 'application/pdf',
 				success:function(response) {
-					location.href="${pageContext.request.contextPath}/class_subject/planDown?class_sub_no=" + subNo;
+					location.href="${pageContext.request.contextPath}/classSubject/planDown?class_sub_no=" + subNo;
 				},
 				error:function() {
 					alert('파일이 존재하지 않습니다');
@@ -35,17 +34,24 @@
 			
 		})
 		
+		/* 강의 수정 이동 */
+        $('.edit-btn').click(function() {
+        	var subNo = $(this).parent().prev().children().val();
+        	location.href="${pageContext.request.contextPath}/class_subject/edit/"+ subNo;
+        })
 		
 		/* 강의 삭제 */
 		$('.del-btn').click(function() {
+			var subNo = $(this).parent().prev().children().val();
 			var subCheck = confirm('강의를 삭제 하시겠습니까??');
 				if (!subCheck){
 					return false;
 				}
 				else {
-					location.href="${pageContext.request.contextPath}/class_subject/delete/"+ $('#classSubNo').val();
+					location.href="${pageContext.request.contextPath}/class_subject/delete/"+ subNo;
 				}
 		})
+		
 		
 	})
 	
@@ -60,13 +66,15 @@
 	    height: 20px;
 	}
 	
-	.sub-btn {
+	.sub-btn,
+	.edit-btn {
 	    background-color: #063E7A;
 	    border-color: #063E7A;
 	}
 	
-	.sub-btn:hover {
-	    background-color: #2066b0;
+	.sub-btn:hover,
+	.edit-btn:hover {
+	    background-color: #1D5798;
 	}
 	
 	.btn,
@@ -165,11 +173,11 @@
 		                            <td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time} (${classSubjectDto.class_sub_room})</td>
 		                            <td>${classSubjectDto.class_sub_person}</td>
 		                            <td>
-		                            	<input type="hidden"  id="classSubNo" value="${classSubjectDto.class_sub_no}">
+		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}">
 		                                <button type="button" class="btn btn-primary btn-sm plan-btn sub-btn">강의계획서</button>
 		                            </td>
 		                            <td>
-		                            	<button type="button" class="btn btn-primary btn-sm sub-btn">수정</button>
+		                            	<button type="button" class="btn btn-primary btn-sm edit-btn">수정</button>
 		                            	/
 		                            	<button type="button" class="btn btn-danger btn-sm del-btn">삭제</button>
 		                            </td>

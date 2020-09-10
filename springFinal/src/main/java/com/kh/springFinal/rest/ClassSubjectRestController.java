@@ -18,7 +18,7 @@ import com.kh.springFinal.repository.ClassSubjectDao;
 import com.kh.springFinal.service.ClassSubjectService;
 
 @RestController
-@RequestMapping("class_subject")
+@RequestMapping("classSubject")
 public class ClassSubjectRestController {
 
 	@Autowired
@@ -37,8 +37,8 @@ public class ClassSubjectRestController {
 	}
 	
 	// 강의실 중복 검사
-	@GetMapping("check")
-	public ClassSubjectDto check(
+	@GetMapping("roomCheck")
+	public ClassSubjectDto roomCheck(
 										@ModelAttribute ClassSubjectDto classSubjectDto,
 										@RequestParam String this_year,
 										@RequestParam String semester_type) {
@@ -46,11 +46,23 @@ public class ClassSubjectRestController {
 		return classSubjectService.getConfirm(classSubjectDto, this_year, semester_type);
 	}
 	
+	// 강의 검사(중복 등록 방지)
+	@GetMapping("subCheck")
+	public ClassSubjectDto subCheck(
+											@ModelAttribute ClassSubjectDto classSubjectDto,
+											@RequestParam String this_year,
+											@RequestParam String semester_type) {
+		
+		return classSubjectDao.getSubCheck(classSubjectDto, this_year, semester_type);		
+	}
+	
+	
 	// 파일 다운로드
 	@GetMapping("planDown")
 	public ResponseEntity<ByteArrayResource> planDown(@RequestParam int class_sub_no) throws IOException{
 		return classSubjectService.getDown(class_sub_no);
 	}
+	
 	
 	
 }
