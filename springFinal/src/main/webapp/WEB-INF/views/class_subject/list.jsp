@@ -99,9 +99,9 @@
 	                    
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
 	                        <label>학기&nbsp;</label>
-	                        <select name="semesterSearch" id="" class="form-control" required>
-	                            <option value="1">1학기</option>
-	                            <option value="2">2학기</option>
+	                        <select name="semesterSearch" class="form-control" required>
+	                            <option>1학기</option>
+	                            <option>2학기</option>
 	                        </select>
 	                    </div>
 	                </div>
@@ -110,7 +110,7 @@
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>학과&nbsp;</label>
 	                            <select name="majorSearch" id="" class="form-control" required>
-	                                <option value="">선택</option>
+	                                <option value="">학과 선택</option>
 	                                <c:forEach var="majorDto" items="${majorList}">
 		                                <option>${majorDto.major_type}</option>
 	                                </c:forEach>
@@ -119,14 +119,15 @@
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
 	                        <div class="form-inline mr-5">
 		                        <label>구분&nbsp;</label>
-		                        <select name="typeSerach" class="form-control" required>
+		                        <select name="typeSearch" class="form-control" required>
+		                            <option value="">전공/교양 선택</option>
 		                            <option>전공</option>
 		                            <option>교양</option>
 		                            <option>교필</option>
 		                        </select>
 	                        </div>
 	                        <div class="form-inline mr-auto">
-                                <input type="text" name="classSubSearch" id="" placeholder="강의 명" class="form-control" required>
+                                <input type="text" name="classSubSearch" placeholder="강의 명" class="form-control" required>
                                 <button type="submit" class="btn btn-primary btn-sm search-btn sub-btn">검색</button>
                             </div>
 	                        <div class="form-inline">
