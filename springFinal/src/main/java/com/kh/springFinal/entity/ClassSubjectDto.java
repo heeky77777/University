@@ -25,6 +25,9 @@ public class ClassSubjectDto {
 	private int start_time;
 	private int end_time;
 	private String regist_date;
-
+	
+	private String profe_name;
+	private String semester_type;
+	private String major_type;
 
 }
