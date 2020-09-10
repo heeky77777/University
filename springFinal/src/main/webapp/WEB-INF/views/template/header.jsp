@@ -85,19 +85,13 @@
                             <a class="nav-link" href="#" style="color:white">입학학생 신청관리</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">교수 회원가입</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">학생 회원가입</a>
+                            <a class="nav-link" href="#" style="color:white">학생/교수 회원가입</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                              <a class="nav-link" href="#" style="color:white">회원관리</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/major_add" style="color:white">학과등록</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">휴학/복학관리</a>
+                            <a class="nav-link" href="#" style="color:white">그래프</a>
                         </li>
                     </ul>
                     <div class="nav-empty">
