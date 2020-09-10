@@ -14,3 +14,5 @@ public class SemesterDto {
 	private String semester_type;
 
 }
+
+
