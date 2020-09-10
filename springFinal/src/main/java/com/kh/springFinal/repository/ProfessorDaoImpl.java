@@ -16,9 +16,9 @@ public class ProfessorDaoImpl implements ProfessorDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Autowired
-	private ProfessorDto professorDto;
-	
+//	@Autowired
+//	private ProfessorDto professorDto;
+//	
 	
 	//시퀀스 번호
 	@Override
