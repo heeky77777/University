@@ -94,7 +94,6 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	public List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch,	String majorSearch, String classSubSearch) {
 		
 		
-		log.info("typeSearch = {}", typeSearch);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("yearSearch", yearSearch);
@@ -104,7 +103,6 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		map.put("classSubSearch", classSubSearch);
 
 		List<ClassSubjectDto> searchList = sqlSession.selectList("classSubject.searchSub", map);
-		log.info("searchList = {}", searchList);
 		
 		return searchList;
 	}

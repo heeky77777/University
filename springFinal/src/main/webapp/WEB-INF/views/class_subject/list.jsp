@@ -94,14 +94,14 @@
 	                <div class="row">
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>년도&nbsp;</label>
-	                            <input type="text" name="yearSearch" class="form-control" required>
+	                            <input type="text" name="yearSearch" class="form-control" value="${param.yearSearch}"  required>
 	                    </div>
 	                    
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
 	                        <label>학기&nbsp;</label>
 	                        <select name="semesterSearch" class="form-control" required>
-	                            <option>1학기</option>
-	                            <option>2학기</option>
+	                            <option ${param.semesterSearch == '1학기' ? 'selected':''}>1학기</option>
+	                            <option ${param.semesterSearch == '2학기' ? 'selected':''}>2학기</option>
 	                        </select>
 	                    </div>
 	                </div>
@@ -109,25 +109,25 @@
 					<div class="row">
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>학과&nbsp;</label>
-	                            <select name="majorSearch" id="" class="form-control" required>
-	                                <option value="">학과 선택</option>
-	                                <c:forEach var="majorDto" items="${majorList}">
-		                                <option>${majorDto.major_type}</option>
-	                                </c:forEach>
-	                            </select>
+                            <select name="majorSearch" id="" class="form-control" required>
+                                <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
+                                <c:forEach var="majorDto" items="${majorList}">
+	                                <option ${param.majorSearch == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
+                                </c:forEach>
+                            </select>
 	                    </div>
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
 	                        <div class="form-inline mr-5">
 		                        <label>구분&nbsp;</label>
 		                        <select name="typeSearch" class="form-control" required>
 		                            <option value="">전공/교양 선택</option>
-		                            <option>전공</option>
-		                            <option>교양</option>
-		                            <option>교필</option>
+		                            <option ${param.typeSearch == '전공' ? 'selected':''}>전공</option>
+		                            <option ${param.typeSearch == '교양' ? 'selected':''}>교양</option>
+		                            <option ${param.typeSearch == '교필' ? 'selected':''}>교필</option>
 		                        </select>
 	                        </div>
 	                        <div class="form-inline mr-auto">
-                                <input type="text" name="classSubSearch" placeholder="강의 명" class="form-control" required>
+                                <input type="text" name="classSubSearch" placeholder="강의 명" class="form-control" value="${param.classSubSearch}" required>
                                 <button type="submit" class="btn btn-primary btn-sm search-btn sub-btn">검색</button>
                             </div>
 	                        <div class="form-inline">

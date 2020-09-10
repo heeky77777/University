@@ -99,6 +99,7 @@ public class ClassSubjectController {
 			@RequestParam String classSubSearch,
 			Model model) {
 		
+		
 		List<MajorDto> majorList = majorDao.major_list();
 		List<ClassSubjectDto> searchList = classSubjectDao.getList(yearSearch, semesterSearch, typeSearch, majorSearch, classSubSearch);
 		
