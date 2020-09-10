@@ -25,7 +25,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.springFinal.entity.ClassSubjectDto" alias="classSubjectDto"/>
 		<typeAlias type="com.kh.springFinal.entity.ClassSubjectFileDto" alias="classSubjectFileDto"/>
 		<typeAlias type="com.kh.springFinal.entity.MajorDto" alias="majorDto"/>
-		<typeAlias type="com.kh.springFinal.entity.StudentinfoDto" alias="studentinfoDto"/>
+		<typeAlias type="com.kh.springFinal.entity.AdminDto" alias="adminDto"/>
+		<typeAlias type="com.kh.springFinal.entity.SubjectApplyDto" alias="subjectapplyDto"/>
 		<typeAlias type="com.kh.springFinal.entity.SemesterDto" alias="semesterDto"/>
+		<typeAlias type="com.kh.springFinal.entity.StudentinfoDto" alias="studentinfoDto"/>
 	</typeAliases>
 </configuration>

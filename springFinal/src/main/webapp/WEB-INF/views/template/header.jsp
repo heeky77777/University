@@ -36,8 +36,10 @@
             
             var sidebar_toggle = document.querySelector(".sidebar_toggle");
             sidebar_toggle.classList.remove("active");
+            
             var sidebar_toggle2 = document.querySelector(".sidebar_toggle2");
             sidebar_toggle2.classList.remove("active");
+            
             var sidebar_toggle3 = document.querySelector(".sidebar_toggle3");
             sidebar_toggle3.classList.remove("active");
         }
@@ -49,6 +51,8 @@
                 <img src="../project/img/aaa.png" width="250px" height="50px">
             </li>
             <li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">kh대하교</li>
+            
+            <c:if test="${userinfo.student_auth eq '학생'}">
                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle();">학생</a>
                     <ul class="nav flex-column sidebar_toggle nav-item-list"> 
                         <li class="nav-item " style="margin-left: 30px;">
@@ -67,33 +71,47 @@
                             <a class="nav-link" href="#" style="color:white">강의평가</a>
                         </li>
                     </ul>
-                <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle2();">교수</a>
-                    <ul class="nav flex-column sidebar_toggle2 nav-item-list">
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">교수정보</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/regist" style="color:white">수강등록</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                             <a class="nav-link" href="#" style="color:white">성적등록</a>
-                        </li>
-                    </ul>
-                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle3();">관리자</a>
-                    <ul class="nav flex-column sidebar_toggle3 nav-item-list">
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">입학학생 신청관리</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">학생/교수 회원가입</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                             <a class="nav-link" href="#" style="color:white">회원관리</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">그래프</a>
-                        </li>
-                    </ul>
+                </c:if>
+                
+                <c:if test="${profeinfo != null}">    
+	                <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle2();">교수</a>
+	                    <ul class="nav flex-column sidebar_toggle2 nav-item-list">
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="#" style="color:white">교수정보</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="#" style="color:white">수강등록</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                             <a class="nav-link" href="#" style="color:white">성적등록</a>
+	                        </li>
+	                    </ul>
+	                 </c:if>
+	                 
+                 <c:if test="${admininfo.admin_auth eq '관리자'}">               
+	                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle3();">관리자</a>
+		                    <ul class="nav flex-column sidebar_toggle3 nav-item-list">
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="#" style="color:white">입학학생 신청관리</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="#" style="color:white">교수 회원가입</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="#" style="color:white">학생 회원가입</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                             <a class="nav-link" href="#" style="color:white">회원관리</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/major_add" style="color:white">학과등록</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="#" style="color:white">휴학/복학관리</a>
+		                        </li>
+		                    </ul>
+	                    </c:if>
+	                    
                     <div class="nav-empty">
                         
                     </div>
@@ -104,9 +122,14 @@
 
           	<button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
 <!-- 	            <form action="logout" method="post"> -->
-	                <span class="col-8 title_font" style="text-align: right;">${userinfo.student_name}님 환영해요</span>
+					<c:if test="${userinfo.student_auth eq '학생'}">             
+	                	<span class="col-8 title_font" style="text-align: right;">${userinfo.student_name}님 환영해요</span>
+	                </c:if>
+	                <c:if test="${admininfo.admin_auth eq '관리자'}">	                
+	                	<span class="col-8 title_font" style="text-align: right;">${admininfo.admin_auth}님 환영해요</span>
+	                </c:if>
 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교
-	                <c:if test="${userinfo != null}">	                
+	                <c:if test="${userinfo != null || admininfo != null}">	                
 	                	<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 	                </c:if>
 	                </span>
