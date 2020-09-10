@@ -29,5 +29,5 @@ public class ProfessorDto {
 	private String profe_date;
 
 
-	
+}
 
