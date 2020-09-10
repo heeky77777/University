@@ -73,7 +73,7 @@
                             <a class="nav-link" href="#" style="color:white">교수정보</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">수강등록</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/regist" style="color:white">수강등록</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                              <a class="nav-link" href="#" style="color:white">성적등록</a>
@@ -101,9 +101,14 @@
     </aside>
     <section class="container2">
         <div class="up_background container-fluid">
-            <button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
-                <span class="col-8 title_font" style="text-align: right;">누구누구님 환영해요</span>
-                <span class="col-4 title_font" style="text-align: center;">KH 대학교</span>
-                
-        
-        
+
+          	<button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
+<!-- 	            <form action="logout" method="post"> -->
+	                <span class="col-8 title_font" style="text-align: right;">${userinfo.student_name}님 환영해요</span>
+	                <span class="col-4 title_font" style="text-align: center;">KH 대학교
+	                <c:if test="${userinfo != null}">	                
+	                	<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+	                </c:if>
+	                </span>
+<!-- 	        	</form> -->
+
