@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+		- namespace : 영역을 외부에서 부르기 위한 별칭
+ -->
+<mapper namespace="profeFile">
+
+<!--
+	
+	알아야 할 설정값
+	- id : 구문을 외부에서 호출하기 위한 식별값
+	- parameterType : 구문을 실행하기 위해 필요한 데이터 유형(매개변수와 유사)
+	- resultType : 구문이 실행된 결과 유형(반환형과 유사)
+-->
+
+	<!-- 이미지 시퀀스 -->
+	<select id="img_seq" resultType="int">
+		SELECT PROFESSOR_FILE_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<!--이미지 등록 -->
+	<insert id="img_add" parameterType="professorFileDto">
+		INSERT INTO professor_file(
+			profe_file_no, profe_no, profe_file_name, profe_file_type, profe_file_size
+			)VALUES(
+				#{profe_file_no}, #{profe_no}, #{profe_file_name}, #{profe_file_type}, #{profe_file_size})
+	</insert>
+
+</mapper>
+
+

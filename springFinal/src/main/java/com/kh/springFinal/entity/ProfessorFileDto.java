@@ -14,7 +14,10 @@ public class ProfessorFileDto {
 	
 	private int profe_file_no;
 	private int profe_no;
+	private String profe_file_name;
 	private String profe_file_type;
 	private long profe_file_size;
+
+	}
 	
-}
+

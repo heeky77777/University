@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
 import com.kh.springFinal.entity.MajorDto;
-import com.kh.springFinal.entity.SemesterDto;
 import com.kh.springFinal.repository.ClassSubjectDao;
 import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.service.ClassSubjectService;
@@ -49,8 +48,6 @@ public class ClassSubjectController {
 		int year = cal.get(Calendar.YEAR);
 		
 		model.addAttribute("year", year);
-		
-		
 		
 		return "class_subject/regist";
 	}
