@@ -17,24 +17,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 -->
 
 	<!-- 교수 번호 -->
-	<select id="getSequence" resultType="int">
+	<select id="seq" resultType="int">
 		SELECT PROFESSOR_SEQ.NEXTVAL FROM DUAL
 	</select>
-
+	
     <!-- 교수 정보 등록 -->
 	<insert id="regist" parameterType="professorDto">
 		INSERT INTO professor(
-			profe_no, semester_no, profe_name , profe_id,
-			profe_pw, profe_gender, profe_phone, profe_email, profe_post, 
-			profe_addr, profe_extra_addr, profe_auth, profe_date, profe_img
+			profe_no, semester_no, major_no, profe_name , profe_id,	
+			profe_pw, profe_gender, profe_birth, profe_phone, profe_email, profe_post, 
+			profe_addr, profe_extra_addr, profe_auth, profe_date
 			)VALUES(
-			#{profe_no}, #{semester_no}, #{profe_name}, #{profe_id},
-			#{profe_pw}, #{profe_gender}, #{profe_phone}, #{profe_email}, #{profe_post},
-			#{profe_addr}, #{profe_extra_addr}, '교수', SYSDATE, #{profe_img});
+			#{profe_no}, #{semester_no}, #{major_no}, #{profe_name}, #{profe_id},
+			#{profe_pw}, #{profe_gender}, #{profe_birth}, #{profe_phone}, #{profe_email}, #{profe_post},
+			#{profe_addr}, #{profe_extra_addr}, '교수', SYSDATE)
 		
 	</insert>
 
+	<!-- 교수 단일 조회 -->
+	<select id="update" parameterType="int" resultType="professorDto">
+		SELECT*FROM professor WHERE profe_no=#{profe_no}
+	</select>
 
+	<!--교수 아이디 단일 조회 -->
+	<select id="getId" parameterType="String" resultType="String">
+		SELECT*FROM professor WHERE profe_id=#{profe_id}
+	</select>
+
+	<!-- 교수 목록 조회 -->
+	<!-- <SELECT id="getList" parameterType="" -->
 	
 	<!-- 교수 삭제 -->
 	<!--  <delete id="del" parameterType="int">
