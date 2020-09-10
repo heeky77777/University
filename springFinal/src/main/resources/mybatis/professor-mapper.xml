@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!--교수 아이디 단일 조회 -->
-	<select id="getId" parameterType="String" resultType="ProfessorDto">
+	<select id="getId" parameterType="String" resultType="professorDto">
 		SELECT*FROM professor WHERE profe_id=#{profe_id}
 	</select>
 

@@ -85,19 +85,13 @@
                             <a class="nav-link" href="#" style="color:white">입학학생 신청관리</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">교수 회원가입</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">학생 회원가입</a>
+                            <a class="nav-link" href="#" style="color:white">학생/교수 회원가입</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                              <a class="nav-link" href="#" style="color:white">회원관리</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/major_add" style="color:white">학과등록</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">휴학/복학관리</a>
+                            <a class="nav-link" href="#" style="color:white">그래프</a>
                         </li>
                     </ul>
                     <div class="nav-empty">
@@ -107,14 +101,9 @@
     </aside>
     <section class="container2">
         <div class="up_background container-fluid">
-
-          	<button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
-<!-- 	            <form action="logout" method="post"> -->
-	                <span class="col-8 title_font" style="text-align: right;">${userinfo.student_name}님 환영해요</span>
-	                <span class="col-4 title_font" style="text-align: center;">KH 대학교
-	                <c:if test="${userinfo != null}">	                
-	                	<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
-	                </c:if>
-	                </span>
-<!-- 	        	</form> -->
-
+            <button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
+                <span class="col-8 title_font" style="text-align: right;">누구누구님 환영해요</span>
+                <span class="col-4 title_font" style="text-align: center;">KH 대학교</span>
+                
+        
+        
