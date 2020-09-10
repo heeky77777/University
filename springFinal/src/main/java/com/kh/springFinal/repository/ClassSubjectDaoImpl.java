@@ -83,10 +83,30 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 //	}
 	
 	
-	// 교수면 표기 강의 리스트
+	// 교수명 표기 강의 리스트
 	@Override
 	public List<ClassSubjectDto> getList() {
 		return  sqlSession.selectList("classSubject.profeNameView");
+	}
+	
+	// 강의 검색
+	@Override
+	public List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch,	String majorSearch, String classSubSearch) {
+		
+		
+		log.info("typeSearch = {}", typeSearch);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("yearSearch", yearSearch);
+		map.put("semesterSearch", semesterSearch);
+		map.put("typeSearch", typeSearch);
+		map.put("majorSearch", majorSearch);
+		map.put("classSubSearch", classSubSearch);
+
+		List<ClassSubjectDto> searchList = sqlSession.selectList("classSubject.searchSub", map);
+		log.info("searchList = {}", searchList);
+		
+		return searchList;
 	}
 
 	

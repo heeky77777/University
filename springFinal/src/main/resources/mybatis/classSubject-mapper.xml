@@ -54,10 +54,10 @@
 	</select>
 	
 	<!-- 강의 검색 -->
-	<select id="searchSub" parameterType="map" resultType="int">
+	<select id="searchSub" parameterType="map" resultType="classSubjectDto">
 		SELECT * FROM class_subject cs INNER JOIN semester s ON cs.semester_no = s.semester_no INNER JOIN major m ON cs.major_no = m.major_no 
-		WHERE  to_char(s.semester_start, 'yyyy') = #{yearSearch}	AND s.semester_type = #{semesterSearch} AND cs.class_sub_type = #{typeSerach} AND m.major_type = #{majorSearch} AND instr(cs.class_sub_name, #{}) > 0 
-		order by cs.class_sub_no desc
+		WHERE  to_char(s.semester_start, 'yyyy') = #{yearSearch}	AND s.semester_type = #{semesterSearch} AND cs.class_sub_type = #{typeSearch} AND m.major_type = #{majorSearch} AND instr(cs.class_sub_name, #{classSubSearch}) > 0
+		 
 	</select>
 	
 	

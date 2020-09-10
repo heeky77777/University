@@ -20,14 +20,18 @@ public interface ClassSubjectDao {
 	// 수업 계획서 업로드 
 	int addFile(ClassSubjectFileDto classSubjectFileDto);
 	
-	// 강의 리스트(전체)
+	// 강의 리스트
 	List<ClassSubjectDto> getList();
+	
+	// 강의 검색
+	List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch, String majorSearch, String classSubSearch);
 	
 	// 강의 계획서 조회
 	ClassSubjectFileDto getFile(int class_sub_no);
 
-	// 
+	// 강의 삭제
 	void delete(int class_sub_no);
+
 	
 	
 

@@ -96,14 +96,20 @@ public class ClassSubjectController {
 	@PostMapping("list")
 	public String searchList(
 			@RequestParam String yearSearch,
-			@RequestParam int semesterSearch,
+			@RequestParam String semesterSearch,
 			@RequestParam String typeSearch,
 			@RequestParam String majorSearch,
-			@RequestParam String classSubSearch) {
+			@RequestParam String classSubSearch,
+			Model model) {
+		
+		List<MajorDto> majorList = majorDao.major_list();
+		List<ClassSubjectDto> searchList = classSubjectDao.getList(yearSearch, semesterSearch, typeSearch, majorSearch, classSubSearch);
 		
 		
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("list", searchList);
 		
-		return "redirect:list";
+		return "class_subject/list";
 	}
 	
 	// 강의 삭제
