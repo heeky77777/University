@@ -104,6 +104,11 @@ public class StudentController {
 		return "student/student_info";
 	}
 	
+	@GetMapping("/student_edit")
+	public String edit() {
+		return "student/student_edit";
+	}
+	
 }
 
 	
