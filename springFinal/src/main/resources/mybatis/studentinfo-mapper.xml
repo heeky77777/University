@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="student">
+
+	<insert id="join" parameterType="studentinfoDto">
+		INSERT INTO stu_info(
+		stu_apply_no,
+		stu_apply_name,
+		stu_apply_gender,
+		stu_apply_birth,
+		stu_apply_phone,
+		stu_apply_email,
+		stu_apply_post,
+		stu_apply_addr,
+		stu_apply_extra_addr
+		)
+		VALUES(
+		stu_apply_seq.nextval,
+		#{stu_apply_name},
+		#{stu_apply_gender},
+		#{stu_apply_birth},
+		#{stu_apply_phone},
+		#{stu_apply_email},
+		#{stu_apply_post},
+		#{stu_apply_addr},
+		#{stu_apply_extra_addr}
+
+		)
+	</insert>
+
+
+
+	<select id="get" resultType="studentinfoDto"
+		parameterType="string">
+		select * from stu_info where stu_apply_phone= #{stu_apply_phone}
+	</select>
+
+	<select id="getList" resultType="studentinfoDto">
+		SELECT * FROM stu_info
+		ORDER BY
+		stu_apply_no DESC
+	</select>
+
+	<select id="search" resultType="studentinfoDto" parameterType="map">
+		SELECT * FROM stu_info
+		WHERE instr(${type}, #{keyword}) > 0
+		ORDER BY stu_apply_no DESC
+	</select>
+	
+	
+	<select id="unionList" resultType="studentinfoDto" parameterType="map">
+	
+	select * from stu_info
+	<if test="type !=null and keyword !=null">
+	where instr(${type}, #{keyword}) >0
+	</if>
+	order by stu_apply_no desc
+	</select>
+
+	
+
+</mapper>
+
+
+
+

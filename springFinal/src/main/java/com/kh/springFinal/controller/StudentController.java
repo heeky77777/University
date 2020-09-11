@@ -1,13 +1,19 @@
 package com.kh.springFinal.controller;
 
 
+
 import java.io.File;
 import java.io.IOException;
+
+import java.util.Calendar;
+import java.util.List;
+
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
+
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+
 import com.kh.springFinal.entity.StudentDto;
+
 import com.kh.springFinal.entity.StudentFileuploadDto;
 import com.kh.springFinal.repository.StudentDao;
+
+import com.kh.springFinal.entity.SubjectApplyDto;
+import com.kh.springFinal.repository.SubjectApplyDao;
+
 
 @Controller
 @RequestMapping("/student")
@@ -27,6 +40,9 @@ public class StudentController {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private SubjectApplyDao subjectapplyDao;
 	
 	@GetMapping("/student_join")
 	public String join() {
@@ -45,12 +61,52 @@ public class StudentController {
 			return "redirect:student_join?error";
 		}		
 	}
+
+	
+	@GetMapping("/student_schedule")
+	public String student_schedule() {
+		return "student/student_schedule";
+	}
+	
+	@GetMapping("/student_class_apply")
+	public String student_class_apply(Model model) {
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		
+		model.addAttribute("now_year", year);	
+		
+		return "student/student_class_apply";
+	}
+	
+	@PostMapping("/subject_list")
+	public String subject_list(@ModelAttribute ClassSubjectDto classSubjectDto,
+								Model model) {
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		
+		model.addAttribute("now_year", year);	
+		
+		List<ClassSubjectDto> apply_list = subjectapplyDao.get_list(classSubjectDto);
+		model.addAttribute("apply_list", apply_list);
+		
+		return "student/student_class_apply";
+	}
+	
+	@PostMapping("/student_class_apply")
+	public String student_class_apply(@ModelAttribute SubjectApplyDto subjectApplyDto) {
+		subjectapplyDao.class_apply(subjectApplyDto);
+		return "redirect:student_class_apply";
+	}
 	
 	@GetMapping("/student_info")
 	public String info() {
 		
 		return "student/student_info";
 	}
+	
+}
+
+	
 	
 //	@PostMapping("/student_join")
 //	public String regist(
@@ -66,5 +122,5 @@ public class StudentController {
 //		return "redirect:regist";
 //	}
 	
-}	
+		
 

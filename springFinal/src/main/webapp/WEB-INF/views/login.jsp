@@ -31,7 +31,13 @@
 			}).then(function (response){
 				
 				result_pw.value = response.data.student_pw;
+				
+				if(response.data.student_pw == undefined){
+					result_pw.value = "";
+					alert("찾으시는 정보가 없습니다. 입력하신 정보를 확인하여 주세요");
+				}
 			})
+			
 		}
 		
 		function find_id(){
@@ -147,6 +153,28 @@
             var target = document.getElementById(targetId);
             target.classList.add("on");
         }
+        
+        function error_page(){
+        	var url = location.search.substr(location.search.indexOf("?") + 1);
+        	
+        	if(url != "") {
+        		alert("로그인정보를 확인하여 주세요");
+        	}
+     
+        }
+        window.onload=error_page;
+        
+        function only_number(){
+        	var student_numb = document.querySelector("input[name=student_numb]").value;
+        	
+        	var regex = /^[0-9]{7,15}$/gi;
+            var idRegx = regex.test(student_numb);
+            
+            
+			if(idRegx == false){
+				alert("아이디는 학번(숫자)로 입력해주세요");
+			}
+        }
     </script>
 <body>
     <div class="container-fluid">
@@ -192,11 +220,11 @@
                     <div class="area on" id="cb1-area">
               		<form action="student_login" method="post">
 	                    <div class="row-empty login-input">
-	                        <input name="student_numb" type="text" class="id" placeholder="학번">
+	                        <input name="student_numb" type="text" class="id" placeholder="학번" required onblur="only_number();">
 	                    </div> 
 	                    <div class="row-empty"></div> 
 	                    <div class="row-empty login-input">
-	                        <input name="student_pw" type="password" class="pw" placeholder="비밀번호">
+	                        <input name="student_pw" type="password" class="pw" placeholder="비밀번호" required>
 	                    </div> 
 	                   
 	                    <div class="row-empty">
@@ -222,11 +250,11 @@
                     <div class="area" id="cb2-area">
               		<form action="professor_login" method="post">
 	                    <div class="row-empty login-input">
-	                        <input name="student_numb" type="text" class="id" placeholder="교수아이디">
+	                        <input name="profe_id" type="text" class="id" placeholder="교수아이디" required>
 	                    </div> 
 	                    <div class="row-empty"></div> 
 	                    <div class="row-empty login-input">
-	                        <input name="student_pw" type="password" class="pw" placeholder="비밀번호">
+	                        <input name="profe_pw" type="password" class="pw" placeholder="비밀번호" required>
 	                    </div> 
 	                   
 	                    <div class="row-empty">
@@ -253,11 +281,11 @@
                     <div class="area" id="cb3-area">
               		<form action="admin_login" method="post">
 	                    <div class="row-empty login-input">
-	                        <input name="student_numb" type="text" class="id" placeholder="관리자아이디">
+	                        <input name="admin_id" type="text" class="id" placeholder="관리자아이디" required>
 	                    </div> 
 	                    <div class="row-empty"></div> 
 	                    <div class="row-empty login-input">
-	                        <input name="student_pw" type="password" class="pw" placeholder="비밀번호">
+	                        <input name="admin_pw" type="password" class="pw" placeholder="비밀번호" required>
 	                    </div> 
 	                   
 	                    <div class="row-empty">
@@ -285,13 +313,13 @@
         			</div>
         			<div class="modal-body">
         				<label>학생이름</label>
-        				<input type="text" name="student_name" id="student_name_pw">
+        				<input type="text" name="student_name" id="student_name_pw" required>
         				<label>학번</label>
-        				<input type="text" name="student_numb" id="student_numb_pw">
+        				<input type="text" name="student_numb" id="student_numb_pw" required>
         			</div>
         			<div class="modal-body">
         				<label>생년월일</label>
-        				<input type="date" name="student_birth" id="student_birth_pw">
+        				<input type="date" name="student_birth" id="student_birth_pw" max="9999-12-31" required>
         				<button onclick="find_pw();">찾기</button>
         			</div>
         			<div class="modal-body">
@@ -315,11 +343,11 @@
         			</div>
         			<div class="modal-body">
         				<label>학생이름</label>
-        				<input type="text" name="student_name" id="student_name_id">
+        				<input type="text" name="student_name" id="student_name_id" required>
         			</div>
         			<div class="modal-body">
         				<label>생년월일</label>
-        				<input type="date" name="student_birth" id="student_birth_id">
+        				<input type="date" name="student_birth" id="student_birth_id" max="9999-12-31" required>
         				<button onclick="find_id();">찾기</button>
         			</div>
         			<div class="modal-body">
@@ -345,13 +373,13 @@
         			</div>
         			<div class="modal-body">
         				<label>교수이름</label>
-        				<input type="text" name="profe_name" id="profe_name_pw">
+        				<input type="text" name="profe_name" id="profe_name_pw" required>
         				<label>교수아이디</label>
-        				<input type="text" name="profe_id" id="profe_id_pw">
+        				<input type="text" name="profe_id" id="profe_id_pw" required>
         			</div>
         			<div class="modal-body">
         				<label>생년월일</label>
-        				<input type="date" name="profe_birth" id="profe_birth_pw">
+        				<input type="date" name="profe_birth" id="profe_birth_pw" max="9999-12-31" required>
         				<button onclick="pro_find_pw();">찾기</button>
         			</div>
         			<div class="modal-body">
@@ -375,11 +403,11 @@
         			</div>
         			<div class="modal-body">
         				<label>교수이름</label>
-        				<input type="text" name="profe_name" id="profe_name_id">
+        				<input type="text" name="profe_name" id="profe_name_id" required>
         			</div>
         			<div class="modal-body">
         				<label>생년월일</label>
-        				<input type="date" name="profe_birth" id="profe_birth_id">
+        				<input type="date" name="profe_birth" id="profe_birth_id" max="9999-12-31" required>
         				<button onclick="pro_find_id();">찾기</button>
         			</div>
         			<div class="modal-body">
