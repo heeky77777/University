@@ -6,12 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script>
+<body>
 
+정보가 잘못 입력되었거나 입력된 정보입니다.
 
-</script>
-<!--     <header> -->
-  <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<!--     </header> -->
-
+</body>
 </html>

@@ -17,8 +17,6 @@ public class ProfessorDaoImpl implements ProfessorDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-
-	
 	//시퀀스 번호
 	@Override
 	public int getSeq() {
