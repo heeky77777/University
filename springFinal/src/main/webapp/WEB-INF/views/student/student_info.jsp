@@ -14,97 +14,70 @@
     		<form action="student_info" method="post">
 		    <div class="form-group">
 		    	<label>학생이름</label>  
-		    	<input class="form-control" type="text" name="student_name" value="${userinfo.student_name}">
+		    	<input class="form-control" type="text" name="student_name" value="${userinfo.student_name}" readonly>
 		    </div>
 		    <div class="form-group">
 				<label>학생 사진 등록</label><br>
-				<input class="form-group" type="file" name="student_file_no">
+				<input class="form-group" type="file" name="student_file_no" readonly>
 		    </div>
 		    <div class="form-group">    
 		    	<label>학번</label>  
-		    	<input class="form-control" type="text" name="student_numb" onblur="checkNumb();" value="${userinfo.student_numb}">
+		    	<input class="form-control" type="text" name="student_numb" onblur="checkNumb();" value="${userinfo.student_numb}" readonly>
 		    	<span class="bool_red" style="color:red"></span>
 		    	<span class="bool_blue" style="color:blue"></span>
-		    </div>
-		    <div class="form-group">    
-		    	<label>학생 비밀번호</label>
-		    	<input class="form-control" type="password" name="student_pw">
-		    </div>
+		    </div>		    
 		    <div class="form-group">    
 		    	<label>학년</label>  
-		    	<select class="form-control" name="student_grade">
-		    			<option value="1">1학년</option>
-		    			<option value="2">2학년</option>
-		    			<option value="3">3학년</option>
-		    			<option value="4">4학년</option>
-		    	</select>	
+		    	<input class="form-control" type="text" name="student_grade" value="${userinfo.student_grade}학년" readonly>
 		    </div>
 		    <div  class="form-group">	
 		       	<label>학과</label> 
-		    	<select class="form-control" name="major_no">
-		    			<option>경영학과</option>
-		    			<option>어문학과</option>
-		    			<option>성악과</option>
-		    			<option>시스템공학과</option>
-		    	</select>
+		       	<input class="form-control" type="text" name="major_no" value="${userinfo.major_no}학과" readonly>		    	
 		   </div>
 		   <div class="form-group">
 		    	<label>학기</label> 
-		    		<select class="form-control" name="semester_no">
-		    			<option>1학기</option>
-		    			<option>2학기</option>
-		    		</select>
+		    	<input class="form-control" type="text" name="semester_no" value="${userinfo.semester_no}" readonly>		    		
 		   </div>
 		   <div class="form-group">
 		    	<label>학적상태</label> 
-		    		<select class="form-control" name="student_state">
-		    			<option>재학</option>
-		    			<option>휴학</option>
-		    			<option>복학</option>
-		    		</select>
+		    	<input class="form-control" type="text" name="student_state" value="${userinfo.student_state}" readonly>		    		
 		   </div>	
 		   <div class="form-group">
 		   		<label>성별</label>
-		    	   <select class ="form-control" name="student_gender">
-		    			<option>남자</option>
-		    			<option>여자</option>
-		    		</select>
+		   		<input class="form-control" type="text" name="student_gender" value="${userinfo.student_gender}" readonly>		    	  
 		   </div> 	
 		   <div class="form-group">	
-		    	<label>생년월일</label> 
-		    	<input class="form-control" type="date" name="student_birth">
+		    	<label>생년월일</label> <!-- 시간 안나오게 설정하는방법 알아보기 -->
+		    	<input class="form-control" type="date" name="student_birth" value="${userinfo.student_birth}" readonly>
 		   </div> 	
 		   <div class="form-group">
 		    	<label>연락처</label> 
-		    	<input class="form-control" type="text" name="student_phone" placeholder="- 제외하고 입력하세요" >
+		    	<input class="form-control" type="text" name="student_phone" value="${userinfo.student_phone}" readonly>
 		   </div>
 		   <div class="form-group"> 	
 		    	<label>이메일 주소</label> 
-		    	<input class="form-control" type="text" name="student_email">
+		    	<input class="form-control" type="text" name="student_email" value="${userinfo.student_email}" readonly>
 		   </div>
 		    <div class="form-group">
-		       	<label>주소</label>
+		       	<label>우편번호</label>
+		       	<input class="form-control" type="text" name="student_post" id="student_post" value="${userinfo.student_post}" readonly>
 		   </div> 	
-		   <div>    	
-		       	<input size=10 type="text" name="student_post" placeholder="우편번호" id="student_post">
-		    	<input type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()" size=10>
-	    	</div><br>
-		   <div class="form-group">		    	
-		    	<input class="form-control" type="text" name="student_addr" placeholder="기본주소" id="student_addr">		 	
-			</div>
-			<div class="form-group">   	
-		    	<input class="form-control" type="text" name="student_extra_addr" placeholder="상세주소" id="student_extra_addr">
+		   <div class="form-group"> 
+		   		<label>기본주소</label>   	
+		    	<input class="form-control" type="text" name="student_addr"  id="student_addr" value="${userinfo.student_addr}" readonly>			
+	    	</div>
+		   <div class="form-group">
+		   		<label>상세주소</label>		    	
+		    	<input class="form-control" type="text" name="student_extra_addr"  id="student_extra_addr" value="${userinfo.student_extra_addr}" readonly>
 		   </div> 	
-		   
+		    
 		   <div class="form-group">
 		    	<label>병역여부</label> 
-		    	<select class="form-control" name="student_milliy">
-		    		<option>미필</option>
-		    		<option>군필</option>
-		    	</select><br><hr>
+		    	<input class="form-control" name="student_milliy" value="${userinfo.student_milliy}" readonly>		    	
 		   </div> 	
 		   <div class="form-group">
-		    	<input class="form-control btn btn-primary btn-block" type="submit" value="등 록" style="background-color :#063e7a">
+		    	<a class="form-control btn btn-primary btn-block" href="${pageContext.request.contextPath}/student/student_edit" style="color:white">내정보수정하기</a>
+		    	
 		    </div>
 		    </form>
 		    
