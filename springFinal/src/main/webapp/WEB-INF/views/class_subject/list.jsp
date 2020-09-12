@@ -31,7 +31,6 @@
 					alert('파일이 존재하지 않습니다');
 				}				
 			})
-			
 		})
 		
 		/* 강의 수정 이동 */
@@ -119,6 +118,7 @@
 	                        <label>학과&nbsp;</label>
                             <select name="majorSearch" id="" class="form-control" required>
                                 <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
+                                <option value="all" ${param.majorSearch == '전체' ? 'selected':''}>전체</option>
                                 <c:forEach var="majorDto" items="${majorList}">
 	                                <option ${param.majorSearch == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
                                 </c:forEach>
@@ -129,6 +129,7 @@
 		                        <label>구분&nbsp;</label>
 		                        <select name="typeSearch" class="form-control" required>
 		                            <option value="">전공/교양 선택</option>
+		                            <option value="all">전체</option>
 		                            <option ${param.typeSearch == '전공' ? 'selected':''}>전공</option>
 		                            <option ${param.typeSearch == '교양' ? 'selected':''}>교양</option>
 		                            <option ${param.typeSearch == '교필' ? 'selected':''}>교필</option>
@@ -152,6 +153,7 @@
 	                    <thead>
 	                        <tr>
 	                            <th>강의 번호</th>
+	                            <th>전공</th>
 	                            <th>강의 명</th>
 	                            <th>담당교수</th>
 	                            <th>학점</th>
@@ -166,6 +168,7 @@
 							<c:forEach var="classSubjectDto" items="${list}">
 		                        <tr>
 		                            <td>${classSubjectDto.class_sub_no}</td>
+		                            <td>${classSubjectDto.major_type}</td>
 		                            <td>${classSubjectDto.class_sub_name}</td>
 		                            <td>${classSubjectDto.profe_name}</td>
 		                            <td>${classSubjectDto.class_sub_point}</td>

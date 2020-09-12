@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +42,7 @@ public class ClassSubjectController {
 	@Autowired
 	private MajorDao majorDao;
 	
+	
 	// 현재 년도
 	Calendar cal = Calendar.getInstance();
 	int year = cal.get(Calendar.YEAR);
@@ -60,9 +64,10 @@ public class ClassSubjectController {
 						@RequestParam String this_year,
 						@RequestParam String semester_type,
 						@RequestParam MultipartFile file,
-						Model model) throws IllegalStateException, IOException {
+						Model model,
+						HttpSession session) throws IllegalStateException, IOException {
 		
-		int class_sub_no = classSubjectService.subjectRegist(classSubjectDto, this_year, semester_type);
+		int class_sub_no = classSubjectService.subjectRegist(classSubjectDto, this_year, semester_type, session);
 		
 		// 강의 등록
 		
@@ -127,6 +132,11 @@ public class ClassSubjectController {
 	public String edit(@PathVariable int class_sub_no, Model model, RedirectAttributes attr) {
 		
 		ClassSubjectDto classSubjectDto = classSubjectDao.getSub(class_sub_no);
+		ClassSubjectFileDto classSubjectFileDto = classSubjectDao.getFile(class_sub_no);
+		log.info("classSubjectFileDto ={}", classSubjectFileDto);
+		
+		
+		model.addAttribute("classSubjectFileDto", classSubjectFileDto);
 		model.addAttribute("classSubjectDto", classSubjectDto);
 		model.addAttribute("year", year);
 		attr.addAttribute("class_sub_no", class_sub_no);
@@ -135,17 +145,28 @@ public class ClassSubjectController {
 	}
 	
 	@PostMapping("edit/{class_sub_no}")
-	public String edit(@ModelAttribute ClassSubjectDto classSubjectDto, @RequestParam String this_year, String semester_type) {
+	public String edit(
+						@ModelAttribute ClassSubjectDto classSubjectDto,
+						@ModelAttribute ClassSubjectFileDto classSubjectFileDto,
+						@RequestParam String this_year, String semester_type,
+						MultipartFile file) throws IllegalStateException, IOException {
 		
-		ClassSubjectDto classSubDto = classSubjectDao.getSubCheck(classSubjectDto, this_year, semester_type);
+		ClassSubjectDto classSubDto = classSubjectService.getConfirm(classSubjectDto, this_year, semester_type);
+		boolean isClassSubNo = classSubDto.getClass_sub_no() == classSubjectDto.getClass_sub_no();
 		
-		if (classSubDto != null) {	// 중복되는 강의가 있으면
-			return "class_subject/edit/" + classSubjectDto.getClass_sub_no();
+		
+		if (!isClassSubNo && classSubDto != null) {	// 중복되는 강의가 있으면
+			return "redirect:/class_subject/edit/" + classSubjectDto.getClass_sub_no();
 		}
-		
-		classSubjectDao.classSubedit(classSubjectDto);
-		
-		return "redirect:/class_subject/list";
+		else {
+			classSubjectDao.classSubEdit(classSubjectDto);
+			// 강의 계획서 업로드
+			if(classSubjectFileDto.isFile()) {
+				classSubjectService.addFile(classSubjectFileDto, file, classSubjectDto.getClass_sub_no());
+			}
+			
+			return "redirect:/class_subject/list";
+		}
 		
 	}
 }

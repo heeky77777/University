@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -12,6 +13,16 @@
 	$(window).on('beforeunload', function() {
 	    return false;  
 	})
+	
+	 $(function() {
+		var isFile = $("#subFileNo").val();
+		
+		if(isFile){
+			$('#filList').removeClass('onView');
+		}
+		
+	})
+	
 
 	$(function() {
 	    
@@ -42,6 +53,7 @@
 		})
 		
 		
+		
 		/* 강의실 중복 조회 */
     	$('#check-btn').click(function(){
 			var class_sub_room = $('input[name=class_sub_room]').val();
@@ -55,9 +67,8 @@
 	        	url:"${pageContext.request.contextPath}/classSubject/roomCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_room=" + class_sub_room,
 	            type:"get",
 	            success:function(response) {
-	            	console.log(response);
-	                if(!response){	// 결과 없음 : 사용 가능
 	                    $('#lecture_check').removeClass('fail').addClass('pass').text('강의 등록 가능');
+	                if(!response){	// 결과 없음 : 사용 가능
 	                }
 	                else {	// 결과 있음 : 사용 불가능
 	                	$('#lecture_check').removeClass('pass').addClass('fail').text('학기, 요일, 교시, 강의실을 다시 확인해 주세요');
@@ -70,48 +81,16 @@
 	
 	    })
 	    
-	    
-	    /* 강의 등록 확인 */
-	    $('.regist-btn').click(function() {
-	    	var registCheck = confirm('강의를 등록 하시겠습니까?');
-	    	if(!registCheck) {
-	    		return false;
-	    	}
-	    	else {
-	    		$.ajax({
-	    			url:"${pageContext.request.contextPath}/classSubject/subEdit?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_name=" + $('input[name=class_sub_name]').val() + "&class_sub_room=" + $('input[name=class_sub_room]').val(),
-	    			type:"get",
-	    			success:function(response){
-	    				if(response) {
-	    					alert("이미 등록된 강의 입니다");
-	    					return false;
-	    				}
-	    				else{
-	    					return true;
-	    				}
-	    			}
-	    		})	    		
-	    	}
-	    })
-	    
 
 	    /* 수정 버튼 */
 		$('.modify-btn').click(function() {
+			$(window).off('beforeunload');
 			var modifyCheck = confirm("수정하시겠습니까??");
 			if(!modifyCheck){
 				return false;
 			}
 			else {
-				$(window).off('beforeunload');
-				$.ajax({
-	    			url:"${pageContext.request.contextPath}/classSubject/subCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_name=" + $('input[name=class_sub_name]').val() + "&class_sub_room=" + $('input[name=class_sub_room]').val(),
-	    			type:"get",
-	    			success:function(response){
-	    				if(response) {
-	    					alert("이미 등록된 강의 입니다");
-	    				}
-	    			}
-	    		})	    		
+				return true;
 			}
 		})
 	    
@@ -130,8 +109,73 @@
 	    })
 	    
 	    
+	    /* 첨부 파일 삭제 */
+	    $('.delete-btn').click(function() {
+	    	var class_sub_no = $('input[name=class_sub_no]').val();
+	    	var sub_file_no = $('#subFileNo').val();
+  			var isFile = $("#subFileNo").val();
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/classSubject/deleteFile?class_sub_no=" + class_sub_no + "&sub_file_no=" + sub_file_no,
+	    		type:"get",
+	    		success:function(response){
+	    			if(isFile){
+	    				$('#filList').addClass('onView');
+	    				alert("파일이 삭제 되었습니다.");
+	    			}
+	    		}
+	    		
+	    	})
+	    })
 	
+	})
+
 	
+	/* 강의 시간 추가 삭제*/
+	$(function() {
+		
+		/* 첫번째 추가 */
+        $('#addTime1').click(function() {
+            $('.addSelect1').show();
+            $('#addTime1').hide();
+        })
+		
+		/* 첫번째 삭제 */
+		$('.del-btn1').click(function() {
+            $('.addSelect1').hide();
+            $('#addTime1').show();
+            $('.addSelect1 option:eq(0)').prop('selected', true);
+        })
+        
+        /* 두번째 추가 */
+        $('#addTime2').click(function() {
+            $('.addSelect2').show();
+            $('#addTime2').hide();
+            $('.del-btn1').hide();
+        })
+        
+        /* 두번째 삭제 */
+        $('.del-btn2').click(function() {
+            $('.addSelect2').hide();
+            $('#addTime2').show();
+            $('.del-btn1').show();
+            $('.addSelect2 option:eq(0)').prop('selected', true);
+        })
+        
+        /* 세번째 추가 */
+        $('#addTime3').click(function() {
+            $('.addSelect3').show();
+            $('#addTime3').hide();
+            $('.del-btn2').hide();
+        })
+        
+        /* 세번째 삭제 */
+        $('.del-btn3').click(function() {
+            $('.addSelect3').hide();
+            $('#addTime3').show();
+            $('.del-btn2').show();
+            $('.addSelect3 option:eq(0)').prop('selected', true);
+        })
+
 	})
 	
 
@@ -143,15 +187,15 @@
 		height: 20px;
 	}
     
-    .regist-btn,
-    .modify-btn {
+    .modify-btn,
+    .add-btn {
         background-color: #063E7A;
         border-color: #063E7A;
             
     }
     
-    .regist-btn:hover,
-    .modify-btn:hover {
+    .modify-btn:hover,
+    .add-btn:hover, {
     	background-color: #1D5798;
     }
     
@@ -175,15 +219,39 @@
         color: red;
         font-size: 14px;
     }
+    
     label {
     	margin: 3px;
     }
     
-    .modify-btn,
+    
+    .modify-btn {
+    	width: 30%;
+        margin-left: auto;
+        margin-right: 25px;
+        padding: 0.7rem;
+    }
+    
     .cancel-btn {
-    	width: 45%;
-        margin: auto;
-    }   
+    	width: 30%;
+        margin-right: auto;
+        margin-left: 25px;
+        padding: 0.7rem;
+    }
+    
+    .onView {
+    	display: none;
+    } 
+    
+    .subtime {
+            margin-left: 458px;
+        }
+    
+    .addSelect1,
+    .addSelect2,
+    .addSelect3 {
+        display: none;
+    }
 	
 </style>
 
@@ -244,6 +312,7 @@
 					        <option value='금' ${classSubjectDto.class_sub_week == '금' ? 'selected':''}>금요일</option>
 	                    </select>
 	                   	<select name="class_sub_time" id="class_sub_time" class="form-control">
+                   			<option value="">교시선택</option>
 					        <option value='1' ${classSubjectDto.class_sub_time == '1' ? 'selected':''}>1교시</option>		
 					        <option value='2' ${classSubjectDto.class_sub_time == '2' ? 'selected':''}>2교시</option>		
 					        <option value='3' ${classSubjectDto.class_sub_time == '3' ? 'selected':''}>3교시</option>		
@@ -251,9 +320,57 @@
 					        <option value='5' ${classSubjectDto.class_sub_time == '5' ? 'selected':''}>5교시</option>		
 					        <option value='6' ${classSubjectDto.class_sub_time == '6' ? 'selected':''}>6교시</option>		
 					        <option value='7' ${classSubjectDto.class_sub_time == '7' ? 'selected':''}>6교시</option>		
-					        <option value='8' ${classSubjectDto.class_sub_time == '8' ? 'selected':''}>6교시</option>					
+					        <option value='8' ${classSubjectDto.class_sub_time == '8' ? 'selected':''}>6교시</option>	
 	                   </select>
+	                   <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime1'>추가</button>
 	               </div>
+	               
+	               <div class="form-group form-inline addSelect1">
+                           <select name="class_sub_time2" id="class_sub_time2" class="form-control subtime">
+                               <option value="">교시선택</option>
+                                <option value='1'>1교시</option>		
+                                <option value='2'>2교시</option>		
+                                <option value='3'>3교시</option>		
+                                <option value='4'>4교시</option>		
+                                <option value='5'>5교시</option>		
+                                <option value='6'>6교시</option>		
+                                <option value='7'>7교시</option>		
+                                <option value='8'>8교시</option>
+                           </select>
+                           <button type='button' class="btn btn-secondary btn-sm del-btn1">삭제</button>
+                           <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime2'>추가</button>
+                       </div>
+
+                       <div class="form-group form-inline addSelect2">
+                        <select name="class_sub_time3" id="class_sub_time3" class="form-control subtime">
+                            <option value="">교시선택</option>
+                             <option value='1'>1교시</option>		
+                             <option value='2'>2교시</option>		
+                             <option value='3'>3교시</option>		
+                             <option value='4'>4교시</option>		
+                             <option value='5'>5교시</option>		
+                             <option value='6'>6교시</option>		
+                             <option value='7'>7교시</option>		
+                             <option value='8'>8교시</option>
+                        </select>
+                        <button type='button' class="btn btn-secondary btn-sm del-btn2">삭제</button>
+                        <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime3'>추가</button>
+                    </div>
+
+                    <div class="form-group form-inline addSelect3">
+                        <select name="class_sub_time4" id="class_sub_time4" class="form-control subtime">
+                            <option value="">교시선택</option>
+                             <option value='1'>1교시</option>		
+                             <option value='2'>2교시</option>		
+                             <option value='3'>3교시</option>		
+                             <option value='4'>4교시</option>		
+                             <option value='5'>5교시</option>		
+                             <option value='6'>6교시</option>		
+                             <option value='7'>7교시</option>		
+                             <option value='8'>8교시</option>
+                        </select>
+                        <button type='button' class="btn btn-secondary btn-sm del-btn3">삭제</button>
+                    </div>
 	               
 	               <div class="form-group form-inline">
 	                   <label>강의실</label>
@@ -284,13 +401,20 @@
 	               <div class="form-group">
 	                   <label>강의 첨부파일</label>
 	                   <br>
-	                   <input type="file" name="file" accept=".pdf, .hwp">
+	                   <input type="file" name="file" value="${classSubjectFileDto.sub_file_no}" accept=".pdf, .hwp">
+	                   <br>
+	                   <div class="form-group onView" id="filList">
+		                   <span id="fileDown">&bull;${classSubjectFileDto.sub_file_name}</span>
+		                   <input type="hidden" id="subFileNo" value="${classSubjectFileDto.sub_file_no}">
+		                   <button type="button" class="btn btn-secondary btn-sm delete-btn">삭제</button>
+	                   </div>
+	                   
 	               </div>
 	               <input type="hidden" name="class_sub_no" value="${classSubjectDto.class_sub_no}">
 	               <div class="row-empty"></div>
 	               <div class="form-group form-inline">
-		               <button type="submit" class="btn btn-primary modify-btn">수정</button>
-		               <button type="button" class="btn btn-danger cancel-btn">취소</button>
+		               <button type="submit" class="btn btn-primary modify-btn">수 정</button>
+		               <button type="button" class="btn btn-danger cancel-btn">취 소</button>
 	               </div>
 	            </form>
 	        </div>

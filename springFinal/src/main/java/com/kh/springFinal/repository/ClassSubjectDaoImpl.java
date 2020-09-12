@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.SemesterDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +59,7 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		SemesterDto semester_no = this.getSemester(this_year, semester_type);
 		classSubjectDto.setSemester_no(semester_no.getSemester_no());		
 		
-		ClassSubjectDto subCheck = sqlSession.selectOne("classSubject.getLecture", classSubjectDto);
+		ClassSubjectDto subCheck = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
 		
 		return subCheck;
 	}
@@ -68,7 +69,7 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	@Override
 	public int subjectRegist(ClassSubjectDto classSubjectDto) {
 		
-		ClassSubjectDto classSubjectCheck = sqlSession.selectOne("classSubject.getLecture", classSubjectDto);
+		ClassSubjectDto classSubjectCheck = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
 		int class_sub_no;
 		if(classSubjectCheck == null) {
 			// 시퀀스 생성
@@ -88,18 +89,18 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	@Override
 	public int addFile(ClassSubjectFileDto classSubjectFileDto) {
 		
-		int sub_file_no = sqlSession.selectOne("ClassSubFile.seq");
+		int sub_file_no = sqlSession.selectOne("classSubFile.seq");
 		classSubjectFileDto.setSub_file_no(sub_file_no);
-		sqlSession.insert("ClassSubFile.add", classSubjectFileDto);
+		sqlSession.insert("classSubFile.add", classSubjectFileDto);
 		
 		return sub_file_no;
 	}
 	
 	
-	// 교수명 표기 강의 리스트
+	// 강의 리스트
 	@Override
 	public List<ClassSubjectDto> getList() {
-		return  sqlSession.selectList("classSubject.profeNameView");
+		return  sqlSession.selectList("classSubject.getNameList");
 	}
 	
 	
@@ -123,7 +124,7 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	// 강의 계획서 조회
 	@Override
 	public ClassSubjectFileDto getFile(int class_sub_no) {
-		return sqlSession.selectOne("ClassSubFile.get", class_sub_no);
+		return sqlSession.selectOne("classSubFile.get", class_sub_no);
 	}
 
 	
@@ -135,11 +136,23 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	
 	// 강의 수정
 	@Override
-	public void classSubedit(ClassSubjectDto classSubjectDto) {
+	public void classSubEdit(ClassSubjectDto classSubjectDto) {
 		sqlSession.update("classSubject.classSubEdit", classSubjectDto);
 	}
 
+	// 강의 계획서 삭제
+	@Override
+	public void deleteFile(ClassSubjectFileDto classSubjectFileDto) {
+		ClassSubjectFileDto checkFileDto =  sqlSession.selectOne("classSubFile.get", classSubjectFileDto.getClass_sub_no());
+		sqlSession.delete("classSubFile.delete", checkFileDto);
+	}
 
+	
+	// 교수 번호 및 학과 번호 조회 (임시)
+	@Override
+	public ProfessorDto getProfeName(ClassSubjectDto classSubjectDto) {
+		return sqlSession.selectOne("classSubject.getProfeName", classSubjectDto.getProfe_name());
+	}
 	
 	
 }

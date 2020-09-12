@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.SemesterDto;
 
 public interface ClassSubjectDao {
@@ -23,7 +24,7 @@ public interface ClassSubjectDao {
 	// 강의 등록
 	int subjectRegist(ClassSubjectDto classSubjectDto);
 
-	// 수업 계획서 업로드 
+	// 강의 계획서 업로드 
 	int addFile(ClassSubjectFileDto classSubjectFileDto);
 	
 	// 강의 리스트
@@ -39,12 +40,15 @@ public interface ClassSubjectDao {
 	void delete(int class_sub_no);
 
 	// 강의 수정
-	void classSubedit(ClassSubjectDto classSubjectDto);
+	void classSubEdit(ClassSubjectDto classSubjectDto);
+
+	// 파일 삭제(강의 계획서 삭제)
+	void deleteFile(ClassSubjectFileDto classSubjectFileDto);
+
+	// 교수 번호 및 학과 조회(임시)
+	ProfessorDto getProfeName(ClassSubjectDto classSubjectDto);
 
 
-
-	
-	
 
 
 }

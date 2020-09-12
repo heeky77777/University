@@ -5,10 +5,24 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <!-- moment js : datepicker를 사용하기 위한 필수 의존성 파일 -->
+    <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
+    
+    <!-- date-range-picker -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/lightpick.css">
+    <script src="${pageContext.request.contextPath}/resources/js/lightpick.js"></script>
+    
 <script>
 
+	$(window).on('beforeunload', function() {
+	    return false;  
+	})
+	
+	
+	
+
 	$(function() {
-		
 		/* 강의 시작, 종료일 표시 */
 		$.ajax({
             url:"${pageContext.request.contextPath}/classSubject/semesterDate?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val(),
@@ -16,8 +30,50 @@
             success:function(response){
                 var start_time = response.semester_start.substring(0, 10);
                 var finish_time = response.semester_finish.substring(0, 10);
-                $('#class_sub_start').attr('min', start_time).attr('max', finish_time);
-                $('#class_sub_end').attr('min', start_time).attr('max', finish_time);
+               
+                var options = {
+                        //대상 지정
+                        field: document.querySelector(".picker-start"),
+                        //두 번째 대상 지정
+                        secondField: document.querySelector(".picker-end"),
+                        //날짜 표시 형식 지정
+                        format: 'YYYY-MM-DD',
+                        
+                        //한 화면에 표시될 달의 개수
+                        numberOfMonths: 2,
+                        
+                        //시작일 지정
+                        //minDate:new Date(),//- 오늘부터 선택 가능
+                        minDate: start_time,
+                        
+                        maxDate: finish_time,
+                        
+                        //문서에 포함시켜 표시
+                        //inline:true,
+
+                        //시작요일(1:월 ~ 7:일)
+                        firstDay: 7,
+                        
+                        //자동으로 닫히지 않도록 설정
+                        //autoclose: false,
+                        
+                        //선택 방향 제어
+                        selectForward: true,
+                        selectBackword: false,
+                        
+                        //주말 제외
+                        disableWeekends:true,
+                       
+                        //선택 후 이벤트 설정(start와 end는 momentjs의 객체)
+                        onSelect:function(start, end){
+                            if(!start || !end) return; //둘 중 하나라도 없으면 계산 중지
+                            var days = end.diff(start, 'days') + 1;
+                            console.log(days);
+                        }
+                    };
+                    var picker = new Lightpick(options);
+                
+                
             }
         })
 		
@@ -28,12 +84,55 @@
 	            success:function(response){
 	                var start_time = response.semester_start.substring(0, 10);
 	                var finish_time = response.semester_finish.substring(0, 10);
-	                $('#class_sub_start').attr('min', start_time).attr('max', finish_time);
-	                $('#class_sub_end').attr('min', start_time).attr('max', finish_time);
+	                
+	                var options = {
+	                        //대상 지정
+	                        field: document.querySelector(".picker-start"),
+	                        //두 번째 대상 지정
+	                        secondField: document.querySelector(".picker-end"),
+	                        //날짜 표시 형식 지정
+	                        format: 'YYYY-MM-DD',
+	                        
+	                        //한 화면에 표시될 달의 개수
+	                        numberOfMonths: 2,
+	                        
+	                        //시작일 지정
+	                        //minDate:new Date(),//- 오늘부터 선택 가능
+	                        minDate: start_time,
+	                        
+	                        maxDate: finish_time,
+	                        
+	                        //문서에 포함시켜 표시
+	                        //inline:true,
+
+	                        //시작요일(1:월 ~ 7:일)
+	                        firstDay: 7,
+	                        
+	                        //자동으로 닫히지 않도록 설정
+	                        //autoclose: false,
+	                        
+	                        //선택 방향 제어
+	                        selectForward: true,
+	                        selectBackword: false,
+	                        
+	                        //주말 제외
+	                        disableWeekends:true,
+	                       
+	                        //선택 후 이벤트 설정(start와 end는 momentjs의 객체)
+	                        onSelect:function(start, end){
+	                            if(!start || !end) return; //둘 중 하나라도 없으면 계산 중지
+	                            var days = end.diff(start, 'days') + 1;
+	                            console.log(days);
+	                        }
+	                    };
+	                    var picker = new Lightpick(options);
 	            }
 	        })
+	        
+	        
 			
 		})
+		
 		
 		
 		/* 강의실 중복 조회 */
@@ -49,7 +148,6 @@
 	        	url:"${pageContext.request.contextPath}/classSubject/roomCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_room=" + class_sub_room,
 	            type:"get",
 	            success:function(response) {
-	            	console.log(response);
 	                if(!response){	// 결과 없음 : 사용 가능
 	                    $('#lecture_check').removeClass('fail').addClass('pass').text('강의 등록 가능');
 	                }
@@ -67,6 +165,7 @@
 	    
 	    /* 강의 등록 확인 */
 	    $('.regist-btn').click(function() {
+	    	$(window).off('beforeunload');
 	    	var registCheck = confirm('강의를 등록 하시겠습니까?');
 	    	if(!registCheck) {
 	    		return false;
@@ -84,11 +183,88 @@
 	    		})	    		
 	    	}
 	    })
-	
-	
+	    
+	    /* 취소 버튼 */
+	    $('.cancel-btn').click(function() {
+	    	var cancelCheck = confirm("등록을 취소하시겠습니까?");
+	    	if(!cancelCheck) {
+	    		return false;
+	    	}
+	    	else{
+	    		$(window).off('beforeunload');
+				location.href='${pageContext.request.contextPath}/class_subject/list';
+	    	}
+	    	
+	    })
+	    
+	    /* 강의 교시 추가 */
+	    var maxAdd = 1;
+            var classType = '<option value="1">1교시</option><option value="2">2교시</option><option value="3">3교시</option><option value="4">4교시</option><option value="5">5교시</option><option value="6">6교시</option><option value="7">7교시</option>';
+            $('#addTime').click(function(){
+                if(maxAdd > 3) return;
+                var divTag = $('<div>').addClass('form-group form-inline addSelect');
+                $('<select>').addClass('form-control subtime').appendTo(divTag).append(classType);
+                $('<button>').attr('type', 'button').addClass('btn btn-secondary btn-sm').text('삭제').addClass('del').click(function() {
+                																																			$(this).parent().remove();
+                																																			maxAdd--;
+               																																			 	console.log('del = ' + maxAdd);
+                																																			})
+                                    .appendTo(divTag);
+                $(divTag).insertBefore('#roomName');
+                maxAdd++;
+                console.log('add = ' + maxAdd);
+            })
+            
 	})
 	
+	
+	/* 강의 시간 */
+	$(function() {
+		
+		/* 첫번째 추가 */
+        $('#addTime1').click(function() {
+            $('.addSelect1').show();
+            $('#addTime1').hide();
+        })
+		
+		/* 첫번째 삭제 */
+		$('.del-btn1').click(function() {
+            $('.addSelect1').hide();
+            $('#addTime1').show();
+            $('.addSelect1 option:eq(0)').prop('selected', true);
+        })
+        
+        /* 두번째 추가 */
+        $('#addTime2').click(function() {
+            $('.addSelect2').show();
+            $('#addTime2').hide();
+            $('.del-btn1').hide();
+        })
+        
+        /* 두번째 삭제 */
+        $('.del-btn2').click(function() {
+            $('.addSelect2').hide();
+            $('#addTime2').show();
+            $('.del-btn1').show();
+            $('.addSelect2 option:eq(0)').prop('selected', true);
+        })
+        
+        /* 세번째 추가 */
+        $('#addTime3').click(function() {
+            $('.addSelect3').show();
+            $('#addTime3').hide();
+            $('.del-btn2').hide();
+        })
+        
+        /* 세번째 삭제 */
+        $('.del-btn3').click(function() {
+            $('.addSelect3').hide();
+            $('#addTime3').show();
+            $('.del-btn2').show();
+            $('.addSelect3 option:eq(0)').prop('selected', true);
+        })
 
+	})
 
 
 </script>
@@ -99,13 +275,17 @@
 		height: 20px;
 	}
     
-    .regist-btn {
+    .regist-btn,
+    .add-btn,
+    #check-btn {
         background-color: #063E7A;
         border-color: #063E7A;
             
     }
     
-    .regist-btn:hover {
+    .regist-btn:hover,
+    .add-btn:hover,
+    #check-btn:hover {
     	background-color: #1D5798;
     }
     
@@ -130,7 +310,31 @@
     label {
     	margin: 3px;
     }
+    
+    .regist-btn {
+    	width: 30%;
+        margin-left: auto;
+        margin-right: 25px;
+        padding: 0.7rem;
+    }
+    
+    .cancel-btn {
+    	width: 30%;
+        margin-right: auto;
+        margin-left: 25px;
+        padding: 0.7rem;
+    }
 	
+	.subtime {
+            margin-left: 453px;
+	}
+	
+	.addSelect1,
+    .addSelect2,
+    .addSelect3 {
+        display: none;
+    }
+        
 </style>
 
 
@@ -152,6 +356,10 @@
 	               <div class="form-group">
 	                   <label>강의 명</label>
 	                   <input type="text" name="class_sub_name" class='form-control' value="${param.class_sub_name}" required>
+	               </div>
+	               <div class="form-group">
+	                   <label>교수 이름</label>
+	                   <input type="text" name="profe_name" class='form-control' value="${param.profe_name}" required>
 	               </div>
 	
 	               <div class="form-group form-inline">
@@ -189,23 +397,72 @@
 					        <option value='목' ${param.class_sub_week == '목' ? 'selected':''}>목요일</option>
 					        <option value='금' ${param.class_sub_week == '금' ? 'selected':''}>금요일</option>
 	                    </select>
-	                   	<select name="class_sub_time" id="class_sub_time" class="form-control">
-					        <option value='1' ${param.class_sub_time == '1' ? 'selected':''}>1교시</option>		
-					        <option value='2' ${param.class_sub_time == '2' ? 'selected':''}>2교시</option>		
-					        <option value='3' ${param.class_sub_time == '3' ? 'selected':''}>3교시</option>		
-					        <option value='4' ${param.class_sub_time == '4' ? 'selected':''}>4교시</option>		
-					        <option value='5' ${param.class_sub_time == '5' ? 'selected':''}>5교시</option>		
-					        <option value='6' ${param.class_sub_time == '6' ? 'selected':''}>6교시</option>		
-					        <option value='7' ${param.class_sub_time == '7' ? 'selected':''}>6교시</option>		
-					        <option value='8' ${param.class_sub_time == '8' ? 'selected':''}>6교시</option>					
+	                   	<select name="class_sub_time1" id="class_sub_time1" class="form-control">
+	                   		<option value="">교시선택</option>
+					        <option value='1' ${param.class_sub_time1 == '1' ? 'selected':''}>1교시</option>		
+					        <option value='2' ${param.class_sub_time1 == '2' ? 'selected':''}>2교시</option>		
+					        <option value='3' ${param.class_sub_time1 == '3' ? 'selected':''}>3교시</option>		
+					        <option value='4' ${param.class_sub_time1 == '4' ? 'selected':''}>4교시</option>		
+					        <option value='5' ${param.class_sub_time1 == '5' ? 'selected':''}>5교시</option>		
+					        <option value='6' ${param.class_sub_time1 == '6' ? 'selected':''}>6교시</option>		
+					        <option value='7' ${param.class_sub_time1 == '7' ? 'selected':''}>6교시</option>		
+					        <option value='8' ${param.class_sub_time1 == '8' ? 'selected':''}>6교시</option>					
 	                   </select>
+	                   <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime1'>추가</button>
 	               </div>
 	               
-	               <div class="form-group form-inline">
+	               <div class="form-group form-inline addSelect1">
+                           <select name="class_sub_time2" id="class_sub_time2" class="form-control subtime">
+                               <option value="">교시선택</option>
+                                <option value='1'>1교시</option>		
+                                <option value='2'>2교시</option>		
+                                <option value='3'>3교시</option>		
+                                <option value='4'>4교시</option>		
+                                <option value='5'>5교시</option>		
+                                <option value='6'>6교시</option>		
+                                <option value='7'>7교시</option>		
+                                <option value='8'>8교시</option>
+                           </select>
+                           <button type='button' class="btn btn-secondary btn-sm del-btn1">삭제</button>
+                           <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime2'>추가</button>
+                       </div>
+
+                       <div class="form-group form-inline addSelect2">
+                        <select name="class_sub_time3" id="class_sub_time3" class="form-control subtime">
+                            <option value="">교시선택</option>
+                             <option value='1'>1교시</option>		
+                             <option value='2'>2교시</option>		
+                             <option value='3'>3교시</option>		
+                             <option value='4'>4교시</option>		
+                             <option value='5'>5교시</option>		
+                             <option value='6'>6교시</option>		
+                             <option value='7'>7교시</option>		
+                             <option value='8'>8교시</option>
+                        </select>
+                        <button type='button' class="btn btn-secondary btn-sm del-btn2">삭제</button>
+                        <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime3'>추가</button>
+                    </div>
+
+                    <div class="form-group form-inline addSelect3">
+                        <select name="class_sub_time4" id="class_sub_time4" class="form-control subtime">
+                            <option value="">교시선택</option>
+                             <option value='1'>1교시</option>		
+                             <option value='2'>2교시</option>		
+                             <option value='3'>3교시</option>		
+                             <option value='4'>4교시</option>		
+                             <option value='5'>5교시</option>		
+                             <option value='6'>6교시</option>		
+                             <option value='7'>7교시</option>		
+                             <option value='8'>8교시</option>
+                        </select>
+                        <button type='button' class="btn btn-secondary btn-sm del-btn3">삭제</button>
+                    </div>
+	               
+	               <div class="form-group form-inline" id="roomName">
 	                   <label>강의실</label>
 	                   <br>
 	                   <input type="text" name="class_sub_room"  class="form-control" value="${param.class_sub_room}" required>
-	                   <button type="button" id="check-btn" class="btn btn-secondary btn-sm"><!-- onclick="return regist();" -->강의실 확인</button>
+	                   <button type="button" id="check-btn" class="btn btn-primary btn-sm"><!-- onclick="return regist();" -->강의실 확인</button>
 	               </div>
 	               
 	               <span id='lecture_check'></span>
@@ -213,10 +470,10 @@
 	               <hr>
 	               
 	               <div class="form-group form-inline">
-	                   <label>수업일
-	                   <input type="date" name="class_sub_start" id="class_sub_start" class="form-control" value="${param.class_sub_start}" required>
+	                   <label>수업일&nbsp;
+	                   <input type="text" name="class_sub_start" id="class_sub_start" class="form-control picker-start" value="${param.class_sub_start}" required>
 					    ~
-					   <input type="date" name="class_sub_end" id="class_sub_end" class="form-control" value="${param.class_sub_end}" required>
+					   <input type="text" name="class_sub_end" id="class_sub_end" class="form-control picker-end" value="${param.class_sub_end}" required>
 	                   </label>
 	               </div>
 	               
@@ -232,7 +489,10 @@
 	               </div>
 	               
 	               <div class="row-empty"></div>
-	               <button type="submit" class="btn btn-primary btn-block regist-btn">강의 등록</button>
+	               <div class="form-group form-inline">
+		               <button type="submit" class="btn btn-primary btn-block regist-btn">등 록</button>
+		               <button type="button" class="btn btn-danger cancel-btn">취 소</button>
+	               </div>
 	
 	            </form>
 	        </div>
