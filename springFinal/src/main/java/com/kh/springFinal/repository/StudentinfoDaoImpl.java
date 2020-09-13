@@ -20,10 +20,10 @@ public class StudentinfoDaoImpl implements StudentinfoDao{
 
 	@Override
 	public boolean join(StudentinfoDto studentinfoDto) {
-	StudentinfoDto find= sqlSession.selectOne("student.get",studentinfoDto.getStu_apply_phone());
+	StudentinfoDto find= sqlSession.selectOne("studentinfo.get",studentinfoDto.getStu_apply_phone());
 			
 	if(find==null) {
-		sqlSession.insert("student.join", studentinfoDto);
+		sqlSession.insert("studentinfo.join", studentinfoDto);
 		return true;
 	}
 	else {
@@ -34,14 +34,14 @@ public class StudentinfoDaoImpl implements StudentinfoDao{
 
 	@Override
 	public StudentinfoDto get(String stu_apply_name) {
-		StudentinfoDto find=sqlSession.selectOne("student.get",stu_apply_name);
+		StudentinfoDto find=sqlSession.selectOne("studentinfo.get",stu_apply_name);
 		return find;
 	}
 
 	@Override
 	public List<StudentinfoDto> getList() {
 
-		List<StudentinfoDto> list = sqlSession.selectList("student.getList");
+		List<StudentinfoDto> list = sqlSession.selectList("studentinfo.getList");
 		return list;
 	}
 	

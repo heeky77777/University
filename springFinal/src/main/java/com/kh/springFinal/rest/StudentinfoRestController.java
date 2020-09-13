@@ -23,7 +23,7 @@ public class StudentinfoRestController {
 	@GetMapping("/test8")
 	public StudentinfoDto test8(@RequestParam String stu_apply_phone) {
 		StudentinfoDto studentDto = 
-						sqlSession.selectOne("student.get", stu_apply_phone);
+						sqlSession.selectOne("studentinfo.get", stu_apply_phone);
 		return studentDto;
 	}
 

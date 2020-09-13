@@ -37,7 +37,8 @@
 	<div class="form">
 		<div class="offset-md-4 col-md-4">
 			<br>
-
+			<br>
+			
 			<h1 class="form-group" style="text-align: center">정보입력</h1>
 			<br>
 
@@ -96,3 +97,4 @@
 		</div>
 	</div>
 </div>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="school">
+
+	<insert id="apply" parameterType="schoolOffDto">
+		INSERT INTO SCHOOL_OFF(
+		school_off_no,
+		student_no,
+		school_off_regist,
+		school_off_type,
+		school_off_period,
+		school_off_regist_date
+		)
+		VALUES(
+		school_off_no_seq.nextval,
+		#{student_no},
+		#{school_off_regist},
+		#{school_off_type},
+		#{school_off_period},
+		sysdate
+		)
+	</insert>
+
+
+
+   <select id="numb" parameterType="int" resultType="schoolOffDto">
+		SELECT * FROM SCHOOL_OFF WHERE student_no=#{student_no}
+	</select>
+
+
+
+</mapper>
+
+
+
+
