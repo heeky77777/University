@@ -1,35 +1,69 @@
 package com.kh.springFinal.repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.SemesterDto;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
+@Slf4j
 public class ClassSubjectDaoImpl implements ClassSubjectDao{
 
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	// 학기 조회
+	@Override
+	public SemesterDto getSemester(String this_year, String semester_type) {
+		
+		// 학기 번호 조회
+		Map<String, Object> map = new HashMap<>();
+		map.put("this_year", this_year);
+		map.put("semester_type", semester_type);
+		SemesterDto semesterDto = sqlSession.selectOne("classSubject.getSemester", map);
+		
+		return semesterDto;
+	}
+	
 	// 강의실 강의 시간 중복 조회
 	@Override
-	public ClassSubjectDto getConfirm() {
-		return sqlSession.selectOne("classSubject.getConfirm");
+	public ClassSubjectDto getConfirm(ClassSubjectDto classSubjectDto) {
+		
+		ClassSubjectDto subDto = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
+
+		return subDto;
 	}
 	
 	// 강의 등록
 	@Override
 	public int subjectRegist(ClassSubjectDto classSubjectDto) {
 		
-		int class_sub_no = sqlSession.selectOne("classSubject.subSeq");
-		classSubjectDto.setClass_sub_no(class_sub_no);
-		sqlSession.insert("classSubject.regist", classSubjectDto);
+		ClassSubjectDto classSubjectCheck = sqlSession.selectOne("classSubject.getLecture", classSubjectDto);
+		int class_sub_no;
+		if(classSubjectCheck == null) {
+			// 시퀀스 생성
+			class_sub_no = sqlSession.selectOne("classSubject.subSeq");
+			
+			classSubjectDto.setClass_sub_no(class_sub_no);
+			sqlSession.insert("classSubject.regist", classSubjectDto);
+			return class_sub_no;
+			
+		}
+		return 0;
 		
-		return class_sub_no;
 	}
 
+	
 	// 수업 계획서 파일 업로드
 	@Override
 	public int addFile(ClassSubjectFileDto classSubjectFileDto) {
@@ -40,7 +74,54 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		
 		return sub_file_no;
 	}
+
 	
+	// 강의 리스트(전체)
+//	@Override
+//	public List<ClassSubjectDto> getList() {
+//		return  sqlSession.selectList("classSubject.lectureList");
+//	}
+	
+	
+	// 교수명 표기 강의 리스트
+	@Override
+	public List<ClassSubjectDto> getList() {
+		return  sqlSession.selectList("classSubject.profeNameView");
+	}
+	
+	// 강의 검색
+	@Override
+	public List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch,	String majorSearch, String classSubSearch) {
+		
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("yearSearch", yearSearch);
+		map.put("semesterSearch", semesterSearch);
+		map.put("typeSearch", typeSearch);
+		map.put("majorSearch", majorSearch);
+		map.put("classSubSearch", classSubSearch);
+
+		List<ClassSubjectDto> searchList = sqlSession.selectList("classSubject.searchSub", map);
+		
+		return searchList;
+	}
+
+	
+	// 강의 계획서 조회
+	@Override
+	public ClassSubjectFileDto getFile(int class_sub_no) {
+		return sqlSession.selectOne("subFile.get", class_sub_no);
+	}
+
+	
+	// 강의 삭제
+	@Override
+	public void delete(int class_sub_no) {
+		sqlSession.delete("classSubject.classSubDel", class_sub_no);		
+	}
+
+
 	
 	
 }
