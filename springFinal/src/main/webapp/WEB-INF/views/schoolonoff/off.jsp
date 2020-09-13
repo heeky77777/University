@@ -21,7 +21,6 @@ function error_page(){
 		alert("이미 휴학 신청이 완료되었습니다.");
 	}
 	
-	
 }
  window.onload=error_page;
 
