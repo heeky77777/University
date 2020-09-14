@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SchoolOffDto {
 
-	private int school_off_no, student_no, school_off_regist ;
+	private int school_off_no, student_no ;
 	
-	private String school_off_type, school_off_regist_date, school_off_period;
+	private String  school_off_regist ,school_off_type, school_off_regist_date, school_off_period;
 	
 	
 	

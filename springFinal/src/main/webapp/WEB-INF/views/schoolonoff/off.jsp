@@ -24,7 +24,17 @@ function error_page(){
 }
  window.onload=error_page;
 
- 
+ function apply_check(){
+     
+     var result = confirm("정말 신청하시겠습니까??");
+      if (!result){ 
+//           document.form.submit();
+         return false;
+      }
+      else{
+         document.form.submit();
+         }
+      }
 //  function success(){
 // 		var url = location.search.substr(location.search.indexOf("?") + 1);
 // 		console.log(url);
@@ -74,14 +84,14 @@ function error_page(){
 				<div class="form-group">
 					<label>휴학 신청기간:</label> <select class="form-control"
 						name="school_off_regist">
-						<option value="1">1년</option>
-						<option value="2">2년</option>
+						<option>1년</option>
+						<option>2년</option>
 						
 					</select>
 					<label>휴학 종류:</label> <select class="form-control"
 						name="school_off_type">
-						<option value="1">일반 휴학</option>
-						<option value="2">군 휴학</option>
+						<option>일반 휴학</option>
+						<option>군 휴학</option>
 						
 					</select>
 				</div>
@@ -91,7 +101,7 @@ function error_page(){
 						required>
 				</div>
 	 <div class="form-group">
-		    	<input class="form-control btn btn-primary btn-block" type="submit" value="등 록" style="background-color :#063e7a">
+		    	<input class="form-control btn btn-primary btn-block" type="submit" onclick= "apply_check()" value="등 록" style="background-color :#063e7a">
 		    </div>
 			
 			</form>
@@ -102,7 +112,8 @@ function error_page(){
 			
 			
 			
+
+</div>
+</div>
+</div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-</div>
-</div>
-</div>

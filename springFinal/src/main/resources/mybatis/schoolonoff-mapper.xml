@@ -31,6 +31,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM SCHOOL_OFF WHERE student_no=#{student_no}
 	</select>
 
+	
+	
+		<select id="getList" resultType="schoolOffDto">
+		SELECT * FROM SCHOOL_OFF
+		ORDER BY
+		school_off_no DESC
+	</select>
+
+
+
+<!-- <insert id="return" parameterType="schoolReturnDto">
+		INSERT INTO SCHOOL_Return(
+		school_return_no,
+		student_no,
+		school_return_date,
+		school_return_type
+		)
+		VALUES(
+		school_return_seq.nextval,
+		#{student_no},
+		#{school_return_date},
+		'복학'
+		)
+	</insert> -->
+
 
 
 </mapper>
