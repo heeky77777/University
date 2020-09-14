@@ -19,7 +19,9 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </head>
-	
+	<script>
+		
+	</script>
 	<body>
 		<table class="table table-striped table-bordered table-hover">
 			<h1>시간표</h1>
@@ -29,8 +31,7 @@
                 <th>화</th>
                 <th>수</th>
                 <th>목</th>
-                <th>금</th>
-                
+                <th>금</th> 
             </tr>
         </thead>
         <tbody>
@@ -45,8 +46,5 @@
 
 		</table>
 	</body>
-
-
-
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

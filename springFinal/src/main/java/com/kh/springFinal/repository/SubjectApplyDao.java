@@ -11,4 +11,6 @@ public interface SubjectApplyDao {
 	List<ClassSubjectDto> get_list(ClassSubjectDto classSubjectDto);
 	List<ClassSubjectDto> get_profe_name();
 	void class_apply(SubjectApplyDto subjectApplyDto);
+	SubjectApplyDto get(SubjectApplyDto subjectApplyDto);
+	
 }

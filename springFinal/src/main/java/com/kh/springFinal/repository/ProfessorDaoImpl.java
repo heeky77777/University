@@ -75,6 +75,13 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		return profe_file_no;
 	}
 
+	//로그인
+	@Override
+	public ProfessorDto profe_login(ProfessorDto professorDto) {
+		ProfessorDto professor = sqlSession.selectOne("professor.profe_login", professorDto);
+		return professor;
+	}
+
 	
 	//목록 조회
 	/*

@@ -29,6 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    	</insert>
    	
+   	<select id="apply_seq" resultType="int">
+		SELECT subject_apply_no_SEQ.NEXTVAL FROM DUAL
+	</select>
+   	
    	<select id="apply_list" parameterType="classSubjectDto" resultType="classSubjectDto">
    		select * from class_subject where to_char(regist_date,'yyyy') = #{regist_date} and major_no = #{major_no} and semester_no = #{semester_no}
    	</select>
@@ -43,4 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	<select id="get_profeName" resultType="classSubjectDto">
    		select * from class_subject left outer join professor on class_subject.profe_no = professor.profe_no
    	</select>
+   	
+   	<select id="get_check" parameterType="subjectapplyDto" resultType="subjectapplyDto">
+   		select * from subject_apply where class_sub_no = #{class_sub_no}
+   	</select>
+   	
 </mapper>
