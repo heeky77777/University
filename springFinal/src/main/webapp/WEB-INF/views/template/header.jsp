@@ -73,7 +73,7 @@
                     </ul>
                 </c:if>
                 
-                <c:if test="${profeinfo != null}">    
+                <c:if test="${profeinfo.profe_auth eq '교수'}">    
 	                <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle2();">교수</a>
 	                    <ul class="nav flex-column sidebar_toggle2 nav-item-list">
 	                        <li class="nav-item" style="margin-left: 30px;">
@@ -128,8 +128,12 @@
 	                <c:if test="${admininfo.admin_auth eq '관리자'}">	                
 	                	<span class="col-8 title_font" style="text-align: right;">${admininfo.admin_auth}님 환영해요</span>
 	                </c:if>
+	                <c:if test="${profeinfo.profe_auth eq '교수'}">	                
+	                	<span class="col-8 title_font" style="text-align: right;">${profeinfo.profe_name}교수님 환영해요</span>
+	                </c:if>
 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교
-	                <c:if test="${userinfo != null || admininfo != null}">	                
+<%-- 	                <c:if test="${userinfo != null || admininfo != null}"> --%>
+	                <c:if test="${userinfo != null || prfeinfo != null || admininfo != null}">	                
 	                	<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 	                </c:if>
 	                </span>

@@ -51,6 +51,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--  <delete id="del" parameterType="int">
 		DELETE professor WHERE profe_no=#{profe_no};
 	</delete>  -->
+	
+	<select id="profe_login" parameterType="professorDto" resultType="professorDto">
+   		select * from professor where profe_id = #{profe_id} and profe_pw = #{profe_pw}
+   	</select>
 
 </mapper>
 
