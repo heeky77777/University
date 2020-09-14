@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -23,6 +24,8 @@
 	
 
 	$(function() {
+		
+		
 		/* 강의 시작, 종료일 표시 */
 		$.ajax({
             url:"${pageContext.request.contextPath}/classSubject/semesterDate?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val(),
@@ -141,11 +144,12 @@
     		
     		if(!class_sub_room){
     			$('#lecture_check').removeClass('pass').addClass('fail').text('학기, 요일, 교시, 강의실을 다시 확인해 주세요');
+    			$('#check-btn').off('click');
     			return;
     		}
         
 	        $.ajax({
-	        	url:"${pageContext.request.contextPath}/classSubject/roomCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_room=" + class_sub_room,
+	        	url:"${pageContext.request.contextPath}/classSubject/roomCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time1=" + $('#class_sub_time1').val() + "&class_sub_time2=" + $('#class_sub_time2').val() + "&class_sub_time3=" + $('#class_sub_time3').val() + "&class_sub_time4=" + $('#class_sub_time4').val() + "&class_sub_room=" + class_sub_room,
 	            type:"get",
 	            success:function(response) {
 	                if(!response){	// 결과 없음 : 사용 가능
@@ -172,13 +176,13 @@
 	    	}
 	    	else {
 	    		$.ajax({
-	    			url:"${pageContext.request.contextPath}/classSubject/subCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time=" + $('#class_sub_time').val() + "&class_sub_name=" + $('input[name=class_sub_name]').val() + "&class_sub_room=" + $('input[name=class_sub_room]').val(),
+	    			url:"${pageContext.request.contextPath}/classSubject/roomCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time1=" + $('#class_sub_time1').val() + "&class_sub_time2=" + $('#class_sub_time2').val() + "&class_sub_time3=" + $('#class_sub_time3').val() + "&class_sub_time4=" + $('#class_sub_time4').val() + "&class_sub_name=" + $('input[name=class_sub_name]').val() + "&class_sub_room=" + $('input[name=class_sub_room]').val(),
 	    			type:"get",
 	    			success:function(response){
 	    				if(response) {
-	    					alert("이미 등록된 강의 입니다");
+	    					alert("입력된 정보(강의실)가 이미 존재 합니다.");
 	    				}
-	    				
+	    					    				
 	    			}
 	    		})	    		
 	    	}
@@ -198,7 +202,7 @@
 	    })
 	    
 	    /* 강의 교시 추가 */
-	    var maxAdd = 1;
+	    /* var maxAdd = 1;
             var classType = '<option value="1">1교시</option><option value="2">2교시</option><option value="3">3교시</option><option value="4">4교시</option><option value="5">5교시</option><option value="6">6교시</option><option value="7">7교시</option>';
             $('#addTime').click(function(){
                 if(maxAdd > 3) return;
@@ -213,7 +217,7 @@
                 $(divTag).insertBefore('#roomName');
                 maxAdd++;
                 console.log('add = ' + maxAdd);
-            })
+            }) */
             
 	})
 	
@@ -326,7 +330,7 @@
     }
 	
 	.subtime {
-            margin-left: 453px;
+     	margin-left: 458px;
 	}
 	
 	.addSelect1,
@@ -355,11 +359,13 @@
 	           <form action="regist" class="form" method="post" enctype="multipart/form-data">
 	               <div class="form-group">
 	                   <label>강의 명</label>
-	                   <input type="text" name="class_sub_name" class='form-control' value="${param.class_sub_name}" required>
+	                   <input type="text" name="class_sub_name" class='form-control' value="${param.class_sub_name}" required autocomplete="off">
 	               </div>
-	               <div class="form-group">
+	               <div class="form-group form-inline">
 	                   <label>교수 이름</label>
-	                   <input type="text" name="profe_name" class='form-control' value="${param.profe_name}" required>
+	                   <input type="text" name="profe_name" class='form-control' value="${param.profe_name}" required autocomplete="off">
+	                   <label>학과</label>
+	               	   <input type="text" name="major_type" value="${professor.major_type}" class="form-control"> 
 	               </div>
 	
 	               <div class="form-group form-inline">
@@ -398,30 +404,30 @@
 					        <option value='금' ${param.class_sub_week == '금' ? 'selected':''}>금요일</option>
 	                    </select>
 	                   	<select name="class_sub_time1" id="class_sub_time1" class="form-control">
-	                   		<option value="">교시선택</option>
-					        <option value='1' ${param.class_sub_time1 == '1' ? 'selected':''}>1교시</option>		
-					        <option value='2' ${param.class_sub_time1 == '2' ? 'selected':''}>2교시</option>		
-					        <option value='3' ${param.class_sub_time1 == '3' ? 'selected':''}>3교시</option>		
-					        <option value='4' ${param.class_sub_time1 == '4' ? 'selected':''}>4교시</option>		
-					        <option value='5' ${param.class_sub_time1 == '5' ? 'selected':''}>5교시</option>		
-					        <option value='6' ${param.class_sub_time1 == '6' ? 'selected':''}>6교시</option>		
-					        <option value='7' ${param.class_sub_time1 == '7' ? 'selected':''}>6교시</option>		
-					        <option value='8' ${param.class_sub_time1 == '8' ? 'selected':''}>6교시</option>					
+	                   		<option value="">시간선택</option>
+					        <option value="1" ${param.class_sub_time1 == '1' ? 'selected':''}>1교시</option>
+							<option value="2" ${param.class_sub_time1 == '2' ? 'selected':''}>2교시</option>
+							<option value="3" ${param.class_sub_time1 == '3' ? 'selected':''}>3교시</option>
+							<option value="4" ${param.class_sub_time1 == '4' ? 'selected':''}>4교시</option>
+							<option value="5" ${param.class_sub_time1 == '5' ? 'selected':''}>5교시</option>
+							<option value="6" ${param.class_sub_time1 == '6' ? 'selected':''}>6교시</option>
+							<option value="7" ${param.class_sub_time1 == '7' ? 'selected':''}>7교시</option>
+							<option value="8" ${param.class_sub_time1 == '8' ? 'selected':''}>8교시</option>
 	                   </select>
 	                   <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime1'>추가</button>
 	               </div>
 	               
 	               <div class="form-group form-inline addSelect1">
                            <select name="class_sub_time2" id="class_sub_time2" class="form-control subtime">
-                               <option value="">교시선택</option>
-                                <option value='1'>1교시</option>		
-                                <option value='2'>2교시</option>		
-                                <option value='3'>3교시</option>		
-                                <option value='4'>4교시</option>		
-                                <option value='5'>5교시</option>		
-                                <option value='6'>6교시</option>		
-                                <option value='7'>7교시</option>		
-                                <option value='8'>8교시</option>
+                               <option value="null">시간선택</option>
+                                <option value="1" ${param.class_sub_time2 == '1' ? 'selected':''}>1교시</option>		
+								<option value="2" ${param.class_sub_time2 == '2' ? 'selected':''}>2교시</option>		
+								<option value="3" ${param.class_sub_time2 == '3' ? 'selected':''}>3교시</option>		
+								<option value="4" ${param.class_sub_time2 == '4' ? 'selected':''}>4교시</option>		
+								<option value="5" ${param.class_sub_time2 == '5' ? 'selected':''}>5교시</option>		
+								<option value="6" ${param.class_sub_time2 == '6' ? 'selected':''}>6교시</option>		
+								<option value="7" ${param.class_sub_time2 == '7' ? 'selected':''}>7교시</option>		
+								<option value="8" ${param.class_sub_time2 == '8' ? 'selected':''}>8교시</option>		
                            </select>
                            <button type='button' class="btn btn-secondary btn-sm del-btn1">삭제</button>
                            <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime2'>추가</button>
@@ -429,15 +435,15 @@
 
                        <div class="form-group form-inline addSelect2">
                         <select name="class_sub_time3" id="class_sub_time3" class="form-control subtime">
-                            <option value="">교시선택</option>
-                             <option value='1'>1교시</option>		
-                             <option value='2'>2교시</option>		
-                             <option value='3'>3교시</option>		
-                             <option value='4'>4교시</option>		
-                             <option value='5'>5교시</option>		
-                             <option value='6'>6교시</option>		
-                             <option value='7'>7교시</option>		
-                             <option value='8'>8교시</option>
+                            <option value="null">시간선택</option>
+                           	<option value="1" ${param.class_sub_time3 == '1' ? 'selected':''}>1교시</option>
+							<option value="2" ${param.class_sub_time3 == '2' ? 'selected':''}>2교시</option>
+							<option value="3" ${param.class_sub_time3 == '3' ? 'selected':''}>3교시</option>
+							<option value="4" ${param.class_sub_time3 == '4' ? 'selected':''}>4교시</option>
+							<option value="5" ${param.class_sub_time3 == '5' ? 'selected':''}>5교시</option>
+							<option value="6" ${param.class_sub_time3 == '6' ? 'selected':''}>6교시</option>
+							<option value="7" ${param.class_sub_time3 == '7' ? 'selected':''}>7교시</option>
+							<option value="8" ${param.class_sub_time3 == '8' ? 'selected':''}>8교시</option>
                         </select>
                         <button type='button' class="btn btn-secondary btn-sm del-btn2">삭제</button>
                         <button type="button" class="btn btn-primary btn-sm add-btn" id='addTime3'>추가</button>
@@ -445,15 +451,15 @@
 
                     <div class="form-group form-inline addSelect3">
                         <select name="class_sub_time4" id="class_sub_time4" class="form-control subtime">
-                            <option value="">교시선택</option>
-                             <option value='1'>1교시</option>		
-                             <option value='2'>2교시</option>		
-                             <option value='3'>3교시</option>		
-                             <option value='4'>4교시</option>		
-                             <option value='5'>5교시</option>		
-                             <option value='6'>6교시</option>		
-                             <option value='7'>7교시</option>		
-                             <option value='8'>8교시</option>
+                            <option value="null">시간선택</option>
+                            <option value="1" ${param.class_sub_time4 == '1' ? 'selected':''}>1교시</option>
+							<option value="2" ${param.class_sub_time4 == '2' ? 'selected':''}>2교시</option>
+							<option value="3" ${param.class_sub_time4 == '3' ? 'selected':''}>3교시</option>
+							<option value="4" ${param.class_sub_time4 == '4' ? 'selected':''}>4교시</option>
+							<option value="5" ${param.class_sub_time4 == '5' ? 'selected':''}>5교시</option>
+							<option value="6" ${param.class_sub_time4 == '6' ? 'selected':''}>6교시</option>
+							<option value="7" ${param.class_sub_time4 == '7' ? 'selected':''}>7교시</option>
+							<option value="8" ${param.class_sub_time4 == '8' ? 'selected':''}>8교시</option>
                         </select>
                         <button type='button' class="btn btn-secondary btn-sm del-btn3">삭제</button>
                     </div>
@@ -462,7 +468,7 @@
 	                   <label>강의실</label>
 	                   <br>
 	                   <input type="text" name="class_sub_room"  class="form-control" value="${param.class_sub_room}" required>
-	                   <button type="button" id="check-btn" class="btn btn-primary btn-sm"><!-- onclick="return regist();" -->강의실 확인</button>
+	                   <button type="button" id="check-btn" class="btn btn-primary btn-sm">강의실 확인</button>
 	               </div>
 	               
 	               <span id='lecture_check'></span>
@@ -471,15 +477,15 @@
 	               
 	               <div class="form-group form-inline">
 	                   <label>수업일&nbsp;
-	                   <input type="text" name="class_sub_start" id="class_sub_start" class="form-control picker-start" value="${param.class_sub_start}" required>
+	                   <input type="text" name="class_sub_start" id="class_sub_start" class="form-control picker-start" value="${param.class_sub_start}" required autocomplete="off">
 					    ~
-					   <input type="text" name="class_sub_end" id="class_sub_end" class="form-control picker-end" value="${param.class_sub_end}" required>
+					   <input type="text" name="class_sub_end" id="class_sub_end" class="form-control picker-end" value="${param.class_sub_end}" required autocomplete="off">
 	                   </label>
 	               </div>
 	               
 	               <div class="form-group">
 	                   <label>강의 설명</label>
-	                   <textarea rows="5" cols="50" name="class_sub_content" class="form-control" required>${param.class_sub_content}</textarea>
+	                   <textarea rows="5" cols="50" name="class_sub_content" class="form-control" required autocomplete="off">${param.class_sub_content}</textarea>
 	               </div>
 	               
 	               <div class="form-group">

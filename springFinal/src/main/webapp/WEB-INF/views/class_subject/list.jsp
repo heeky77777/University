@@ -101,12 +101,13 @@
 	                <div class="row">
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>년도&nbsp;</label>
-	                            <input type="text" name="yearSearch" class="form-control" value="${param.yearSearch}" required>
+	                            <input type="text" name="yearSearch" class="form-control" value="${param.yearSearch}">
 	                    </div>
 	                    
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
 	                        <label>학기&nbsp;</label>
-	                        <select name="semesterSearch" class="form-control" required>
+	                        <select name="semesterSearch" class="form-control">
+	                        	<option value="all" ${param.majorSearch == 'all' ? 'selected':''}>전체</option>
 	                            <option ${param.semesterSearch == '1학기' ? 'selected':''}>1학기</option>
 	                            <option ${param.semesterSearch == '2학기' ? 'selected':''}>2학기</option>
 	                        </select>
@@ -116,9 +117,8 @@
 					<div class="row">
 	                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 	                        <label>학과&nbsp;</label>
-                            <select name="majorSearch" id="" class="form-control" required>
-                                <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
-                                <option value="all" ${param.majorSearch == '전체' ? 'selected':''}>전체</option>
+                            <select name="majorSearch" id="" class="form-control">
+                                <option value="all" ${param.majorSearch == 'all' ? 'selected':''}>전체</option>
                                 <c:forEach var="majorDto" items="${majorList}">
 	                                <option ${param.majorSearch == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
                                 </c:forEach>
@@ -127,16 +127,15 @@
 	                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
 	                        <div class="form-inline mr-5">
 		                        <label>구분&nbsp;</label>
-		                        <select name="typeSearch" class="form-control" required>
-		                            <option value="">전공/교양 선택</option>
-		                            <option value="all">전체</option>
+		                        <select name="typeSearch" class="form-control">
+		                            <option value="all" ${param.majorSearch == 'all' ? 'selected':''}>전체</option>
 		                            <option ${param.typeSearch == '전공' ? 'selected':''}>전공</option>
 		                            <option ${param.typeSearch == '교양' ? 'selected':''}>교양</option>
 		                            <option ${param.typeSearch == '교필' ? 'selected':''}>교필</option>
 		                        </select>
 	                        </div>
 	                        <div class="form-inline mr-auto">
-                                <input type="text" name="classSubSearch" placeholder="강의 명" class="form-control" value="${param.classSubSearch}" required>
+                                <input type="text" name="classSubSearch" placeholder="강의 명" class="form-control" value="${param.classSubSearch}">
                                 <button type="submit" class="btn btn-primary btn-sm search-btn sub-btn">검색</button>
                             </div>
 	                        <div class="form-inline">
@@ -173,7 +172,21 @@
 		                            <td>${classSubjectDto.profe_name}</td>
 		                            <td>${classSubjectDto.class_sub_point}</td>
 		                            <td>${classSubjectDto.class_sub_type}</td>
-		                            <td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time} (${classSubjectDto.class_sub_room})</td>
+		                            <td>
+		                            	<c:set var="class_sub_time2" value="${classSubjectDto.class_sub_time2}"/>
+		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
+		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
+		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
+		                            	<c:if test="${class_sub_time2 != 'null'}">
+		                            		${classSubjectDto.class_sub_time2} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time3 != 'null'}">
+		                            		${classSubjectDto.class_sub_time3} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time4 != 'null'}">
+		                            		${classSubjectDto.class_sub_time4} 
+		                            	</c:if>
+		                            	(${classSubjectDto.class_sub_room})</td>
 		                            <td>${classSubjectDto.class_sub_person}</td>
 		                            <td>
 		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}">

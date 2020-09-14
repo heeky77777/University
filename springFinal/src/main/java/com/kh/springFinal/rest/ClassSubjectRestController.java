@@ -62,6 +62,12 @@ public class ClassSubjectRestController {
 		
 	}
 	
+	// 강의 시간 검사
+	@GetMapping("classTimeCheck")
+	public ClassSubjectDto classTimeCheck(@RequestParam int class_sub_no) {
+		return classSubjectDao.getSub(class_sub_no);
+	}
+	
 	
 	
 }

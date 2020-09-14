@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,11 +99,11 @@ public class ClassSubjectController {
 	// 강의 검색
 	@PostMapping("list")
 	public String searchList(
-			@RequestParam String yearSearch,
-			@RequestParam String semesterSearch,
-			@RequestParam String typeSearch,
-			@RequestParam String majorSearch,
-			@RequestParam String classSubSearch,
+			@RequestParam (required = false, defaultValue = "null") String yearSearch,
+			@RequestParam (required = false, defaultValue = "all") String semesterSearch,
+			@RequestParam (required = false, defaultValue = "all") String typeSearch,
+		    @RequestParam (required = false, defaultValue = "all") String majorSearch,
+			@RequestParam (required = false, defaultValue = "null") String classSubSearch,
 			Model model) {
 		
 		
