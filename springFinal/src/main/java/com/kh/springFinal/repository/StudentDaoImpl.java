@@ -29,6 +29,8 @@ public class StudentDaoImpl implements StudentDao{
 		StudentDto student_id = sqlSession.selectOne("student.student_id", studentDto);
 		return student_id;
 	}
+	
+	
 
 	
 }
