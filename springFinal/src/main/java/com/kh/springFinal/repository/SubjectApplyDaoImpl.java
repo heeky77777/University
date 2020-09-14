@@ -47,4 +47,16 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 		return subjectApply;
 	}
 
+	@Override
+	public List<SubjectApplyDto> sub_list(SubjectApplyDto subjectApplyDto) {
+		List<SubjectApplyDto> sub_list = sqlSession.selectList("subjectApply.sub_list", subjectApplyDto);
+		return sub_list;
+	}
+
+	@Override
+	public ClassSubjectDto class_get(int class_sub_no) {
+		ClassSubjectDto classSubject = sqlSession.selectOne("subjectApply.class_list",class_sub_no);
+		return classSubject;
+	}
+
 }
