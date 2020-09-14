@@ -1,14 +1,14 @@
 package com.kh.springFinal.repository;
 
 
-
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.ProfessorFileDto;
+import com.kh.springFinal.entity.SemesterDto;
 
 @Repository
 public class ProfessorDaoImpl implements ProfessorDao {
@@ -23,15 +23,18 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		return sqlSession.selectOne("professor.seq");
 	}
 	
+	//정보 유무 확인
+	public int isExist() {
+		return sqlSession.selectOne("professor.isExist");
+	}
 	
 	//정보 등록
 	@Override
-	public int regist(ProfessorDto professorDto) {
-		int profe_no=this.getSeq();
+	public void regist(ProfessorDto professorDto) {
+		int profe_no=this.getSeq();//시퀀스
 		professorDto.setProfe_no(profe_no);
 		sqlSession.insert("professor.regist",professorDto);
-		
-		return profe_no;
+			
 	}
 	
 	
@@ -42,25 +45,28 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		return professor;
 	}
 
+	
 	//아이디 단일 조회(아이디검사)
 	@Override
 	public ProfessorDto getId(String profe_id) {
 		return sqlSession.selectOne("professor.getId", profe_id);
 	}
 	
+	//정보 수정
+//	public ProfessorDto update(ProfessorDto professorDto) {
+//	
+//		int profe_no=professorDto.getProfe_no();
+//		ProfessorDto professor = sqlSession.update("professor.edit",profe_no);
+//		return professor;
+//	}
+	
 	//학과명 가져오기
 	@Override
-	public String getMajor(int profe_no) {
-		String major =sqlSession.selectOne("professor.getMajor",profe_no);
-		return major;
+	public MajorDto getMajor(int profe_no) {
+		MajorDto majorDto =sqlSession.selectOne("professor.getMajor",profe_no);
+		return majorDto;
 	}
 	
-	//정보 삭제
-	@Override
-	public void delete(ProfessorDto professorDto) {
-		sqlSession.delete("professor.delete",professorDto);
-		
-	}
 
 	//이미지 시퀀스 
 	@Override
@@ -76,6 +82,14 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		sqlSession.insert("profeFile.img_add",professorFileDto);
 		return profe_file_no;
 	}
+
+	//학기명 받아오기
+	@Override
+	public SemesterDto getSem(int profe_no) {
+		SemesterDto semesterDto = sqlSession.selectOne("professor.getSem",profe_no);
+		return semesterDto;
+	}
+
 
 
 

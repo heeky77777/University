@@ -20,7 +20,7 @@ public class ProfessorServiceImpl implements ProfessorService{
 	@Override
 	public void add(ProfessorFileDto professorFileDto, MultipartFile file, int profe_no) throws IllegalStateException, IOException {
 		
-		
+		//이미지 업로드
 		professorFileDto.setProfe_no(profe_no);
 		professorFileDto.setProfe_file_name(file.getOriginalFilename());
 		professorFileDto.setProfe_file_type(file.getContentType());
@@ -29,5 +29,7 @@ public class ProfessorServiceImpl implements ProfessorService{
 		int no = professorDao.img_regist(professorFileDto);
 		File target=new File("D:/upload",String.valueOf(no));
 		file.transferTo(target);
+		
+
 	}
 }

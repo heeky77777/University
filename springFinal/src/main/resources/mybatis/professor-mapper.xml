@@ -46,12 +46,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
+	<!-- 교수 학과 단일 조회 -->
+	<select id="getMajor" parameterType="int" resultType="majorDto">
+	SELECT m.* FROM PROFESSOR p INNER JOIN MAJOR m ON p.MAJOR_NO = m.MAJOR_NO WHERE p.PROFE_NO = #{profe_no}
+	</select>
 	
-	<!-- 교수 삭제 -->
-	<!--  <delete id="del" parameterType="int">
-		DELETE professor WHERE profe_no=#{profe_no};
-	</delete>  -->
+	<!-- 교수 학기명 단일 조회(체크박스) -->
+	<select id="getSem" parameterType="int" resultType="semesterDto">
+	SELECT s.* FROM PROFESSOR p INNER JOIN SEMESTER s ON p.SEMESTER_NO = s.SEMESTER_NO  WHERE p.profe_no=${profe_no}
+	</select>
+	
+	<!-- 교수 정보 수정 -->
+	<update id="edit" parameterType="professorDto">
+		UPDATE PROFESSOR SET SEMESTER_NO=#{SEMESTER_NO}, MAJOR_NO=#{MAJOR_NO}, PROFE_NAME=#{PROFE_NAME}, 
+		PROFE_PW=#{PROFE_PW}, PROFE_BIRTH=#{PROFE_BIRTH}, PROFE_PHONE=#{PROFE_PHONE},PROFE_EMAIL=#{PROFE_EMAIL}, 
+		PROFE_POST=#{PROFE_POST}, PROFE_ADDR=#{PROFE_ADDR}, PROFE_EXTRA_ADDR=#{PROFE_EXTRA_ADDR}  
+		WHERE PROFE_NO=#{PROFE_NO};
+	</update>
 
+	<!--중복 여부 확인 -->
+	<select id="isExist" resultType="int">
+		SELECT PROFE_NO , COUNT(*) FROM PROFESSOR p GROUP BY p.PROFE_NO HAVING count(*)>0;
+	</select>
 </mapper>
 
 
