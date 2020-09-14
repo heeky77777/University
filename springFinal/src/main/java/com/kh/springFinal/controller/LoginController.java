@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.springFinal.entity.AdminDto;
+import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.repository.AdminDao;
+import com.kh.springFinal.repository.ProfessorDao;
 import com.kh.springFinal.repository.StudentDao;
 
 
@@ -27,8 +29,14 @@ public class LoginController {
 	@Autowired
 	private AdminDao adminDao;
 	
+	@Autowired
+	private ProfessorDao professorDao;
+	
 	@GetMapping("/")
-	public String login() {
+	public String login(HttpSession session) {
+		session.removeAttribute("userinfo");
+		session.removeAttribute("admininfo");
+		session.removeAttribute("profeinfo");
 		return "login";
 	}
 	
@@ -40,6 +48,8 @@ public class LoginController {
 		if(student != null) {
 			session.setAttribute("userinfo", student);
 			session.removeAttribute("admininfo");
+			session.removeAttribute("profeinfo");
+			
 			return "redirect:member/main";
 		}
 		else {
@@ -53,7 +63,10 @@ public class LoginController {
 		AdminDto admin = adminDao.admin_login(adminDto);
 		if(admin != null) {
 			session.setAttribute("admininfo", admin);
-			session.removeAttribute("userinfo");
+//			session.setAttribute("userinfo", admin);
+			session.removeAttribute("studentinfo");
+			session.removeAttribute("profeinfo");
+			
 			return "redirect:member/main";
 		}
 		else {
@@ -61,4 +74,19 @@ public class LoginController {
 		}
 	}
 	
+	@PostMapping("/profe_login")
+	public String profe_login(@ModelAttribute ProfessorDto professorDto, HttpSession session) {
+		ProfessorDto professor = professorDao.profe_login(professorDto);
+		if(professor != null) {
+			session.setAttribute("profeinfo", professor);
+//			session.setAttribute("userinfo", professor);
+			session.removeAttribute("studentinfo");
+			session.removeAttribute("admininfo");
+			
+			return "redirect:member/main";
+		}
+		else {
+			return "redirect:/?error";
+		}
+	}
 }

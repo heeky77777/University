@@ -158,6 +158,7 @@
         	var url = location.search.substr(location.search.indexOf("?") + 1);
         	
         	if(url != "") {
+        		history.replaceState({}, null, location.pathname);
         		alert("로그인정보를 확인하여 주세요");
         	}
      
@@ -248,7 +249,7 @@
                     </div> 
               <!---------------------------------------------- 교수 ---------------------------------------------------------->
                     <div class="area" id="cb2-area">
-              		<form action="professor_login" method="post">
+              		<form action="profe_login" method="post">
 	                    <div class="row-empty login-input">
 	                        <input name="profe_id" type="text" class="id" placeholder="교수아이디" required>
 	                    </div> 

@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		delete major where major_no = #{major_no}
    	</delete>
    	
-		<select id="admin_login" parameterType="adminDto" resultType="adminDto">
+	<select id="admin_login" parameterType="adminDto" resultType="adminDto">
    		select * from admin where admin_id = #{admin_id} and admin_pw = #{admin_pw}
    	</select>
 </mapper>

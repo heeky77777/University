@@ -15,6 +15,7 @@ public class LogoutController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("userinfo");
 		session.removeAttribute("admininfo");
+		session.removeAttribute("profeinfo");
 		return "redirect:/";
 	}
 }

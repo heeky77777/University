@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	mapper는 구문을 만들 수 있는 영역
+	일반적으로 테이블당 1개씩 mapper를 둔다아
+	
+	-namespace : 영역을 외부에서 부르기 위한 별칭
+	
+	알아야 할 설정값
+	- id : 구문을 외부에서 호출하기 위한 식별값
+	- parameterType : 구문을 실행하기 위해 필요한 데이터유형
+	- resultTypre : 구문이 실행된 결과 유형(반환형과 유사)
+ -->
+ 
+<mapper namespace="schedule">	
+   	<select id="get_schedule" parameterType="subjectapplyDto" resultType="subjectapplyDto">
+   		select * from subject_apply where student_no = #{student_no}
+   	</select>
+</mapper>
