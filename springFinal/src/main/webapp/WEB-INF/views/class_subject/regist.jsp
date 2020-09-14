@@ -201,6 +201,20 @@
 	    	
 	    })
 	    
+	    $('#major-btn').click(function() {
+	    	var profeName = $('input[name=profe_name]').val();
+	    	console.log(profeName);
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/classSubject/profeCheck?profe_name=" + profeName,
+	    		type:"get",
+	    		success:function(response){
+	    			
+	    		}
+	    		
+	    	})
+	    })
+	    
+	    
 	    /* 강의 교시 추가 */
 	    /* var maxAdd = 1;
             var classType = '<option value="1">1교시</option><option value="2">2교시</option><option value="3">3교시</option><option value="4">4교시</option><option value="5">5교시</option><option value="6">6교시</option><option value="7">7교시</option>';
@@ -281,7 +295,8 @@
     
     .regist-btn,
     .add-btn,
-    #check-btn {
+    #check-btn,
+    #major-btn {
         background-color: #063E7A;
         border-color: #063E7A;
             
@@ -289,7 +304,8 @@
     
     .regist-btn:hover,
     .add-btn:hover,
-    #check-btn:hover {
+    #check-btn:hover,
+    #major-btn:hover {
     	background-color: #1D5798;
     }
     
@@ -345,6 +361,7 @@
 <title>KH 대학교 : 강의 등록</title>
 
 
+
 	<div class="container-fluid">
 
 		<div class="row-empty"></div>
@@ -365,7 +382,8 @@
 	                   <label>교수 이름</label>
 	                   <input type="text" name="profe_name" class='form-control' value="${param.profe_name}" required autocomplete="off">
 	                   <label>학과</label>
-	               	   <input type="text" name="major_type" value="${professor.major_type}" class="form-control"> 
+	               	   <input type="text" name="major_type" class="form-control" readonly> 
+	               	   <button type="button" id="major-btn" class="btn btn-primary btn-sm">학과 조회</button>
 	               </div>
 	
 	               <div class="form-group form-inline">
