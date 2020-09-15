@@ -1,10 +1,13 @@
 package com.kh.springFinal.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.springFinal.entity.StudentDto;
+import com.kh.springFinal.entity.StudentFileDto;
 
 @Repository
 public class StudentDaoImpl implements StudentDao{
@@ -29,6 +32,47 @@ public class StudentDaoImpl implements StudentDao{
 		StudentDto student_id = sqlSession.selectOne("student.student_id", studentDto);
 		return student_id;
 	}
+	
+	@Override
+	public int student_file_add(StudentFileDto studentFileDto) {
+		int student_file_no = sqlSession.selectOne("student_seq");
+		studentFileDto.setStudent_file_no(student_file_no);
+		sqlSession.insert("student.student_file",studentFileDto);
+		return student_file_no;
+	}
+
+		
+	
+	@Override
+	public List<StudentDto> getList(StudentDto studentDto) {
+		List<StudentDto> list = sqlSession.selectList("student_list");
+		
+		return list;
+	}
+
+	@Override
+	public StudentDto list(StudentDto studentDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StudentDto student_list(StudentDto studentDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StudentDto> getList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+
+	
+	
 	
 	
 

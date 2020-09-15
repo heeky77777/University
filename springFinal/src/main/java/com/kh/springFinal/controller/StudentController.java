@@ -25,19 +25,23 @@ import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
 import com.kh.springFinal.entity.StudentDto;
-import com.kh.springFinal.entity.StudentFileuploadDto;
+import com.kh.springFinal.entity.StudentFileDto;
 import com.kh.springFinal.repository.StudentDao;
 import com.kh.springFinal.entity.SubjectApplyDto;
 import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.repository.SubjectApplyDao;
+import com.kh.springFinal.service.StudentService;
 
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private StudentService studentService;
 	
 	@Autowired
 	private SubjectApplyDao subjectapplyDao;
@@ -115,16 +119,48 @@ public class StudentController {
 	}
 	
 	@GetMapping("/student_info")
-	public String info() {
-		
+	public String info(@RequestParam int student_no,
+						Model model) {
+
+		StudentDto studentDto = sqlSession.selectOne("student.student_get", student_no);
+		model.addAttribute("studentDto",studentDto);
 		return "student/student_info";
 	}
 	
+	@GetMapping("/student_edit")
+	public String edit(@RequestParam int student_no,
+					Model model) {
+		
+		StudentDto studentDto = sqlSession.selectOne("student.student_get", student_no);
+		
+		model.addAttribute("studentDto",studentDto);
+		return "student/student_edit";
+	}
+	
+	@PostMapping("/student_edit")
+	public String edit(@ModelAttribute StudentDto studentDto) {
+		
+		sqlSession.update("student.change", studentDto);
+		
+		return "student/student_info";		 
+	}
+	
+	@PostMapping("/student_info")
+	public String studentfile(@ModelAttribute StudentFileDto studentFileDto,
+								@RequestParam MultipartFile file,
+								@RequestParam int student_no) throws IllegalStateException, IOException {
+		
+		studentService.student_file_add(studentFileDto, file, student_no);
+		
+		return "redirect:student_info"; 
+		
+	}
+			
 }
 
 	
 	
-//	@PostMapping("/student_join")
+//	@PostMapping("/student_join") 
 //	public String regist(
 //						@ModelAttribute ClassSubjectDto classSubjectDto,
 //						@ModelAttribute StudentFileuploadDto studentfileuploadDto,
@@ -138,5 +174,3 @@ public class StudentController {
 //		return "redirect:regist";
 //	}
 	
-		
-

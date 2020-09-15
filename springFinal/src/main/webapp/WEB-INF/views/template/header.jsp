@@ -56,7 +56,7 @@
                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle();">학생</a>
                     <ul class="nav flex-column sidebar_toggle nav-item-list"> 
                         <li class="nav-item " style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">학생정보</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/student_info?student_no=${userinfo.student_no}" style="color:white">학생정보</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="#" style="color:white">수강신청</a>
@@ -98,7 +98,7 @@
 		                            <a class="nav-link" href="#" style="color:white">교수 회원가입</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
-		                            <a class="nav-link" href="#" style="color:white">학생 회원가입</a>
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/admin_student_list" style="color:white">학생 정보관리</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
 		                             <a class="nav-link" href="#" style="color:white">회원관리</a>

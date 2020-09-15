@@ -94,12 +94,9 @@
     		<form action="student_join" method="post">
 		    <div class="form-group">
 		    	<label>학생이름</label>  
-		    	<input size="10" type="text" name="student_name">
+		    	<input class="form-control" type="text" name="student_name">
 		    </div>
-		    <div class="form-group">
-				<label>학생 사진 등록</label><br>
-				<input class="form-group" type="file" name="student_file_no">
-		    </div>
+		    
 		    <div class="form-group">    
 		    	<label>학번</label>  
 		    	<input class="form-control" type="text" name="student_numb" onblur="checkNumb();">
@@ -164,11 +161,9 @@
 		   </div>
 		    <div class="form-group">
 		       	<label>주소</label>
-		   </div> 	
-		   <div>    	
-		       	<input size=10 type="text" name="student_post" placeholder="우편번호" id="student_post">
-		    	<input type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()" size=10>
-	    	</div><br>
+		      	<input class="form-control" type="text" name="student_post" placeholder="우편번호" id="student_post"><br>
+		    	<input class="form-control" type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()" size=10 style="background-color:#D6E0F0">
+	    	</div> 
 		   <div class="form-group">		    	
 		    	<input class="form-control" type="text" name="student_addr" placeholder="기본주소" id="student_addr">		 	
 			</div>
