@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.springFinal.entity.SchoolOffDto" alias="schoolOffDto"/>
 		<typeAlias type="com.kh.springFinal.entity.SchoolReturnDto" alias="schoolReturnDto"/>
 
-		
+		<typeAlias type="com.kh.springFinal.entity.AttendanceDto" alias="attendanceDto"/>
+
 	</typeAliases>
 </configuration>
