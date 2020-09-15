@@ -14,5 +14,9 @@ public interface SubjectApplyDao {
 	SubjectApplyDto get(SubjectApplyDto subjectApplyDto);
 	
 	List<SubjectApplyDto> sub_list(SubjectApplyDto subjectApplyDto);
-	ClassSubjectDto class_get(int class_sub_no);
+	List<ClassSubjectDto> class_get(int class_sub_no);
+	
+	List<ClassSubjectDto> all_class_list();
+	
+	List<SubjectApplyDto> class_numb(SubjectApplyDto subjectApplyDto);
 }

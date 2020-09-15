@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
@@ -68,5 +69,12 @@ public class SubjectApplyRestController {
 			return "redirect:student_class_apply?error";
 		}
 	}
+	
+//	@GetMapping("/class_numb")
+//	public List<ClassSubjectDto> class_numb(@RequestParam int class_sub_no) {
+//		List<ClassSubjectDto> class_list_numb = subjectApplyDao.class_numb(class_sub_no);
+//		
+//		return class_list_numb;
+//	}
 	
 }

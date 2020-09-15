@@ -54,8 +54,20 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 	}
 
 	@Override
-	public ClassSubjectDto class_get(int class_sub_no) {
-		ClassSubjectDto classSubject = sqlSession.selectOne("subjectApply.class_list",class_sub_no);
+	public List<ClassSubjectDto> class_get(int class_sub_no) {
+		List<ClassSubjectDto> classSubject = sqlSession.selectOne("subjectApply.class_list",class_sub_no);
+		return classSubject;
+	}
+
+	@Override
+	public List<ClassSubjectDto> all_class_list() {
+		List<ClassSubjectDto> classSubject = sqlSession.selectList("subjectApply.all_class_list");
+		return classSubject;
+	}
+
+	@Override
+	public List<SubjectApplyDto> class_numb(SubjectApplyDto subjectApplyDto) {
+		List<SubjectApplyDto> classSubject = sqlSession.selectList("subjectApply.class_numb");
 		return classSubject;
 	}
 

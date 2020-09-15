@@ -67,14 +67,17 @@ public class StudentController {
 
 	
 	@GetMapping("/student_schedule")
-	public String student_schedule(@ModelAttribute SubjectApplyDto subjectApplyDto) {
+	public String student_schedule(@ModelAttribute SubjectApplyDto subjectApplyDto,Model model) {
 		
 	List<SubjectApplyDto> sub_list = subjectapplyDao.sub_list(subjectApplyDto);
-	System.out.println(sub_list);
-	for(int i=0; i < sub_list.size(); i++) {
-		ClassSubjectDto class_list = subjectapplyDao.class_get(subjectApplyDto.getClass_sub_no());
-		System.out.println(class_list);
-	}
+	
+//	System.out.println("sub_list="+sub_list);
+//	
+//	for(SubjectApplyDto sjadto : sub_list) {
+//		ClassSubjectDto csdto = subjectapplyDao.class_get(sjadto.getClass_sub_no());
+//		model.addAttribute("csdto", csdto);
+//		System.out.println("class_list="+csdto);
+//	}
 
 		
 		return "student/student_schedule";
@@ -85,10 +88,21 @@ public class StudentController {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		List<MajorDto> majorList = majorDao.major_list();
+		List<ClassSubjectDto> classList = subjectapplyDao.all_class_list();
 		
+		model.addAttribute("classList", classList);
 		model.addAttribute("now_year", year);	
 		model.addAttribute("majorList", majorList);
 		return "student/student_class_apply";
+	}
+	
+	@GetMapping("/subject_list")
+	public String subject_list(Model model) {
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		model.addAttribute("now_year", year);
+		return "student/subject_list";
 	}
 	
 	@PostMapping("/subject_list")
@@ -105,7 +119,7 @@ public class StudentController {
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("apply_list", apply_list);
 		
-		return "student/student_class_apply";
+		return "student/subject_list";
 	}
 	
 	@PostMapping("/student_class_apply")

@@ -26,10 +26,11 @@
 	    	
 	    	var url = location.search.substr(location.search.indexOf("?") + 1);
 			console.log(url);
-			if(url!="") {
+			if(url=='error') {
 				history.replaceState({}, null, location.pathname);
 				alert("신청된 강의 입니다.");
 			}
+			
 	    	
 	    	var regist_year = document.querySelector("#regist_year").value;
 	    	console.log(regist_year);
@@ -118,7 +119,6 @@
 	    window.onload=get_semester;
 	    
 	    </script>
-	    
 			<h1>강의신청</h1>
 			
 		
@@ -168,13 +168,13 @@
 		 			</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="classSubjectDto" items="${apply_list}"> 
-					<form action="student_class_apply" method="post">
+				<c:forEach var="classSubjectDto" items="${classList}"> 
+<!-- 					<form action="student_class_apply" method="post"> -->
 					<tr>
-						<input type="hidden" name="class_sub_no" id="class_sub_no" value="${classSubjectDto.class_sub_no}">
-						<input type="hidden" name="major_no" id="major_no" value="${classSubjectDto.major_no}">
-						<input type="hidden" name="student_no" id="student_no" value="${userinfo.student_no}">
-						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}">
+<%-- 						<input type="hidden" name="class_sub_no" id="class_sub_no" value="${classSubjectDto.class_sub_no}"> --%>
+<%-- 						<input type="hidden" name="major_no" id="major_no" value="${classSubjectDto.major_no}"> --%>
+<%-- 						<input type="hidden" name="student_no" id="student_no" value="${userinfo.student_no}"> --%>
+<%-- 						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}"> --%>
 						<td>${classSubjectDto.class_sub_name}</td>
 						<td>${classSubjectDto.profe_name}</td>
 						<td>${classSubjectDto.class_sub_point}</td>
@@ -184,7 +184,7 @@
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
 <%-- 						<c:if test="${sub_check != null}"> --%>
-							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">	
+<!-- 							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">	 -->
 <!-- 							<button class="btn btn-primary" onclick="apply_class();">강의신청</button> -->
 <%-- 						</c:if> --%>
 <%-- 						<c:otherwise> --%>

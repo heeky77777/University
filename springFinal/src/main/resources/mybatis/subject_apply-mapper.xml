@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	</select>
    	
    	<select id="get_check" parameterType="subjectapplyDto" resultType="subjectapplyDto">
-   		select * from subject_apply where class_sub_no = #{class_sub_no}
+   		select * from subject_apply where class_sub_no = #{class_sub_no} and student_no=#{student_no}
    	</select>
    	
    	<select id="sub_list" parameterType="subjectapplyDto" resultType="subjectapplyDto">
@@ -58,5 +58,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	
    	<select id="class_list" parameterType="int" resultType="classSubjectDto">
    		select * from class_subject where class_sub_no = #{class_sub_no}
+   	</select>
+   	
+   	<select id="all_class_list" resultType="classSubjectDto">
+   		select * from class_subject order by class_sub_no desc
+   	</select>
+   	
+   	<select id="class_numb" parameterType="subjectapplyDto" resultType="subjectapplyDto">
+   		SELECT * FROM subject_apply WHERE CLASS_SUB_NO = #{class_sub_no};
    	</select>
 </mapper>
