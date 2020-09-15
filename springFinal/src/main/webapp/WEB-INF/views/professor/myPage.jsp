@@ -32,6 +32,7 @@ function preview() {
 		imgTag.src = "";
 	}
 }
+ 	
 </script>
  </head>
  
@@ -43,17 +44,21 @@ function preview() {
 </div>
 <div class="row">
 			<div class="col-6 offset-3">
-				<!-- 사진입력 -->
+				
+					<!-- 사진입력 -->
 					<div class="form-group">
 						<form action="detail" method="post" enctype="multipart/form-data">
 						<label>사진</label>
-						<br>
-						<img name="profe_img" class="rounded mx-auto d-block" border="0" width="200" height="200"/>
+						<input type="text" name="title">
 						<br>
 						<input type="file" class="form-control-file" name="file" accept=".jpg, .gif, .png"  multiple onchange="preview()">
+						<br>
+						<img name="profe_img" class="rounded mx-auto d-block" border="0" width="200" height="200"/>
 						<input type="submit" value="등록">
 						</form>
 					</div> 
+			
+ 				<form action="edit" method="post">
 
 			<input type="hidden" name="profe_no" value="${professorDto.profe_no}" >
 	
@@ -65,9 +70,9 @@ function preview() {
 			<div class="radio">
 				<label>학기</label>
 				<input type="radio" id="first" name="semester_no" value="${semester_type}" disabled> <!--db에 나온그대로 가져와야해서 semester_type-->
-				<label for="first">1학기</label>
+				<label for="1">1학기</label>
 				<input type="radio" id="second" name="semester_no" value="${semester_type}" disabled>
-				<label for="second">2학기</label>
+				<label for="2">2학기</label>
 				<script>
 					function semester(){
 					  $('input[name="semester_no"]').each(function(){
@@ -166,10 +171,11 @@ function preview() {
 	</c:otherwise>
 	</c:choose>
 	</div>
+</form>	
 </div>
 </div>
 </div>
 </body>
 </html>
-
+<
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

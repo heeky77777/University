@@ -46,12 +46,13 @@ public class ProfessorController {
 		int exist=professorDao.isExist();
 		
 		if(exist>0) {
-			//다시뽑아라
+			return "redirect:regist?error";
+			
 		}else {
 			professorDao.regist(professorDto);
+			return "redirect:regist"; //수정해야해
 		}
 		
-		return "redirect:regist"; //수정해야해
 	}	
 	
 	//교수 디테일 페이지
@@ -88,9 +89,11 @@ public class ProfessorController {
 	@PostMapping("/detail")
 	public String detail(@ModelAttribute ProfessorFileDto professorFileDto,
 			@ModelAttribute ProfessorUploadVO professorUploadVO,
-			@RequestParam MultipartFile file) throws IllegalStateException, IOException {
+			@RequestParam MultipartFile file,
+			@RequestParam int profe_no) throws IllegalStateException, IOException {
 		
-		professorService.add(professorFileDto, file, 0);
+		//profe_no 줘야하는거 같은디!
+		professorService.add(professorFileDto, file, profe_no);
 		
 		
 		return "professor/detail";

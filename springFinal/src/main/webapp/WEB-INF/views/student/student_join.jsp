@@ -22,7 +22,7 @@
 		axios({			
 			url:"${pageContext.request.contextPath}/student/student_numb?student_numb="+input.value, 
 			method:"get"		
-		}).then(function(response){#
+		}).then(function(response){
 			console.log(response.data);
 			if(!response.data){
 				span_blue.textContent = "사용이 가능한 학번입니다";
