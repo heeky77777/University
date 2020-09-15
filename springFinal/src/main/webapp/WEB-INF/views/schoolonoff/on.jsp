@@ -1,6 +1,7 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -13,7 +14,7 @@
 	function error_page() {
 		var url = location.search.substr(location.search.indexOf("?") + 1);
 		console.log(url);
-		if (url != "") {
+		if (url == 'error') {
 			history.replaceState({}, null, location.pathname);
 			alert("이미 복학 신청이 완료되었습니다.");
 		}
@@ -31,15 +32,6 @@
 			document.form.submit();
 		}
 	}
-	//  function success(){
-	// 		var url = location.search.substr(location.search.indexOf("?") + 1);
-	// 		console.log(url);
-	// 		if(url="") {
-	// 			alert("휴학 신청이 완료되었습니다.");
-	// 		}
-
-	// 	}
-	/* window.onload=success; */
 </script>
 
 <div class="container-fluid">
@@ -57,7 +49,7 @@
 						<th>학번</th>
 						<th>전공</th>
 						<th>성별</th>
-						<th>휴학 시작날짜</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -66,15 +58,15 @@
 						<td>${userinfo.student_name}</td>
 						<td>${userinfo.student_numb}</td>
 						<td>${userinfo.major_no}</td>
-						<td>${userlist.student_gender}</td>
-						<td>${userlist.school_off_period}</td>
+						<td>${userinfo.student_gender}</td>
+						
 					</tr>
 
 				</tbody>
 			</table>
 
 
-			<form action="off" method="post">
+			<form action="on" method="post">
 				<input type="hidden" name="student_no"
 					value="${userinfo.student_no}">
 				<div class="form-group">
@@ -99,7 +91,11 @@
 				</div>
 
 			</form>
-
+			<div>
+				<a
+					href="${pageContext.request.contextPath}/schoolonoff/list2?student_no=${userinfo.student_no}">자신의
+					복학신청 정보 보기</a>
+			</div>
 
 
 
@@ -110,4 +106,4 @@
 		</div>
 	</div>
 </div>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include> --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -70,6 +70,12 @@
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="#" style="color:white">강의평가</a>
                         </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/off?student_no=${userinfo.student_no}" style="color:white">휴학신청</a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/on?student_no=${userinfo.student_no}" style="color:white">복학신청</a>
+                        </li>
                     </ul>
                 </c:if>
                 

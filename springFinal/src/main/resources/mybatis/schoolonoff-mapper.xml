@@ -27,21 +27,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-   <select id="numb" parameterType="int" resultType="schoolOffDto">
-		SELECT * FROM SCHOOL_OFF WHERE student_no=#{student_no}
+	<select id="numb" parameterType="int" resultType="schoolOffDto">
+		SELECT * FROM
+		SCHOOL_OFF WHERE student_no=#{student_no}
 	</select>
 
-	
-	
-		<select id="getList" resultType="schoolOffDto">
+
+
+	<select id="getList" resultType="schoolOffDto">
 		SELECT * FROM SCHOOL_OFF
 		ORDER BY
 		school_off_no DESC
 	</select>
 
+	<select id="numb2" parameterType="int" resultType="schoolReturnDto">
+		SELECT * FROM
+		SCHOOL_Return WHERE student_no=#{student_no}
+	</select>
 
-
-<!-- <insert id="return" parameterType="schoolReturnDto">
+	<insert id="return" parameterType="schoolReturnDto">
 		INSERT INTO SCHOOL_Return(
 		school_return_no,
 		student_no,
@@ -54,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{school_return_date},
 		'복학'
 		)
-	</insert> -->
+	</insert>
 
 
 

@@ -16,7 +16,7 @@
 function error_page(){
 	var url = location.search.substr(location.search.indexOf("?") + 1);
 	console.log(url);
-	if(url!="") {
+	if(url=='error') {
 		history.replaceState({}, null, location.pathname);
 		alert("이미 휴학 신청이 완료되었습니다.");
 	}
@@ -35,16 +35,7 @@ function error_page(){
          document.form.submit();
          }
       }
-//  function success(){
-// 		var url = location.search.substr(location.search.indexOf("?") + 1);
-// 		console.log(url);
-// 		if(url="") {
-// 			alert("휴학 신청이 완료되었습니다.");
-// 		}
-		
-// 	}
-	 /* window.onload=success; */
- 
+
  
 </script>
 
@@ -105,14 +96,10 @@ function error_page(){
 		    </div>
 			
 			</form>
+			<div>
+				<a href="${pageContext.request.contextPath}/schoolonoff/list?student_no=${userinfo.student_no}">자신의 휴학신청 정보 보기</a>
+			</div>
 			
-			
-				
-			
-			
-			
-			
-
 </div>
 </div>
 </div>

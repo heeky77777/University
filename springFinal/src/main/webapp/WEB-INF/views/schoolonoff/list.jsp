@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -37,9 +37,12 @@
 						<td>${userinfo.student_numb}</td>
 						<td>${userinfo.major_no}</td>
 						<td>${userinfo.student_gender}</td>
-						<td>${userlist.school_off_type}</td>
-						<td>${userlist.school_off_regist}</td>
-						<td>${userlist.school_off_period}</td>
+						<td>${off_list.school_off_type}</td>
+
+						<td>${off_list.school_off_regist}</td>
+						<td><fmt:parseDate value="${off_list.school_off_period}"
+								var="time" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+								value="${time}" pattern="yyyy-MM-dd" /></td>
 					</tr>
 
 				</tbody>
@@ -52,7 +55,7 @@
 			
 			
 				
-			
+		
 			
 			
 			

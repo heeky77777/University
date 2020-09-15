@@ -1,6 +1,6 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -16,7 +16,7 @@
 
 	<br>
 			
-			<h1 class="form-group" style="text-align: center">휴학신청 정보</h1>
+			<h1 class="form-group" style="text-align: center">복학신청 정보</h1>
 			<br>
 			<table class="table table-sm table-hover">
 				<thead class="thead-dark" style="text-align: center">
@@ -25,8 +25,7 @@
 						<th>학번</th>
 						<th>전공</th>
 						<th>성별</th>
-						<th>휴학종류</th>
-						<th>복학신청 일짜</th>
+						<th>복학신청 날짜</th>
 						<th>복학신청유무</th>
 					</tr>
 				</thead>
@@ -37,10 +36,10 @@
 						<td>${userinfo.student_numb}</td>
 						<td>${userinfo.major_no}</td>
 						<td>${userinfo.student_gender}</td>
-						<td>${userlist.school_off_type}</td>
-						<td>${userlist2.school_return_date}</td>
-						<td>${userlist2.school_return_type}</td>
-					
+						<td><fmt:parseDate value="${on_list.school_return_date}"
+								var="time" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+								value="${time}" pattern="yyyy-MM-dd" /></td>
+						<td>${on_list.school_return_type}</td>
 					</tr>
 
 				</tbody>
@@ -51,7 +50,6 @@
 			
 			</form>
 			
-			
 				
 			
 			
@@ -61,4 +59,4 @@
 </div>
 </div>
 </div>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include> --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include> 

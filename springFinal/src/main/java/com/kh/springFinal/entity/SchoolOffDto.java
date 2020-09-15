@@ -15,6 +15,10 @@ public class SchoolOffDto {
 	
 	private String  school_off_regist ,school_off_type, school_off_regist_date, school_off_period;
 	
+	private String student_name;
+	private int student_numb;
+	private String major_no;
+	
 	
 	
 	
