@@ -50,7 +50,7 @@
             <li class="up_background" style="height: 50px; width: 250px;">
                 <img src="../project/img/aaa.png" width="250px" height="50px">
             </li>
-            <li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">kh대하교</li>
+            <li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">KH대학교</li>
             
             <c:if test="${userinfo.student_auth eq '학생'}">
                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle();">학생</a>
@@ -86,7 +86,13 @@
 	                            <a class="nav-link" href="#" style="color:white">교수정보</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
-	                            <a class="nav-link" href="#" style="color:white">수강등록</a>
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/regist" style="color:white">강의등록</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/list" style="color:white">강의목록</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/profeApplyList" style="color:white">수강목록</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
 	                             <a class="nav-link" href="#" style="color:white">성적등록</a>

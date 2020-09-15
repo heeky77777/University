@@ -201,18 +201,18 @@
 	    	
 	    })
 	    
-	    $('#major-btn').click(function() {
-	    	var profeName = $('input[name=profe_name]').val();
-	    	console.log(profeName);
-	    	$.ajax({
-	    		url:"${pageContext.request.contextPath}/classSubject/profeCheck?profe_name=" + profeName,
-	    		type:"get",
-	    		success:function(response){
-	    			
-	    		}
-	    		
-	    	})
-	    })
+	    /* 교수 학과 조회 */
+ 	   	var profe_name = $('input[name=profe_name]').val();
+	   	var profe_no = ${profeinfo.profe_no};
+	   	$.ajax({
+    		url:"${pageContext.request.contextPath}/classSubject/profeCheck?profe_name=" + profe_name + "&profe_no=" + profe_no,
+    		type:"get",
+    		success:function(response){
+    			console.log(response)
+    			$('input[name=major_type]').val(response.major_type);
+    		}
+    		
+    	})
 	    
 	    
 	    /* 강의 교시 추가 */
@@ -380,10 +380,10 @@
 	               </div>
 	               <div class="form-group form-inline">
 	                   <label>교수 이름</label>
-	                   <input type="text" name="profe_name" class='form-control' value="${param.profe_name}" required autocomplete="off">
+	                   <input type="text" name="profe_name" class='form-control' value="${profeinfo.profe_name}" readonly>
 	                   <label>학과</label>
 	               	   <input type="text" name="major_type" class="form-control" readonly> 
-	               	   <button type="button" id="major-btn" class="btn btn-primary btn-sm">학과 조회</button>
+	               	   <!-- <button type="button" id="major-btn" class="btn btn-primary btn-sm">학과 조회</button> -->
 	               </div>
 	
 	               <div class="form-group form-inline">

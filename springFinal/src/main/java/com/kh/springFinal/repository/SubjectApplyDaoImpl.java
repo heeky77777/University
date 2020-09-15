@@ -47,4 +47,11 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 		return subjectApply;
 	}
 
+	
+	// 로그인 교수 수강 목록
+	@Override
+	public List<SubjectApplyDto> profeList(int profe_no) {
+		return sqlSession.selectList("subjectApply.getProfeApplyList", profe_no);
+	}
+
 }
