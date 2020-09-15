@@ -2,6 +2,8 @@ package com.kh.springFinal.controller;
 
 
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -65,7 +67,16 @@ public class StudentController {
 
 	
 	@GetMapping("/student_schedule")
-	public String student_schedule() {
+	public String student_schedule(@ModelAttribute SubjectApplyDto subjectApplyDto) {
+		
+	List<SubjectApplyDto> sub_list = subjectapplyDao.sub_list(subjectApplyDto);
+	System.out.println(sub_list);
+	for(int i=0; i < sub_list.size(); i++) {
+		ClassSubjectDto class_list = subjectapplyDao.class_get(subjectApplyDto.getClass_sub_no());
+		System.out.println(class_list);
+	}
+
+		
 		return "student/student_schedule";
 	}
 	

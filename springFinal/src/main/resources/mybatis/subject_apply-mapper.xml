@@ -52,4 +52,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		select * from subject_apply where class_sub_no = #{class_sub_no}
    	</select>
    	
+   	<select id="sub_list" parameterType="subjectapplyDto" resultType="subjectapplyDto">
+   		select * from subject_apply where student_no = #{student_no}
+   	</select>
+   	
+   	<select id="class_list" parameterType="int" resultType="classSubjectDto">
+   		select * from class_subject where class_sub_no = #{class_sub_no}
+   	</select>
 </mapper>

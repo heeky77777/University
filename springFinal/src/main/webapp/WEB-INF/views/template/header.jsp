@@ -62,7 +62,7 @@
                             <a class="nav-link" href="#" style="color:white">수강신청</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                             <a class="nav-link" href="#" style="color:white">시간표</a>
+                             <a class="nav-link" href="${pageContext.request.contextPath}/student/student_schedule?student_no=${userinfo.student_no}" style="color:white">시간표</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="#" style="color:white">성적확인</a>
