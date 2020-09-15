@@ -16,6 +16,7 @@ public class LogoutController {
 		session.removeAttribute("userinfo");
 		session.removeAttribute("admininfo");
 		session.removeAttribute("profeinfo");
+		
 		return "redirect:/";
 	}
 }
