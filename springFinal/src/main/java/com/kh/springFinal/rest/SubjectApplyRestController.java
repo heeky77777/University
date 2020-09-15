@@ -2,6 +2,7 @@ package com.kh.springFinal.rest;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.SemesterDto;
+import com.kh.springFinal.entity.SubjectApplyDto;
 import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.repository.SubjectApplyDao;
 
@@ -22,6 +24,8 @@ public class SubjectApplyRestController {
 	@Autowired
 	private SubjectApplyDao subjectApplyDao;
 	
+	@Autowired
+	private SqlSession sqlSession;
 	
 	@Autowired
 	private MajorDao majorDao;
@@ -46,6 +50,23 @@ public class SubjectApplyRestController {
 		model.addAttribute("apply_list", apply_list);
 		
 		return apply_list;
+	}
+	
+	@GetMapping("/apply_class")
+	public String apply_class(@ModelAttribute SubjectApplyDto subjectApplyDto,
+							Model model) {
+		
+		System.out.println();
+		SubjectApplyDto sub_check = subjectApplyDao.get(subjectApplyDto);
+		model.addAttribute("sub_check",sub_check);
+		
+		if(sub_check==null) {
+			subjectApplyDao.class_apply(subjectApplyDto);
+			return "redirect:student_class_apply";
+		}
+		else {
+			return "redirect:student_class_apply?error";
+		}
 	}
 	
 }

@@ -41,4 +41,10 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 		
 	}
 
+	@Override
+	public SubjectApplyDto get(SubjectApplyDto subjectApplyDto) {
+		SubjectApplyDto subjectApply =sqlSession.selectOne("subjectApply.get_check",subjectApplyDto);
+		return subjectApply;
+	}
+
 }

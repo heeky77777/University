@@ -24,6 +24,13 @@
 	    <script>
 	    function get_semester(){
 	    	
+	    	var url = location.search.substr(location.search.indexOf("?") + 1);
+			console.log(url);
+			if(url!="") {
+				history.replaceState({}, null, location.pathname);
+				alert("신청된 강의 입니다.");
+			}
+	    	
 	    	var regist_year = document.querySelector("#regist_year").value;
 	    	console.log(regist_year);
 	    	var semester_type = document.querySelector("#semester_type").value;
@@ -82,7 +89,32 @@
 // 	    	})
 	    	
 // 		}
+		function apply_check(){
+      
+        	var result = confirm("정말 신청하시겠습니까??");
+            if (!result){ 
+//                 document.form.submit();
+            	return false;
+            }
+            else{
+            	document.form.submit();
+            	}
+            }
 		
+// 		function apply_class(){
+			
+// 			var class_sub_no = document.querySelector("#semester_no").value;
+// 			var major_no = document.querySelector("#major_no").value;
+// 			var student_no = document.querySelector("#student_no").value;
+// 			var subject_apply_name = document.querySelector("#subject_apply_name").value;
+			
+// 			axios({			
+// 				url:"${pageContext.request.contextPath}/apply/apply_class?class_sub_no=" + class_sub_no + "&major_no=" + major_no + "&student_no=" + student_no + "&subject_apply_name=" + subject_apply_name, 
+// 				method:"get"
+// 			}).then(function(response){
+// 				console.log(response);
+// 	    	})	
+// 		}
 	    window.onload=get_semester;
 	    
 	    </script>
@@ -94,22 +126,28 @@
 					<form action="subject_list" method="post">
 	                       <input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">
 	                          <label>년도</label>
-	                       <select id="semester_type" class="form-control" onchange="get_semester();">
-	                         <option>1학기</option>      
-	                         <option>2학기</option>      
+	                       <select name="semester_type" id="semester_type" class="form-control" onchange="get_semester();">
+	                         <option ${param.semester_type == '1학기' ? 'selected':''}>1학기</option>      
+	                         <option ${param.semester_type == '2학기' ? 'selected':''}>2학기</option>      
 	                       </select>&nbsp;&nbsp;&nbsp;
-	                      <select id="major_type" class="form-control" onchange="get_semester();">
-	                          <option>경영학과</option>
-	                          <option>금융세무학과</option>
-	                          <option>도시공학과</option>
-	                          <option>시스템공학과</option>
-	                          <option>문예창작학과</option>
-	                          <option>성악과</option>
-	                      </select>
+	                       <select name="major_type" id="major_type" class="form-control" required onchange="get_semester();">
+                                <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
+                                <c:forEach var="majorDto" items="${majorList}">
+	                                <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
+                                </c:forEach>
+                            </select>
+<!-- 	                      <select name="major_type" id="major_type" class="form-control" onchange="get_semester();"> -->
+<%-- 	                          <option ${param.major_type == '경영학과' ? 'selected':''}>경영학과</option> --%>
+<%-- 	                          <option ${param.major_type == '금융세무학과' ? 'selected':''}>금융세무학과</option> --%>
+<%-- 	                          <option ${param.major_type == '도시공학과' ? 'selected':''}>도시공학과</option> --%>
+<%-- 	                          <option ${param.major_type == '시스템공학과' ? 'selected':''}>시스템공학과</option> --%>
+<%-- 	                          <option ${param.major_type == '문예창작학과' ? 'selected':''}>문예창작학과</option> --%>
+<%-- 	                          <option ${param.major_type == '성악과' ? 'selected':''}>성악과</option> --%>
+<!-- 	                      </select> -->
 	                      <input type="hidden" name="major_no" id="major_no">&nbsp;&nbsp;&nbsp;
 	                      <input type="hidden" name="semester_no" id="semester_no">
 <!-- 	                      <button class="btn btn-secondary btn-sm" onclick="get_list();">강의조회</button> -->
-							<input type="submit" value="강의조회">
+							<input type="submit" value="강의조회"  class="btn btn-primary" style="background-color :#063e7a">
 					</form>		
 	                  </div>
                     
@@ -141,10 +179,18 @@
 						<td>${classSubjectDto.profe_name}</td>
 						<td>${classSubjectDto.class_sub_point}</td>
 						<td>${classSubjectDto.class_sub_type}</td>
-						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time} (${classSubjectDto.class_sub_room})</td>
+<%-- 						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}${classSubjectDto.class_sub_time2}${classSubjectDto.class_sub_time3}${classSubjectDto.class_sub_time4} (${classSubjectDto.class_sub_room})</td> --%>
+						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}(${classSubjectDto.class_sub_room})</td>
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
-							<input type="submit" value="강의신청">
+<%-- 						<c:if test="${sub_check != null}"> --%>
+							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">	
+<!-- 							<button class="btn btn-primary" onclick="apply_class();">강의신청</button> -->
+<%-- 						</c:if> --%>
+<%-- 						<c:otherwise> --%>
+<!-- 							<span class="btn btn-primary btn-block regist-btn">신청완료</span> -->
+<%-- 						</c:otherwise> --%>
+							
 						</td>
 					</tr>
 					</form>

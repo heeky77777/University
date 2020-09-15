@@ -40,6 +40,9 @@ public interface ProfessorDao {
 	
 	//이미지 등록
 	int img_regist(ProfessorFileDto professorFileDto);
+	
+	//로그인
+	ProfessorDto profe_login(ProfessorDto professorDto);
 
 
 

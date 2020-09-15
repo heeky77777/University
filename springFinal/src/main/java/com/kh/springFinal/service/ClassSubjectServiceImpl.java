@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -15,14 +17,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.SemesterDto;
 import com.kh.springFinal.repository.ClassSubjectDao;
+import com.kh.springFinal.repository.ProfessorDao;
 
 @Service
 public class ClassSubjectServiceImpl implements ClassSubjectService{
 	
 	@Autowired
 	private ClassSubjectDao classSubjectDao;
+	
+	@Autowired
+	private ProfessorDao professorDao;
 	
 
 	// 강의장 중복 검사
@@ -38,9 +45,15 @@ public class ClassSubjectServiceImpl implements ClassSubjectService{
 	
 	// 강의 등록
 	@Override
-	public int subjectRegist(ClassSubjectDto classSubjectDto, String this_year, String semester_type) {
+	public int subjectRegist(ClassSubjectDto classSubjectDto, String this_year, String semester_type, HttpSession session) {
 		
 		SemesterDto semesterDto = classSubjectDao.getSemester(this_year, semester_type);
+//		session.getAttribute("profeinfo");
+//		ProfessorDto professorDto = professorDao.get(classSubjectDto.getProfe_no());
+		ProfessorDto professorDto = classSubjectDao.getProfeName(classSubjectDto);
+		
+		classSubjectDto.setProfe_no(professorDto.getProfe_no());
+		classSubjectDto.setMajor_no(professorDto.getMajor_no());
 		classSubjectDto.setSemester_no(semesterDto.getSemester_no());
 		
 		int class_sub_no = classSubjectDao.subjectRegist(classSubjectDto);

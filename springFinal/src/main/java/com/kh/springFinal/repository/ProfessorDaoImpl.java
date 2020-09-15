@@ -83,6 +83,7 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		return profe_file_no;
 	}
 
+
 	//학기명 받아오기
 	@Override
 	public SemesterDto getSem(int profe_no) {
@@ -91,6 +92,12 @@ public class ProfessorDaoImpl implements ProfessorDao {
 	}
 
 
+	//로그인
+	@Override
+	public ProfessorDto profe_login(ProfessorDto professorDto) {
+		ProfessorDto professor = sqlSession.selectOne("professor.profe_login", professorDto);
+		return professor;
+	}
 
 
 	
