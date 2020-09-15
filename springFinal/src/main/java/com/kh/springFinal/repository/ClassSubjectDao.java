@@ -30,6 +30,9 @@ public interface ClassSubjectDao {
 	// 강의 리스트
 	List<ClassSubjectDto> getList();
 	
+	// 로그인 교수 강의 리스트
+	List<ClassSubjectDto> getList(int loginProfeNo);
+	
 	// 강의 검색
 	List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch, String majorSearch, String classSubSearch);
 	
@@ -45,8 +48,9 @@ public interface ClassSubjectDao {
 	// 파일 삭제(강의 계획서 삭제)
 	void deleteFile(ClassSubjectFileDto classSubjectFileDto);
 
-	// 교수 번호 및 학과 조회(임시)
-	ProfessorDto getProfeName(ClassSubjectDto classSubjectDto);
+	// 교수 학과 조회
+	ProfessorDto getProfeMajor(ProfessorDto professorDto);
+
 
 
 

@@ -13,4 +13,8 @@ public interface SubjectApplyDao {
 	void class_apply(SubjectApplyDto subjectApplyDto);
 	SubjectApplyDto get(SubjectApplyDto subjectApplyDto);
 	
+	
+	// 로그인 교수 수강 목록
+	List<SubjectApplyDto> profeList(int profe_no);
+	
 }

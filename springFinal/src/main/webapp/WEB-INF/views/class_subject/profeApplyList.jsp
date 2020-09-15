@@ -8,60 +8,18 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 <script>
-
+	
 	$(function() {
 		
-		/* 강의 등록 이동 */
-        $('.add-btn').click(function() {
-        	location.href="${pageContext.request.contextPath}/class_subject/regist";
-        });
-        
-        /* 파일 다운로드 */
-		$('.plan-btn').click(function() {
-			var subNo = $(this).prev().val();
+		$('.stuCkeck-btn').click(function() {
+			var class_sub_no = $('#class_sub_no').val();
+			location.href="${pageContext.request.contextPath}/attendance/attendList/" + class_sub_no;
 			
-			$.ajax({
-				url:"${pageContext.request.contextPath}/classSubject/planDown?class_sub_no=" + subNo,
-				method:"get",
-				contentType: 'application/pdf',
-				success:function(response) {
-					location.href="${pageContext.request.contextPath}/classSubject/planDown?class_sub_no=" + subNo;
-				},
-				error:function() {
-					alert('파일이 존재하지 않습니다');
-				}				
-			});
-		});
+		})
 		
-		/* 강의 수정 이동 */
-        $('.edit-btn').click(function() {
-        	var subNo = $(this).parent().prev().children().val();
-        	location.href="${pageContext.request.contextPath}/class_subject/edit/"+ subNo;
-        });
-		
-		/* 강의 삭제 */
-		$('.del-btn').click(function() {
-			var subNo = $(this).parent().prev().children().val();
-			var subCheck = confirm('강의를 삭제 하시겠습니까??');
-				if (!subCheck){
-					return false;
-				}
-				else {
-					location.href="${pageContext.request.contextPath}/class_subject/delete/"+ subNo;
-				}
-		});
-		
-		/* 교수 강의 조회 */
-		$('.mySub-btn').click(function() {
-			var profe_no = ${profeinfo.profe_no};
-			location.href="${pageContext.request.contextPath}/class_subject/list?profe_no=" + profe_no;
-		});
-		
-	});
-	
+	})
+
 </script>
-
-
 
 <style>
 
@@ -70,15 +28,13 @@
 	}
 	
 	.sub-btn,
-	.edit-btn,
-	.mySub-btn {
+	.stuCkeck-btn {
 	    background-color: #063E7A;
 	    border-color: #063E7A;
 	}
-	
+
 	.sub-btn:hover,
-	.edit-btn:hover,
-	.mySub-btn:hover {
+	stuCkeck-btn:hover {
 	    background-color: #1D5798;
 	}
 	
@@ -90,7 +46,7 @@
 	.form-group {
 	    margin-bottom: 10px;
 	}
-	
+
 </style>
 
 
@@ -98,12 +54,12 @@
         <div class="row">
             <div class="col-xs-12 offset-md-1 col-md-10 offset-sm-1 col-sm-10">
                 <div>
-                    <h1 class="text-center">강의 목록</h1>
+                    <h1 class="text-center">수강 목록</h1>
                 </div>
                 
                 <div class="row-empty"></div>
                 
-		                <form action="list" method="post">
+		                <form action="profeApplyList" method="post">
 			                <div class="row">
 			                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 			                        <label>년도&nbsp;</label>
@@ -145,11 +101,6 @@
 		                                <button type="submit" class="btn btn-primary btn-sm search-btn sub-btn">검색</button>
 		                            </div>
 		                            
-				                    <div class="form-inline">
-				                            <button type="button" class="btn btn-primary btn-sm mySub-btn">내 강의</button>
-				                            <button type="button" class="btn btn-primary btn-sm add-btn sub-btn">강의 등록</button>
-			                        </div>
-			                        
 			                    </div>
 		                    </div>
 					    </form>
@@ -161,58 +112,45 @@
 	                <table class="table table-hover">
 	                    <thead>
 	                        <tr>
-	                            <th>강의 번호</th>
+	                            <th>수강 번호</th>
 	                            <th>전공</th>
+	                            <th>강의 번호</th>
 	                            <th width="20%">강의 명</th>
-	                            <th>담당교수</th>
 	                            <th>학점</th>
 	                            <th>이수구분</th>
 	                            <th>강의시간</th>
 	                            <th>제한인원</th>
-	                            <th>강의계획서</th>
-	                            <th>기타</th>
+	                            <th width="10%">기타</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-							<c:forEach var="classSubjectDto" items="${list}">
+							<c:forEach var="subjectApplyDto" items="${applyList}">
 		                        <tr>
-		                            <td>${classSubjectDto.class_sub_no}</td>
-		                            <td>${classSubjectDto.major_type}</td>
-		                            <td>${classSubjectDto.class_sub_name}</td>
-		                            <td>${classSubjectDto.profe_name}</td>
-		                            <td>${classSubjectDto.class_sub_point}</td>
-		                            <td>${classSubjectDto.class_sub_type}</td>
+		                            <td>${subjectApplyDto.subject_apply_no}</td>
+		                            <td>${subjectApplyDto.major_type}</td>
+		                            <td>${subjectApplyDto.class_sub_no}</td>
+		                            <td>${subjectApplyDto.class_sub_name}</td>
+		                            <td>${subjectApplyDto.class_sub_point}</td>
+		                            <td>${subjectApplyDto.class_sub_type}</td>
 		                            <td>
-		                            	<c:set var="class_sub_time2" value="${classSubjectDto.class_sub_time2}"/>
-		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
-		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
-		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
+		                            	<c:set var="class_sub_time2" value="${subjectApplyDto.class_sub_time2}"/>
+		                            	<c:set var="class_sub_time3" value="${subjectApplyDto.class_sub_time3}"/>
+		                            	<c:set var="class_sub_time4" value="${subjectApplyDto.class_sub_time4}"/>
+		                            	${subjectApplyDto.class_sub_week} ${subjectApplyDto.class_sub_time1} 
 		                            	<c:if test="${class_sub_time2 != 'null'}">
-		                            		${classSubjectDto.class_sub_time2} 
+		                            		${subjectApplyDto.class_sub_time2} 
 		                            	</c:if>
 		                            	<c:if test="${class_sub_time3 != 'null'}">
-		                            		${classSubjectDto.class_sub_time3} 
+		                            		${subjectApplyDto.class_sub_time3} 
 		                            	</c:if>
 		                            	<c:if test="${class_sub_time4 != 'null'}">
-		                            		${classSubjectDto.class_sub_time4} 
+		                            		${subjectApplyDto.class_sub_time4} 
 		                            	</c:if>
-		                            	&lpar;${classSubjectDto.class_sub_room}&rpar;</td>
-		                            <td>${classSubjectDto.class_sub_person}</td>
+		                            	&lpar;${subjectApplyDto.class_sub_room}&rpar;</td>
+		                            <td>${subjectApplyDto.class_sub_person}</td>
 		                            <td>
-		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}">
-		                                <button type="button" class="btn btn-primary btn-sm plan-btn sub-btn">강의계획서</button>
-		                            </td>
-		                            <td>
-		                            	<c:choose>
-		                            		<c:when test="${profeinfo.profe_no == classSubjectDto.profe_no}">
-				                            	<button type="button" class="btn btn-primary btn-sm edit-btn">수정</button>
-				                            	&sol;
-				                            	<button type="button" class="btn btn-danger btn-sm del-btn">삭제</button>
-		                            		</c:when>
-		                            		<c:otherwise>
-		                            		&ndash;
-		                            		</c:otherwise>
-		                            	</c:choose>
+		                            	<input type="hidden" value="${subjectApplyDto.class_sub_no}" id="class_sub_no">
+		                            	<button type="button" class="btn btn-primary btn-sm stuCkeck-btn">출석확인</button>
 		                            </td>
 		                        </tr>
 							</c:forEach>
@@ -222,5 +160,12 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
 
 <jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/footer.jsp"></jsp:include>
