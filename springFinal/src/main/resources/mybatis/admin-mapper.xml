@@ -45,6 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	<select id="student_list" resultType="studentDto">
    		select * from student
    	</select>
+   	
+   	<update id="student_edit" parameterType="studentDto">
+   		UPDATE student SET student_pw=#{student_pw}, student_grade=#{student_grade}, major_no=#{major_no}, semester_no=#{semester_no}
+		, student_state=#{student_state}, student_phone=#{student_phone}, student_email=#{student_email}, student_post=#{student_post},student_addr=#{student_addr}
+		, student_extra_addr=#{student_extra_addr} where student_no = #{student_no}	   	
+   	</update>
 </mapper>
 
 

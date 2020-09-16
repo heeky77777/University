@@ -8,6 +8,7 @@ import com.kh.springFinal.entity.StudentFileDto;
 
 public interface StudentService {
 	
-	void student_file_add(StudentFileDto studentFileDto, MultipartFile file, int student_no) throws IllegalStateException, IOException;
+	public void fileupload(StudentFileDto studentFileDto, MultipartFile file, int student_no) throws IllegalStateException, IOException;
+
 
 }

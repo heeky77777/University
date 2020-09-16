@@ -49,6 +49,13 @@ public class StudentDaoImpl implements StudentDao{
 		
 		return list;
 	}
+	
+	@Override
+	public StudentFileDto student_check(int student_no) {
+		sqlSession.selectOne(student_no);
+		
+		return null;
+	}
 
 	@Override
 	public StudentDto list(StudentDto studentDto) {
@@ -67,6 +74,8 @@ public class StudentDaoImpl implements StudentDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	
 	

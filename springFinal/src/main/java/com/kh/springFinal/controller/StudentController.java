@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.MajorDto;
@@ -50,7 +51,11 @@ public class StudentController {
 	private MajorDao majorDao;
 	
 	@GetMapping("/student_join")
-	public String join() {
+	public String join(Model model) {
+		List<MajorDto> majorList = majorDao.major_list();
+		
+		model.addAttribute("majorList", majorList);
+		
 		return "student/student_join";
 	}
 	@PostMapping("/student_join")
@@ -148,10 +153,11 @@ public class StudentController {
 	@PostMapping("/student_info")
 	public String studentfile(@ModelAttribute StudentFileDto studentFileDto,
 								@RequestParam MultipartFile file,
-								@RequestParam int student_no) throws IllegalStateException, IOException {
+								@RequestParam int student_no,
+								RedirectAttributes attr) throws IllegalStateException, IOException {
 		
-		studentService.student_file_add(studentFileDto, file, student_no);
-		
+		studentService.fileupload(studentFileDto, file, student_no);
+		attr.addAttribute("student_no", student_no);
 		return "redirect:student_info"; 
 		
 	}

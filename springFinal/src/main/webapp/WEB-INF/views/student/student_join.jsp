@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
@@ -118,12 +119,12 @@
 		    </div>
 		    <div  class="form-group">	
 		       	<label>학과</label> 
-		    	<select class="form-control" name="major_no">
-		    			<option>경영학과</option>
-		    			<option>어문학과</option>
-		    			<option>성악과</option>
-		    			<option>시스템공학과</option>
-		    	</select>
+		    	 <select name="major_no" id="major_no" class="form-control" required onchange="get_semester();">
+                    <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
+                    <c:forEach var="majorDto" items="${majorList}">
+                     <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
+                    </c:forEach>
+     			</select>
 		   </div>
 		   <div class="form-group">
 		    	<label>학기</label> 

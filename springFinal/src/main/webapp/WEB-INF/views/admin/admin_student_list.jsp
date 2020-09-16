@@ -26,7 +26,7 @@
 	</script>
 	
 	<body>
-		<table class="table table-striped table-bordered table-hover">
+		<table class="table table-striped table-bordered table-hover control">
 			<h1 align="center">학생목록</h1><hr>
         <thead>
             <tr align="center">
@@ -45,13 +45,17 @@
                 <td>${studentDto.student_grade}</td>
                 <td>${studentDto.major_no}</td>    
                 <td>
-                	<a href="${pageContext.request.contextPath}/admin/admin_student_edit?student_no=${studentDto.student_no}">숭정</a>
+                	<a href="${pageContext.request.contextPath}/admin/admin_student_edit?student_no=${studentDto.student_no}">수정</a>
                 </td>           
             </tr>
-        </c:forEach>
+        </c:forEach>       
+		    	
+		   
         </tbody>
-
+			
 		</table>
+		<hr>
+		<a class="form-control btn btn-primary btn-block" href="${pageContext.request.contextPath}/member/main?student_no=${userinfo.student_no}" style="color:white">홈으로</a>		    	
 	</body>
 	
 

@@ -93,7 +93,7 @@
 		   <div class="form-group">	
 		    	<label>생년월일</label> <!-- 시간 안나오게 설정하는방법 알아보기 -->
 		    	<fmt:parseDate value="${studentDto.student_birth}" var="birth" pattern="yyyy-MM-dd HH:mm:ss" />
-		    	<input type="date" name="student_bitrh" id="student_bitrh" class="form-control" value="<fmt:formatDate value="${birth}" pattern="yyyy-MM-dd" />">
+		    	<input type="date" name="student_bitrh" id="student_bitrh" class="form-control" value="<fmt:formatDate value="${birth}" pattern="yyyy-MM-dd" />" readonly>
 		   </div> 	           
 		   <div class="form-group">
 		    	<label>연락처</label> 
@@ -117,7 +117,7 @@
 		   </div> 			    
 		   <div class="form-group">
 		    	<label>병역여부</label> 
-		    	<input class="form-control" name="student_milliy" value="${studentDto.student_milliy}">		    	
+		    	<input class="form-control" name="student_milliy" value="${studentDto.student_milliy}" readonly>		    	
 		   </div><hr>
 		   <div class="form-group">
 		    	<input class="form-control btn btn-primary btn-block" type="submit" value="수정완료" style="background-color :#063e7a">

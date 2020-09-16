@@ -20,7 +20,7 @@ public class StudentServiceImpl implements StudentService{
 	private StudentDao studentDao;
 
 	@Override
-	public void student_file_add(StudentFileDto studentFileDto, MultipartFile file, int student_no) throws IllegalStateException, IOException {
+	public void fileupload(StudentFileDto studentFileDto, MultipartFile file, int student_no) throws IllegalStateException, IOException {
 		studentFileDto.setStudent_no(student_no);
 		studentFileDto.setStudent_file_name(file.getOriginalFilename());
 		studentFileDto.setStudent_file_size(file.getSize());
@@ -32,6 +32,7 @@ public class StudentServiceImpl implements StudentService{
 		
 		
 	}
+
 
 //	@Override
 //	public void addFileupload(StudentFileuploadDto studentFileuploadDto, MultipartFile file, int class_sub_no) throws IllegalStateException, IOException {

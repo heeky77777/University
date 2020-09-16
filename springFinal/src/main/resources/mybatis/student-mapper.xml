@@ -62,11 +62,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<insert id="student_file" parameterType="studentFileDto">
-		INSERT INTO student values(#{student_file_no}, #{student_no}, #{student_file_name}, #{student_file_type}, #{student_file_size})
+		INSERT INTO student_file values(#{student_file_no}, #{student_no}, #{student_file_name}, #{student_file_type}, #{student_file_size})
 	</insert>
 	
 	<select id="student_seq" resultType="int">
       select student_file_no_seq.nextval from dual 
+   </select>
+   
+   <select id="student_file_check" parameterType="int" resultType="studentFileDto">
+   		select * from student_file  where student_no = #{student_no}
    </select>
 	
 </mapper>

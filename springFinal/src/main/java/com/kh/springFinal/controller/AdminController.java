@@ -74,6 +74,15 @@ public class AdminController {
 		
 	}
 	
+	
+	@PostMapping("/admin_student_edit")
+	public String student_edit(@ModelAttribute StudentDto studentDto) {
+		
+		sqlSession.update("admin.student_edit", studentDto);
+		
+		return "admin/admin_student_edit";		 
+	}
+	
 	//학생 
 	@GetMapping("/admin_student_list")
 	public String student_list(Model model) {
