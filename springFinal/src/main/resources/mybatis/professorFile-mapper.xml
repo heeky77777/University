@@ -45,6 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pf.PROFE_FILE_TYPE =${profe_file_type}, pf.PROFE_FILE_SIZE =${profe_file_size}
 	</update>
 	
+	<!-- 사진 삭제 -->
+	<delete id="delete" parameterType="int">
+	 DELETE PROFESSOR_FILE WHERE PROFE_FILE_NO=${profe_file_no}
+	</delete>
 </mapper>
 
 

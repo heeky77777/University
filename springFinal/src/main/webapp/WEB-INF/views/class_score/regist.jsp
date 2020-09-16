@@ -21,7 +21,7 @@
 	
  	<<div class="row">
 		<div class="form group">
-			<input type="text" class="form-control" name="major_no" value="${profeInfo." readonly>
+			<input type="text" class="form-control" name="major_no" value="" readonly>
 			<input type="text" class="form control" name="semester_no" value="" readonly>
 			<input type="text" class="form control" name="semester_no" value="" readonly>
 			<input type="text" class="form-control" name="class_apply_no" value="" readonly>

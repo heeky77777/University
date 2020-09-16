@@ -37,7 +37,7 @@ public class ProfessorController {
 
 	@Autowired
 	private ProfessorService professorService;
-	
+
 
 	//정보 등록
 	@GetMapping("/regist")
@@ -76,6 +76,7 @@ public class ProfessorController {
 		//교수 넘버 단일조회로 dto보내기
 		ProfessorDto professorDto=professorDao.get(profe_no);
 		model.addAttribute("professorDto",professorDto);
+		
 		//학과명 받아오기
 		MajorDto majorDto = professorDao.getMajor(profe_no);
 		String major_type = majorDto.getMajor_type();
@@ -104,8 +105,10 @@ public class ProfessorController {
 			@RequestParam int profe_no,
 			RedirectAttributes attr) throws IllegalStateException, IOException {
 		
+		
 		professorService.add(professorFileDto, file, profe_no);
-		professorService.getEdit(profe_no);
+		
+	
 		
 		
 //		return "redirect:detail?profe_no="+profe_no;

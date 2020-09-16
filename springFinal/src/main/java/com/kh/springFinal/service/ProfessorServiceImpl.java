@@ -14,6 +14,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.springFinal.entity.ProfessorFileDto;
@@ -80,12 +82,49 @@ public class ProfessorServiceImpl implements ProfessorService{
 	}
 	
 	
-	//기존 사진 중복 확인 후 수정
+	
+	  //기존 사진 중복 확인 후 수정 
+	  @Override
+	  public void getEdit(int profe_no) {
+	 
+	  sqlSession.selectOne("profeFile.getEdit", profe_no); 
+	  }
+	 
+	
+	
+	//사진 삭제
 	@Override
-	public void getEdit(int profe_no) {
+	public void delete(int profe_file_no) {
+		sqlSession.selectOne("profeFile.delete", profe_file_no);
+	}
+
+	@Override
+	public void removeandinsert(int profe_file_no, MultipartFile file, ProfessorFileDto professorFileDto) {
+		// TODO Auto-generated method stub
 		
-		 sqlSession.selectOne("profeFile.getEdit", profe_no);
 	}
 	
+	/*
+	 * //사진 검사 후 삭제
+	 * 
+	 * @Override public void removeandinsert(int profe_file_no,
+	 * 
+	 * @RequestParam MultipartFile file,
+	 * 
+	 * @RequestParam ProfessorFileDto professorFileDto ) {
+	 * 
+	 * //기존 이미지 불러오기 MultipartFile file = ; professorFileDto.getProfe_no(profe_no);
+	 * professorFileDto.getProfe_file_name(file.getOriginalFilename());
+	 * professorFileDto.getProfe_file_type(file.getContentType());
+	 * professorFileDto.getProfe_file_size(file.getSize());
+	 * 
+	 * boolean result = file.getSize()>0;
+	 * 
+	 * if(result) { //이미지가 존재하면 this.delete(profe_file_no); //파일정보 지워 File target =
+	 * new File("D:/upload",String.valueOf(profe_file_no)); target.delete();//파일 지워
+	 * }
+	 * 
+	 * this.add(professorFileDto, file, profe_no); //새로 넣어 ㄴㄴ }
+	 */
 	}
 
