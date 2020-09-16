@@ -4,24 +4,26 @@ package com.kh.springFinal.service;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.ProfessorFileDto;
 import com.kh.springFinal.repository.ProfessorDao;
 
 @Service
 public class ProfessorServiceImpl implements ProfessorService{
+	
+	@Autowired
+	private SqlSession sqlSession;
 
 	@Autowired
 	private ProfessorDao professorDao;
@@ -41,19 +43,21 @@ public class ProfessorServiceImpl implements ProfessorService{
 	
 	}
 
-
-	
-/*	
+	//교수 이미지 받기
 	@Override
-	public ResponseEntity<ByteArrayResource> down(int profe_no){
+	public ResponseEntity<ByteArrayResource> getFile(int profe_file_no) throws IOException{
 		
-	
-		ProfessorFileDto professorFileDto = professorDao.get(profe_no);
+		//교수번호로 해당 이미지 List
+//		List<ProfessorFileDto> list = sqlSession.selectList("profeFile.getFile", profe_no);
+//		int profe_file_no = list.get(0).getProfe_file_no();//list 첫 번째 겟
+		ProfessorFileDto professorFileDto = sqlSession.selectOne("profeFile.getImg",profe_file_no);
+		System.out.println(profe_file_no);
+		
 		if(professorFileDto==null) {//정보가 없으면
 			return ResponseEntity.notFound().build();
 		}
 		else { //정보가 있으면
-				File target = new File("D:/upload",String.valueOf(profe_no));
+				File target = new File("D:/upload",String.valueOf(profe_file_no));
 				byte[] data = FileUtils.readFileToByteArray(target);
 				ByteArrayResource res = new ByteArrayResource(data);
 					
@@ -66,6 +70,22 @@ public class ProfessorServiceImpl implements ProfessorService{
 								.body(res);
 				}
 			}
-		}*/
+
+	
+	@Override
+	public ProfessorFileDto getFileNo(int profe_no) throws IOException{
+		
+		return sqlSession.selectOne("profeFile.getFile", profe_no);
+	
+	}
+	
+	
+	//기존 사진 중복 확인 후 수정
+	@Override
+	public void getEdit(int profe_no) {
+		
+		 sqlSession.selectOne("profeFile.getEdit", profe_no);
+	}
+	
 	}
 

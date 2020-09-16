@@ -77,7 +77,7 @@
 	                <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle2();">교수</a>
 	                    <ul class="nav flex-column sidebar_toggle2 nav-item-list">
 	                        <li class="nav-item" style="margin-left: 30px;">
-	                            <a class="nav-link" href="${pageContext.request.contextPath}/professor/detail?profe_no=" style="color:white">교수정보</a>
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/professor/detail?profe_no=${profeinfo.profe_no}" style="color:white">교수정보</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
 	                            <a class="nav-link" href="#" style="color:white">수강등록</a>

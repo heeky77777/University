@@ -3,14 +3,19 @@ package com.kh.springFinal.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ProfessorDto;
@@ -81,6 +86,12 @@ public class ProfessorController {
 		String semester_type = semesterDto.getSemester_type();
 		model.addAttribute("semester_type",semester_type);//학기명 보내기
 		
+		//교수번호를 이용해서 이미지 번호를 구한 뒤에 jsp에 전달
+		ProfessorFileDto professorFileDto=professorService.getFileNo(profe_no);
+		int profe_file_no=professorFileDto.getProfe_file_no();
+		model.addAttribute("profe_file_no", profe_file_no);
+		  System.out.println("profe_file_no="+profe_file_no);
+		 
 		
 		return "professor/detail";
 		
@@ -90,14 +101,31 @@ public class ProfessorController {
 	public String detail(@ModelAttribute ProfessorFileDto professorFileDto,
 			@ModelAttribute ProfessorUploadVO professorUploadVO,
 			@RequestParam MultipartFile file,
-			@RequestParam int profe_no) throws IllegalStateException, IOException {
+			@RequestParam int profe_no,
+			RedirectAttributes attr) throws IllegalStateException, IOException {
 		
-		//profe_no 줘야하는거 같은디!
 		professorService.add(professorFileDto, file, profe_no);
+		professorService.getEdit(profe_no);
 		
 		
-		return "professor/detail";
+//		return "redirect:detail?profe_no="+profe_no;
+		attr.addAttribute("profe_no", profe_no);
+		return "redirect:detail";
 	}
+	
+	
+	  //이미지 썸네일
+	  
+	 @GetMapping("/profeImg/{profe_file_no}")
+	 @ResponseBody
+	 public ResponseEntity<ByteArrayResource> getImg(@PathVariable int profe_file_no) throws IOException{
+		 
+		 ResponseEntity<ByteArrayResource> entity= professorService.getFile(profe_file_no);
+		
+		 return entity; 
+
+	  }
+	 
 	
 	//정보 수정
 	@GetMapping("/edit")

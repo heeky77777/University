@@ -39,7 +39,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT*FROM professor WHERE profe_no=#{profe_no}
 	</select>
 
-
 	<!--교수 아이디 단일 조회 -->
 	<select id="getId" parameterType="String" resultType="professorDto">
 		SELECT*FROM professor WHERE profe_id=#{profe_id}
@@ -72,6 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="isExist" resultType="int">
 		SELECT PROFE_ID , COUNT(*) FROM PROFESSOR p GROUP BY p.PROFE_ID HAVING count(*)>0;
 	</select>
+	
+
 </mapper>
 
 

@@ -48,9 +48,11 @@ function preview() {
 						<form action="detail" method="post" enctype="multipart/form-data">
 						<label>사진</label>
 						<br>
-						<img name="profe_img" class="rounded mx-auto d-block" border="0" width="200" height="200"/>
+						<img src="${pageContext.request.contextPath}/professor/profeImg/${profe_file_no}" name="profe_img" class="rounded mx-auto d-block" border="0" width="200" height="200"/>
 						<br>
 						<input type="file" class="form-control-file" name="file" accept=".jpg, .gif, .png"  multiple onchange="preview()">
+						<input type="hidden" name="profe_no" value="${profeinfo.profe_no}">
+						
 						<input type="submit" value="등록">
 						</form>
 					</div> 

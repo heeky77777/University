@@ -52,13 +52,11 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		return sqlSession.selectOne("professor.getId", profe_id);
 	}
 	
-	//정보 수정
-//	public ProfessorDto update(ProfessorDto professorDto) {
-//	
-//		int profe_no=professorDto.getProfe_no();
-//		ProfessorDto professor = sqlSession.update("professor.edit",profe_no);
-//		return professor;
-//	}
+	/*
+	 * //정보 수정 public void update(int profe_no) {
+	 * 
+	 * ProfessorDto professorDto = sqlSession.update("professor.edit",profe_no); }
+	 */
 	
 	//학과명 가져오기
 	@Override
@@ -99,7 +97,7 @@ public class ProfessorDaoImpl implements ProfessorDao {
 		return professor;
 	}
 
-
+	
 	
 	
 }
