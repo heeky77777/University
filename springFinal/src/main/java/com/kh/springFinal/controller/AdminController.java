@@ -27,6 +27,7 @@ public class AdminController {
 	@Autowired
 	private MajorDao majorDao;
 	
+	
 	@GetMapping("/major_add")
 	public String major_add(Model model) {
 		

@@ -30,6 +30,6 @@ public class ClassSubjectDto {
 	private String profe_name;
 	private String semester_type;
 	private String major_type;
-
+	private int student_no;
 
 }

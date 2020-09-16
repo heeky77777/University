@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	 	<head>
 	        <meta charset="UTF-8">
@@ -31,6 +30,7 @@
 				history.replaceState({}, null, location.pathname);
 				alert("신청된 강의 입니다.");
 			}
+			
 	    	
 	    	var regist_year = document.querySelector("#regist_year").value;
 	    	console.log(regist_year);
@@ -64,85 +64,55 @@
 	    	
 	    }
 	    
-// 		function get_list(){
-// 			var regist_year = document.querySelector("#regist_year").value;
-// 			console.log(regist_year);
-// 	    	var major_no = document.querySelector("#major_no").value;
-// 	    	console.log(major_no);
-// 	    	var semester_no = document.querySelector("#semester_no").value;
-// 	    	console.log(semester_no);
-	    	
-	    	
-// 	    	axios({			
-// 				url:"${pageContext.request.contextPath}/apply/subject_list?regist_date=" + regist_year + "&major_no=" + major_no + "&semester_no=" + semester_no, 
-// 				method:"get"
-// 			}).then(function(response){
-// 				console.log(response.data);
-				
-// 				for(var i=0; i < response.data.length; i++){
-// 					//h3 태그를 만들어서 정보를 설정하고 div에 추가
-// 					var h3 = document.createElement("h3");
-// 					var name = response.data[i].name;
-// 					var score = response.data[i].score;
-// 					h3.textContent = name + " : "+score+"점";
-// 					div.appendChild(h3);
-// 				}
-// 	    	})
-	    	
-// 		}
-		function apply_check(){
-      
-        	var result = confirm("정말 신청하시겠습니까??");
+
+		function del_check(){
+      		var class_sub_no = document.querySelector("#class_sub_no").value;
+        	var result = confirm("정말 삭제하시겠습니까??");
             if (!result){ 
 //                 document.form.submit();
             	return false;
             }
             else{
-            	document.form.submit();
-            	}
-            }
-		
-		function apply_class(){
-			
-			var class_sub_no = document.querySelector("#semester_no").value;
-			var major_no = document.querySelector("#major_no2").value;
-			var student_no = document.querySelector("#student_no").value;
-			var subject_apply_name = document.querySelector("#subject_apply_name").value;
-			
+//             	document.form.submit();
+
+
 			axios({			
-				url:"${pageContext.request.contextPath}/apply/apply_class?class_sub_no=" + class_sub_no + "&major_no=" + major_no + "&student_no=" + student_no + "&subject_apply_name=" + subject_apply_name, 
+				url:"${pageContext.request.contextPath}/apply/st_class_apply_list_del?class_sub_no=" + class_sub_no,
 				method:"get"
 			}).then(function(response){
+				
+// 				var major_no =  document.querySelector("#major_no");
+// 				major_no.value = response.data.major_no;
+// 				console.log(major_no.value);
 				location.reload();
-	    	})	
-		}
+	    	})
+	    	
+            
+            	}
+            
+            
+            }
+		
+
 	    window.onload=get_semester;
 	    
 	    </script>
-	    
-			<h1>강의신청</h1>
+			<h1>내가 신청한 강의 목록</h1>
 			
 		
 			<div class="form-group form-inline">
-					<form action="subject_list" method="post">
+					<form action="st_class_apply_list" method="post">
 	                       <input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">
 	                          <label>년도</label>
 	                       <select name="semester_type" id="semester_type" class="form-control" onchange="get_semester();">
 	                         <option ${param.semester_type == '1학기' ? 'selected':''}>1학기</option>      
 	                         <option ${param.semester_type == '2학기' ? 'selected':''}>2학기</option>      
 	                       </select>&nbsp;&nbsp;&nbsp;
-	                       <select name="major_type" id="major_type" class="form-control" required onchange="get_semester();">
-                                <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
-                                <c:forEach var="majorDto" items="${majorList}">
-	                                <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
-                                </c:forEach>
-                            </select>
-	                      <input type="hidden" name="major_no" id="major_no">&nbsp;&nbsp;&nbsp;
-	                      <input type="hidden" name="semester_no" id="semester_no">
-<!-- 	                      <button class="btn btn-secondary btn-sm" onclick="get_list();">강의조회</button> -->
+	                      	<input type="hidden" name="semester_no" id="semester_no">
+	                      	<input type="hidden" name="student_no" value="${userinfo.student_no}">
 							<input type="submit" value="강의조회"  class="btn btn-primary" style="background-color :#063e7a">
 					</form>		
-	                  </div>
+	        </div>
                     
                   
                   <div class="form-group form-inline">
@@ -160,32 +130,41 @@
 						<th></th>
 		 			</tr>
 				</thead>
-				<tbody>
-				<c:forEach var="classSubjectDto" items="${apply_list}" varStatus="status"> 
-<!-- 					<form action="student_class_apply" method="post"> -->
+				<tbody id="reload_date">
+				<c:forEach var="classSubjectDto" items="${st_class_apply_list}"> 
+<!-- 					<form action="st_class_apply_list_del" method="post"> -->
 					<tr>
 						<input type="hidden" name="class_sub_no" id="class_sub_no" value="${classSubjectDto.class_sub_no}">
-						<input type="hidden" name="major_no" id="major_no2" value="${classSubjectDto.major_no}">
+<%-- 						<input type="hidden" name="major_no" id="major_no" value="${classSubjectDto.major_no}"> --%>
 						<input type="hidden" name="student_no" id="student_no" value="${userinfo.student_no}">
-						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}">
+<%-- 						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}"> --%>
 						<td>${classSubjectDto.class_sub_name}</td>
 						<td>${classSubjectDto.profe_name}</td>
 						<td>${classSubjectDto.class_sub_point}</td>
 						<td>${classSubjectDto.class_sub_type}</td>
-<%-- 						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}${classSubjectDto.class_sub_time2}${classSubjectDto.class_sub_time3}${classSubjectDto.class_sub_time4} (${classSubjectDto.class_sub_room})</td> --%>
-						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}(${classSubjectDto.class_sub_room})</td>
+						<td>
+							<c:set var="class_sub_time2" value="${classSubjectDto.class_sub_time2}"/>
+		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
+		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
+		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
+		                            	<c:if test="${class_sub_time2 != 'null'}">
+		                            		${classSubjectDto.class_sub_time2} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time3 != 'null'}">
+		                            		${classSubjectDto.class_sub_time3} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time4 != 'null'}">
+		                            		${classSubjectDto.class_sub_time4} 
+		                            	</c:if>
+		                            	(${classSubjectDto.class_sub_room})
+						</td>
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
-<%-- 						<c:if test="${sub_check != null}"> --%>
-<!-- 							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn"> -->
-							<button class="btn btn-primary" onclick="apply_class();">강의신청</button>
-<%-- 						</c:if> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<span class="btn btn-primary btn-block regist-btn">신청완료</span> -->
-<%-- 						</c:otherwise> --%>
+<!-- 							<input type="submit" value="강의취소" onclick="del_check();" class="btn btn-primary btn-block regist-btn">								 -->
+							<button onclick="del_check();" class="btn btn-primary btn-block regist-btn">강의취소</button>
 						</td>
 					</tr>
-<!-- 					</form> -->
+					</form>
 				</c:forEach>
 				</tbody>
 		</table>

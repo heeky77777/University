@@ -1,6 +1,8 @@
 package com.kh.springFinal.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +38,27 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 	}
 
 	@Override
-	public void class_apply(SubjectApplyDto subjectApplyDto) {
-		sqlSession.insert("subjectApply.apply_class",subjectApplyDto);
+	public void class_apply(int class_sub_no, int major_no, int student_no, String subject_apply_name) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("class_sub_no", class_sub_no);
+		map.put("major_no", major_no);
+		map.put("student_no", student_no);
+		map.put("subject_apply_name", subject_apply_name);
+		
+		sqlSession.insert("subjectApply.apply_class",map);
 		
 	}
 
 	@Override
-	public SubjectApplyDto get(SubjectApplyDto subjectApplyDto) {
-		SubjectApplyDto subjectApply =sqlSession.selectOne("subjectApply.get_check",subjectApplyDto);
+	public SubjectApplyDto get(int class_sub_no, int major_no, int student_no, String subject_apply_name) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("class_sub_no", class_sub_no);
+		map.put("major_no", major_no);
+		map.put("student_no", student_no);
+		map.put("subject_apply_name", subject_apply_name);
+		
+		
+		SubjectApplyDto subjectApply =sqlSession.selectOne("subjectApply.get_check", map);
 		return subjectApply;
 	}
 
@@ -69,6 +84,18 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 	public List<SubjectApplyDto> class_numb(SubjectApplyDto subjectApplyDto) {
 		List<SubjectApplyDto> classSubject = sqlSession.selectList("subjectApply.class_numb");
 		return classSubject;
+	}
+
+	@Override
+	public List<ClassSubjectDto> st_class_apply_list(ClassSubjectDto classSubjectDto) {
+		List<ClassSubjectDto> st_class_apply_list = sqlSession.selectList("subjectApply.st_class_apply_list",classSubjectDto);
+		return st_class_apply_list;
+	}
+
+	@Override
+	public void st_class_apply_list_del(int class_sub_no) {
+		sqlSession.delete("subjectApply.st_class_apply_list_del", class_sub_no);
+		
 	}
 
 }

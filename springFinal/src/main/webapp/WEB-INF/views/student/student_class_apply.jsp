@@ -136,14 +136,6 @@
 	                                <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
                                 </c:forEach>
                             </select>
-<!-- 	                      <select name="major_type" id="major_type" class="form-control" onchange="get_semester();"> -->
-<%-- 	                          <option ${param.major_type == '경영학과' ? 'selected':''}>경영학과</option> --%>
-<%-- 	                          <option ${param.major_type == '금융세무학과' ? 'selected':''}>금융세무학과</option> --%>
-<%-- 	                          <option ${param.major_type == '도시공학과' ? 'selected':''}>도시공학과</option> --%>
-<%-- 	                          <option ${param.major_type == '시스템공학과' ? 'selected':''}>시스템공학과</option> --%>
-<%-- 	                          <option ${param.major_type == '문예창작학과' ? 'selected':''}>문예창작학과</option> --%>
-<%-- 	                          <option ${param.major_type == '성악과' ? 'selected':''}>성악과</option> --%>
-<!-- 	                      </select> -->
 	                      <input type="hidden" name="major_no" id="major_no">&nbsp;&nbsp;&nbsp;
 	                      <input type="hidden" name="semester_no" id="semester_no">
 <!-- 	                      <button class="btn btn-secondary btn-sm" onclick="get_list();">강의조회</button> -->

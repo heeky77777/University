@@ -67,4 +67,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	<select id="class_numb" parameterType="subjectapplyDto" resultType="subjectapplyDto">
    		SELECT * FROM subject_apply WHERE CLASS_SUB_NO = #{class_sub_no};
    	</select>
+   	
+   	<select id="st_class_apply_list" parameterType="classSubjectDto" resultType="classSubjectDto">
+   		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO WHERE cs.SEMESTER_NO = #{semester_no} and sa.STUDENT_NO = #{student_no}
+   	</select>
+   	
+   	<delete id="st_class_apply_list_del" parameterType="int">
+   		delete subject_apply where class_sub_no = #{class_sub_no}
+   	</delete>
 </mapper>

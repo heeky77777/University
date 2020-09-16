@@ -123,20 +123,58 @@ public class StudentController {
 	}
 	
 	@PostMapping("/student_class_apply")
-	public String student_class_apply(@ModelAttribute SubjectApplyDto subjectApplyDto,
+	public String student_class_apply(@RequestParam int class_sub_no,
+										@RequestParam int major_no,
+										@RequestParam int student_no,
+										@RequestParam String subject_apply_name,
 										Model model) {
 		
-		SubjectApplyDto sub_check = subjectapplyDao.get(subjectApplyDto);
+		SubjectApplyDto sub_check = subjectapplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
 		model.addAttribute("sub_check",sub_check);
 		
 		if(sub_check==null) {
-			subjectapplyDao.class_apply(subjectApplyDto);
+			subjectapplyDao.class_apply(class_sub_no, major_no, student_no, subject_apply_name);
 			return "redirect:student_class_apply";
 		}
 		else {
 			return "redirect:student_class_apply?error";
 		}
 		
+	}
+	
+	@GetMapping("/st_class_apply_list")
+	public String st_class_apply_list(Model model){
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+	
+		model.addAttribute("now_year", year);
+		
+		return "student/st_class_apply_list";
+	}
+	
+	
+	@PostMapping("/st_class_apply_list")
+	public String st_class_apply_list(@ModelAttribute ClassSubjectDto classSubjectDto,
+										Model model) {
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		
+		model.addAttribute("now_year", year);	
+		
+		List<ClassSubjectDto> st_class_apply_list = subjectapplyDao.st_class_apply_list(classSubjectDto);
+		List<MajorDto> majorList = majorDao.major_list();
+		
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("st_class_apply_list",st_class_apply_list);
+		return "student/st_class_apply_list";
+	}
+	
+	@PostMapping("/st_class_apply_list_del")
+	public String st_class_apply_list_del(@RequestParam int class_sub_no) {
+		
+		subjectapplyDao.st_class_apply_list_del(class_sub_no);
+		
+		return "redirect:st_class_apply_list";
 	}
 	
 	@GetMapping("/student_info")
