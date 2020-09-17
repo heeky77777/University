@@ -171,8 +171,22 @@
 						<td>${classSubjectDto.profe_name}</td>
 						<td>${classSubjectDto.class_sub_point}</td>
 						<td>${classSubjectDto.class_sub_type}</td>
-<%-- 						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}${classSubjectDto.class_sub_time2}${classSubjectDto.class_sub_time3}${classSubjectDto.class_sub_time4} (${classSubjectDto.class_sub_room})</td> --%>
-						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}(${classSubjectDto.class_sub_room})</td>
+						<td>
+							<c:set var="class_sub_time2" value="${classSubjectDto.class_sub_time2}"/>
+		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
+		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
+		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
+		                            	<c:if test="${class_sub_time2 != 'null'}">
+		                            		${classSubjectDto.class_sub_time2} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time3 != 'null'}">
+		                            		${classSubjectDto.class_sub_time3} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time4 != 'null'}">
+		                            		${classSubjectDto.class_sub_time4} 
+		                            	</c:if>
+		                            	(${classSubjectDto.class_sub_room})
+						</td>
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
 <%-- 						<c:if test="${sub_check != null}"> --%>

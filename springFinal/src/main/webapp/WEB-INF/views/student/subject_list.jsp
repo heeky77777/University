@@ -104,8 +104,8 @@
 		
 		function apply_class(){
 			
-			var class_sub_no = document.querySelector("#semester_no").value;
-			var major_no = document.querySelector("#major_no2").value;
+			var class_sub_no = document.querySelector("#class_sub_no").value;
+			var major_no = document.querySelector("#major_no").value;
 			var student_no = document.querySelector("#student_no").value;
 			var subject_apply_name = document.querySelector("#subject_apply_name").value;
 			
@@ -161,19 +161,33 @@
 		 			</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="classSubjectDto" items="${apply_list}" varStatus="status"> 
+				<c:forEach var="classSubjectDto" items="${apply_list}"> 
 <!-- 					<form action="student_class_apply" method="post"> -->
 					<tr>
 						<input type="hidden" name="class_sub_no" id="class_sub_no" value="${classSubjectDto.class_sub_no}">
-						<input type="hidden" name="major_no" id="major_no2" value="${classSubjectDto.major_no}">
+						<input type="hidden" name="major_no" id="major_no" value="${classSubjectDto.major_no}">
 						<input type="hidden" name="student_no" id="student_no" value="${userinfo.student_no}">
 						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}">
 						<td>${classSubjectDto.class_sub_name}</td>
 						<td>${classSubjectDto.profe_name}</td>
 						<td>${classSubjectDto.class_sub_point}</td>
 						<td>${classSubjectDto.class_sub_type}</td>
-<%-- 						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}${classSubjectDto.class_sub_time2}${classSubjectDto.class_sub_time3}${classSubjectDto.class_sub_time4} (${classSubjectDto.class_sub_room})</td> --%>
-						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}(${classSubjectDto.class_sub_room})</td>
+						<td>
+							<c:set var="class_sub_time2" value="${classSubjectDto.class_sub_time2}"/>
+		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
+		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
+		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
+		                            	<c:if test="${class_sub_time2 != 'null'}">
+		                            		${classSubjectDto.class_sub_time2} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time3 != 'null'}">
+		                            		${classSubjectDto.class_sub_time3} 
+		                            	</c:if>
+		                            	<c:if test="${class_sub_time4 != 'null'}">
+		                            		${classSubjectDto.class_sub_time4} 
+		                            	</c:if>
+		                            	(${classSubjectDto.class_sub_room})
+						</td>
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
 <%-- 						<c:if test="${sub_check != null}"> --%>
