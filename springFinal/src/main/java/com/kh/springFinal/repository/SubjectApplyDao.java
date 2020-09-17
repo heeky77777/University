@@ -31,6 +31,8 @@ public interface SubjectApplyDao {
 	
 	void st_class_apply_list_del(int class_sub_no);
 	
+	SubjectApplyDto get_subject(int class_sub_no, int student_no);
+	
 //	List<ClassSubjectDto> get_list_after(ClassSubjectDto classSubjectDto);
 	
 }

@@ -98,24 +98,25 @@ public class StudentController {
 	}
 	
 	@GetMapping("/subject_list")
-	public String subject_list2(@ModelAttribute ClassSubjectDto classSubjectDto, Model model) {
+	public String subject_list_get(@ModelAttribute ClassSubjectDto classSubjectDto,
+									Model model) {
 		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		
 		List<ClassSubjectDto> apply_list = subjectapplyDao.get_list(classSubjectDto);
+		
 		List<MajorDto> majorList = majorDao.major_list();
 		
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("apply_list", apply_list);
-		
 		model.addAttribute("now_year", year);
 		
 		return "student/subject_list";
 	}
 	
 	@PostMapping("/subject_list")
-	public String subject_list(@ModelAttribute ClassSubjectDto classSubjectDto,
+	public String subject_list_post(@ModelAttribute ClassSubjectDto classSubjectDto,
 								Model model) {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
@@ -203,6 +204,12 @@ public class StudentController {
 	public String info() {
 		
 		return "student/student_info";
+	}
+	
+	@GetMapping("/student_apply_wait")
+	public String student_apply_wait() {
+		
+		return "student/student_apply_wait";
 	}
 	
 }

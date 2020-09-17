@@ -22,6 +22,31 @@
 	        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	    </head>
 	    <script>
+	    
+		function now_apply() {
+			
+			var socket;
+			
+				var uri = "ws://localhost:8080/spring97/go";
+				socket = new WebSocket(uri);
+				
+//		 		연결이 되었는지 안되었는지 확인할 수 있도록 예약 작업(콜백)을 설정
+				socket.onopen = function(){
+					console.log("연결되었씁닏강");
+				};
+				
+				socket.onmessage = function(e){
+				console.log(e.data);
+				
+					if(e.data==("waitting")){
+					location.href ='${pageContext.request.contextPath}/student/student_apply_wait';
+					}
+					
+			};	
+			
+			
+		}
+	    
 	    function get_semester(){
 	    	
 	    	var url = location.search.substr(location.search.indexOf("?") + 1);
@@ -120,6 +145,7 @@
 	    window.onload=get_semester;
 	    
 	    </script>
+	    <body onload="now_apply();">
 			<h1>강의신청</h1>
 			
 		
@@ -204,6 +230,6 @@
 				</c:forEach>
 				</tbody>
 		</table>
-
+	</body>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

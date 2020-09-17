@@ -13,4 +13,5 @@ public class SubjectApplyDto {
 	private int student_no;
 	private String subject_apply_name;
 	private String subject_apply_date;
+	private String subject_apply_state;
 }

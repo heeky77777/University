@@ -98,4 +98,15 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 		
 	}
 
+	@Override
+	public SubjectApplyDto get_subject(int class_sub_no, int student_no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("class_sub_no", class_sub_no);
+		map.put("student_no", student_no);
+		
+		SubjectApplyDto subject = sqlSession.selectOne("subjectApply.get_subject",map);
+		
+		return subject;
+	}
+
 }

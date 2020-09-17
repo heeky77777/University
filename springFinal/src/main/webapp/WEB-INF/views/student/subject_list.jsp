@@ -205,14 +205,14 @@
 						</td>
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
-<%-- 						<c:when test="${sub_check != null}"> --%>
+						<c:if test="${classSubjectDto.subject_apply_state eq null}">
 							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">
-<!-- 							<button class="btn btn-primary" onclick="apply_class();">강의신청</button> -->
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<span class="btn btn-primary btn-block regist-btn">신청완료</span> -->
-<%-- 						</c:otherwise> --%>
-<!-- 						</td> -->
+
+						</c:if>
+						<c:if test="${userinfo.student_no eq classSubjectDto.student_no && classSubjectDto.subject_apply_state eq '신청'}">
+							<span class="btn btn-primary btn-block regist-btn" style="background-color: red">신청완료</span>
+						</c:if>
+						</td>
 					</tr>
 					</form>
 				</c:forEach>
