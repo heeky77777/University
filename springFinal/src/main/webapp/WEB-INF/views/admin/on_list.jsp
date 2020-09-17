@@ -42,11 +42,11 @@ $(function() {
 		var student_no = $(this).data("no");
 		
 		axios({
-			url:"${pageContext.request.contextPath}/adminRest/update?student_no=" + student_no,
+			url:"${pageContext.request.contextPath}/adminRest/update2?student_no=" + student_no,
 			method: "get"
 		}).then(function(response){
-			alert("휴학신청을 승낙하셨습니다.")
-			location.href="${pageContext.request.contextPath}/admin/off_list"
+			alert("복학 신청을 승낙하셨습니다.")
+			location.href="${pageContext.request.contextPath}/admin/on_list"
 		});
 		
 	});
@@ -55,11 +55,11 @@ $(function() {
 		var student_no = $(this).data("no");
 		
 		axios({
-			url:"${pageContext.request.contextPath}/adminRest/delete?student_no=" + student_no,
+			url:"${pageContext.request.contextPath}/adminRest/delete2?student_no=" + student_no,
 			method: "get"
 		}).then(function(response){
-			alert("휴학신청이 철회되었습니다")
-			location.href="${pageContext.request.contextPath}/admin/off_list"
+			alert("복학 신청이 철회되었습니다")
+			location.href="${pageContext.request.contextPath}/admin/on_list"
 		});
 		
 	});	
@@ -78,35 +78,34 @@ $(function() {
 						<th>이름</th>
 						<th>학과</th>
 						<th>학번</th>
-						<th>휴학</th>
-						<th>휴학종류</th>
-						<th>휴학 신청날짜</th>
+						<th>신청상태</th>
+						<th>복학 신청날짜</th>
 						<th>승인</th>
 						<th>취소</th>
 					</tr>
 				</thead>
 				<tbody>
 
-					<!-- <form action="off_list" method="post" name="update"> -->
-						<c:forEach var="schoolOffDto" items="${list}">
+					
+						<c:forEach var="schoolReturnDto" items="${list}">
 							<tr>
-								<td>${schoolOffDto.student_name}</td>
-								<td>${schoolOffDto.major_no}</td>
-								<td>${schoolOffDto.student_numb}</td>
-								<td>${schoolOffDto.school_off_regist}</td>
-								<td>${schoolOffDto.school_off_type}</td>
+								<td>${schoolReturnDto.student_name}</td>
+								<td>${schoolReturnDto.major_no}</td>
+								<td>${schoolReturnDto.student_numb}</td>
+								<td>${schoolReturnDto.school_return_type}</td>
+								
 								<td><fmt:parseDate
-										value="${schoolOffDto.school_off_period }" var="time"
+										value="${schoolReturnDto.school_return_date }" var="time"
 										pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
 										value="${time}" pattern="yyyy-MM-dd" /></td>
 
 								<td>
-									<input type="hidden" value="${schoolOffDto.student_no}" name="student_no" >
-									<button type="submit" class="btn btn-primary modify-btn" data-no="${schoolOffDto.student_no}" >승인</button>
+									<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no" >
+									<button type="submit" class="btn btn-primary modify-btn" data-no="${schoolReturnDto.student_no}" >승인</button>
 								</td>
 								<td>
-								<input type="hidden" value="${schoolOffDto.student_no}" name="student_no">
-									<button type="submit" class="btn btn-danger cancel-btn" data-no="${schoolOffDto.student_no}">취소 및 삭제</button>
+								<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no">
+									<button type="submit" class="btn btn-danger cancel-btn" data-no="${schoolReturnDto.student_no}">취소 및 삭제</button>
 										
 								</td>
 
