@@ -105,7 +105,7 @@ $(function() {
 								</td>
 								<td>
 								<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no">
-									<button type="submit" class="btn btn-danger cancel-btn" data-no="${schoolReturnDto.student_no}">취소 및 삭제</button>
+									<button type="submit" class="btn btn-danger cancel-btn" data-no="${schoolReturnDto.student_no}"> 취소 및 삭제</button>
 										
 								</td>
 
