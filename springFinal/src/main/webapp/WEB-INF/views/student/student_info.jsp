@@ -3,25 +3,44 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-    
+    <script>
+    function preview() {
+    	var fileTag = document.querySelector("input[name=file]");
+    	console.log(fileTag.file);
+    	if (fileTag.files.length > 0) {
+    		var reader = new FileReader();
+    		reader.onload = function(data) {//data는 읽은 파일의 내용
+    			//미리보기 구현
+    			var imgTag = document.querySelector("img[name=student_img]");
+    			imgTag.src = data.target.result;
+    		};
+    		reader.readAsDataURL(fileTag.files[0]);//읽도록 지시
+    	} else {//이미지 선택 취소
+    		var imgTag = document.querySelector("img[name=student_img]");
+    		imgTag.src = "";
+    	}
+    }
+    </script>
    	
 <div class="container-fluid">
 	<div class="form">
 		<div class="offset-md-4 col-md-4">
 		
 			<br><br>
-			<h1 class="form-group" style="text-align: center"> 마이페이지 </h1><hr><br><br>
+			<h1 class="form-group" style="text-align: center"> 마이페이지 </h1><hr><br>
 
     		<form action="student_info" method="post" enctype="multipart/form-data">
+		    <div class="form-group" align="center">
+				<img src="${pageContext.request.contextPath}/student/studentImg/${studentDto.student_no}" name="student_img" class="rounded mx-auto d-block" border="0" width="150" height="150">
+				<br><hr>
+				<label >학생 사진 등록</label><br>
+				<input type="hidden" name="student_no" value="${studentDto.student_no}">
+				<input class="n-form n-theme" type="file" name="file" accept=".jpg, .png, .gif">
+				<input class="btn btn-outline-info" type="submit" value="사진등록">
+		    </div>
 		    <div class="form-group">
 		    	<label>학생이름</label>  
 		    	<input class="form-control" type="text" name="student_name" value="${studentDto.student_name}" readonly>
-		    </div>
-		    <div class="form-group">
-				<label>학생 사진 등록</label><br>
-				<input type="hidden" name="student_no" value="${studentDto.student_no}">
-				<input class="form-group" type="file" name="file" accept=".jpg, .png, .gif">
-				<input type="submit" value="사진등록">
 		    </div>
 		    <div class="form-group">    
 		    	<label>학번</label>  

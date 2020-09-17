@@ -72,6 +72,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="student_file_check" parameterType="int" resultType="studentFileDto">
    		select * from student_file  where student_no = #{student_no}
    </select>
+   
+<!--    <select id="student_file_get" resultType="studentFileDto" parameterType="int"> -->
+<!-- 		SELECT * FROM student_file WHERE student_file_no = #{student_file_no} -->
+<!-- 	</select> -->
 	
+	<select id="student_file_get" resultType="studentFileDto" parameterType="int">
+		SELECT * FROM student_file WHERE student_no = #{student_no}
+	</select>
+	
+	<delete id="student_file_del" parameterType="int">
+		delete student_file where student_no = #{student_no}
+	</delete>
 </mapper>
 

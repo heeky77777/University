@@ -59,7 +59,14 @@
 		    <div class="form-group">
 		    	<label>학생이름</label>  
 		    	<input class="form-control" type="text" name="student_name" value="${studentDto.student_name}" readonly>
-		    </div>		    
+		    </div>		  
+<!-- 		    <div> -->
+<%-- 		    	<input type="file" value="${.student_img}"> --%>
+<!-- 		    </div>   -->
+		    <div id="holder">
+		    	<img src="data:${studentDto.student_img}">
+		    </div>
+		    
 		    <div class="form-group">    		    
 		    	<label>학번</label>  
 		    	<input class="form-control" type="text" name="student_numb" onblur="checkNumb();" value="${studentDto.student_numb}" readonly>

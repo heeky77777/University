@@ -50,7 +50,7 @@
             <li class="up_background" style="height: 50px; width: 250px;">
                 <img src="../project/img/aaa.png" width="250px" height="50px">
             </li>
-            <li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">kh대하교</li>
+           	<li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">kh대하교</li>
             
             <c:if test="${userinfo.student_auth eq '학생'}">
                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle();">학생</a>
