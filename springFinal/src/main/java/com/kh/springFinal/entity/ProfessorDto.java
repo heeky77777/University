@@ -30,6 +30,9 @@ public class ProfessorDto {
 	private String profe_auth;
 	private String profe_date;
 
+	
+	private String major_type;
+	private String semester_type;
 
 }
 

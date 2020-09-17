@@ -85,11 +85,7 @@ public class ProfessorController {
 		String semester_type = semesterDto.getSemester_type();
 		model.addAttribute("semester_type",semester_type);//학기명 보내기
 		
-//		//교수번호를 이용해서 이미지 번호를 구한 뒤에 jsp에 전달
-//		int profe_file_no=professorService.getFileNo(profe_no);
-//		model.addAttribute("profe_file_no", profe_file_no);
-//		  System.out.println("profe_file_no="+profe_file_no);
-		 
+
 		
 		return "professor/detail";
 		
@@ -123,17 +119,7 @@ public class ProfessorController {
 		return "redirect:detail";
 	}
 	
-	  //이미지 썸네일
-	  
-//	 @GetMapping("/profeImg/{profe_file_no}")
-//	 @ResponseBody
-//	 public ResponseEntity<ByteArrayResource> getImg(@PathVariable int profe_file_no, MultipartFile file, int profe_no) throws Exception{
-//		 
-//		 ResponseEntity<ByteArrayResource> entity= professorService.getFile(profe_file_no);
-//		 professorService.getEdit(file, profe_no);		
-//		 return entity; 
-//
-//	  }
+
 	
 	// 파일 다운로드 
 	   @GetMapping("/profeImg/{profe_no}")

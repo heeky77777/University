@@ -48,9 +48,8 @@ public class ClassSubjectServiceImpl implements ClassSubjectService{
 	public int subjectRegist(ClassSubjectDto classSubjectDto, String this_year, String semester_type, HttpSession session) {
 		
 		SemesterDto semesterDto = classSubjectDao.getSemester(this_year, semester_type);
-//		session.getAttribute("profeinfo");
-//		ProfessorDto professorDto = professorDao.get(classSubjectDto.getProfe_no());
-		ProfessorDto professorDto = classSubjectDao.getProfeName(classSubjectDto);
+		ProfessorDto logProfeDto = (ProfessorDto) session.getAttribute("profeinfo");
+		ProfessorDto professorDto = professorDao.get(logProfeDto.getProfe_no());
 		
 		classSubjectDto.setProfe_no(professorDto.getProfe_no());
 		classSubjectDto.setMajor_no(professorDto.getMajor_no());

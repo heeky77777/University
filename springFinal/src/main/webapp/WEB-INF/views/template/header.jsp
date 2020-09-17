@@ -71,6 +71,12 @@
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="#" style="color:white">강의평가</a>
                         </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/off?student_no=${userinfo.student_no}" style="color:white">휴학신청</a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/on?student_no=${userinfo.student_no}" style="color:white">복학신청</a>
+                        </li>
                     </ul>
                 </c:if>
                 
@@ -81,7 +87,13 @@
 	                            <a class="nav-link" href="${pageContext.request.contextPath}/professor/detail?profe_no=${profeinfo.profe_no}" style="color:white">교수정보</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
-	                            <a class="nav-link" href="#" style="color:white">수강등록</a>
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/regist" style="color:white">강의등록</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/list" style="color:white">강의목록</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/profeApplyList" style="color:white">수강목록</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
 	                             <a class="nav-link" href="#" style="color:white">성적등록</a>

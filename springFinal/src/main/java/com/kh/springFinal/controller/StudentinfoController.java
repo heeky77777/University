@@ -45,10 +45,10 @@ public class StudentinfoController {
 	
 	@PostMapping("/join")
 	public String join(@ModelAttribute StudentinfoDto studentinfoDto) {
-		StudentinfoDto studentinfo=sqlSession.selectOne("student.get", studentinfoDto);
+		StudentinfoDto studentinfo=sqlSession.selectOne("studentinfo.get", studentinfoDto);
 		
 		if(studentinfo==null) {
-		sqlSession.insert("student.join", studentinfoDto);
+		sqlSession.insert("studentinfo.join", studentinfoDto);
 		return "redirect:result";
 	}
 		else {
@@ -61,7 +61,7 @@ public class StudentinfoController {
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<StudentinfoDto> list = sqlSession.selectList("student.getList");
+		List<StudentinfoDto> list = sqlSession.selectList("studentinfo.getList");
 		model.addAttribute("list", list);
 		
 //		return "/WEB-INF/views/board/list.jsp";
@@ -76,7 +76,7 @@ public class StudentinfoController {
 		map.put("type", type);
 		map.put("keyword", keyword);
 		
-		List<StudentinfoDto> list = sqlSession.selectList("student.unionList", map);
+		List<StudentinfoDto> list = sqlSession.selectList("studentinfo.unionList", map);
 		model.addAttribute("list", list);
 		
 		return "client/list";
