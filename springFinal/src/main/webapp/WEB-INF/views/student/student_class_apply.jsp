@@ -25,8 +25,9 @@
 	    function get_semester(){
 	    	
 	    	var url = location.search.substr(location.search.indexOf("?") + 1);
+	    	var findString ="error";
 			console.log(url);
-			if(url=='error') {
+			if(url.indexOf(findString) != -1) {
 				history.replaceState({}, null, location.pathname);
 				alert("신청된 강의 입니다.");
 			}

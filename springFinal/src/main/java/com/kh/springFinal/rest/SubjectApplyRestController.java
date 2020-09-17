@@ -53,24 +53,24 @@ public class SubjectApplyRestController {
 		return apply_list;
 	}
 	
-	@GetMapping("/apply_class")
-	public void apply_class(@RequestParam int class_sub_no,
-								@RequestParam int major_no,
-								@RequestParam int student_no,
-								@RequestParam String subject_apply_name,	
-							Model model) { 
-		System.out.println();
-		SubjectApplyDto sub_check = subjectApplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
-//		model.addAttribute("sub_check",sub_check);
-		
-		if(sub_check==null) {
-			subjectApplyDao.class_apply(class_sub_no, major_no, student_no, subject_apply_name);
-//			return "redirect:student_class_apply";
-		}
-		else {
-//			return "redirect:student_class_apply?error";
-		}
-	}
+//	@GetMapping("/apply_class")
+//	public void apply_class(@RequestParam int class_sub_no,
+//								@RequestParam int major_no,
+//								@RequestParam int student_no,
+//								@RequestParam String subject_apply_name,	
+//							Model model) { 
+//		System.out.println();
+//		SubjectApplyDto sub_check = subjectApplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
+////		model.addAttribute("sub_check",sub_check);
+//		
+//		if(sub_check==null) {
+//			subjectApplyDao.class_apply(class_sub_no, major_no, student_no, subject_apply_name);
+////			return "redirect:student_class_apply";
+//		}
+//		else {
+////			return "redirect:student_class_apply?error";
+//		}
+//	}
 	
 	@GetMapping("/st_class_apply_list_del")
 	public void st_class_apply_list_del(@RequestParam int class_sub_no) {

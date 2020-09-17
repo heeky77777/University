@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.MajorDto;
@@ -97,11 +98,19 @@ public class StudentController {
 	}
 	
 	@GetMapping("/subject_list")
-	public String subject_list(Model model) {
+	public String subject_list2(@ModelAttribute ClassSubjectDto classSubjectDto, Model model) {
 		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
+		
+		List<ClassSubjectDto> apply_list = subjectapplyDao.get_list(classSubjectDto);
+		List<MajorDto> majorList = majorDao.major_list();
+		
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("apply_list", apply_list);
+		
 		model.addAttribute("now_year", year);
+		
 		return "student/subject_list";
 	}
 	
@@ -127,17 +136,30 @@ public class StudentController {
 										@RequestParam int major_no,
 										@RequestParam int student_no,
 										@RequestParam String subject_apply_name,
-										Model model) {
+										@RequestParam int semester_no,
+										@RequestParam int regist_date,
+										@ModelAttribute ClassSubjectDto classSubjectDto,
+										RedirectAttributes attr ,Model model) {
 		
 		SubjectApplyDto sub_check = subjectapplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
 		model.addAttribute("sub_check",sub_check);
 		
 		if(sub_check==null) {
 			subjectapplyDao.class_apply(class_sub_no, major_no, student_no, subject_apply_name);
-			return "redirect:student_class_apply";
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			
+			attr.addAttribute("regist_date",regist_date);
+			attr.addAttribute("major_no",major_no);
+			attr.addAttribute("semester_no",semester_no);
+	
+			return "redirect:subject_list";
 		}
 		else {
-			return "redirect:student_class_apply?error";
+			attr.addAttribute("regist_date",regist_date);
+			attr.addAttribute("major_no",major_no);
+			attr.addAttribute("semester_no",semester_no);
+			return "redirect:subject_list?error";
 		}
 		
 	}
