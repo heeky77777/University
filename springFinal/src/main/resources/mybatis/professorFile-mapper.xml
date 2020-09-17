@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 기존 사진 수정 -->
-	<update id="getEdit" parameterType="int">
+	<update id="getEdit" parameterType="professorFileDto">
 		MERGE INTO PROFESSOR_FILE pf USING DUAL ON(pf.PROFE_NO=${profe_no}) WHEN MATCHED THEN UPDATE SET pf.PROFE_FILE_NAME =${profe_file_name}, 
 		pf.PROFE_FILE_TYPE =${profe_file_type}, pf.PROFE_FILE_SIZE =${profe_file_size}
 	</update>
@@ -48,6 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사진 삭제 -->
 	<delete id="delete" parameterType="int">
 	 DELETE PROFESSOR_FILE WHERE PROFE_FILE_NO=${profe_file_no}
+	</delete>
+	
+	<delete id="del_profe_file" parameterType="int">
+	 DELETE PROFESSOR_FILE WHERE PROFE_NO=${profe_no}
 	</delete>
 </mapper>
 

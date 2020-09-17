@@ -242,6 +242,14 @@
         }
         .nav-item{
             border: 1px #aaa;
+            
+         .nav-item:hover{
+        	background-color:#b8c5d6;
+        	color:white;
+        	opacity: 0.5;
+        	cursor:pointer;
+        }   
+        
         }
         .nav-list-list{
             position: relative;

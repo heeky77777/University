@@ -134,7 +134,7 @@
 	                </c:if>
 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교
 <%-- 	                <c:if test="${userinfo != null || admininfo != null}"> --%>
-	                <c:if test="${userinfo != null || prfeinfo != null || admininfo != null}">	                
+	                <c:if test="${userinfo != null || profeinfo != null || admininfo != null}">	                
 	                	<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 	                </c:if>
 	                </span>

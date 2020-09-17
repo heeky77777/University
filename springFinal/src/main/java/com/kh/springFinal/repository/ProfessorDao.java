@@ -12,9 +12,6 @@ public interface ProfessorDao {
 	//시퀀스 
 	public int getSeq();
 	
-	//정보 여부 확인
-	public int isExist();
-	
 	//정보 등록 
 	void regist(ProfessorDto professorDto);
 	
@@ -44,8 +41,9 @@ public interface ProfessorDao {
 	//로그인
 	ProfessorDto profe_login(ProfessorDto professorDto);
 
-
-
+	// 이미지 조회 및 업데이트
+	ProfessorFileDto getFile(int profe_no);
 	
-	
+	//이미지 삭제
+	void delFile(int profe_no);
 }

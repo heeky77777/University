@@ -8,30 +8,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.springFinal.entity.ProfessorFileDto;
 
+
+
 public interface ProfessorService {
 
-
-	//업로드
+	// 파일 디스크 업로드
 	void add(ProfessorFileDto professorFileDto, MultipartFile file, int profe_no) throws IllegalStateException, IOException;
-
-	//다운
+	
+//	/*
+//	 * // 파일 데이터 베이스 업로드 void insertDB(ProfessorFileDto fileDto, MultipartFile
+//	 * file);
+//	 */
+////	 다운
 	ResponseEntity<ByteArrayResource> getFile(int profe_file_no) throws IOException;
 
-	//사진 번호
-	ProfessorFileDto getFileNo(int profe_no) throws IOException;
+	// 사진 번호
+//	int getFileNo(int profe_no) throws IOException;
 
-
-	//사진 삭제
+	// 사진 삭제
 	void delete(int profe_file_no);
 
-	
-	void getEdit(int profe_no);
-	
-	
-	//사진 중복 확인 후 삭제/등록
-	void removeandinsert(int profe_file_no, MultipartFile file, ProfessorFileDto professorFileDto);
+	//void getEdit(MultipartFile file, int profe_no) throws Exception;
 
 
-	
 
 }

@@ -66,13 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="profe_login" parameterType="professorDto" resultType="professorDto">
    		select * from professor where profe_id = #{profe_id} and profe_pw = #{profe_pw}
    	</select>
-
-	<!--데이터 중복 여부 확인 -->
-	<select id="isExist" resultType="int">
-		SELECT PROFE_ID , COUNT(*) FROM PROFESSOR p GROUP BY p.PROFE_ID HAVING count(*)>0;
-	</select>
 	
-
 </mapper>
 
 

@@ -1,7 +1,12 @@
 package com.kh.springFinal.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
@@ -47,17 +52,10 @@ public class ProfessorController {
 
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute ProfessorDto professorDto){
-		//등록하기전에 중복확인
-		int exist=professorDao.isExist();
-		
-		if(exist>0) {
-			return "redirect:regist?error";
-			
-		}else {
-			professorDao.regist(professorDto);
-			return "redirect:regist"; //수정해야해
-		}
-		
+	
+		 professorDao.regist(professorDto);
+		 
+		 return "redirect:professor/detail?profe_no=\"+profe_no";
 	}	
 	
 	//교수 디테일 페이지
@@ -87,28 +85,37 @@ public class ProfessorController {
 		String semester_type = semesterDto.getSemester_type();
 		model.addAttribute("semester_type",semester_type);//학기명 보내기
 		
-		//교수번호를 이용해서 이미지 번호를 구한 뒤에 jsp에 전달
-		ProfessorFileDto professorFileDto=professorService.getFileNo(profe_no);
-		int profe_file_no=professorFileDto.getProfe_file_no();
-		model.addAttribute("profe_file_no", profe_file_no);
-		  System.out.println("profe_file_no="+profe_file_no);
+//		//교수번호를 이용해서 이미지 번호를 구한 뒤에 jsp에 전달
+//		int profe_file_no=professorService.getFileNo(profe_no);
+//		model.addAttribute("profe_file_no", profe_file_no);
+//		  System.out.println("profe_file_no="+profe_file_no);
 		 
 		
 		return "professor/detail";
 		
 	}
 	
+
 	@PostMapping("/detail")
 	public String detail(@ModelAttribute ProfessorFileDto professorFileDto,
 			@ModelAttribute ProfessorUploadVO professorUploadVO,
 			@RequestParam MultipartFile file,
 			@RequestParam int profe_no,
 			RedirectAttributes attr) throws IllegalStateException, IOException {
-		
-		
-		professorService.add(professorFileDto, file, profe_no);
-		
-	
+		//단일 조회를 해서
+		ProfessorFileDto professorFile = professorDao.getFile(profe_no);
+		//파일이있으면 지우고 추가
+		if(professorFile != null) {
+			professorDao.delFile(profe_no);
+			File target = new File("D:/upload", String.valueOf(professorFile.getProfe_file_no()));
+			target.delete();// 파일 지워
+			professorService.add(professorFileDto, file, profe_no);
+		}
+		//없으면 추가
+		else {
+			
+			professorService.add(professorFileDto, file, profe_no);
+		}
 		
 		
 //		return "redirect:detail?profe_no="+profe_no;
@@ -116,18 +123,43 @@ public class ProfessorController {
 		return "redirect:detail";
 	}
 	
-	
 	  //이미지 썸네일
 	  
-	 @GetMapping("/profeImg/{profe_file_no}")
-	 @ResponseBody
-	 public ResponseEntity<ByteArrayResource> getImg(@PathVariable int profe_file_no) throws IOException{
-		 
-		 ResponseEntity<ByteArrayResource> entity= professorService.getFile(profe_file_no);
-		
-		 return entity; 
+//	 @GetMapping("/profeImg/{profe_file_no}")
+//	 @ResponseBody
+//	 public ResponseEntity<ByteArrayResource> getImg(@PathVariable int profe_file_no, MultipartFile file, int profe_no) throws Exception{
+//		 
+//		 ResponseEntity<ByteArrayResource> entity= professorService.getFile(profe_file_no);
+//		 professorService.getEdit(file, profe_no);		
+//		 return entity; 
+//
+//	  }
+	
+	// 파일 다운로드 
+	   @GetMapping("/profeImg/{profe_no}")
+	   @ResponseBody
+	   public void Filedown(
+	         @PathVariable int profe_no,
+	         HttpServletResponse response
+	         ) throws IOException{
+	      
+	   ProfessorFileDto professorFileDto = professorDao.getFile(profe_no);
+	   
+	   if(professorFileDto == null) {
+	      response.sendError(404);
+	      return;
+	   }
+	   response.setHeader("Content-Type", "application/octet-stream; charset=UTF-8");
+	   response.setHeader("Content-Disposition", "attachment; filename=\""+URLEncoder.encode(professorFileDto.getProfe_file_name(), "UTF-8")+"\"");
+	   response.setHeader("Content-Length", String.valueOf(professorFileDto.getProfe_file_size()));
+	   
+	   File target = new File("D:/upload", String.valueOf(professorFileDto.getProfe_file_no()));
+	   byte[]data = FileUtils.readFileToByteArray(target);
+	   response.getOutputStream().write(data);
 
-	  }
+	   
+	   }
+
 	 
 	
 	//정보 수정
