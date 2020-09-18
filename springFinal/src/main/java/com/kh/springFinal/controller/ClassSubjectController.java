@@ -141,7 +141,7 @@ public class ClassSubjectController {
 		ProfessorDto professorDto = (ProfessorDto) session.getAttribute("profeinfo");
 		
 		
-		List<ClassSubjectDto> applyList = classSubjectDao.getList(professorDto.getProfe_no());
+		List<ClassSubjectDto> applyList = classSubjectDao.geApplyMytList(professorDto.getProfe_no());
 		
 		log.info("applyList = {}", applyList);
 		
@@ -174,16 +174,18 @@ public class ClassSubjectController {
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("classSubjectDto", classSubjectDto);
 		model.addAttribute("classSubjectFileDto", classSubjectFileDto);
-		attr.addAttribute("class_sub_no", class_sub_no);
 		
+		attr.addAttribute("class_sub_no", class_sub_no);
 		return "class_subject/edit";
 	}
 	
 	@PostMapping("edit/{class_sub_no}")
 	public String edit(
+						@PathVariable int class_sub_no,
 						@ModelAttribute ClassSubjectDto classSubjectDto,
 						@ModelAttribute ClassSubjectFileDto classSubjectFileDto,
 						@RequestParam String this_year, String semester_type,
+						RedirectAttributes attr,
 						MultipartFile file) throws IllegalStateException, IOException {
 		
 		ClassSubjectDto classSubDto = classSubjectService.getConfirm(classSubjectDto, this_year, semester_type);
@@ -191,7 +193,8 @@ public class ClassSubjectController {
 		
 		
 		if (!isClassSubNo && classSubDto != null) {	// 중복되는 강의가 있으면
-			return "redirect:/class_subject/edit/" + classSubjectDto.getClass_sub_no();
+			attr.addAttribute("class_sub_no", class_sub_no);
+			return "redirect:/class_subject/edit";
 		}
 		else {
 			classSubjectDao.classSubEdit(classSubjectDto);
@@ -200,7 +203,7 @@ public class ClassSubjectController {
 				classSubjectService.addFile(classSubjectFileDto, file, classSubjectDto.getClass_sub_no());
 			}
 			
-			return "redirect:/class_subject/list";
+			return "class_subject/list";
 		}
 		
 	}

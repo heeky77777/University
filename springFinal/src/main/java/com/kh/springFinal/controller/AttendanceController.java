@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springFinal.entity.AttendanceDto;
@@ -64,9 +65,14 @@ public class AttendanceController {
 	// 출석 체크
 	@PostMapping("attendList/{class_sub_no}/{subject_apply_no}")
 	public String attendList(
-								@ModelAttribute AttendanceDto attendanceDto) {
+								@RequestParam List<String> attend_no,
+								@RequestParam List<String> attend_type) {
 		
-		log.info("class_sub_no = {}", attendanceDto.getClass_sub_no());
+		System.out.println("-----------------------------------");
+		log.info("attend_no = {}", attend_no.size());
+		System.out.println("-----------------------------------");
+		log.info("attend_type = {}", attend_type.size());
+		System.out.println("-----------------------------------");
 		
 		return "redirect:/attendance/attendList";
 	}
