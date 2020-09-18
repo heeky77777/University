@@ -22,7 +22,6 @@ import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
 import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ProfessorDto;
-import com.kh.springFinal.entity.SubjectApplyDto;
 import com.kh.springFinal.repository.ClassSubjectDao;
 import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.repository.SubjectApplyDao;
@@ -141,11 +140,13 @@ public class ClassSubjectController {
 		List<MajorDto> majorList = majorDao.major_list();
 		ProfessorDto professorDto = (ProfessorDto) session.getAttribute("profeinfo");
 		
-		List<SubjectApplyDto> applyList = subjectApplyDao.profeList(professorDto.getProfe_no());
+		
+		List<ClassSubjectDto> applyList = classSubjectDao.getList(professorDto.getProfe_no());
+		
+		log.info("applyList = {}", applyList);
 		
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("applyList", applyList);
-		
 		
 		return "class_subject/profeApplyList";
 	}

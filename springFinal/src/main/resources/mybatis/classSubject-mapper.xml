@@ -27,7 +27,6 @@
 		select * from professor p inner join major m on p.major_no = m.major_no where p.profe_no = #{profe_no} and p.profe_name = #{profe_name}
 	</select>
 	
-	
 	<!-- 강의 단일 조회(번호) -->
 	<select id="get" parameterType="int" resultType="classSubjectDto">
 		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no where class_sub_no = #{class_sub_no}
@@ -59,7 +58,14 @@
 	
 	<!-- 강의 목록 -->
 	<select id="loginProfeList" resultType="classSubjectDto" parameterType="int">
-		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no where cs.profe_no = #{profe_no} order by class_sub_no desc
+		select * from (
+			select  cs.*, sa.student_no, sa.subject_apply_no, row_number() over (
+				partition by cs.class_sub_no order by sa.student_no desc
+			) as RankNo 
+			from class_subject cs 
+				inner join subject_apply sa on cs.class_sub_no= sa.class_sub_no
+		) T inner join semester s on t.semester_no = s.semester_no inner join major m on t.major_no = m.major_no where 
+		RankNo = 1 and t.profe_no = #{profe_no} order by t.class_sub_no desc
 	</select>
 	
 	<!-- 강의 검색 -->

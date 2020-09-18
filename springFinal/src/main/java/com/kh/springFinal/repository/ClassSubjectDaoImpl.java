@@ -106,7 +106,10 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	// 로그인 교수 강의 리스트
 	@Override
 	public List<ClassSubjectDto> getList(int loginProfeNo) {
-		return sqlSession.selectList("classSubject.loginProfeList", loginProfeNo);
+		
+		List<ClassSubjectDto> list = sqlSession.selectList("classSubject.loginProfeList", loginProfeNo);
+		
+		return list;
 	}
 	
 	

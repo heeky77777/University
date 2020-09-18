@@ -10,10 +10,10 @@
 <script>
 	
 	$(function() {
-		
 		$('.stuCkeck-btn').click(function() {
-			var class_sub_no = $('#class_sub_no').val();
-			location.href="${pageContext.request.contextPath}/attendance/attendList/" + class_sub_no;
+			var subject_apply_no = $(this).prev().prev().val();
+			var class_sub_no = $(this).prev().val();
+			location.href="${pageContext.request.contextPath}/attendance/attendList/" + class_sub_no + "/" + subject_apply_no;
 			
 		})
 		
@@ -112,9 +112,9 @@
 	                <table class="table table-hover">
 	                    <thead>
 	                        <tr>
-	                            <th>수강 번호</th>
-	                            <th>전공</th>
 	                            <th>강의 번호</th>
+	                            <th>전공</th>
+	                            <th>학기</th>
 	                            <th width="20%">강의 명</th>
 	                            <th>학점</th>
 	                            <th>이수구분</th>
@@ -124,32 +124,33 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-							<c:forEach var="subjectApplyDto" items="${applyList}">
+							<c:forEach var="classSubjectDto" items="${applyList}">
 		                        <tr>
-		                            <td>${subjectApplyDto.subject_apply_no}</td>
-		                            <td>${subjectApplyDto.major_type}</td>
-		                            <td>${subjectApplyDto.class_sub_no}</td>
-		                            <td>${subjectApplyDto.class_sub_name}</td>
-		                            <td>${subjectApplyDto.class_sub_point}</td>
-		                            <td>${subjectApplyDto.class_sub_type}</td>
+		                            <td>${classSubjectDto.class_sub_no}</td>
+		                            <td>${classSubjectDto.major_type}</td>
+		                            <td>${classSubjectDto.semester_type}</td>
+		                            <td>${classSubjectDto.class_sub_name}</td>
+		                            <td>${classSubjectDto.class_sub_point}</td>
+		                            <td>${classSubjectDto.class_sub_type}</td>
 		                            <td>
-		                            	<c:set var="class_sub_time2" value="${subjectApplyDto.class_sub_time2}"/>
-		                            	<c:set var="class_sub_time3" value="${subjectApplyDto.class_sub_time3}"/>
-		                            	<c:set var="class_sub_time4" value="${subjectApplyDto.class_sub_time4}"/>
-		                            	${subjectApplyDto.class_sub_week} ${subjectApplyDto.class_sub_time1} 
+		                            	<c:set var="class_sub_time2" value="${classSubjectDto.class_sub_time2}"/>
+		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
+		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
+		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
 		                            	<c:if test="${class_sub_time2 != 'null'}">
-		                            		${subjectApplyDto.class_sub_time2} 
+		                            		${classSubjectDto.class_sub_time2} 
 		                            	</c:if>
 		                            	<c:if test="${class_sub_time3 != 'null'}">
-		                            		${subjectApplyDto.class_sub_time3} 
+		                            		${classSubjectDto.class_sub_time3} 
 		                            	</c:if>
 		                            	<c:if test="${class_sub_time4 != 'null'}">
-		                            		${subjectApplyDto.class_sub_time4} 
+		                            		${classSubjectDto.class_sub_time4} 
 		                            	</c:if>
-		                            	&lpar;${subjectApplyDto.class_sub_room}&rpar;</td>
-		                            <td>${subjectApplyDto.class_sub_person}</td>
+		                            	&lpar;${classSubjectDto.class_sub_room}&rpar;</td>
+		                            <td>${classSubjectDto.class_sub_person}</td>
 		                            <td>
-		                            	<input type="hidden" value="${subjectApplyDto.class_sub_no}" id="class_sub_no">
+		                            	<input type="hidden" value="${classSubjectDto.subject_apply_no}" id="subject_apply_no">
+		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}" id="class_sub_no">
 		                            	<button type="button" class="btn btn-primary btn-sm stuCkeck-btn">출석확인</button>
 		                            </td>
 		                        </tr>
