@@ -32,14 +32,18 @@ public class StudentServiceImpl implements StudentService{
 		//있으면 지우고 다시 만들기
 		if(student_File_check != null) {
 			studentDao.delFile(student_no);
+			
+			File target = new File("D:/upload1",String.valueOf(student_File_check.getStudent_file_no()));
+			target.delete();
+			
 			studentFileDto.setStudent_no(student_no);
 			studentFileDto.setStudent_file_name(file.getOriginalFilename());
 			studentFileDto.setStudent_file_size(file.getSize());
 			studentFileDto.setStudent_file_type(file.getContentType());
 			
 			int student_file_no = studentDao.student_file_add(studentFileDto);
-			File target = new File("D:/upload1",String.valueOf(student_file_no));
-			file.transferTo(target);
+			File target2 = new File("D:/upload1",String.valueOf(student_file_no));
+			file.transferTo(target2);
 		}
 		//없으면 만들기
 		else {

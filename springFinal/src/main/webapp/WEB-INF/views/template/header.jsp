@@ -47,10 +47,10 @@
 <body>
     <aside class="sidebar">
         <ul class="list-group " style="width:100%">
-            <li class="up_background" style="height: 50px; width: 250px;">
-                <img src="../project/img/aaa.png" width="250px" height="50px">
+            <li class="up_background" style="height: 100px; width: 250px;">
+                <img src="${pageContext.request.contextPath}/resources/img/slogo.png" width="240px" height="100px">
             </li>
-           	<li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">kh대하교</li>
+           	<li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">KH대학교</li>
             
             <c:if test="${userinfo.student_auth eq '학생'}">
                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle();">학생</a>
@@ -131,11 +131,13 @@
 	                <c:if test="${profeinfo.profe_auth eq '교수'}">	                
 	                	<span class="col-8 title_font" style="text-align: right;">${profeinfo.profe_name}교수님 환영해요</span>
 	                </c:if>
-	                <span class="col-4 title_font" style="text-align: center;">KH 대학교
+<!-- 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교 -->
 <%-- 	                <c:if test="${userinfo != null || admininfo != null}"> --%>
 	                <c:if test="${userinfo != null || prfeinfo != null || admininfo != null}">	                
-	                	<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+	                	<a href="${pageContext.request.contextPath}/member/logout"><img src="${pageContext.request.contextPath}/resources/img/logout2.png" width="35px" height="30px" style="margin-bottom: 12px;"></a>
+	                	 
 	                </c:if>
-	                </span>
+<!-- 	                </span> -->
+	                
 <!-- 	        	</form> -->
 

@@ -102,7 +102,7 @@
 		    	<a class="form-control btn btn-primary btn-block" href="${pageContext.request.contextPath}/student/student_edit?student_no=${userinfo.student_no}" style="color:white">내정보수정하기</a>		    	
 		    </div>		
 		    <div class="form-group">
-		    	<a class="form-control btn btn-primary btn-block" href="${pageContext.request.contextPath}/member/main?student_no=${userinfo.student_no}" style="color:white">홈으로</a>		    	
+		    	<a class="btn_home form-control" href="${pageContext.request.contextPath}/member/main?student_no=${userinfo.student_no}" style="color:white">홈으로</a>		    	
 		    </div>	   
 		    </form>
 		    

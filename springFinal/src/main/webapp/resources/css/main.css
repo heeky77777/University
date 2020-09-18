@@ -62,12 +62,12 @@
         
         }
         .up_background{
-            background-color: #333333;
+            background-color: #43505d;;
             height: 50px;
         }         
         
         .up_background2{
-            background-color: #063e7a;
+            background-color: #598987;
             height: 50px;
             display: flex;
         }
@@ -76,30 +76,30 @@
             position: relative;
             display: block;
             padding: .75rem 1.25rem;
-            background-color: #233144;
+            background-color: #536976; /*KH대학교 상단*/
             width: 250px;
-            color: white;
+            color: #52a6ef;; /*글씨*/
         }
         .list-item:hover{
             position: relative;
             display: block;
             padding: .75rem 1.25rem;
-            background-color: #5165e1;
-            color: white;
+            background-color: #598987;
+            color: #52a6ef;;
         }
         .list-group-item:hover{
-            background-color: #5165e1;
+            background-color: #BEC3C7;
             color: white;
         }
         .btn_slide{
             
             border: 0;
             outline: 0;
-            color: white;
+            color: #52a6ef;;
             font-size: 30px;
             left: 10px;
             overflow: hidden;
-            background-color: #063e7a;
+            background-color: #536976;
             margin-left: 20px;
         }
         .btn_slide:focus{
@@ -110,7 +110,7 @@
             font-size: 30px;
             left: 10px;
             overflow: hidden;
-            background-color: #063e7a;
+            background-color: #BEC3C7; /*버튼 색깔*/
             margin-left: 20px;
         }
      
@@ -125,7 +125,7 @@
             font-size: 30px;
             left: 10px;
             overflow: hidden;
-            background-color: #063e7a;
+            background-color: #BEC3C7;
             
         }
         .btn_info{
@@ -135,7 +135,7 @@
             font-size: 30px;
             left: 10px;
             overflow: hidden;
-            background-color: #063e7a;
+            background-color: #BEC3C7;
             border-top-left-radius: 35px;
             border-bottom-left-radius: 35px;
             
@@ -155,7 +155,7 @@
             font-size: 30px;
             left: 10px;
             overflow: hidden;
-            background-color: #233144;
+            background-color: #BEC3C7;
             margin-left: 20px;
         }
 
@@ -241,7 +241,7 @@
         .nav-list-list{
             position: relative;
             display: block;
-            background-color: #233144;
+            background-color: #BEC3C7;
             width: 250px;
             color: white;
             cursor: pointer;
@@ -249,7 +249,7 @@
         }
         
         .nav-list-list:hover{
-            background-color: #5165e1;
+            background-color: #3B6272;
             color: white;
             cursor: pointer;
             
@@ -257,12 +257,12 @@
         }
 
        .nav-empty{
-        background-color: #233144;
+        background-color: #536976; /*왼쪽 바 밑단 색깔 */
         width: 250px;
         height: 800px;
        }
        .nav-item-list{
-           background-color: #293A50;
+           background-color: #3B6272;
        }
         
         
@@ -472,5 +472,10 @@ article.w-10 {
 
 .ssmall-font {
     font-size: 16px;
+}
+
+.btn_home {
+	background-color: #43505d;
+	text-align: center;
 }
         
