@@ -135,7 +135,7 @@
     </aside>
     <section class="container2">
         <div class="up_background container-fluid">
-
+ 
           	<button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
 <!-- 	            <form action="logout" method="post"> -->
 					<c:if test="${userinfo.student_auth eq '학생'}">             
