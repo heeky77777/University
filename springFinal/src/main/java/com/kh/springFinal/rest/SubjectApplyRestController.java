@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
@@ -52,21 +53,39 @@ public class SubjectApplyRestController {
 		return apply_list;
 	}
 	
-	@GetMapping("/apply_class")
-	public String apply_class(@ModelAttribute SubjectApplyDto subjectApplyDto,
-							Model model) {
+//	@GetMapping("/apply_class")
+//	public void apply_class(@RequestParam int class_sub_no,
+//								@RequestParam int major_no,
+//								@RequestParam int student_no,
+//								@RequestParam String subject_apply_name,	
+//							Model model) { 
+//		System.out.println();
+//		SubjectApplyDto sub_check = subjectApplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
+////		model.addAttribute("sub_check",sub_check);
+//		
+//		if(sub_check==null) {
+//			subjectApplyDao.class_apply(class_sub_no, major_no, student_no, subject_apply_name);
+////			return "redirect:student_class_apply";
+//		}
+//		else {
+////			return "redirect:student_class_apply?error";
+//		}
+//	}
+	
+	@GetMapping("/st_class_apply_list_del")
+	public void st_class_apply_list_del(@RequestParam int class_sub_no) {
 		
-		System.out.println();
-		SubjectApplyDto sub_check = subjectApplyDao.get(subjectApplyDto);
-		model.addAttribute("sub_check",sub_check);
+		subjectApplyDao.st_class_apply_list_del(class_sub_no);
 		
-		if(sub_check==null) {
-			subjectApplyDao.class_apply(subjectApplyDto);
-			return "redirect:student_class_apply";
-		}
-		else {
-			return "redirect:student_class_apply?error";
-		}
+		
 	}
+	
+	
+//	@GetMapping("/class_numb")
+//	public List<ClassSubjectDto> class_numb(@RequestParam int class_sub_no) {
+//		List<ClassSubjectDto> class_list_numb = subjectApplyDao.class_numb(class_sub_no);
+//		
+//		return class_list_numb;
+//	}
 	
 }

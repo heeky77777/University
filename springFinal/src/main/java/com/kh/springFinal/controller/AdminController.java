@@ -31,8 +31,10 @@ public class AdminController {
 	
 	@Autowired
 	private MajorDao majorDao;
+
 	@Autowired
 	private SqlSession sqlSession;
+
 	@GetMapping("/major_add")
 	public String major_add(Model model) {
 		
