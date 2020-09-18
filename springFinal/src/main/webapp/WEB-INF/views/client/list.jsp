@@ -3,8 +3,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"
 	integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A=="
@@ -28,12 +28,12 @@
 	crossorigin="anonymous"></script>
 
 <div class="container-fluid">
-        <div class="row">
-            <div class="offset-2 col-8">
-         
-                    <table class="table table-sm table-hover">
-                    <thead class="thead-dark">
-                        <tr>
+	<div class="row">
+		<div class="offset-2 col-8">
+
+			<table class="table table-sm table-hover">
+				<thead class="thead-dark">
+					<tr>
 						<th>번호</th>
 						<th>이름</th>
 						<th>성별</th>
@@ -51,7 +51,11 @@
 							<td>${studentinfoDto.stu_apply_no}</td>
 							<td>${studentinfoDto.stu_apply_name}</td>
 							<td>${studentinfoDto.stu_apply_gender}</td>
-							<td>${studentinfoDto.stu_apply_birth}</td>
+							<td>
+							<fmt:parseDate value="${studentinfoDto.stu_apply_birth}" var="time"
+								pattern="yyyy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
+							</td>
 							<td>${studentinfoDto.stu_apply_phone}</td>
 							<td>${studentinfoDto.stu_apply_email}</td>
 							<td>${studentinfoDto.stu_apply_post}</td>
@@ -74,11 +78,10 @@
 				</select> <input type="text" name="keyword" placeholder="검색어"
 					value="${param.keyword}"> <input type="submit" value="검색">
 
-	                     </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+				</tr>
+				</tbody>
+				</table>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+		</div>
+	</div>
+</div>

@@ -13,10 +13,8 @@ public class SubjectApplyDto {
 	private int student_no;
 	private String subject_apply_name;
 	private String subject_apply_date;
-	
-	
-	
-	
+	private String subject_apply_state;
+
 	private String major_type;
 	private int semester_no;
 	private String semester_start;
@@ -31,6 +29,10 @@ public class SubjectApplyDto {
 	private String class_sub_time2;
 	private String class_sub_time3;
 	private String class_sub_time4;
+	
+	
 	private String searchDay;
 	private String searchDate;
+	
+
 }

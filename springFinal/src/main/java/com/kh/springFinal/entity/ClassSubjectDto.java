@@ -34,5 +34,7 @@ public class ClassSubjectDto {
 	private String major_type;
 	private String subject_apply_no;
 
+	private int student_no;
+	private String subject_apply_state;
 
 }
