@@ -9,25 +9,50 @@
 		select attend_seq.nextval from dual
 	</select>
 	
+	<!-- 출결 번호 조회(중복 등록 방지) -->
+	<select id="getAttend" parameterType="attendanceDto" resultType="attendanceDto">
+		select * from attendance where subject_apply_no = #{subject_apply_no} and student_no = #{student_no} and attend_date = #{attend_date}
+	</select>
+	
 	<!-- 출결 등록 -->
 	<insert id="attendRegist" parameterType="attendanceDto">
-		insert into attendance values (#{attend_no}, #{subject_apply_no}, #{student_no}, #{profe_no}, #{semester_no}, #{attend_type}, sysdate)
+		insert into attendance values (#{attend_no}, #{subject_apply_no}, #{student_no}, '–', #{attend_date})
 	</insert>
 	
-	<!-- 출결 목록 -->
-	<select id="getAttendList" parameterType="int" resultType="attendanceDto">
-		select * from attendance a inner join subject_apply sa on a.subject_apply_no = sa.subject_apply_no inner join student stu on a.student_no = stu.student_no where sa.class_sub_no = #{class_sub_no}
+	<!-- 출결 타입 목록(이름 가나다 순) -->
+	<select id="getAttendTypeList" parameterType="int" resultType="attendanceDto">
+		select * from attendance a inner join subject_apply sa on a.subject_apply_no = sa.subject_apply_no inner join student stu on a.student_no = stu.student_no where sa.class_sub_no = #{class_sub_no} order by stu.student_name, a.attend_date
 	</select>	
 	
+	<!-- 수강 신청한 학생 목록(이름 가나다순) -->
+	<select id="getStudentApplyList" parameterType="int" resultType="studentDto">
+		select * from student s inner join subject_apply sa on s.student_no = sa.student_no where sa.class_sub_no = #{class_sub_no} order by s.student_name
+	</select>
+	
 	<!-- 수강 강의 날짜 조회 -->
-<!-- 	<select id="getSubDate" parameterType="map" resultType="subjectApplyDto">
+	<select id="getSubApplyDate" parameterType="attendanceDto" resultType="subjectapplyDto">
 		SELECT * FROM subject_apply sa LEFT OUTER JOIN (
-			SELECT class_sub_no, class_sub_start, class_sub_end, TO_CHAR(TO_DATE(class_sub_start, 'YYYY-MM-DD') + LEVEL + 1, 'dy') searchDay,  TO_CHAR(TO_DATE(class_sub_start, 'YYYY-MM-DD') + LEVEL - 1, 'MM/dd') searchDate 
+			SELECT class_sub_no, class_sub_start, class_sub_end, TO_CHAR(TO_DATE(class_sub_start, 'YYYY-MM-DD') + LEVEL + 1, 'dy') searchDay,  TO_CHAR(add_months(TO_DATE(class_sub_start, 'YYYY-MM-DD') + LEVEL - 1, 24000), 'yyyy-MM-dd') searchDate 
 				FROM (
 					SELECT * FROM class_subject WHERE class_sub_no = #{class_sub_no}
 				) CONNECT BY LEVEL <![CDATA[<=]]> TO_DATE(class_sub_end, 'YYYY-MM-DD') - TO_DATE(class_sub_start, 'YYYY-MM-DD') + 1
-		) classDay ON sa.class_sub_no = classDay.class_sub_no WHERE sa.subject_apply_no = #{subject_apply_no}
-	</select> -->
+		) classDay ON sa.class_sub_no = classDay.class_sub_no INNER JOIN class_subject cs ON sa.class_sub_no = cs.class_sub_no WHERE sa.subject_apply_no = #{subject_apply_no} and cs.class_sub_week = classDay.searchDay
+	</select>
+	
+	<!-- 출석 체크 -->
+	<update id="attendCheck" parameterType="attendanceDto">
+		update attendance set attend_type = #{attend_type} where attend_no = #{attend_no}
+	</update>
+
+
 
 
 </mapper>
+
+
+
+
+
+
+
+

@@ -173,6 +173,8 @@
 
 	    /* 수정 버튼 */
 		$('.modify-btn').click(function() {
+			var class_sub_no = $('input[name=class_sub_no]').val();
+			console.log(class_sub_no);
 			$(window).off('beforeunload');
 			var modifyCheck = confirm("수정하시겠습니까??");
 			if(!modifyCheck){
@@ -227,17 +229,17 @@
 		console.log(classSubTime3);
 		console.log(classSubTime4);
 		
-		if(classSubTime2 != 'null') {
+		if(classSubTime2 != '0') {
 			$('.addSelect1').show();
             $('#addTime1').hide();
 		}
-		if(classSubTime2 != 'null' && classSubTime3 != 'null') {
+		if(classSubTime2 != '0' && classSubTime3 != '0') {
 			$('.addSelect2').show();
 			$('#addTime2').hide();
 			$('.del-btn1').hide();
 		}
 		
-		if(classSubTime2 != 'null' && classSubTime3 != 'null' && classSubTime4 != 'null') {
+		if(classSubTime2 != '0' && classSubTime3 != '0' && classSubTime4 != '0') {
 			$('.addSelect3').show();
 			$('#addTime3').hide();
 			$('.del-btn2').hide();
@@ -450,7 +452,7 @@
 					        <option value='금' ${classSubjectDto.class_sub_week == '금' ? 'selected':''}>금요일</option>
 	                    </select>
 	                   	<select name="class_sub_time1" id="class_sub_time1" class="form-control">
-                   			<option value="">시간선택</option>
+                   			<option value="0" ${classSubjectDto.class_sub_time1 == '0' ? 'selected':''}>시간선택</option>
 					        <option value="1" ${classSubjectDto.class_sub_time1 == '1' ? 'selected':''}>1교시</option>		
 							<option value="2" ${classSubjectDto.class_sub_time1 == '2' ? 'selected':''}>2교시</option>		
 							<option value="3" ${classSubjectDto.class_sub_time1 == '3' ? 'selected':''}>3교시</option>		
@@ -466,7 +468,7 @@
 					<div class="form-group form-inline addSelect1">
 						<input type="hidden" id="classSubTime2" value="${classSubjectDto.class_sub_time2}">
 						<select name="class_sub_time2" id="class_sub_time2" class="form-control subtime">
-							<option value="">시간선택</option>
+							<option value="0" ${classSubjectDto.class_sub_time2 == '0' ? 'selected':''}>시간선택</option>
 							<option value="1" ${classSubjectDto.class_sub_time2 == '1' ? 'selected':''}>1교시</option>		
 							<option value="2" ${classSubjectDto.class_sub_time2 == '2' ? 'selected':''}>2교시</option>		
 							<option value="3" ${classSubjectDto.class_sub_time2 == '3' ? 'selected':''}>3교시</option>		
@@ -483,7 +485,7 @@
                        <div class="form-group form-inline addSelect2">
 	                       	<input type="hidden" id="classSubTime3" value="${classSubjectDto.class_sub_time3}">
 	                        <select name="class_sub_time3" id="class_sub_time3" class="form-control subtime">
-	                            <option value="">시간선택</option>
+	                            <option value="0" ${classSubjectDto.class_sub_time3 == '0' ? 'selected':''}>시간선택</option>
 	                            <option value="1" ${classSubjectDto.class_sub_time3 == '1' ? 'selected':''}>1교시</option>		
 								<option value="2" ${classSubjectDto.class_sub_time3 == '2' ? 'selected':''}>2교시</option>		
 								<option value="3" ${classSubjectDto.class_sub_time3 == '3' ? 'selected':''}>3교시</option>		
@@ -500,7 +502,7 @@
                     <div class="form-group form-inline addSelect3">
                     	<input type="hidden" id="classSubTime4" value="${classSubjectDto.class_sub_time4}">
                         <select name="class_sub_time4" id="class_sub_time4" class="form-control subtime">
-                            <option value="">시간선택</option>
+                            <option value="0" ${classSubjectDto.class_sub_time4 == '0' ? 'selected':''}>시간선택</option>
                             <option value="1" ${classSubjectDto.class_sub_time4 == '1' ? 'selected':''}>1교시</option>		
 							<option value="2" ${classSubjectDto.class_sub_time4 == '2' ? 'selected':''}>2교시</option>		
 							<option value="3" ${classSubjectDto.class_sub_time4 == '3' ? 'selected':''}>3교시</option>		

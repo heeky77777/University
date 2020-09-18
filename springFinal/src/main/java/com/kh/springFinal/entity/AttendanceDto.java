@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 public class AttendanceDto {
 	
 	private int attend_no;
-	private int suject_apply_no;
+	private int subject_apply_no;
 	private int student_no;
-	private int profe_no;
-	private int semester_no;
 	private String attend_type;
 	private String attend_date;
 	
 	
 	private String student_name;
+	private String profe_name;
+	private String semester_no;
+	private int class_sub_no;
 }

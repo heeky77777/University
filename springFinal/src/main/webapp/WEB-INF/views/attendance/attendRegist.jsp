@@ -14,6 +14,29 @@
 
 <style>
 
+.row-empty {
+	    height: 20px;
+	}
+	
+	.sub-btn,
+	.stuCkeck-btn {
+	    background-color: #063E7A;
+	    border-color: #063E7A;
+	}
+
+	.sub-btn:hover,
+	stuCkeck-btn:hover {
+	    background-color: #1D5798;
+	}
+	
+	.btn,
+	.form-control {
+	    margin: 5px;
+	}
+	
+	.form-group {
+	    margin-bottom: 10px;
+	}
 
 </style>
 
