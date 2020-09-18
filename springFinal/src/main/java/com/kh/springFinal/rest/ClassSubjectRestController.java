@@ -2,6 +2,7 @@ package com.kh.springFinal.rest;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
+import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.SemesterDto;
 import com.kh.springFinal.repository.ClassSubjectDao;
 import com.kh.springFinal.service.ClassSubjectService;
@@ -68,6 +70,13 @@ public class ClassSubjectRestController {
 		return classSubjectDao.getSub(class_sub_no);
 	}
 	
+	// 교수 학과 조회
+	@GetMapping("profeCheck")
+	public ProfessorDto profeCheck(@ModelAttribute ProfessorDto professorDto) {
+		return classSubjectDao.getProfeMajor(professorDto);
+	}
 	
+	
+
 	
 }

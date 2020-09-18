@@ -21,8 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
 import com.kh.springFinal.entity.MajorDto;
+import com.kh.springFinal.entity.ProfessorDto;
+import com.kh.springFinal.entity.SubjectApplyDto;
 import com.kh.springFinal.repository.ClassSubjectDao;
 import com.kh.springFinal.repository.MajorDao;
+import com.kh.springFinal.repository.SubjectApplyDao;
 import com.kh.springFinal.service.ClassSubjectService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,9 @@ public class ClassSubjectController {
 	
 	@Autowired
 	private MajorDao majorDao;
+	
+	@Autowired
+	private SubjectApplyDao subjectApplyDao;
 	
 	
 	// 현재 년도
@@ -86,10 +92,21 @@ public class ClassSubjectController {
 
 	// 강의 목록
 	@GetMapping("list")
-	public String list(Model model) {
+	public String list(
+						@RequestParam (required = false, defaultValue = "0") int profe_no,
+						Model model, 
+						HttpSession session) {
 		
 		List<MajorDto> majorList = majorDao.major_list();
-		List<ClassSubjectDto> list = classSubjectDao.getList(); 
+		List<ClassSubjectDto> list = null;
+		
+		if(profe_no == 0) {
+			list = classSubjectDao.getList();
+		}
+		else {
+			list = classSubjectDao.getList(profe_no); 
+		}
+		
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("list", list);
 		
@@ -117,6 +134,23 @@ public class ClassSubjectController {
 		return "class_subject/list";
 	}
 	
+	// 수강 목록
+	@GetMapping("profeApplyList")
+	public String profeApplyList(Model model, HttpSession session) {
+		
+		List<MajorDto> majorList = majorDao.major_list();
+		ProfessorDto professorDto = (ProfessorDto) session.getAttribute("profeinfo");
+		
+		List<SubjectApplyDto> applyList = subjectApplyDao.profeList(professorDto.getProfe_no());
+		
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("applyList", applyList);
+		
+		
+		return "class_subject/profeApplyList";
+	}
+	
+
 	// 강의 삭제
 	@GetMapping("delete/{class_sub_no}")
 	public String delete(@PathVariable int class_sub_no) {
@@ -132,12 +166,13 @@ public class ClassSubjectController {
 		
 		ClassSubjectDto classSubjectDto = classSubjectDao.getSub(class_sub_no);
 		ClassSubjectFileDto classSubjectFileDto = classSubjectDao.getFile(class_sub_no);
-		log.info("classSubjectFileDto ={}", classSubjectFileDto);
+		List<MajorDto> majorList = majorDao.major_list();
 		
 		
-		model.addAttribute("classSubjectFileDto", classSubjectFileDto);
+		
+		model.addAttribute("majorList", majorList);
 		model.addAttribute("classSubjectDto", classSubjectDto);
-		model.addAttribute("year", year);
+		model.addAttribute("classSubjectFileDto", classSubjectFileDto);
 		attr.addAttribute("class_sub_no", class_sub_no);
 		
 		return "class_subject/edit";

@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -225,21 +227,37 @@
 		console.log(classSubTime3);
 		console.log(classSubTime4);
 		
-		if(classSubTime2 != null) {
+		if(classSubTime2 != 'null') {
 			$('.addSelect1').show();
             $('#addTime1').hide();
 		}
-		if(classSubTime2 != null && classSubTime3 != null) {
+		if(classSubTime2 != 'null' && classSubTime3 != 'null') {
 			$('.addSelect2').show();
 			$('#addTime2').hide();
 			$('.del-btn1').hide();
 		}
 		
-		if(classSubTime2 != null && classSubTime3 != null && classSubTime4 != null) {
+		if(classSubTime2 != 'null' && classSubTime3 != 'null' && classSubTime4 != 'null') {
 			$('.addSelect3').show();
 			$('#addTime3').hide();
 			$('.del-btn2').hide();
 		}
+		
+		
+		/* 교수 학과 조회 */
+	    $('#major-btn').click(function() {
+	    	var profe_name = $('input[name=profe_name]').val();
+	    	var profe_no = ${profeinfo.profe_no};
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/classSubject/profeCheck?profe_name=" + profe_name + "&profe_no=" + profe_no,
+	    		type:"get",
+	    		success:function(response){
+	    			console.log(response)
+	    			$('input[name=major_type]').val(response.major_type);
+	    		}
+	    		
+	    	})
+	    })
 	
 	})
 	
@@ -302,18 +320,18 @@
 	}
     
     .modify-btn,
-    .add-btn {
+    .add-btn,
+    #major-btn {
         background-color: #063E7A;
         border-color: #063E7A;
             
     }
     
     .modify-btn:hover,
-    .add-btn:hover, {
+    .add-btn:hover,
+    #major-btn:hover {
     	background-color: #1D5798;
     }
-    
-    
     
 	.btn,
 	.form-control {
@@ -389,6 +407,12 @@
 	                   <label>강의 명</label>
 	                   <input type="text" name="class_sub_name" class='form-control' value="${classSubjectDto.class_sub_name}" required autocomplete="off">
 	               </div>
+	               <div class="form-group form-inline">
+	                   <label>교수 이름</label>
+	                   <input type="text" name="profe_name" class='form-control' value="${classSubjectDto.profe_name}" required autocomplete="off">
+	                   <label>학과</label>
+	               	   <input type="text" name="major_type" value="${classSubjectDto.major_type}" class="form-control" readonly>
+	               </div>
 	
 	               <div class="form-group form-inline">
 	                   <label>전공 선택</label>
@@ -411,8 +435,8 @@
 					<hr>
 					
                    <div class="form-group form-inline">
-                   
-                   		<input type="text" name="this_year" value="${year}" class="form-control" readonly>
+                   		<fmt:parseDate value="${classSubjectDto.semester_start}" var="thisYear" pattern="yyyy-MM-dd HH:mm:ss" />
+                   		<input type="text" name="this_year" value="<fmt:formatDate value="${thisYear}" pattern="yyyy" />" class="form-control" readonly>
                         <label>년도</label>
                         <select name="semester_type" id="semester_type" class="form-control">
 					    	<option ${classSubjectDto.semester_type == '1학기' ? 'selected':''}>1학기</option>
@@ -502,9 +526,11 @@
 	               
 	               <div class="form-group form-inline">
 	                   <label>수업일&nbsp;
-	                   <input type="text" name="class_sub_start" id="class_sub_start" class="form-control picker-start" value="${classSubjectDto.class_sub_start}" required autocomplete="off">
+	                   <fmt:parseDate value="${classSubjectDto.class_sub_start}" var="start" pattern="yyyy-MM-dd HH:mm:ss" />
+	                   <input type="text" name="class_sub_start" id="class_sub_start" class="form-control picker-start" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" required autocomplete="off">
 					    ~
-					   <input type="text" name="class_sub_end" id="class_sub_end" class="form-control picker-end" value="${classSubjectDto.class_sub_end}" required autocomplete="off">
+	                   <fmt:parseDate value="${classSubjectDto.class_sub_end}" var="end" pattern="yyyy-MM-dd HH:mm:ss" />
+					   <input type="text" name="class_sub_end" id="class_sub_end" class="form-control picker-end" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" required autocomplete="off">
 	                   </label>
 	               </div>
 	               

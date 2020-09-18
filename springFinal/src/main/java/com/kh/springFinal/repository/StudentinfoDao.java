@@ -11,8 +11,6 @@ public interface StudentinfoDao {
 	boolean join(StudentinfoDto studentinfoDto);
 	
 	
-	
-
 
 	StudentinfoDto get(String stu_apply_name);
 	List<StudentinfoDto> getList();

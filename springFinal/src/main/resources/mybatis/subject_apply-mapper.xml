@@ -87,4 +87,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	<select id="get_subject" parameterType="subjectapplyDto" resultType="subjectapplyDto" >
    		select * from subject_apply where class_sub_no = #{class_sub_no} and student_no = #{student_no}
    	</select>
+   	<!-- 수강목록 -->
+   	<select id="getProfeApplyList" parameterType="int" resultType="subjectapplyDto">
+   		select * from subject_apply sa left outer join class_subject cs on sa.class_sub_no = cs.class_sub_no inner join major m on sa.major_no = m.major_no inner join semester s on cs.semester_no = s.semester_no where cs.profe_no = #{profe_no}
+   	</select>
+	
 </mapper>
+

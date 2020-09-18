@@ -1,9 +1,12 @@
 package com.kh.springFinal.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.springFinal.entity.AdminDto;
 import com.kh.springFinal.entity.MajorDto;
+import com.kh.springFinal.entity.SchoolOffDto;
+import com.kh.springFinal.entity.StudentinfoDto;
 import com.kh.springFinal.repository.AdminDao;
 import com.kh.springFinal.repository.MajorDao;
 
@@ -26,8 +31,10 @@ public class AdminController {
 	
 	@Autowired
 	private MajorDao majorDao;
-	
-	
+
+	@Autowired
+	private SqlSession sqlSession;
+
 	@GetMapping("/major_add")
 	public String major_add(Model model) {
 		
@@ -56,6 +63,28 @@ public class AdminController {
 		return "redirect:major_add";
 	}
 	
-	
+	@GetMapping("/off_list")
+	public String list(Model model) {
+		List<SchoolOffDto> list = sqlSession.selectList("admin.off_List");
+		
+		model.addAttribute("list", list);
+		
+		return "admin/off_list";
 
+}
+	
+	@RequestMapping("/union")
+	public String union(
+			@RequestParam(required=false) String type,
+			@RequestParam(required=false) String keyword,
+			Model model) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		
+		List<SchoolOffDto> list = sqlSession.selectList("admin.unionList", map);
+		model.addAttribute("list", list);
+		
+		return "admin/off_list";
+	}
 }

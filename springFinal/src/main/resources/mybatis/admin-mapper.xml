@@ -41,4 +41,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="admin_login" parameterType="adminDto" resultType="adminDto">
    		select * from admin where admin_id = #{admin_id} and admin_pw = #{admin_pw}
    	</select>
+   	
+   	
+   	<select id="off_List" resultType="schoolOffDto">
+		SELECT * FROM SCHOOL_OFF so
+      LEFT OUTER JOIN student st ON so.student_no = st.student_no 
+	</select>
+	
+	<select id="return_List" resultType="schoolReturnDto">
+		SELECT * FROM SCHOOL_Return
+		ORDER BY
+		school_return_no DESC
+	</select>
+	
+	
+	<select id="unionList" resultType="schoolOffDto" parameterType="map">
+	
+	SELECT * FROM SCHOOL_OFF so
+      LEFT OUTER JOIN student st ON so.student_no = st.student_no
+	<if test="type !=null and keyword !=null">
+	where instr(${type}, #{keyword}) >0
+	</if>
+	order by school_off_no desc
+	</select>
+	
+   	
 </mapper>

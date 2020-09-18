@@ -22,9 +22,9 @@
 		select * from semester where semester_type = #{semester_type} and to_char(semester_start, 'YYYY') = #{this_year}
 	</select>
 	
-	<!-- 교수 번호 조회(임시) -->
-	<select id="getProfeName" parameterType="string" resultType="professorDto">
-		select * from professor where profe_name = #{profe_name}
+	<!-- 교수 학과 조회 -->
+	<select id="getProfeMajor" parameterType="professorDto" resultType="professorDto">
+		select * from professor p inner join major m on p.major_no = m.major_no where p.profe_no = #{profe_no} and p.profe_name = #{profe_name}
 	</select>
 	
 	
@@ -57,10 +57,9 @@
 		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no order by class_sub_no desc
 	</select>
 	
-		
-	<!-- 강의 목록(로그인 교수) -->
+	<!-- 강의 목록 -->
 	<select id="loginProfeList" resultType="classSubjectDto" parameterType="int">
-		select * from class_subject where profe_no = #{profe_no} order by class_sub_no desc
+		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no where cs.profe_no = #{profe_no} order by class_sub_no desc
 	</select>
 	
 	<!-- 강의 검색 -->
