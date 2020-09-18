@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
    		.bg_login{
-            background: url(../img/twice.png) no-repeat center top;
+            background: url(../img/home2.jpg) no-repeat center top;
             background-size: cover;
             overflow-x: hidden;
             overflow-y: hidden;
             width: 100%;
             min-width: 1112px;
             z-index: 0;
-            height: 800px;
+            height: 1000px;
         }
         .login-box{
             border: 1px solid #aaa;
@@ -16,7 +16,7 @@
             box-shadow: 0 0 20px rgba(0,0,0,.2)!important;
             height: 400px;
             width: 1000px;
-            background-color: #063e7a;
+            background-color: #1187CF;
         }
         .login-input{
             margin-bottom: 8px;
@@ -77,7 +77,7 @@
         }
         .login-btn{
             display: inline-block;
-            background: #848586;
+            background: #0271BA;
             padding: 0 10px;
             border: none;
             border-radius: 5px;
