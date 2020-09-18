@@ -15,7 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	- resultTypre : 구문이 실행된 결과 유형(반환형과 유사)
  -->
  
-<mapper namespace="student">	
+<mapper namespace="student">
+	<select id="student_get" parameterType="int" resultType="studentDto">
+		SELECT * FROM student WHERE student_no = #{student_no} 
+	</select>
 	<select id="student_login" parameterType="studentDto" resultType="studentDto">
 		select * from student where student_numb = #{student_numb} and student_pw = #{student_pw}
 	</select>
@@ -53,5 +56,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM student WHERE student_numb=#{student_numb}
 	</select>
 	
+	<update id="change" parameterType="studentDto">
+		UPDATE student SET student_pw=#{student_pw}, student_phone=#{student_phone}, student_email=#{student_email}, student_post=#{student_post}
+		, student_addr=#{student_addr}, student_extra_addr=#{student_extra_addr} where student_no = #{student_no}
+	</update>
+	
+	<insert id="student_file" parameterType="studentFileDto">
+		INSERT INTO student_file values(#{student_file_no}, #{student_no}, #{student_file_name}, #{student_file_type}, #{student_file_size})
+	</insert>
+	
+	<select id="student_seq" resultType="int">
+      select student_file_no_seq.nextval from dual 
+   </select>
+   
+   <select id="student_file_check" parameterType="int" resultType="studentFileDto">
+   		select * from student_file  where student_no = #{student_no}
+   </select>
+   
+<!--    <select id="student_file_get" resultType="studentFileDto" parameterType="int"> -->
+<!-- 		SELECT * FROM student_file WHERE student_file_no = #{student_file_no} -->
+<!-- 	</select> -->
+	
+	<select id="student_file_get" resultType="studentFileDto" parameterType="int">
+		SELECT * FROM student_file WHERE student_no = #{student_no}
+	</select>
+	
+	<delete id="student_file_del" parameterType="int">
+		delete student_file where student_no = #{student_no}
+	</delete>
 </mapper>
 

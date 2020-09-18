@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Univercsity</title>
+        <title>University</title>
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css">
@@ -181,22 +181,21 @@
     <div class="container-fluid">
     	
         <div class="bg_login">
-            <div class="row-empty"></div>
-            <div class="row-empty"></div>
-            <div class="row-empty"></div>
-            <div class="row-empty"></div>
-            <div class="row-empty"></div>
-            <div class="row-empty"></div>
-            <div class="row-empty"></div>
+<!--             <div class="row-empty"></div> -->
+                  
             <div class="row">
-                <div class="offset-4 col-4"><h1 class="center">KH대학교</h1></div>
+                <div class="offset-4 col-4" style="margin-left: 40%;">
+<!-- 				<div class="offset-4 col-4"> -->
+                	<img class="left_img" src="${pageContext.request.contextPath}/resources/img/logo2.png" width="400px" height="350px">
+                </div>
             </div>
-            <div class="row-empty"></div>
-            <div class="row-empty"></div> 
+<!--             <div class="row-empty"></div> -->
+            
             <div align="center">
                 <div class="login-box">
+                
                     <div class="login-left">
-                        <img class="left_img" src="${pageContext.request.contextPath}/resources/img/joo.jpg" width="400px" height="398px">
+                        <img class="left_img" src="${pageContext.request.contextPath}/resources/img/tim.jpg" width="400px" height="398px">
                     </div>
                     <div class="login-right">
                         <div class="row-empty" align="left">
