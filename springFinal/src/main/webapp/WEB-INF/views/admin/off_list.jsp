@@ -34,34 +34,28 @@
 			<table class="table table-sm table-hover">
 				<thead class="thead-dark">
 					<tr>
-						<th>번호</th>
 						<th>이름</th>
-						<th>성별</th>
-						<th>생년월일</th>
-						<th>전화번호</th>
-						<th>이메일</th>
-						<th>우편번호</th>
-						<th>주소</th>
-						<th>상세주소</th>
+						<th>학과</th>
+						<th>학번</th>
+						<th>휴학</th>
+						<th>휴학종류</th>
+						<th>휴학 신청날짜</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="studentinfoDto" items="${list}">
+				
+					<c:forEach var="schoolOffDto" items="${list}">
 						<tr>
-							<td>${studentinfoDto.stu_apply_no}</td>
-							<td>${studentinfoDto.stu_apply_name}</td>
-							<td>${studentinfoDto.stu_apply_gender}</td>
+							<td>${schoolOffDto.student_name}</td>
+							<td>${schoolOffDto.major_no}</td>
+							<td>${schoolOffDto.student_numb}</td>
+							<td>${schoolOffDto.school_off_regist}</td>
+							<td>${schoolOffDto.school_off_type}</td>
 							<td>
-							<fmt:parseDate value="${studentinfoDto.stu_apply_birth}" var="time"
+							<fmt:parseDate value="${schoolOffDto.school_off_period }" var="time"
 								pattern="yyyy-MM-dd HH:mm:ss" />
 							<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
 							</td>
-							<td>${studentinfoDto.stu_apply_phone}</td>
-							<td>${studentinfoDto.stu_apply_email}</td>
-							<td>${studentinfoDto.stu_apply_post}</td>
-							<td>${studentinfoDto.stu_apply_addr}</td>
-							<td>${studentinfoDto.stu_apply_extra_addr}</td>
-
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -71,16 +65,16 @@
 			<form action="union" method="post">
 
 				<select name="type">
-					<option value="stu_apply_name"
-						${param.type == 'stu_apply_name' ? 'selected':''}>이름</option>
-					<option value="stu_apply_phone"
-						${param.type == 'stu_apply_phone' ? 'selected':''}>전화번호</option>
+					<option value="student_name"
+						${param.type == 'student_name' ? 'selected':''}>이름</option>
+					<option value="major_no"
+						${param.type == 'major_no' ? 'selected':''}>전공</option>
 				</select> <input type="text" name="keyword" placeholder="검색어"
 					value="${param.keyword}"> <input type="submit" value="검색">
-
-				</tr>
+			</form>
+				
 				</tbody>
-				</table>
+				
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 		</div>
 	</div>

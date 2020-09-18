@@ -50,8 +50,7 @@
             <li class="up_background" style="height: 100px; width: 250px;">
                 <img src="${pageContext.request.contextPath}/resources/img/slogo.png" width="240px" height="100px">
             </li>
-           	<li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">KH대학교</li>
-            
+
             <c:if test="${userinfo.student_auth eq '학생'}">
                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle();">학생</a>
                     <ul class="nav flex-column sidebar_toggle nav-item-list"> 
@@ -59,10 +58,13 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/student/student_info?student_no=${userinfo.student_no}" style="color:white">학생정보</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">수강신청</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/student_class_apply" style="color:white">수강신청</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                             <a class="nav-link" href="#" style="color:white">시간표</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/st_class_apply_list" style="color:white">내 수강신청 목록</a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                             <a class="nav-link" href="${pageContext.request.contextPath}/student/student_schedule?student_no=${userinfo.student_no}" style="color:white">시간표</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="#" style="color:white">성적확인</a>
@@ -70,6 +72,13 @@
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="#" style="color:white">강의평가</a>
                         </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/off?student_no=${userinfo.student_no}" style="color:white">휴학신청</a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/on?student_no=${userinfo.student_no}" style="color:white">복학신청</a>
+                        </li>
+
                     </ul>
                 </c:if>
                 
@@ -80,7 +89,13 @@
 	                            <a class="nav-link" href="#" style="color:white">교수정보</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
-	                            <a class="nav-link" href="#" style="color:white">수강등록</a>
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/regist" style="color:white">강의등록</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/list" style="color:white">강의목록</a>
+	                        </li>
+	                        <li class="nav-item" style="margin-left: 30px;">
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/profeApplyList" style="color:white">수강목록</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
 	                             <a class="nav-link" href="#" style="color:white">성적등록</a>
@@ -119,7 +134,7 @@
     </aside>
     <section class="container2">
         <div class="up_background container-fluid">
-
+ 
           	<button class="btn_slide" style="text-align: left;" onclick="toggleSidebar();">&#8801;</button>
 <!-- 	            <form action="logout" method="post"> -->
 					<c:if test="${userinfo.student_auth eq '학생'}">             
@@ -133,9 +148,9 @@
 	                </c:if>
 <!-- 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교 -->
 <%-- 	                <c:if test="${userinfo != null || admininfo != null}"> --%>
+
 	                <c:if test="${userinfo != null || prfeinfo != null || admininfo != null}">	                
 	                	<a href="${pageContext.request.contextPath}/member/logout"><img src="${pageContext.request.contextPath}/resources/img/logout2.png" width="35px" height="30px" style="margin-bottom: 12px;"></a>
-	                	 
 	                </c:if>
 <!-- 	                </span> -->
 	                

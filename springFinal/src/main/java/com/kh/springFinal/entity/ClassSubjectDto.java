@@ -28,8 +28,10 @@ public class ClassSubjectDto {
 	private String regist_date;
 	
 	private String profe_name;
+	private String semester_start;
 	private String semester_type;
 	private String major_type;
-
+	private int student_no;
+	private String subject_apply_state;
 
 }

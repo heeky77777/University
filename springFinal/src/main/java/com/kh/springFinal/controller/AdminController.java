@@ -1,7 +1,11 @@
 package com.kh.springFinal.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+
+import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,18 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.StudentDto;
+import com.kh.springFinal.entity.SchoolOffDto;
+import com.kh.springFinal.entity.StudentinfoDto;
 import com.kh.springFinal.repository.AdminDao;
 import com.kh.springFinal.repository.MajorDao;
-
-
-
 
 @Controller
 @RequestMapping("/admin")
@@ -28,15 +30,15 @@ public class AdminController {
 	
 	@Autowired
 	private MajorDao majorDao;
-	
-	
+
 	@Autowired
 	private AdminDao adminDao;
 	
 	@Autowired
 	private SqlSession sqlSession;
-	
-	
+
+
+
 	@GetMapping("/major_add")
 	public String major_add(Model model) {
 		
@@ -74,7 +76,6 @@ public class AdminController {
 		
 	}
 	
-	
 	@PostMapping("/admin_student_edit")
 	public String student_edit(@ModelAttribute StudentDto studentDto) {
 		
@@ -92,5 +93,29 @@ public class AdminController {
 		
 		return "admin/admin_student_list";
 	}	
+	
+	@GetMapping("/off_list")
+	public String list(Model model) {
+		List<SchoolOffDto> list = sqlSession.selectList("admin.off_List");
+		
+		model.addAttribute("list", list);
+		
+		return "admin/off_list";
 
+	}
+	
+	@RequestMapping("/union")
+	public String union(
+			@RequestParam(required=false) String type,
+			@RequestParam(required=false) String keyword,
+			Model model) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		
+		List<SchoolOffDto> list = sqlSession.selectList("admin.unionList", map);
+		model.addAttribute("list", list);
+		
+		return "admin/off_list";
+	}
 }

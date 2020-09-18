@@ -22,14 +22,41 @@
 	        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	    </head>
 	    <script>
+	    
+		function now_apply() {
+			
+			var socket;
+			
+				var uri = "ws://localhost:8080/spring97/go";
+				socket = new WebSocket(uri);
+				
+//		 		연결이 되었는지 안되었는지 확인할 수 있도록 예약 작업(콜백)을 설정
+				socket.onopen = function(){
+					console.log("연결되었씁닏강");
+				};
+				
+				socket.onmessage = function(e){
+				console.log(e.data);
+				
+					if(e.data==("waitting")){
+					location.href ='${pageContext.request.contextPath}/student/student_apply_wait';
+					}
+					
+			};	
+			
+			
+		}
+	    
 	    function get_semester(){
 	    	
 	    	var url = location.search.substr(location.search.indexOf("?") + 1);
+	    	var findString ="error";
 			console.log(url);
-			if(url!="") {
+			if(url.indexOf(findString) != -1) {
 				history.replaceState({}, null, location.pathname);
 				alert("신청된 강의 입니다.");
 			}
+			
 	    	
 	    	var regist_year = document.querySelector("#regist_year").value;
 	    	console.log(regist_year);
@@ -118,10 +145,8 @@
 	    window.onload=get_semester;
 	    
 	    </script>
-	    
+	    <body onload="now_apply();">
 			<h1>강의신청</h1>
-			
-		
 			<div class="form-group form-inline">
 					<form action="subject_list" method="post">
 	                       <input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">
@@ -133,25 +158,16 @@
 	                       <select name="major_type" id="major_type" class="form-control" required onchange="get_semester();">
                                 <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
                                 <c:forEach var="majorDto" items="${majorList}">
-	                                <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
+	                                <option ${param.major_type == majorDto.major_type ? 'selected':''}>${majorDto.major_type}</option>
                                 </c:forEach>
                             </select>
-<!-- 	                      <select name="major_type" id="major_type" class="form-control" onchange="get_semester();"> -->
-<%-- 	                          <option ${param.major_type == '경영학과' ? 'selected':''}>경영학과</option> --%>
-<%-- 	                          <option ${param.major_type == '금융세무학과' ? 'selected':''}>금융세무학과</option> --%>
-<%-- 	                          <option ${param.major_type == '도시공학과' ? 'selected':''}>도시공학과</option> --%>
-<%-- 	                          <option ${param.major_type == '시스템공학과' ? 'selected':''}>시스템공학과</option> --%>
-<%-- 	                          <option ${param.major_type == '문예창작학과' ? 'selected':''}>문예창작학과</option> --%>
-<%-- 	                          <option ${param.major_type == '성악과' ? 'selected':''}>성악과</option> --%>
-<!-- 	                      </select> -->
 	                      <input type="hidden" name="major_no" id="major_no">&nbsp;&nbsp;&nbsp;
 	                      <input type="hidden" name="semester_no" id="semester_no">
+	                      <input type="hidden" name="student_no" value="${userinfo.student_no }">
 <!-- 	                      <button class="btn btn-secondary btn-sm" onclick="get_list();">강의조회</button> -->
 							<input type="submit" value="강의조회"  class="btn btn-primary" style="background-color :#063e7a">
 					</form>		
-	                  </div>
-                    
-                  
+	                  </div>   
                   <div class="form-group form-inline">
                       
                   </div>
@@ -168,35 +184,49 @@
 		 			</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="classSubjectDto" items="${apply_list}"> 
-					<form action="student_class_apply" method="post">
-					<tr>
-						<input type="hidden" name="class_sub_no" id="class_sub_no" value="${classSubjectDto.class_sub_no}">
-						<input type="hidden" name="major_no" id="major_no" value="${classSubjectDto.major_no}">
-						<input type="hidden" name="student_no" id="student_no" value="${userinfo.student_no}">
-						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}">
-						<td>${classSubjectDto.class_sub_name}</td>
-						<td>${classSubjectDto.profe_name}</td>
-						<td>${classSubjectDto.class_sub_point}</td>
-						<td>${classSubjectDto.class_sub_type}</td>
-<%-- 						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}${classSubjectDto.class_sub_time2}${classSubjectDto.class_sub_time3}${classSubjectDto.class_sub_time4} (${classSubjectDto.class_sub_room})</td> --%>
-						<td>${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}(${classSubjectDto.class_sub_room})</td>
-						<td>${classSubjectDto.class_sub_person}</td>
-						<td>
-<%-- 						<c:if test="${sub_check != null}"> --%>
-							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">	
-<!-- 							<button class="btn btn-primary" onclick="apply_class();">강의신청</button> -->
-<%-- 						</c:if> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<span class="btn btn-primary btn-block regist-btn">신청완료</span> -->
-<%-- 						</c:otherwise> --%>
+<%-- 				<c:forEach var="classSubjectDto" items="${classList}">  --%>
+<!-- 					<form action="student_class_apply" method="post"> -->
+<!-- 					<tr> -->
+<%-- 						<input type="hidden" name="class_sub_no" id="class_sub_no" value="${classSubjectDto.class_sub_no}"> --%>
+<%-- 						<input type="hidden" name="major_no" id="major_no" value="${classSubjectDto.major_no}"> --%>
+<%-- 						<input type="hidden" name="student_no" id="student_no" value="${userinfo.student_no}"> --%>
+<%-- 						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}"> --%>
+<%-- 						<td>${classSubjectDto.class_sub_name}</td> --%>
+<%-- 						<td>${classSubjectDto.profe_name}</td> --%>
+<%-- 						<td>${classSubjectDto.class_sub_point}</td> --%>
+<%-- 						<td>${classSubjectDto.class_sub_type}</td> --%>
+<!-- 						<td> -->
+<%-- 							<c:set var="class_sub_time2" value="${classSubjectDto.class_sub_time2}"/> --%>
+<%-- 		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/> --%>
+<%-- 		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/> --%>
+<%-- 		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1}  --%>
+<%-- 		                            	<c:if test="${class_sub_time2 != 'null'}"> --%>
+<%-- 		                            		${classSubjectDto.class_sub_time2}  --%>
+<%-- 		                            	</c:if> --%>
+<%-- 		                            	<c:if test="${class_sub_time3 != 'null'}"> --%>
+<%-- 		                            		${classSubjectDto.class_sub_time3}  --%>
+<%-- 		                            	</c:if> --%>
+<%-- 		                            	<c:if test="${class_sub_time4 != 'null'}"> --%>
+<%-- 		                            		${classSubjectDto.class_sub_time4}  --%>
+<%-- 		                            	</c:if> --%>
+<%-- 		                            	(${classSubjectDto.class_sub_room}) --%>
+<!-- 						</td> -->
+<%-- 						<td>${classSubjectDto.class_sub_person}</td> --%>
+<!-- 						<td> -->
+<%-- <%-- 						<c:if test="${sub_check != null}"> --%>
+<!-- <!-- 							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">	 --> 
+<!-- <!-- 							<button class="btn btn-primary" onclick="apply_class();">강의신청</button> -->
+<%-- <%-- 						</c:if> --%>
+<%-- <%-- 						<c:otherwise> --%>
+<!-- <!-- 							<span class="btn btn-primary btn-block regist-btn">신청완료</span> -->
+<%-- <%-- 						</c:otherwise> --%>
 							
-						</td>
-					</tr>
-					</form>
-				</c:forEach>
+<!-- 						</td> -->
+<!-- 					</tr> -->
+<!-- 					</form> -->
+<%-- 				</c:forEach> --%>
 				</tbody>
 		</table>
-
+	</body>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

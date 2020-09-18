@@ -103,6 +103,12 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		return  sqlSession.selectList("classSubject.getNameList");
 	}
 	
+	// 로그인 교수 강의 리스트
+	@Override
+	public List<ClassSubjectDto> getList(int loginProfeNo) {
+		return sqlSession.selectList("classSubject.loginProfeList", loginProfeNo);
+	}
+	
 	
 	// 강의 검색
 	@Override
@@ -148,11 +154,12 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	}
 
 	
-	// 교수 번호 및 학과 번호 조회 (임시)
+	// 교수 학과 조회
 	@Override
-	public ProfessorDto getProfeName(ClassSubjectDto classSubjectDto) {
-		return sqlSession.selectOne("classSubject.getProfeName", classSubjectDto.getProfe_name());
+	public ProfessorDto getProfeMajor(ProfessorDto professorDto) {
+		return sqlSession.selectOne("classSubject.getProfeMajor", professorDto);
 	}
+
 	
 	
 }

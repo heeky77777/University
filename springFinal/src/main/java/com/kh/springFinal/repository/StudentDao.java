@@ -22,5 +22,6 @@ public interface StudentDao {
 	StudentFileDto getFile(int student_no); // int받고 갤러리 토해내는
 	
 	void delFile(int student_no);
+
 	
 }

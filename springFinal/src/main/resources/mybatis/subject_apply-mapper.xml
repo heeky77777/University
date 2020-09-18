@@ -24,7 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         #{major_no},
                         #{student_no},
                         #{subject_apply_name},
-                        sysdate
+                        sysdate,
+                        '신청'
                            )
    
    	</insert>
@@ -34,7 +35,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
    	
    	<select id="apply_list" parameterType="classSubjectDto" resultType="classSubjectDto">
-   		select * from class_subject where to_char(regist_date,'yyyy') = #{regist_date} and major_no = #{major_no} and semester_no = #{semester_no}
+<!--    		select * from class_subject where to_char(regist_date,'yyyy') = #{regist_date} and major_no = #{major_no} and semester_no = #{semester_no} -->
+<!-- 		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE TO_CHAR(cs.REGIST_DATE,'yyyy') = #{regist_date} AND cs.major_no = #{major_no} AND cs.SEMESTER_NO = #{semester_no} -->
+		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE TO_CHAR(cs.REGIST_DATE,'yyyy') = #{regist_date} AND cs.major_no = #{major_no} AND cs.SEMESTER_NO = #{semester_no}
+
+   	</select>
+   	
+   	<select id="apply_check" parameterType="classSubjectDto" resultType="classSubjectDto">
+		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE TO_CHAR(cs.REGIST_DATE,'yyyy') = #{regist_date} AND cs.major_no = #{major_no} AND cs.SEMESTER_NO = #{semester_no} AND sa.student_no=#{student_no}
    	</select>
    	<select id="get_semester" parameterType="semesterDto" resultType="semesterDto">
    		select * from semester where to_char(semester_start,'yyyy') = #{semester_start} and semester_type=#{semester_type}
@@ -49,7 +57,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	</select>
    	
    	<select id="get_check" parameterType="subjectapplyDto" resultType="subjectapplyDto">
-   		select * from subject_apply where class_sub_no = #{class_sub_no}
+   		select * from subject_apply where class_sub_no = #{class_sub_no} and student_no=#{student_no}
    	</select>
    	
+   	<select id="sub_list" parameterType="subjectapplyDto" resultType="subjectapplyDto">
+   		select * from subject_apply where student_no = #{student_no}
+   	</select>
+   	
+   	<select id="class_list" parameterType="int" resultType="classSubjectDto">
+   		select * from class_subject where class_sub_no = #{class_sub_no}
+   	</select>
+   	
+   	<select id="all_class_list" resultType="classSubjectDto">
+   		select * from class_subject order by class_sub_no desc
+   	</select>
+   	
+   	<select id="class_numb" parameterType="subjectapplyDto" resultType="subjectapplyDto">
+   		SELECT * FROM subject_apply WHERE CLASS_SUB_NO = #{class_sub_no};
+   	</select>
+   	
+   	<select id="st_class_apply_list" parameterType="classSubjectDto" resultType="classSubjectDto">
+   		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO WHERE cs.SEMESTER_NO = #{semester_no} and sa.STUDENT_NO = #{student_no}
+   	</select>
+   	
+   	<delete id="st_class_apply_list_del" parameterType="int">
+   		delete subject_apply where class_sub_no = #{class_sub_no}
+   	</delete>
+   	
+   	<select id="get_subject" parameterType="subjectapplyDto" resultType="subjectapplyDto" >
+   		select * from subject_apply where class_sub_no = #{class_sub_no} and student_no = #{student_no}
+   	</select>
+   	<!-- 수강목록 -->
+   	<select id="getProfeApplyList" parameterType="int" resultType="subjectapplyDto">
+   		select * from subject_apply sa left outer join class_subject cs on sa.class_sub_no = cs.class_sub_no inner join major m on sa.major_no = m.major_no inner join semester s on cs.semester_no = s.semester_no where cs.profe_no = #{profe_no}
+   	</select>
+	
 </mapper>
+

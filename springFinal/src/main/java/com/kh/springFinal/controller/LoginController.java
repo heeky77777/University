@@ -49,7 +49,6 @@ public class LoginController {
 			session.setAttribute("userinfo", student);
 			session.removeAttribute("admininfo");
 			session.removeAttribute("profeinfo");
-			
 			return "redirect:member/main";
 		}
 		else {

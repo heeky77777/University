@@ -167,7 +167,11 @@
             bottom: 0;
             width: 150px;
             margin-left: -250px;
-            margin-top: -200px;
+<<<<<<< HEAD
+            margin-top: -250px;
+=======
+            margin-top: -280px;
+>>>>>>> refs/remotes/origin/master
             transition: margin-top 0.5s ease-in-out; 
             
             
@@ -182,23 +186,23 @@
             transition: margin-top 0.5s ease-in-out; 
             transition: margin-left 0.01s ease-in-out; 
             
-            
-            
         }
 
         
         .sidebar_toggle2{
-            
             top: 0;
             left: 0;
             bottom: 0;
             width: 150px;
             margin-left: -250px;
-            margin-top: -120px;
+            margin-top: -160px;
             transition: margin-top 0.5s ease-in-out; 
             
         }
+        
+        
         .sidebar_toggle2.active{
+        
             top: 0;
             left: 0;
             bottom: 0;
@@ -207,8 +211,7 @@
             margin-left: 0px;
             transition: margin-top 0.5s ease-in-out; 
             transition: margin-left 0.01s ease-in-out; 
-            
-            
+
         }
 
         
