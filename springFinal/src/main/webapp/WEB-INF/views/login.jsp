@@ -235,6 +235,9 @@
 	                                    <label for="saveId">
 	                                        <strong>학번번호 저장</strong>
 	                                    </label>
+	                                  
+	                                    
+	                                    
 	                                    <a href="#find-pw" class="pw_id_findare" style="right: 100px;" data-toggle="modal" data-backdrop="static">학생비밀번호 찾기</a>
 	                                    <a href="#find-id" class="pw_id_findare" data-toggle="modal" data-backdrop="static">학번 조회</a>
 	                            </li>

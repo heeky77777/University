@@ -46,6 +46,9 @@ public class StudentController {
 	private SubjectApplyDao subjectapplyDao;
 	
 	@Autowired
+	private StudentDao studentDao;
+	
+	@Autowired
 	private MajorDao majorDao;
 	
 	@GetMapping("/student_join")
@@ -68,22 +71,91 @@ public class StudentController {
 
 	
 	@GetMapping("/student_schedule")
-	public String student_schedule(@ModelAttribute SubjectApplyDto subjectApplyDto,Model model) {
+	public String student_schedule(Model model) {		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
 		
-	List<SubjectApplyDto> sub_list = subjectapplyDao.sub_list(subjectApplyDto);
-	
-//	System.out.println("sub_list="+sub_list);
-//	
-//	for(SubjectApplyDto sjadto : sub_list) {
-//		ClassSubjectDto csdto = subjectapplyDao.class_get(sjadto.getClass_sub_no());
-//		model.addAttribute("csdto", csdto);
-//		System.out.println("class_list="+csdto);
-//	}
+		model.addAttribute("now_year", year);	
+		
+		   return "student/student_schedule";
+		}
+	@PostMapping("/student_schedule")
+	public String student_scheduel(@ModelAttribute ClassSubjectDto classSubjectDto,Model model) {
+		ClassSubjectDto[][] data= new ClassSubjectDto[9][6];
+		   List<ClassSubjectDto> list = studentDao.get_schedule(classSubjectDto);
+//		   data에 list에 있는 값을 칸에 맞게 저장
+		   
+		   for(ClassSubjectDto dto : list){
+			   
+//		      dto의 시간을 조회
+			   String week = dto.getClass_sub_week();
+			   int sub_time1 = Integer.parseInt(dto.getClass_sub_time1());
+			   int sub_time2 = Integer.parseInt(dto.getClass_sub_time2());
+			   int sub_time3 = Integer.parseInt(dto.getClass_sub_time3());
+//			   int sub_time4 = Integer.parseInt(dto.getClass_sub_time4());
+			   String sub_name = dto.getClass_sub_name();
+			   
+//		      dto를 data에 추가(위치에 맞게)
+//		      data[?][?] = dto;
+			   for(int i=1; i<=8; i++) {				   
+				   if(week.equals("월") && sub_time1 == i) { 
+					   data[i][1] = dto;
+				   }
+				   if(week.equals("화") && sub_time1 == i) { 
+					   data[i][2] = dto;
+				   }
+				   if(week.equals("수") && sub_time1 == i) { 
+					   data[i][3] = dto;
+				   }
+				   if(week.equals("목") && sub_time1 == i) { 
+					   data[i][4] = dto;
+				   }
+				   if(week.equals("금") && sub_time1 == i) { 
+					   data[i][5] = dto;
+				   }
+				   
+				   if(week.equals("월") && sub_time2 == i) { 
+					   data[i][1] = dto;
+				   }
+				   if(week.equals("화") && sub_time2 == i) { 
+					   data[i][2] = dto;
+				   }
+				   if(week.equals("수") && sub_time2 == i) { 
+					   data[i][3] = dto;
+				   }
+				   if(week.equals("목") && sub_time2 == i) { 
+					   data[i][4] = dto;
+				   }
+				   if(week.equals("금") && sub_time2 == i) { 
+					   data[i][5] = dto;
+				   }
+				   
+				   if(week.equals("월") && sub_time3 == i) { 
+					   data[i][1] = dto;
+				   }
+				   if(week.equals("화") && sub_time3 == i) { 
+					   data[i][2] = dto;
+				   }
+				   if(week.equals("수") && sub_time3 == i) { 
+					   data[i][3] = dto;
+				   }
+				   if(week.equals("목") && sub_time3 == i) { 
+					   data[i][4] = dto;
+				   }
+				   if(week.equals("금") && sub_time3 == i) { 
+					   data[i][5] = dto;
+				   }
+			   }
 
-		
-		return "student/student_schedule";
-	}
+			  }
+		   model.addAttribute("schedule", data);
+		   return "student/student_schedule";
+		   }
 	
+
+//	List<ClassSubjectDto> schedul = studentDao.get_schedule(classSubjectDto);
+//	model.addAttribute("schedul",schedul);
+
 	@GetMapping("/student_class_apply")
 	public String student_class_apply(Model model) {
 		Calendar cal = Calendar.getInstance();

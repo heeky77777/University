@@ -48,7 +48,7 @@
     <aside class="sidebar">
         <ul class="list-group " style="width:100%">
             <li class="up_background" style="height: 50px; width: 250px;">
-                <img src="../project/img/aaa.png" width="250px" height="50px">
+                <img src="${pageContext.request.contextPath}/resources/img/logo.png" width="250px" height="50px">
             </li>
             <li class="list-item " style="height: 70px;" onclick="sidebar_toggleAll();">KH대학교</li>
             
