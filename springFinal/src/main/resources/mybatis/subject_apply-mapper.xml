@@ -36,7 +36,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	
    	<select id="apply_list" parameterType="classSubjectDto" resultType="classSubjectDto">
 <!--    		select * from class_subject where to_char(regist_date,'yyyy') = #{regist_date} and major_no = #{major_no} and semester_no = #{semester_no} -->
-		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE TO_CHAR(cs.REGIST_DATE,'yyyy') = #{regist_date} AND cs.major_no = #{major_no} AND cs.SEMESTER_NO = #{semester_no}
+<!-- 		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE TO_CHAR(cs.REGIST_DATE,'yyyy') = #{regist_date} AND cs.major_no = #{major_no} AND cs.SEMESTER_NO = #{semester_no} -->
+		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE TO_CHAR(cs.REGIST_DATE,'yyyy') = #{regist_date} AND cs.major_no = #{major_no} AND cs.SEMESTER_NO = #{semester_no}
+
+   	</select>
+   	
+   	<select id="apply_check" parameterType="classSubjectDto" resultType="classSubjectDto">
+		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE TO_CHAR(cs.REGIST_DATE,'yyyy') = #{regist_date} AND cs.major_no = #{major_no} AND cs.SEMESTER_NO = #{semester_no} AND sa.student_no=#{student_no}
    	</select>
    	<select id="get_semester" parameterType="semesterDto" resultType="semesterDto">
    		select * from semester where to_char(semester_start,'yyyy') = #{semester_start} and semester_type=#{semester_type}

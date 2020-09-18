@@ -99,25 +99,41 @@ public class StudentController {
 	
 	@GetMapping("/subject_list")
 	public String subject_list_get(@ModelAttribute ClassSubjectDto classSubjectDto,
-									Model model) {
+									@RequestParam int major_no,
+									@RequestParam int student_no,
+									@RequestParam int semester_no,
+									@RequestParam int regist_date,
+									Model model,
+									RedirectAttributes attr) {
 		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		
 		List<ClassSubjectDto> apply_list = subjectapplyDao.get_list(classSubjectDto);
-		
+		List<ClassSubjectDto> apply_check = subjectapplyDao.apply_check(classSubjectDto);
 		List<MajorDto> majorList = majorDao.major_list();
 		
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("apply_list", apply_list);
+		model.addAttribute("apply_check", apply_check);
 		model.addAttribute("now_year", year);
+		
+		attr.addAttribute("regist_date",regist_date);
+		attr.addAttribute("major_no",major_no);
+		attr.addAttribute("semester_no",semester_no);
+		attr.addAttribute("student_no",student_no);
 		
 		return "student/subject_list";
 	}
 	
 	@PostMapping("/subject_list")
 	public String subject_list_post(@ModelAttribute ClassSubjectDto classSubjectDto,
-								Model model) {
+									@RequestParam int major_no,
+									@RequestParam int student_no,
+									@RequestParam int semester_no,
+									@RequestParam int regist_date,
+								Model model,
+								RedirectAttributes attr) {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		
@@ -125,9 +141,16 @@ public class StudentController {
 		
 		List<ClassSubjectDto> apply_list = subjectapplyDao.get_list(classSubjectDto);
 		List<MajorDto> majorList = majorDao.major_list();
+		List<ClassSubjectDto> apply_check = subjectapplyDao.apply_check(classSubjectDto);
 		
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("apply_list", apply_list);
+		model.addAttribute("apply_check", apply_check);
+		
+		attr.addAttribute("regist_date",regist_date);
+		attr.addAttribute("major_no",major_no);
+		attr.addAttribute("semester_no",semester_no);
+		attr.addAttribute("student_no",student_no);
 		
 		return "student/subject_list";
 	}
@@ -150,9 +173,12 @@ public class StudentController {
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			
+			
+						
 			attr.addAttribute("regist_date",regist_date);
 			attr.addAttribute("major_no",major_no);
 			attr.addAttribute("semester_no",semester_no);
+			attr.addAttribute("student_no",student_no);
 	
 			return "redirect:subject_list";
 		}
@@ -160,6 +186,7 @@ public class StudentController {
 			attr.addAttribute("regist_date",regist_date);
 			attr.addAttribute("major_no",major_no);
 			attr.addAttribute("semester_no",semester_no);
+			attr.addAttribute("student_no",student_no);
 			return "redirect:subject_list?error";
 		}
 		
@@ -196,6 +223,7 @@ public class StudentController {
 	public String st_class_apply_list_del(@RequestParam int class_sub_no) {
 		
 		subjectapplyDao.st_class_apply_list_del(class_sub_no);
+		
 		
 		return "redirect:st_class_apply_list";
 	}

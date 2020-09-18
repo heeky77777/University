@@ -13,6 +13,8 @@ public interface SubjectApplyDao {
 	
 	List<ClassSubjectDto> get_list(ClassSubjectDto classSubjectDto);
 	
+	List<ClassSubjectDto> apply_check(ClassSubjectDto classSubjectDto);
+	
 	List<ClassSubjectDto> get_profe_name();
 	
 	void class_apply(int class_sub_no, int major_no, int student_no, String subject_apply_name);

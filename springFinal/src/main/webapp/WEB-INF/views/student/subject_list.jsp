@@ -144,11 +144,12 @@
 	                       <select name="major_type" id="major_type" class="form-control" required onchange="get_semester();">
                                 <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
                                 <c:forEach var="majorDto" items="${majorList}">
-	                                <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
+	                                <option ${param.major_type == majorDto.major_type ? 'selected':''}>${majorDto.major_type}</option>
                                 </c:forEach>
                             </select>
 	                      <input type="hidden" name="major_no" id="major_no">&nbsp;&nbsp;&nbsp;
 	                      <input type="hidden" name="semester_no" id="semester_no">
+	                      <input type="hidden" name="student_no" value="${userinfo.student_no }">
 <!-- 	                      <button class="btn btn-secondary btn-sm" onclick="get_list();">강의조회</button> -->
 							<input type="submit" value="강의조회"  class="btn btn-primary" style="background-color :#063e7a">
 					</form>		
@@ -172,7 +173,7 @@
 				</thead>
 				<tbody>
 
-				<c:forEach var="classSubjectDto" items="${apply_list}"> 
+				<c:forEach var="classSubjectDto" items="${apply_list}" varStatus="status"> 
 
 					<form action="student_class_apply" method="post">
 
@@ -205,12 +206,11 @@
 						</td>
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
-						<c:if test="${classSubjectDto.subject_apply_state eq null}">
+						<c:if test="${apply_check[status.index].student_no != userinfo.student_no }">
 							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">
-
 						</c:if>
-						<c:if test="${userinfo.student_no eq classSubjectDto.student_no && classSubjectDto.subject_apply_state eq '신청'}">
-							<span class="btn btn-primary btn-block regist-btn" style="background-color: red">신청완료</span>
+						<c:if test="${userinfo.student_no eq apply_check[status.index].student_no && apply_check[status.index].subject_apply_state eq '신청'}">
+							<span class="btn btn-danger btn-block regist-btn" >신청완료</span>
 						</c:if>
 						</td>
 					</tr>

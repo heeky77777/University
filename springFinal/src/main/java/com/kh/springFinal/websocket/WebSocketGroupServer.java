@@ -61,11 +61,10 @@ public class WebSocketGroupServer extends TextWebSocketHandler{
 			log.info("대기! 현재{}명",wait_users.size());
 			
 					
-			System.out.println(session.getUri());
+			System.out.println(wait_users);
 		}
 			
 		log.info("apply 현재{}명",users.size());
-		log.info("id 현재{}",session.getId());
 		
 	}
 	
@@ -74,17 +73,33 @@ public class WebSocketGroupServer extends TextWebSocketHandler{
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		
 //		users.remove(session);
-		if(session.getUri().toString().endsWith("/go")) {
-			users.remove(session);
+		if(session.getUri().toString().endsWith("/group")) {
+//			users.remove(session);
+				
+				wait_users.remove(session);
+			
 		}
 		
-		if(users.size() < 2) {
+		else if(session.getUri().toString().endsWith("/go")) {
 			
+//			if(users.size())
+			users.remove(session);
+			
+//			session.sendMessage(join_person);
+//			wait_users.remove(session);
+			int a = 2-users.size();
 			String result = "apply";
 			TextMessage join_person = new TextMessage(result);
-			session.sendMessage(join_person);
-			wait_users.remove(session);
+			for(WebSocketSession list : wait_users) {
+				System.out.println(list);
+				for(int i=0; i<a; i++) {
+					
+					list.sendMessage(join_person);
+				}
+				
+			}
 		}
+		
 		
 //			log.info("사용자 접속! 현재{}명",users.size());
 //			System.out.println(session.getUri());
@@ -92,6 +107,7 @@ public class WebSocketGroupServer extends TextWebSocketHandler{
 				
 //			wait_users.remove(session);
 			log.info("대기! 현재{}명",wait_users.size());	
+			
 			log.info("사용자 접속! 현재{}명",users.size());
 
 			
@@ -104,7 +120,7 @@ public class WebSocketGroupServer extends TextWebSocketHandler{
 //				session.sendMessage(join_person);
 //			}
 //		}
-	}
 	
+	}
 	
 

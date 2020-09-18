@@ -59,16 +59,16 @@
                             <a class="nav-link" href="#" style="color:white">학생정보</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">수강신청</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/student_class_apply" style="color:white">수강신청</a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 30px;">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/st_class_apply_list" style="color:white">내 수강신청 목록</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                              <a class="nav-link" href="${pageContext.request.contextPath}/student/student_schedule?student_no=${userinfo.student_no}" style="color:white">시간표</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="#" style="color:white">성적확인</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">강의평가</a>
                         </li>
                     </ul>
                 </c:if>
@@ -133,7 +133,7 @@
 	                </c:if>
 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교
 <%-- 	                <c:if test="${userinfo != null || admininfo != null}"> --%>
-	                <c:if test="${userinfo != null || prfeinfo != null || admininfo != null}">	                
+	                <c:if test="${userinfo != null || profeinfo != null || admininfo != null}">	                
 	                	<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 	                </c:if>
 	                </span>
