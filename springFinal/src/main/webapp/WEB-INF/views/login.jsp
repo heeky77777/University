@@ -195,7 +195,7 @@
                 <div class="login-box">
                 
                     <div class="login-left">
-                        <img class="left_img" src="${pageContext.request.contextPath}/resources/img/tim.jpg" width="400px" height="398px">
+                        <img class="left_img" src="${pageContext.request.contextPath}/resources/img/main.jpg" width="400px" height="398px">
                     </div>
                     <div class="login-right">
                         <div class="row-empty" align="left">
