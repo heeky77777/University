@@ -7,15 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springFinal.entity.SMCDto;
 import com.kh.springFinal.repository.ClassScoreDao;
-
-import oracle.security.o3logon.a;
 
 @Controller
 @RequestMapping("/score")
@@ -26,8 +24,8 @@ public class ClassScoreController {
 	
 	
 	
-	@GetMapping("/insert/{class_sub_no}")
-	public String List(@PathVariable int class_sub_no,
+	@GetMapping("/list")
+	public String List(@RequestParam int class_sub_no,
 					   @ModelAttribute SMCDto SMCDto,
 						Model model, 
 						RedirectAttributes attr) {
@@ -40,17 +38,28 @@ public class ClassScoreController {
 	}
 
 	
-	 @PostMapping("/insert")
-	 public String StudentList( int class_sub_no, SMCDto smcDto) {
+	 @GetMapping("/insert")
+	 public String StudentList(@RequestParam int class_sub_no,
+			 					SMCDto smcDto,
+			 					Model model) {
 	 
-		List<SMCDto> list = classScoreDao.StudentList(class_sub_no);
-		
+		List<SMCDto> StudentList = classScoreDao.StudentList(class_sub_no);
+		model.addAttribute("StudentList", StudentList);
 	
-	
-		 
-		return "score/edit";
+		return "score/insert";
 	 }
-	}
+	 
+	 @PostMapping("/insert")
+	 public String StudentList(@RequestParam int class_sub_no) {
+		
+		 
+		 
+		 return "socre/insert";
+		 
+	 }
+
+	 
+}
 	
 	
 

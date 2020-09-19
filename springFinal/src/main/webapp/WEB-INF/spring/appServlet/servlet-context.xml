@@ -61,20 +61,20 @@
 		- websocket 관련 설정 태그가 필요(namespace를 추가)
 		
 	 -->
+	 <beans:bean id="groupServer" class="com.kh.springFinal.websocket.WebSocketGroupServer"></beans:bean>
 <!-- 	 <beans:bean id="groupServer" class="com.kh.spring97.websocket.WebSocketGroupServer"></beans:bean> -->
-<!-- 	 <beans:bean id="groupServer" class="com.kh.spring97.websocket.WebSocketGroupServer"></beans:bean> --> 
-<!-- 	 <beans:bean id="memberServer" class="com.kh.spring25.websocket.WebSocketMemberServer"></beans:bean> --> 
-<!-- 		 <websocket:handlers> -->
+<!-- 	 <beans:bean id="memberServer" class="com.kh.spring25.websocket.WebSocketMemberServer"></beans:bean> -->
+		 <websocket:handlers>
 <!-- 		 	접속주소는 ws://localhost:8080/spring24/basic -->
-<!-- 		 	<websocket:mapping handler="groupServer" path="/group"/> -->
-<!-- 		 	<websocket:mapping handler="groupServer" path="/go"/> -->
+		 	<websocket:mapping handler="groupServer" path="/group"/>
+		 	<websocket:mapping handler="groupServer" path="/go"/>
 <!-- 		 	<websocket:mapping handler="memberServer" path="/member"/> -->
 		 	
 <!-- 		 	설정추가 : HttpSession의 정보를 가져오기 위한 도구 등록 -->
-<!-- 		 	<websocket:handshake-interceptors> -->
-<!-- 		 		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean> -->
-<!-- 		 	</websocket:handshake-interceptors> -->
-<!-- 		 </websocket:handlers> -->
+		 	<websocket:handshake-interceptors>
+		 		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
+		 	</websocket:handshake-interceptors>
+		 </websocket:handlers>
 
 	<beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<!-- DI(Dependency Injection) : 필요한 도구를 주입시키는 것 -->

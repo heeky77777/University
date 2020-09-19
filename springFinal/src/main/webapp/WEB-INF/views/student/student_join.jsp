@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
@@ -94,12 +95,9 @@
     		<form action="student_join" method="post">
 		    <div class="form-group">
 		    	<label>학생이름</label>  
-		    	<input size="10" type="text" name="student_name">
+		    	<input class="form-control" type="text" name="student_name">
 		    </div>
-		    <div class="form-group">
-				<label>학생 사진 등록</label><br>
-				<input class="form-group" type="file" name="student_file_no">
-		    </div>
+		    
 		    <div class="form-group">    
 		    	<label>학번</label>  
 		    	<input class="form-control" type="text" name="student_numb" onblur="checkNumb();">
@@ -121,12 +119,12 @@
 		    </div>
 		    <div  class="form-group">	
 		       	<label>학과</label> 
-		    	<select class="form-control" name="major_no">
-		    			<option>경영학과</option>
-		    			<option>어문학과</option>
-		    			<option>성악과</option>
-		    			<option>시스템공학과</option>
-		    	</select>
+		    	 <select name="major_no" id="major_no" class="form-control" required onchange="get_semester();">
+                    <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
+                    <c:forEach var="majorDto" items="${majorList}">
+                     <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
+                    </c:forEach>
+     			</select>
 		   </div>
 		   <div class="form-group">
 		    	<label>학기</label> 
@@ -164,11 +162,9 @@
 		   </div>
 		    <div class="form-group">
 		       	<label>주소</label>
-		   </div> 	
-		   <div>    	
-		       	<input size=10 type="text" name="student_post" placeholder="우편번호" id="student_post">
-		    	<input type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()" size=10>
-	    	</div><br>
+		      	<input class="form-control" type="text" name="student_post" placeholder="우편번호" id="student_post"><br>
+		    	<input class="form-control" type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()" size=10 style="background-color:#D6E0F0">
+	    	</div> 
 		   <div class="form-group">		    	
 		    	<input class="form-control" type="text" name="student_addr" placeholder="기본주소" id="student_addr">		 	
 			</div>

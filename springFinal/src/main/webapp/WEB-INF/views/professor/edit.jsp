@@ -224,29 +224,6 @@ function findAddr() {
 	</script> 
 	</div>
 	
-	<!-- 	<div class="form-group">
-						<label>생년월일</label>
-						 <input type="text" id="Datepicker" class="form-control" name="profe_birth" class="form-control" required>
-						<script type="text/javascript">
-							$(function() {
-								$("#Datepicker").datepicker({
-									showOn : "button",
-									dateFormat : 'yy-mm-dd', //날짜 형식 변환
-									maxDate : new Date, //미래 날짜 비활성화
-									minDate : '1920-01-01',//최소 날짜 설정
-									changeMonth : true, //월 이동
-									changeYear : true, //년 이동
-									nextText : '다음 달',
-									prevText : '이전 달',
-									showButtonPanel : true, //닫기버튼 생성
-									closeText : '닫기'
-
-								})
-							});
-						
-						</script>
-						<strong>법정생년월일을 선택하세요</strong><br>
-					</div> -->
 	
 	<div class="form-group">	
 		<label>전화번호</label>
@@ -274,13 +251,13 @@ function findAddr() {
 					<input type="submit" class=" btn btn-primary btn-block" id="update" value="수정">
 				</div>
 				<div class="col">
-					<input type="button" class=" btn btn-primary btn-block" value="취소">
-					<!-- a태그 넣기 -->
+					<!-- <input type="button" class=" btn btn-primary btn-block" value="취소"> -->
+					<a class="btn btn-primary btn-block" href="#">취소</a>
 				</div>
 			</div>
 		</c:when>
 	<c:otherwise>
-			<input type="button" class=" btn btn-primary btn-block" value="취소">
+			<a class="btn btn-primary btn-block" href="#">취소</a>
 	</c:otherwise>
 	</c:choose>
 	</div>
