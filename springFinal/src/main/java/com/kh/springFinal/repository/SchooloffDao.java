@@ -12,4 +12,8 @@ public interface SchooloffDao {
 	List<SchoolOffDto> getList();
 	
 	
+	// 휴학리스트 삭제
+	
+	void delete(int student_no);
+	
 }

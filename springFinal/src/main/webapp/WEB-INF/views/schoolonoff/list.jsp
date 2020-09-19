@@ -28,6 +28,7 @@
 						<th>휴학종류</th>
 						<th>휴학기간</th>
 						<th>휴학시작날짜</th>
+						<th>휴학 신청 상황</th>
 					</tr>
 				</thead>
 				<tbody style="text-align: center">
@@ -43,6 +44,9 @@
 						<td><fmt:parseDate value="${off_list.school_off_period}"
 								var="time" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
 								value="${time}" pattern="yyyy-MM-dd" /></td>
+						<td>${userinfo.student_state}</td>	
+						
+							
 					</tr>
 
 				</tbody>

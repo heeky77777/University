@@ -14,17 +14,22 @@
 	<div class="row">
 		<div class="offset-2 col-8">
 
-	<br>
-			
-			<h1 class="form-group" style="text-align: center">복학신청이 완료되었습니다.</h1>
-			
-				
-		
-			
-			
-			
+			<br>
 
-</div>
-</div>
+			<h1 class="form-group" style="text-align: center">복학신청이 완료되었습니다.</h1>
+
+			<div>
+				<a
+					href="${pageContext.request.contextPath}/schoolonoff/list2?student_no=${userinfo.student_no}">자신의
+					복학신청 정보 보기</a>
+			</div>
+
+
+
+
+
+
+		</div>
+	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

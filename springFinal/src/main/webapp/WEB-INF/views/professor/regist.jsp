@@ -274,7 +274,7 @@
 	</div>
 	
 	<div>
-	<label>전화번호</label>
+	<label>전화번호  </label>
 	<input type="text" name="profe_phone" onblur="checkPhone()" placeholder="'-제외한 전화번호" required>
 	<span></span>
 	</div>
