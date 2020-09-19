@@ -20,9 +20,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getSeq" resultType="int">
 		SELECT CLASS_SCORE_SEQ.NEXTVAL FROM DUAL
 	</select>
-
+	
 	<!--성적 등록-->
-	<insert id="regist" parameterType="classScoreDto">
+	<insert id="write" parameterType="classScoreDto">
 		INSERT INTO CLASS_SCORE values(#{class_score_no},
 										#{SUBJECT_APPLY_no},
 										#{profe_no},
@@ -31,16 +31,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										#{semester_no},
 										#{class_score},
 										#{class_score_type},
-										SYSDATE)
+										SYSDATE)	
 	</insert>
 	
 	<!--성적 목록-->
 	<select id="getScoreList" parameterType="int" resultType="classScoreDto">
-		
+		SELECT*FROM CLASS_SCORE WHERE CLASS_SUB_NO=#{class_sub_no}
 	</select>
 	
+	<!-- 성적 입력 리스트 -->
+	<select id="getStudentList" parameterType="int" resultType="smcDto">
+		SELECT*FROM SMC WHERE CLASS_SUB_NO=#{class_sub_no}	
+	</select>
+
 	<!--성적 수정-->
-	
+	<update id="editScore" parameterType="classScoreDto">
+		UPDATE CLASS_SCORE SET CLASS_SCORE =#{CLASS_SCORE}, CLASS_SCORE_TYPE =#{CLASS_SCORE_TYPE} WHERE CLASS_SCORE_NO =#{CLASS_SCORE_NO};
+	</update>
 
 </mapper>
 

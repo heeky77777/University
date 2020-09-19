@@ -54,8 +54,9 @@ public class ProfessorController {
 	public String regist(@ModelAttribute ProfessorDto professorDto){
 	
 		 professorDao.regist(professorDto);
+		 int profe_no = professorDto.getProfe_no();
 		 
-		 return "redirect:professor/detail?profe_no=\"+profe_no";
+		 return "redirect:professor/detail?profe_no="+profe_no;
 	}	
 	
 	//교수 디테일 페이지

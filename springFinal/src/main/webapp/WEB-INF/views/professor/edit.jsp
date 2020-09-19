@@ -220,7 +220,7 @@ function findAddr() {
 				$(this).attr("checked",true);
 				}
 	 		 })
-		  }
+		  
 	</script> 
 	</div>
 	

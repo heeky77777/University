@@ -14,14 +14,19 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClassScoreDto {
 
-		
+	
 	private int class_score_no;
 	private int subject_apply_no;
 	private int profe_no;
+	private int student_no;
 	private int major_no;
 	private int semester_no;
 	private int class_score;
 	private String class_score_type;
 	private String class_score_date;
+
+	private String student_name;
+	private int student_numb;
+	private String semester_type;
 }
 
