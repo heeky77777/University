@@ -34,7 +34,15 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+	
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css"
+ href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">	
+
+
 <script>
+
 
 $(function() {
 	
@@ -74,6 +82,10 @@ $(function() {
 	});	
 });
 
+$(function(){
+    $("#tablesort").dataTable();
+});	
+	
 	
 	</script>
 <!-- 	<style>
@@ -89,7 +101,7 @@ $(function() {
 	<div class="row">
 		<div class="offset-2 col-8">
 
-			<table class="table table-sm table-hover">
+			<table class="table table-sm table-hover" id="tablesort" >
 				<thead class="thead-dark" style="text-align: center">
 					<tr>
 						<th>이름</th>
