@@ -29,11 +29,22 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		return sqlSession.selectOne("attendance.getAttend", attendanceDto);
 	}
 	
-
 	// 출결 등록
 	@Override
 	public void attendRegist(AttendanceDto attendanceDto) {
 		sqlSession.insert("attendance.attendRegist", attendanceDto);
+	}
+	
+	// 출결 수정
+	@Override
+	public void attendCheck(int attend_no, String attend_type) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("attend_no", attend_no);
+		map.put("attend_type", attend_type);
+		
+		sqlSession.update("attendance.getAttendCheck", map);
+		
 	}
 	
 	// 수강 강의 날짜 조회
@@ -49,7 +60,6 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		return sqlSession.selectList("attendance.getStudentApplyList", class_sub_no);
 	}
 	
-
 
 	// 해당 수강에 대한 출결 타입 목록(이름 가나다순)
 	@Override

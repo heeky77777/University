@@ -13,6 +13,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
@@ -55,8 +58,8 @@ public class ClassSubjectServiceImpl implements ClassSubjectService{
 		classSubjectDto.setMajor_no(professorDto.getMajor_no());
 		classSubjectDto.setSemester_no(semesterDto.getSemester_no());
 		
-		int class_sub_no = classSubjectDao.subjectRegist(classSubjectDto);
 		
+		int class_sub_no = classSubjectDao.subjectRegist(classSubjectDto, this_year, semester_type);
 		return class_sub_no;
 	}
 	

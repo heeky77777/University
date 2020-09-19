@@ -55,6 +55,17 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	
+	// 출석 체크
+	@Override
+	public void attendCheck(List<String> attend_no, List<String> attend_type) {
+		
+		for(int i = 0; i < attend_no.size(); i++) {
+
+			attendanceDao.attendCheck(Integer.parseInt(attend_no.get(i)), attend_type.get(i));	
+			
+		}
+		
+	}
 	
 	
 	

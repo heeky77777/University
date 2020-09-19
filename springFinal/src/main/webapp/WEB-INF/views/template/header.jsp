@@ -97,9 +97,6 @@
 	                        <li class="nav-item" style="margin-left: 30px;">
 	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/profeApplyList" style="color:white">수강목록</a>
 	                        </li>
-	                        <li class="nav-item" style="margin-left: 30px;">
-	                             <a class="nav-link" href="#" style="color:white">성적등록</a>
-	                        </li>
 	                    </ul>
 	                 </c:if>
 	                 
@@ -149,7 +146,7 @@
 <!-- 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교 -->
 <%-- 	                <c:if test="${userinfo != null || admininfo != null}"> --%> 
 
-	                <c:if test="${userinfo != null || prfeinfo != null || admininfo != null}">	                
+	                <c:if test="${userinfo != null || profeinfo != null || admininfo != null}">	                
 	                	<a href="${pageContext.request.contextPath}/member/logout"><img src="${pageContext.request.contextPath}/resources/img/logout2.png" width="35px" height="30px" style="margin-bottom: 12px;"></a>
 	                </c:if>
 <!-- 	                </span> -->

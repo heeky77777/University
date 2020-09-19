@@ -17,6 +17,9 @@ public interface AttendanceDao {
 	// 출력 등록
 	void attendRegist(AttendanceDto attendanceDto);
 	
+	// 출석 체크
+	void attendCheck(int attend_no, String attend_type);
+	
 	// 수강 강의 날짜 조회
 	List<SubjectApplyDto> getDateList(AttendanceDto attendanceDto);
 	
@@ -25,6 +28,7 @@ public interface AttendanceDao {
 
 	// 수강 신청한 학생 목록(이름 가나다순)
 	List<StudentDto> getStuList(int class_sub_no);
+
 
 
 	

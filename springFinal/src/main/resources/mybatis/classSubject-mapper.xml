@@ -32,7 +32,7 @@
 		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no where class_sub_no = #{class_sub_no}
 	</select>
 		
-	<!-- 강의 중복 검사 조회 -->
+	<!-- 강의실 중복 검사 조회 -->
 	<select id="getConfirm" resultType="classSubjectDto" parameterType="classSubjectDto">
 		select * from class_subject where class_sub_room = #{class_sub_room} and class_sub_week = #{class_sub_week} and semester_no = #{semester_no} and class_sub_time1 = #{class_sub_time1} 
 		<if test="class_sub_time2 != '0'">
@@ -43,6 +43,29 @@
 		</if>
 		<if test="class_sub_time4 != '0'">
 			and class_sub_time4 = #{class_sub_time4} 
+		</if>
+	</select>
+	
+	<!-- 강의 시간 중복 검사 -->
+	<select id="getCheckSub" parameterType="classSubjectDto" resultType="classSubjectDto">
+		select * from (select * from class_subject where profe_no = #{profe_no} and semester_no = #{semester_no} and class_sub_week = #{class_sub_week}) where class_sub_time1 = #{class_sub_time1} and class_sub_time1 = #{class_sub_time2} and class_sub_time1 = #{class_sub_time3} and class_sub_time1 = #{class_sub_time4} 
+		<if test="class_sub_time2 != '0'">
+			and class_sub_time2 = #{class_sub_time1} 
+			or class_sub_time2 = #{class_sub_time2} 
+			or class_sub_time2 = #{class_sub_time3} 
+			or class_sub_time2 = #{class_sub_time4} 
+		</if>
+		<if test="class_sub_time3 != '0'">
+			and class_sub_time3 = #{class_sub_time1} 
+			or class_sub_time3 = #{class_sub_time2} 
+			or class_sub_time3 = #{class_sub_time3} 
+			or class_sub_time3 = #{class_sub_time4} 
+		</if>
+		<if test="class_sub_time4 != '0'">
+			and class_sub_time4 = #{class_sub_time1} 
+			or class_sub_time4 = #{class_sub_time2} 
+			or class_sub_time4 = #{class_sub_time3} 
+			or class_sub_time4 = #{class_sub_time4} 
 		</if>
 	</select>
 	
@@ -61,17 +84,6 @@
 		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no where cs.profe_no = #{profe_no} ORDER BY cs.class_sub_no desc
 	</select>
 	
-	<!-- 수강 목록에서 비교 후 강의 목록 -->
-	<select id="applyMyList" resultType="classSubjectDto" parameterType="int">
-		select * from (
-			select  cs.*, sa.student_no, sa.subject_apply_no, row_number() over (
-				partition by cs.class_sub_no order by sa.student_no desc
-			) as RankNo 
-			from class_subject cs 
-				inner join subject_apply sa on cs.class_sub_no= sa.class_sub_no
-		) T inner join semester s on t.semester_no = s.semester_no inner join major m on t.major_no = m.major_no where 
-		RankNo = 1 and t.profe_no = #{profe_no} order by t.class_sub_no desc
-	</select>
 	
 	<!-- 강의 검색 -->
 	<select id="searchClassSub" parameterType="map" resultType="classSubjectDto">
@@ -93,6 +105,44 @@
 			and instr(cs.class_sub_name, #{classSubSearch}) <![CDATA[>]]> 0 
 		</if>
 		order by class_sub_no desc
+	</select>
+	
+	<!-- 수강 목록에서 비교 후 강의 목록 -->
+	<select id="applyMyList" resultType="classSubjectDto" parameterType="int">
+		select * from (
+			select  cs.*, sa.student_no, sa.subject_apply_no, row_number() over (
+				partition by cs.class_sub_no order by sa.student_no desc
+			) as RankNo 
+			from class_subject cs 
+				inner join subject_apply sa on cs.class_sub_no= sa.class_sub_no
+		) T inner join semester s on t.semester_no = s.semester_no inner join major m on t.major_no = m.major_no where 
+		RankNo = 1 and t.profe_no = #{profe_no} order by t.class_sub_no desc
+	</select>
+	
+	
+	<!-- 수강 목록에서 교수에 해당하는 강의 목록 검색 -->
+	<select id="applySearchMyList" resultType="classSubjectDto" parameterType="int">
+		select * from (
+			select  cs.*, sa.student_no, sa.subject_apply_no, row_number() over (
+				partition by cs.class_sub_no order by sa.student_no desc
+			) as RankNo 
+			from class_subject cs 
+				inner join subject_apply sa on cs.class_sub_no= sa.class_sub_no
+		) T inner join semester s on t.semester_no = s.semester_no inner join major m on t.major_no = m.major_no where 
+		RankNo = 1 and t.profe_no = #{profe_no} 
+		<if test="yearSearch != 'null'">
+			and to_char(s.semester_start, 'yyyy') = #{yearSearch}			
+		</if>
+		<if test="semesterSearch != 'all'">
+			and s.semester_type = #{semesterSearch} 
+		</if>
+		<if test="typeSearch != 'all'">
+			and t.class_sub_type = #{typeSearch} 
+		</if>
+		<if test="classSubSearch != 'null'">
+			and instr(t.class_sub_name, #{classSubSearch}) <![CDATA[>]]> 0 
+		</if>
+		order by t.class_sub_no desc
 	</select>
 	
 	
