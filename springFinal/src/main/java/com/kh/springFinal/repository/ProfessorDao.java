@@ -1,29 +1,36 @@
 package com.kh.springFinal.repository;
 
 
+
+import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.ProfessorFileDto;
+import com.kh.springFinal.entity.SemesterDto;
 
 public interface ProfessorDao {
 
 	//시퀀스 
 	public int getSeq();
-
+	
 	//정보 등록 
-	public int regist(ProfessorDto professorDto);
+	void regist(ProfessorDto professorDto);
 	
 	//단일 조회
 	public ProfessorDto get(int profe_no);
 	
-	//단일 아이디 조회
+	//아이디 단일 조회(rest)
 	public ProfessorDto getId(String profe_id);
 	
 	//전체 조회
 	/* public List<ProfessorDto> getList(); */
 
 	
-	//정보 삭제
-	public void delete(ProfessorDto professorDto);
+	//학과명 가져오기
+	public MajorDto getMajor(int profe_no);
+	
+	//학기명 가져오기
+	public SemesterDto getSem(int profe_no);
+	
 
 	//이미지 번호
 	public int getImg_seq();
@@ -34,7 +41,9 @@ public interface ProfessorDao {
 	//로그인
 	ProfessorDto profe_login(ProfessorDto professorDto);
 
-
+	// 이미지 조회 및 업데이트
+	ProfessorFileDto getFile(int profe_no);
 	
-	
+	//이미지 삭제
+	void delFile(int profe_no);
 }

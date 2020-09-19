@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 /* /////////////////////////////헤더//////////////////////////////////////// */
   /*
@@ -8,6 +9,11 @@
             toggle : 두 가지 상태를 왔다갔다 하는 것
             활성화가 되어있으면 나타나고 아니면 사라지게 만든다 (활성화 상태 : .on 또는 .active)
         */
+      
+      	* {
+		font-family: 'Noto Sans KR', sans-serif;      
+      		}
+      
         html, body {
             margin: 0;
             padding: 0;
@@ -240,6 +246,14 @@
         }
         .nav-item{
             border: 1px #aaa;
+            
+         .nav-item:hover{
+        	background-color:#b8c5d6;
+        	color:white;
+        	opacity: 0.5;
+        	cursor:pointer;
+        }   
+        
         }
         .nav-list-list{
             position: relative;

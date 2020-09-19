@@ -42,20 +42,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--교수 아이디 단일 조회 -->
 	<select id="getId" parameterType="String" resultType="professorDto">
 		SELECT*FROM professor WHERE profe_id=#{profe_id}
+
 	</select>
 
-	<!-- 교수 목록 조회 -->
-	<!-- <SELECT id="getList" parameterType="" -->
+	<!-- 교수 학과 단일 조회 -->
+	<select id="getMajor" parameterType="int" resultType="majorDto">
+	SELECT m.* FROM PROFESSOR p INNER JOIN MAJOR m ON p.MAJOR_NO = m.MAJOR_NO WHERE p.PROFE_NO = #{profe_no}
+	</select>
 	
-	<!-- 교수 삭제 -->
-	<!--  <delete id="del" parameterType="int">
-		DELETE professor WHERE profe_no=#{profe_no};
-	</delete>  -->
+	<!-- 교수 학기명 단일 조회(체크박스) -->
+	<select id="getSem" parameterType="int" resultType="semesterDto">
+	SELECT s.* FROM PROFESSOR p INNER JOIN SEMESTER s ON p.SEMESTER_NO = s.SEMESTER_NO  WHERE p.profe_no=${profe_no}
+	</select>
 	
+	<!-- 교수 정보 수정 -->
+	<update id="edit" parameterType="professorDto">
+		UPDATE PROFESSOR SET SEMESTER_NO=#{SEMESTER_NO}, MAJOR_NO=#{MAJOR_NO}, PROFE_NAME=#{PROFE_NAME}, 
+		PROFE_PW=#{PROFE_PW}, PROFE_BIRTH=#{PROFE_BIRTH}, PROFE_PHONE=#{PROFE_PHONE},PROFE_EMAIL=#{PROFE_EMAIL}, 
+		PROFE_POST=#{PROFE_POST}, PROFE_ADDR=#{PROFE_ADDR}, PROFE_EXTRA_ADDR=#{PROFE_EXTRA_ADDR}  
+		WHERE PROFE_NO=#{PROFE_NO};
+	</update>
+
 	<select id="profe_login" parameterType="professorDto" resultType="professorDto">
    		select * from professor where profe_id = #{profe_id} and profe_pw = #{profe_pw}
    	</select>
-
+	
 </mapper>
 
 

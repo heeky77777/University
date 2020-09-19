@@ -20,4 +20,10 @@ public class SchooloffDaoImpl implements SchooloffDao {
 		List<SchoolOffDto> list = sqlSession.selectList("school.getList");
 		return list;
 	}
+	
+	public void delete(int student_no) {
+		sqlSession.delete("admin.delete", student_no);		
+	}
+	
+	
 }

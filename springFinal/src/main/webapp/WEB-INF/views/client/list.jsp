@@ -34,7 +34,7 @@
 			<table class="table table-sm table-hover">
 				<thead class="thead-dark">
 					<tr>
-						<th>번호</th>
+						
 						<th>이름</th>
 						<th>성별</th>
 						<th>생년월일</th>
@@ -48,7 +48,7 @@
 				<tbody>
 					<c:forEach var="studentinfoDto" items="${list}">
 						<tr>
-							<td>${studentinfoDto.stu_apply_no}</td>
+							
 							<td>${studentinfoDto.stu_apply_name}</td>
 							<td>${studentinfoDto.stu_apply_gender}</td>
 							<td>
