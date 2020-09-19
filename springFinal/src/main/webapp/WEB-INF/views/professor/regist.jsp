@@ -272,7 +272,7 @@
 						<label for="gender">여성</label> 
 							<input type="radio" id="male" name="profe_gender" value="남성">
 						<label for="gender2">남성</label><br>
-						<small class="form-text text-muted">성별은 변경하기 어려우니 신중하게 체크해</small>
+						<small class="form-text text-muted">성별은 변경 불가입니다.</small>
 					</div>
 
 					<div class="form-group">

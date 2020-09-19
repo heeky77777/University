@@ -34,7 +34,7 @@ public class ClassScoreController {
 		model.addAttribute("StudentList", StudentList);	
 		
 		attr.addAttribute("class_sub_no",class_sub_no);
-		return "score/insert";
+		return "score/list";
 	}
 
 	

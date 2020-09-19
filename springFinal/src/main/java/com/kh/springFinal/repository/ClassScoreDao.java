@@ -15,4 +15,7 @@ public interface ClassScoreDao {
 
 	//수강 학생 리스트
 	List<SMCDto> StudentList(int class_sub_no);
+
+	//신청 강의 번호
+	int getClassSubNo();
 }

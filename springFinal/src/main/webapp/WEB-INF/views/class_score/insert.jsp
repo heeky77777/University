@@ -18,7 +18,7 @@
 	<div class="container-fluid">
 		<div class="row-empty">
 			<div>
-				<h1 >성적 확인</h1>
+				<h1 >성적 입력</h1>
 			</div>
 	
 	<form action="insert" method="post">
@@ -58,7 +58,7 @@
 			</c:forEach>
 			</tbody>
 		</table>	
-			<input type="submit" value="입력">
+			<input type="submit" value="입력" class="btn btn-primary btn-block">
 	</div>
 	</form>
 	

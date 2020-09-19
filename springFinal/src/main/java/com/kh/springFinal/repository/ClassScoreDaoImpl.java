@@ -29,13 +29,23 @@ public class ClassScoreDaoImpl implements ClassScoreDao{
 			return sqlSession.selectOne("score.seq");
 		}
 
+	//신청 강의 번호 
+	@Override
+	public int getClassSubNo() {
+		return sqlSession.selectOne("score.getClassSubNo");
+	}
+	
 	//점수 입력
 	@Override
 	public void write(ClassScoreDto classScoreDto) {
 		int classScoreNo = this.getSeq();
 		classScoreDto.setClass_score_no(classScoreNo);
-		sqlSession.insert("score.regist");
-	}
+		
+		String class_sub_no = String.valueOf(this.getClassSubNo()); //수강생이 수강하고 있는 강의 번호
+		if(class_sub_no!=null) { //null이 아니라면
+			sqlSession.insert("score.regist");
+			}
+		}
 
 	//수강학생 리스트
 	@Override

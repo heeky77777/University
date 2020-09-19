@@ -28,5 +28,6 @@ public class ClassScoreDto {
 	private String student_name;
 	private int student_numb;
 	private String semester_type;
+	private int class_sub_no;
 }
 

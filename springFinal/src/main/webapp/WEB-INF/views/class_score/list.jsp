@@ -24,7 +24,7 @@
 	<form action="list" method="post">
 	<div class="form-group">
 		<table class="table">
-			<thead>
+			<thead>	
 				<tr>
 					<th>학번</th>
 					<th>학과</th>

@@ -34,6 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										SYSDATE)	
 	</insert>
 	
+	
+	<!-- 신청 강의 번호 단일 조회 -->
+	<select id="getClassSubNo" resultType="int">
+		SELECT sa.CLASS_SUB_NO FROM SUBJECT_APPLY sa INNER JOIN CLASS_SUBJECT cs ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO 
+	</select>
+	
 	<!--성적 목록-->
 	<select id="getScoreList" parameterType="int" resultType="classScoreDto">
 		SELECT*FROM CLASS_SCORE WHERE CLASS_SUB_NO=#{class_sub_no}
@@ -43,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getStudentList" parameterType="int" resultType="smcDto">
 		SELECT*FROM SMC WHERE CLASS_SUB_NO=#{class_sub_no}	
 	</select>
+
 
 	<!--성적 수정-->
 	<update id="editScore" parameterType="classScoreDto">
