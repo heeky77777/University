@@ -34,36 +34,31 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-	
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" type="text/css"
- href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">	
-
-
+<!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
 <script>
+
 
 
 $(function() {
 	
-	/* var stu_state=$('#student_state').val();
-	if(stu_state !="휴학"){
-		$('.modify-btn').show;
+	var stu_state = $('#student_state').val();
+	if(stu_state != "재학"){
+		$('.modify-btn').show();
 	}
-	 */
 	
+		
 	$('.modify-btn').click(function() {
-		var student_state=$(this).next().val();
+		var student_state = $(this).next().val();
 		var student_no = $(this).data("no");
 		
 		axios({
-			url:"${pageContext.request.contextPath}/adminRest/update?student_no=" + student_no,
+			url:"${pageContext.request.contextPath}/adminRest/update2?student_no=" + student_no,
 			method: "get"
 		}).then(function(response){
 			
-			alert("휴학신청을 승낙하셨습니다.")
+			alert("복학 신청을 승인하셨습니다.");
 			
-			location.href="${pageContext.request.contextPath}/admin/off_list"
+				location.href="${pageContext.request.contextPath}/admin/on_list";
 		});
 		
 	});
@@ -72,88 +67,76 @@ $(function() {
 		var student_no = $(this).data("no");
 		
 		axios({
-			url:"${pageContext.request.contextPath}/adminRest/delete?student_no=" + student_no,
+			url:"${pageContext.request.contextPath}/adminRest/delete2?student_no=" + student_no,
 			method: "get"
 		}).then(function(response){
-			alert("휴학신청이 철회되었습니다")
-			location.href="${pageContext.request.contextPath}/admin/off_list"
+			alert("복학 신청이 철회되었습니다")
+			location.href="${pageContext.request.contextPath}/admin/on_list"
 		});
 		
 	});	
 });
 
-$(function(){
-    $("#tablesort").dataTable();
-});	
-	
+
 	
 	</script>
-<!-- 	<style>
 	
-	.modify-btn{
-		display: none;
+	<style>
+		.modify-btn{
+			display: none;
+		}
 	
-	}
-	
-	</style> -->
+	</style>
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="offset-2 col-8">
-
-			<table class="table table-sm table-hover" id="tablesort" >
+		
+			<table class="table table-sm table-hover">
 				<thead class="thead-dark" style="text-align: center">
-					<tr>
+					<tr style="">
 						<th>이름</th>
 						<th>학과</th>
 						<th>학번</th>
-						<th>휴학</th>
-						<th>휴학종류</th>
-						<th>휴학 신청날짜</th>
+						<th>신청상태</th>
+						<th>복학 신청날짜</th>
 						<th>승인</th>
 						<th>취소</th>
 					</tr>
 				</thead>
 				<tbody>
 
-					<!-- <form action="off_list" method="post" name="update"> -->
-						<c:forEach var="schoolOffDto" items="${list}">
+					
+						<c:forEach var="schoolReturnDto" items="${list}">
 							<tr style="text-align: center">
-								<td>${schoolOffDto.student_name}</td>
-								<td>${schoolOffDto.major_no}</td>
-								<td>${schoolOffDto.student_numb}</td>
-								<td>${schoolOffDto.school_off_regist}</td>
-								<td>${schoolOffDto.school_off_type}</td>
+								<td>${schoolReturnDto.student_name}</td>
+								<td>${schoolReturnDto.major_no}</td>
+								<td>${schoolReturnDto.student_numb}</td>
+								<td>${schoolReturnDto.school_return_type}</td>
+								
 								<td><fmt:parseDate
-										value="${schoolOffDto.school_off_period }" var="time"
+										value="${schoolReturnDto.school_return_date }" var="time"
 										pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
 										value="${time}" pattern="yyyy-MM-dd" /></td>
 
 								<td>
-									<input type="hidden" value="${schoolOffDto.student_no}" name="student_no" >
-									
-									
-										<c:if test="${schoolOffDto.student_state eq '재학'}">
-										<button type="submit" class="btn btn-primary btn-sm modify-btn" data-no="${schoolOffDto.student_no}" >승인</button>
-										</c:if>
-										
-									
-									<input type="hidden" value="${schoolOffDto.student_state}" id="student_state">
+									<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no" >
+									<button type="submit" class="btn btn-primary btn-sm modify-btn" data-no="${schoolReturnDto.student_no}" >승인</button>
+									<input type="hidden" value="${schoolReturnDto.student_state}" id="student_state">
 								</td>
 								<td>
-								<input type="hidden" value="${schoolOffDto.student_no}" name="student_no">
-									<button type="submit" class="btn btn-danger btn-sm cancel-btn" data-no="${schoolOffDto.student_no}">취소 및 삭제</button>
+								<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no">
+									<button type="submit" class="btn btn-danger btn-sm cancel-btn" data-no="${schoolReturnDto.student_no}"> 취소 및 삭제</button>
 										
 								</td>
-
-							</tr>
+					</tr>
 						</c:forEach>
-					</form>
+					</form>	
 				</tbody>
 			</table>
 
 			<!-- 검색창 -->
-			<form action="union" method="post">
+			<form action="union2" method="post">
 
 				<select name="type">
 					<option value="student_name"
@@ -166,7 +149,7 @@ $(function(){
 
 			</tbody>
 
-		</div>
 			<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+		</div>
 	</div>
 </div>

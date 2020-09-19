@@ -197,18 +197,11 @@
 					}
 				}).open();
 		
-			function error_page(){
-				var url = location.search.substr(location.search.indexOf("?") + 1);
-				console.log(url);
-				if(url == 'error') {
-					alert("이미 등록된 교수입니다");
-				}
-			
-				}
-				 window.onload=error_page;
+
 	}
 </script>
 </head>
+
 
 <body>
 
