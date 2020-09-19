@@ -193,13 +193,13 @@
 		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
 		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
 		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
-		                            	<c:if test="${class_sub_time2 != 'null'}">
+		                            	<c:if test="${class_sub_time2 != 0}">
 		                            		${classSubjectDto.class_sub_time2} 
 		                            	</c:if>
-		                            	<c:if test="${class_sub_time3 != 'null'}">
+		                            	<c:if test="${class_sub_time3 != 0}">
 		                            		${classSubjectDto.class_sub_time3} 
 		                            	</c:if>
-		                            	<c:if test="${class_sub_time4 != 'null'}">
+		                            	<c:if test="${class_sub_time4 != 0}">
 		                            		${classSubjectDto.class_sub_time4} 
 		                            	</c:if>
 		                            	(${classSubjectDto.class_sub_room})

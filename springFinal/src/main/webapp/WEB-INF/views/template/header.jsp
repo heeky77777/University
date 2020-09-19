@@ -149,7 +149,7 @@
 <!-- 	                <span class="col-4 title_font" style="text-align: center;">KH 대학교 -->
 <%-- 	                <c:if test="${userinfo != null || admininfo != null}"> --%> 
 
-	                <c:if test="${userinfo != null || prfeinfo != null || admininfo != null}">	                
+	                <c:if test="${userinfo != null || profeinfo != null || admininfo != null}">	                
 	                	<a href="${pageContext.request.contextPath}/member/logout"><img src="${pageContext.request.contextPath}/resources/img/logout2.png" width="35px" height="30px" style="margin-bottom: 12px;"></a>
 	                </c:if>
 <!-- 	                </span> -->
