@@ -36,6 +36,9 @@ public interface ClassSubjectDao {
 	// 강의 검색
 	List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch, String majorSearch, String classSubSearch);
 	
+	// 수강 등록 강의 중 해당 교수 강의 
+	List<ClassSubjectDto> geApplyMytList(int profe_no);
+	
 	// 강의 계획서 조회
 	ClassSubjectFileDto getFile(int class_sub_no);
 
@@ -50,6 +53,8 @@ public interface ClassSubjectDao {
 
 	// 교수 학과 조회
 	ProfessorDto getProfeMajor(ProfessorDto professorDto);
+
+
 
 
 

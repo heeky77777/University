@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 
+import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,16 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kh.springFinal.entity.AdminDto;
+
 import com.kh.springFinal.entity.MajorDto;
+import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.SchoolOffDto;
 import com.kh.springFinal.entity.SchoolReturnDto;
 import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.StudentinfoDto;
 import com.kh.springFinal.repository.AdminDao;
 import com.kh.springFinal.repository.MajorDao;
+
 import com.kh.springFinal.repository.SchooloffDao;
 import com.kh.springFinal.repository.StudentDao;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -35,8 +38,16 @@ public class AdminController {
 
 	@Autowired
 	private MajorDao majorDao;
+
+	@Autowired
+	private AdminDao adminDao;
+	
 	@Autowired
 	private SqlSession sqlSession;
+
+
+
+
 
 	@GetMapping("/major_add")
 	public String major_add(Model model) {
@@ -65,6 +76,34 @@ public class AdminController {
 		return "redirect:major_add";
 	}
 
+	@GetMapping("/admin_student_edit")
+	public String student_edit(@RequestParam int student_no,
+								Model model) {
+		StudentDto studentDto = sqlSession.selectOne("student.student_get", student_no);
+		model.addAttribute("studentDto",studentDto);
+		return "admin/admin_student_edit";
+		
+	}
+	
+	@PostMapping("/admin_student_edit")
+	public String student_edit(@ModelAttribute StudentDto studentDto) {
+		
+		sqlSession.update("admin.student_edit", studentDto);
+		
+		return "admin/admin_student_edit";		 
+	}
+	
+	//학생 
+	@GetMapping("/admin_student_list")
+	public String student_list(Model model) {
+		
+		List<StudentDto> list = adminDao.student_list();
+		model.addAttribute("student_list", list);
+		
+		return "admin/admin_student_list";
+	}	
+	
+
 	@GetMapping("/off_list")
 	public String list(Model model) {
 		List<SchoolOffDto> list = sqlSession.selectList("admin.off_List");
@@ -77,6 +116,7 @@ public class AdminController {
 
 
 
+
 	@GetMapping("/on_list")
 	public String oNlist(Model model) {
 		List<SchoolReturnDto> list = sqlSession.selectList("admin.on_List");
@@ -86,6 +126,8 @@ public class AdminController {
 		return "admin/on_list";
 
 	}
+
+
 
 	@RequestMapping("/union")
 	public String union(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,

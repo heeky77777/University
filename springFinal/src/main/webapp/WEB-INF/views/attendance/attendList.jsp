@@ -11,21 +11,38 @@
 
 <script>
 	
-	/* $(function() {
+	$(function() {
 		$('.attendRegist-btn').click(function() {
-			location.href="${pageContext.request.contextPath}/attendance/attendRegist/" ;
+			location.href="${pageContext.request.contextPath}/attendance/attendRegist";
 		})
-	}) */
+	})
 
 
 </script>
 
-<<style>
+<style>
 
 	.row-empty {
 	    height: 20px;
 	}
+	
+	.attendRegist-btn {
+	    background-color: #063E7A;
+	    border-color: #063E7A;
+	}
 
+	.attendRegist-btn:hover {
+	    background-color: #1D5798;
+	}
+	
+	.btn,
+	.form-control {
+	    margin: 5px;
+	}
+	
+	.form-group {
+	    margin-bottom: 10px;
+	}
 </style>
 
 
@@ -37,38 +54,55 @@
 		<h1>출결목록<h1>
 	</div>
 	
-	<div class="text-right">
-		<button class="btn btn-primary btn-sm attendRegist-btn">출결 등록</button>
-	</div>
-	<div class="">
-		<table class="table">
-			<thead>
-				<tr>
-					<th></th>
-					<c:forEach var="attendanceDto" items="${attendanceList}">
-						<fmt:parseDate value="${attendanceDto.attend_date}" var="checkDate" pattern="yyyy-MM-dd HH:mm:ss" />
-						<th>
-							<fmt:formatDate value="${checkDate}" pattern="MM-dd" />
-						</th>
-					</c:forEach>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="attendanceDto" items="${attendanceList}">e
+	
+	<div class="row-empty"></div>
+	
+	<div class="text-center">
+		<form action="attendList" method="post">
+	
+			<div class="text-right">
+				<button class="btn btn-primary btn-sm attendRegist-btn">출결 등록</button>
+			</div>
+			<table class="table">
+				<thead>
 					<tr>
-						<td>${attendanceDto.student_name}</td>
-						<td>${attendanceDto.attend_type}</td>
+						<th>이름</th>
+						<c:forEach var="subjectApplyDto" items="${applyDateList}">
+							<fmt:parseDate value="${subjectApplyDto.searchDate}" var="searchDate" pattern="yyyy-MM-dd" />
+							<th>
+								<fmt:formatDate value="${searchDate}" pattern="MM/dd" />
+							</th>
+						</c:forEach>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach var="studentDto" items="${attendanceStuList}">
+						<tr>
+							<td>${studentDto.student_name}</td>
+							<c:forEach var="attendanceDto" items="${attendanceTypeList}">
+								<c:set value="${studentDto.student_no}" var="student_no" />
+								<c:set value="${attendanceDto.student_no}" var="attend_stu_no" />
+									<c:if test="${student_no == attend_stu_no}">
+										<td>
+											<input type="hidden" name="attend_no" value="${attendanceDto.attend_no}">
+	<!-- 				                		<select class="form-control" name="attend_type" onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;"> -->
+					                		<select class="form-control" name="attend_type">
+					                			<option value="–" ${attendanceDto.attend_type == '–' ? 'selected' : '' }>&ndash;</option>
+					                			<option ${attendanceDto.attend_type == '출석' ? 'selected' : '' }>출석</option>
+					                			<option ${attendanceDto.attend_type == '지각' ? 'selected' : '' }>지각</option>
+					                			<option ${attendanceDto.attend_type == '결석' ? 'selected' : '' }>결석</option>
+					                		</select>
+										</td>
+									</c:if>
+							</c:forEach>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</form>
 	</div>
-
-
 
 </div>
-
-
 
 
 <jsp:include page="${page.Context.request.contextPath}/WEB-INF/views/template/footer.jsp"></jsp:include>

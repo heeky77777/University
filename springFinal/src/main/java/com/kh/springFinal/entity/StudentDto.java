@@ -30,5 +30,5 @@ public class StudentDto {
 	private String student_milliy;
 	
 
-
+	
 }

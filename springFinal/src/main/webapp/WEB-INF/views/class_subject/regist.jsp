@@ -422,7 +422,7 @@
 					        <option value='금' ${param.class_sub_week == '금' ? 'selected':''}>금요일</option>
 	                    </select>
 	                   	<select name="class_sub_time1" id="class_sub_time1" class="form-control">
-	                   		<option value="">시간선택</option>
+	                   		<option value="0">시간선택</option>
 					        <option value="1" ${param.class_sub_time1 == '1' ? 'selected':''}>1교시</option>
 							<option value="2" ${param.class_sub_time1 == '2' ? 'selected':''}>2교시</option>
 							<option value="3" ${param.class_sub_time1 == '3' ? 'selected':''}>3교시</option>
@@ -437,7 +437,7 @@
 	               
 	               <div class="form-group form-inline addSelect1">
                            <select name="class_sub_time2" id="class_sub_time2" class="form-control subtime">
-                               <option value="null">시간선택</option>
+                                <option value="0" ${param.class_sub_time2 == '0' ? 'selected':''}>시간선택</option>
                                 <option value="1" ${param.class_sub_time2 == '1' ? 'selected':''}>1교시</option>		
 								<option value="2" ${param.class_sub_time2 == '2' ? 'selected':''}>2교시</option>		
 								<option value="3" ${param.class_sub_time2 == '3' ? 'selected':''}>3교시</option>		
@@ -453,7 +453,7 @@
 
                        <div class="form-group form-inline addSelect2">
                         <select name="class_sub_time3" id="class_sub_time3" class="form-control subtime">
-                            <option value="null">시간선택</option>
+                            <option value="0" ${param.class_sub_time3 == '0' ? 'selected':''}>시간선택</option>
                            	<option value="1" ${param.class_sub_time3 == '1' ? 'selected':''}>1교시</option>
 							<option value="2" ${param.class_sub_time3 == '2' ? 'selected':''}>2교시</option>
 							<option value="3" ${param.class_sub_time3 == '3' ? 'selected':''}>3교시</option>
@@ -469,7 +469,7 @@
 
                     <div class="form-group form-inline addSelect3">
                         <select name="class_sub_time4" id="class_sub_time4" class="form-control subtime">
-                            <option value="null">시간선택</option>
+                            <option value="0" ${param.class_sub_time4 == '0' ? 'selected':''}>시간선택</option>
                             <option value="1" ${param.class_sub_time4 == '1' ? 'selected':''}>1교시</option>
 							<option value="2" ${param.class_sub_time4 == '2' ? 'selected':''}>2교시</option>
 							<option value="3" ${param.class_sub_time4 == '3' ? 'selected':''}>3교시</option>

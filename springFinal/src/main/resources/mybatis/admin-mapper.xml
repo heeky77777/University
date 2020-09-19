@@ -42,6 +42,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		select * from admin where admin_id = #{admin_id} and admin_pw = #{admin_pw}
    	</select>
    	
+   	<select id="student_list" resultType="studentDto">
+   		select * from student
+   	</select>
+   	
+   	<update id="student_edit" parameterType="studentDto">
+   		UPDATE student SET student_pw=#{student_pw}, student_grade=#{student_grade}, major_no=#{major_no}, semester_no=#{semester_no}
+		, student_state=#{student_state}, student_phone=#{student_phone}, student_email=#{student_email}, student_post=#{student_post},student_addr=#{student_addr}
+		, student_extra_addr=#{student_extra_addr} where student_no = #{student_no}	   	
+   	</update>
    	
    	<select id="off_List" resultType="schoolOffDto">
 		SELECT * FROM SCHOOL_OFF so
@@ -63,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 	order by school_off_no desc
 	</select>
+
 	
 	<select id="unionList2" resultType="schoolReturnDto" parameterType="map">
 	
@@ -94,3 +104,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE school_Return WHERE student_no=#{student_no} 
 	</delete>
 </mapper>
+
+
