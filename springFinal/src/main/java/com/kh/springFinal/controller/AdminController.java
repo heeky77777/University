@@ -99,5 +99,19 @@ public class AdminController {
 
 		return "admin/off_list";
 	}
+	
+	
+	@RequestMapping("/union2")
+	public String union2(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,
+			Model model) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+
+		List<SchoolReturnDto> list = sqlSession.selectList("admin.unionList2", map);
+		model.addAttribute("list", list);
+
+		return "admin/on_list";
+	}
 
 }

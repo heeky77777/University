@@ -38,14 +38,23 @@
 
 $(function() {
 	
+	/* var stu_state=$('#student_state').val();
+	if(stu_state !="휴학"){
+		$('.modify-btn').show;
+	}
+	 */
+	
 	$('.modify-btn').click(function() {
+		var student_state=$(this).next().val();
 		var student_no = $(this).data("no");
 		
 		axios({
 			url:"${pageContext.request.contextPath}/adminRest/update?student_no=" + student_no,
 			method: "get"
 		}).then(function(response){
+			
 			alert("휴학신청을 승낙하셨습니다.")
+			
 			location.href="${pageContext.request.contextPath}/admin/off_list"
 		});
 		
@@ -67,13 +76,21 @@ $(function() {
 
 	
 	</script>
+<!-- 	<style>
+	
+	.modify-btn{
+		display: none;
+	
+	}
+	
+	</style> -->
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="offset-2 col-8">
 
 			<table class="table table-sm table-hover">
-				<thead class="thead-dark">
+				<thead class="thead-dark" style="text-align: center">
 					<tr>
 						<th>이름</th>
 						<th>학과</th>
@@ -89,7 +106,7 @@ $(function() {
 
 					<!-- <form action="off_list" method="post" name="update"> -->
 						<c:forEach var="schoolOffDto" items="${list}">
-							<tr>
+							<tr style="text-align: center">
 								<td>${schoolOffDto.student_name}</td>
 								<td>${schoolOffDto.major_no}</td>
 								<td>${schoolOffDto.student_numb}</td>
@@ -102,11 +119,18 @@ $(function() {
 
 								<td>
 									<input type="hidden" value="${schoolOffDto.student_no}" name="student_no" >
-									<button type="submit" class="btn btn-primary modify-btn" data-no="${schoolOffDto.student_no}" >승인</button>
+									
+									
+										<c:if test="${schoolOffDto.student_state eq '재학'}">
+										<button type="submit" class="btn btn-primary btn-sm modify-btn" data-no="${schoolOffDto.student_no}" >승인</button>
+										</c:if>
+										
+									
+									<input type="hidden" value="${schoolOffDto.student_state}" id="student_state">
 								</td>
 								<td>
 								<input type="hidden" value="${schoolOffDto.student_no}" name="student_no">
-									<button type="submit" class="btn btn-danger cancel-btn" data-no="${schoolOffDto.student_no}">취소 및 삭제</button>
+									<button type="submit" class="btn btn-danger btn-sm cancel-btn" data-no="${schoolOffDto.student_no}">취소 및 삭제</button>
 										
 								</td>
 

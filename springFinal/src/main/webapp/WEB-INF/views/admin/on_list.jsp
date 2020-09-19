@@ -34,19 +34,31 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
 <script>
+
+
 
 $(function() {
 	
+	var stu_state = $('#student_state').val();
+	if(stu_state != "재학"){
+		$('.modify-btn').show();
+	}
+	
+		
 	$('.modify-btn').click(function() {
+		var student_state = $(this).next().val();
 		var student_no = $(this).data("no");
 		
 		axios({
 			url:"${pageContext.request.contextPath}/adminRest/update2?student_no=" + student_no,
 			method: "get"
 		}).then(function(response){
-			alert("복학 신청을 승낙하셨습니다.")
-			location.href="${pageContext.request.contextPath}/admin/on_list"
+			
+			alert("복학 신청을 승인하셨습니다.");
+			
+				location.href="${pageContext.request.contextPath}/admin/on_list";
 		});
 		
 	});
@@ -65,16 +77,24 @@ $(function() {
 	});	
 });
 
+
 	
 	</script>
+	
+	<style>
+		.modify-btn{
+			display: none;
+		}
+	
+	</style>
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="offset-2 col-8">
-
+		
 			<table class="table table-sm table-hover">
-				<thead class="thead-dark">
-					<tr>
+				<thead class="thead-dark" style="text-align: center">
+					<tr style="">
 						<th>이름</th>
 						<th>학과</th>
 						<th>학번</th>
@@ -88,7 +108,7 @@ $(function() {
 
 					
 						<c:forEach var="schoolReturnDto" items="${list}">
-							<tr>
+							<tr style="text-align: center">
 								<td>${schoolReturnDto.student_name}</td>
 								<td>${schoolReturnDto.major_no}</td>
 								<td>${schoolReturnDto.student_numb}</td>
@@ -101,22 +121,22 @@ $(function() {
 
 								<td>
 									<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no" >
-									<button type="submit" class="btn btn-primary modify-btn" data-no="${schoolReturnDto.student_no}" >승인</button>
+									<button type="submit" class="btn btn-primary btn-sm modify-btn" data-no="${schoolReturnDto.student_no}" >승인</button>
+									<input type="hidden" value="${schoolReturnDto.student_state}" id="student_state">
 								</td>
 								<td>
 								<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no">
-									<button type="submit" class="btn btn-danger cancel-btn" data-no="${schoolReturnDto.student_no}"> 취소 및 삭제</button>
+									<button type="submit" class="btn btn-danger btn-sm cancel-btn" data-no="${schoolReturnDto.student_no}"> 취소 및 삭제</button>
 										
 								</td>
-
-							</tr>
+					</tr>
 						</c:forEach>
-					</form>
+					</form>	
 				</tbody>
 			</table>
 
 			<!-- 검색창 -->
-			<form action="union" method="post">
+			<form action="union2" method="post">
 
 				<select name="type">
 					<option value="student_name"
@@ -129,7 +149,7 @@ $(function() {
 
 			</tbody>
 
-		</div>
 			<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+		</div>
 	</div>
 </div>
