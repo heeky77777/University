@@ -27,7 +27,7 @@
 			
 			var socket;
 			
-				var uri = "ws://localhost:8080/spring97/go";
+				var uri = "ws://localhost:8080/springFinal/go";
 				socket = new WebSocket(uri);
 				
 //		 		연결이 되었는지 안되었는지 확인할 수 있도록 예약 작업(콜백)을 설정

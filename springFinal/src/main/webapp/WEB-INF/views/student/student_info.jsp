@@ -3,6 +3,12 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+    <style>
+		.row-empty{
+	        		height: 5px;
+	        	}
+	        	 
+	</style>
     <script>
     function preview() {
     	var fileTag = document.querySelector("input[name=file]");
