@@ -1,6 +1,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -52,11 +53,25 @@ $(function(){
 							<td>${smcDto.class_score}</td>
 							
 						</tr>
+						<c:set var= "sum" value="${sum + smcDto.class_score}"/>
 					</c:forEach>
-
+						<c:set var="count" value="${fn:length(mylist)}"/>
+						
+						<c:set var="avr" value="${sum/count}"/>
+					
 				</tbody>
 			</table>
+			<tr style="text-align: left;"> 성적 총 합계 :
+					<td> <c:out value="${sum}"/> </td>
+					
+			</tr>
 			
+			<tr style="text-align: right;"> 성적 평균:
+				<td> <c:out value="${avr}"/> </td>
+			
+			</tr>
+
+					
 			
 		
 			

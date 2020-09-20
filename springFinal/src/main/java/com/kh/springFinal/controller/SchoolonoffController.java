@@ -28,7 +28,7 @@ public class SchoolonoffController {
 
 		model.addAttribute("off_list", off);
 		return "schoolonoff/list";
-
+ 
 	}
 
 	@GetMapping("/result")
