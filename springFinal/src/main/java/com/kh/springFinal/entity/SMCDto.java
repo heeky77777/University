@@ -5,13 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class SMCDto {
 
 	private int student_numb;
 	private String student_name;
-	private	String major_type;
+	private String major_type;
 	private int class_score;
 	private String class_score_type;
 	private int class_sub_no;
+
+	private int profe_no;
+	private int student_no;
+	private int subject_apply_no;
+	private int semester_no;
+	private int major_no;
 }

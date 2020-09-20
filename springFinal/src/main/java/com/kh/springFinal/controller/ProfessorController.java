@@ -56,7 +56,7 @@ public class ProfessorController {
 		 professorDao.regist(professorDto);
 		 int profe_no = professorDto.getProfe_no();
 		 
-		 return "redirect:professor/detail?profe_no="+profe_no;
+		 return "redirect:/professor/detail?profe_no="+profe_no;
 	}	
 	
 	//교수 디테일 페이지
@@ -151,7 +151,8 @@ public class ProfessorController {
 	
 	//정보 수정
 	@GetMapping("/edit")
-	public String edit(Model model, @RequestParam int profe_no, @ModelAttribute ProfessorDto professorDto) {
+	public String edit(Model model, @RequestParam int profe_no, 
+					@ModelAttribute ProfessorDto professorDto, RedirectAttributes attr) {
 		
 		ProfessorDto professorDto2 = professorDao.get(profe_no);
 		model.addAttribute("professorDto", professorDto2);
@@ -161,7 +162,7 @@ public class ProfessorController {
 		String semester_type = semesterDto.getSemester_type();
 		model.addAttribute("semester_type",semester_type);//학기명 보내기
 
-	
+		attr.addAttribute("profe_no", profe_no);
 		return "professor/edit";
 	}
 	
