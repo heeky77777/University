@@ -35,7 +35,7 @@
 	</div>
 	
 	
-	<input class="form-control" type="submit" value="이메일 보내기">
+	<input class="form-control" type="submit" value="이메일  보내기">
 	
 </form>
 	</div>
