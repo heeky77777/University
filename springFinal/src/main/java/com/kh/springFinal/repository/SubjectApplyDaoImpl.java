@@ -131,4 +131,12 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 		return subjectApply;
 	}
 
+	@Override
+	public List<SubjectApplyDto> get_list_size(int class_sub_no) {
+		List<SubjectApplyDto> get_list_size = sqlSession.selectList("subjectApply.get_list_size",class_sub_no);
+		return get_list_size;
+	}
+
+	
+
 }

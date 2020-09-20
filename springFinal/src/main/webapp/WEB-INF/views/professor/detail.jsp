@@ -49,11 +49,11 @@ function preview() {
 					<div class="form-group">
 						<form action="detail" method="post" enctype="multipart/form-data">
 						<label>사진</label>
-						<input type="hidden" name="title">
+						<input type="hidden" name="profe_no" value="${profeinfo.profe_no}">
 						<br>
 						<input type="file" class="form-control-file" name="file" accept=".jpg, .gif, .png"  multiple onchange="preview()">
 						<br>
-						<img name="profe_img" class="rounded mx-auto d-block" border="0" width="200" height="200"/>
+						<img src="${pageContext.request.contextPath}/professor/profeImg/${profeinfo.profe_no}" name="profe_img" class="rounded mx-auto d-block" border="0" width="200" height="200"/>
 						<input type="submit" class="btn btn-primary" value="등록">
 						</form>
 					</div> 

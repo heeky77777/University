@@ -310,6 +310,7 @@ public class StudentController {
 		
 //		SubjectApplyDto sub_check = subjectapplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
 		SubjectApplyDto sub_check = subjectapplyDao.get_apply_check(subjectApplyDto);
+		List<SubjectApplyDto> list_check = subjectapplyDao.get_list_size(class_sub_no);	
 		System.out.println("sub_check =" + sub_check);
 //		model.addAttribute("sub_check",sub_check);
 		

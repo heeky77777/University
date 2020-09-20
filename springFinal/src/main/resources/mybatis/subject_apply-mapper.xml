@@ -131,5 +131,8 @@ a.class_sub_time3 = #{class_sub_time1} or a.class_sub_time3 = #{class_sub_time2}
 a.class_sub_time4 = #{class_sub_time1} or a.class_sub_time4 = #{class_sub_time2} or a.class_sub_time4 = #{class_sub_time3} or a.class_sub_time4 = #{class_sub_time4}
 	</select>
 	
+	<select id="get_list_size" parameterType="int" resultType="subjectapplyDto">
+		select * from subject_apply where class_sub_no = #{class_sub_no}
+	</select>
 </mapper>
 

@@ -102,6 +102,9 @@
 	                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle3();">관리자</a>
 		                    <ul class="nav flex-column sidebar_toggle3 nav-item-list">
 		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/email/send" style="color:white">입학 신청 email</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
 		                            <a class="nav-link" href="${pageContext.request.contextPath}/client/list" style="color:white">입학학생 신청관리</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
