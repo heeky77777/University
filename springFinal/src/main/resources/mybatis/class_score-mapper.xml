@@ -55,6 +55,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="editScore" parameterType="classScoreDto">
 		UPDATE CLASS_SCORE SET CLASS_SCORE =#{CLASS_SCORE}, CLASS_SCORE_TYPE =#{CLASS_SCORE_TYPE} WHERE CLASS_SCORE_NO =#{CLASS_SCORE_NO};
 	</update>
+	
+	<select id="on_list" parameterType="int" resultType="smcDto">
+	
+<!-- 	select * from smc where student_no=#{student_no} -->
+select * from smc sm LEFT OUTER JOIN CLASS_SUBJECT cs ON sm.CLASS_SUB_NO = cs.CLASS_SUB_NO where student_no = #{student_no}
+	
+	</select>
 
 </mapper>
 
