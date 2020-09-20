@@ -319,10 +319,8 @@
 
 				
 
-					<div class="row-empty">
-							<button type="submit" class=" btn btn-primary btn-block">등록</button>
-	
-				
+					<div class="row justify-content-center">
+							<button type="submit" class=" btn btn-primary" style="margin-right:5px;">등 록</button>		
 					</div>
 					
 				</form>

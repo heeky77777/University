@@ -219,7 +219,8 @@ function findAddr() {
 				if(thisVal.length>0){
 				$(this).attr("checked",true);
 				}
-	 		 })
+	 		 }
+		})
 		  
 	</script> 
 	</div>
@@ -252,12 +253,12 @@ function findAddr() {
 				</div>
 				<div class="col">
 					<!-- <input type="button" class=" btn btn-primary btn-block" value="취소"> -->
-					<a class="btn btn-primary btn-block" href="#">취소</a>
+					<a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/professor/detail?profe_no=${profeinfo.profe_no}" style="color:white">취소</a>
 				</div>
 			</div>
 		</c:when>
 	<c:otherwise>
-			<a class="btn btn-primary btn-block" href="#">취소</a>
+			<a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/professor/detail?profe_no=${profeinfo.profe_no}" style="color:white">취소</a>
 	</c:otherwise>
 	</c:choose>
 	</div>

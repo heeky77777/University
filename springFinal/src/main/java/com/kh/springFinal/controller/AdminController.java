@@ -132,7 +132,7 @@ public class AdminController {
 	@RequestMapping("/union")
 	public String union(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,
 			Model model) {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>(); 
 		map.put("type", type);
 		map.put("keyword", keyword);
 
