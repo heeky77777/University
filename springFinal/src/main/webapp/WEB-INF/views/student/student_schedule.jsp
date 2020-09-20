@@ -82,8 +82,7 @@
 			<h1>시간표</h1>
 			<div class="form-group form-inline">
 					<form action="student_schedule" method="post">
-	                       <input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">
-	                          <label>년도</label>
+	                       <input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control" style="text-align: center; width: 30%">&nbsp;년도
 	                       <select name="semester_type" id="semester_type" class="form-control" onchange="get_semester();">
 	                         <option ${param.semester_type == '1학기' ? 'selected':''}>1학기</option>      
 	                         <option ${param.semester_type == '2학기' ? 'selected':''}>2학기</option>      
@@ -95,7 +94,7 @@
 	        </div>
 		<table class="table table-striped table-bordered table-hover table-condensed">
 	        <thead>
-	            <tr>
+	            <tr class="center">
 	                <th>월</th>
 	                <th>화</th>
 	                <th>수</th>
