@@ -49,13 +49,31 @@
 	인터셉터 등록
 	-mvc설정 
 	-->
-<!-- 	<interceptors> -->
-<!-- 		<interceptor> -->
-<!-- 			<mapping path="/**"/> -->
-<!-- 			<exclude-mapping path="/test"/> -->
-<!-- 			<beans:bean class="com.kh.spring15.intercepter.Testinterceptor"></beans:bean> -->
-<!-- 		</interceptor> -->
-<!-- 	</interceptors> -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/student/**"/>
+			<mapping path="/schoolonoff/**"/>
+			<exclude-mapping path="/student/student_join"/>
+			<beans:bean class="com.kh.springFinal.interceptor.StudentLoginInterceptor"></beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/professor/**"/>
+			<mapping path="/class_subject/**"/>
+			<mapping path="/attendance/**"/>
+			<mapping path="/score/**"/>
+			<exclude-mapping path="/score/mylist"/>
+			<exclude-mapping path="/professor/regist"/>
+			<beans:bean class="com.kh.springFinal.interceptor.ProfessorLoginInterceptor"></beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<mapping path="/email/**"/>
+			<mapping path="/client/**"/>
+			<mapping path="/professor/regist"/>
+			<mapping path="/student/student_join"/>
+			<beans:bean class="com.kh.springFinal.interceptor.AdminLoginInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 	<!-- 
 		웹 소켓 작업을 처리하는 서버르 등록
 		- websocket 관련 설정 태그가 필요(namespace를 추가)

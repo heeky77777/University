@@ -169,6 +169,7 @@
 	    
 	    /* 강의 등록 확인 */
 	    $('.regist-btn').click(function() {
+	    	var profe_no = ${profeinfo.profe_no};
 	    	$(window).off('beforeunload');
 	    	var registCheck = confirm('강의를 등록 하시겠습니까?');
 	    	if(!registCheck) {
@@ -176,17 +177,22 @@
 	    	}
 	    	else {
 	    		$.ajax({
-	    			url:"${pageContext.request.contextPath}/classSubject/roomCheck?this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time1=" + $('#class_sub_time1').val() + "&class_sub_time2=" + $('#class_sub_time2').val() + "&class_sub_time3=" + $('#class_sub_time3').val() + "&class_sub_time4=" + $('#class_sub_time4').val() + "&class_sub_name=" + $('input[name=class_sub_name]').val() + "&class_sub_room=" + $('input[name=class_sub_room]').val(),
+	    			url:"${pageContext.request.contextPath}/classSubject/getCheckSubTime?profe_no=" + profe_no + "&this_year=" + $('input[name=this_year]').val() + "&semester_type=" + $('#semester_type').val() + "&class_sub_week=" + $('#class_sub_week').val() + "&class_sub_time1=" + $('#class_sub_time1').val() + "&class_sub_time2=" + $('#class_sub_time2').val() + "&class_sub_time3=" + $('#class_sub_time3').val() + "&class_sub_time4=" + $('#class_sub_time4').val(),
 	    			type:"get",
 	    			success:function(response){
-	    				if(response) {
-	    					alert("입력된 정보(강의실)가 이미 존재 합니다.");
-	    				}
-	    					    				
+						if(!response){
+							return true;
+						}			    
+						else {
+							alert("강의 시간을 확인해 주세요");
+							return false;
+						}
 	    			}
 	    		})	    		
 	    	}
 	    })
+	    
+	   
 	    
 	    /* 취소 버튼 */
 	    $('.cancel-btn').click(function() {
@@ -346,7 +352,7 @@
     }
 	
 	.subtime {
-     	margin-left: 458px;
+     	margin-left: 490px;
 	}
 	
 	.addSelect1,
@@ -514,8 +520,8 @@
 	               
 	               <div class="row-empty"></div>
 	               <div class="form-group form-inline">
-		               <button type="submit" class="btn btn-primary btn-block regist-btn">등 록</button>
-		               <button type="button" class="btn btn-danger cancel-btn">취 소</button>
+		                <button type="submit" class="btn btn-primary btn-block regist-btn">등 록</button>
+		                <button type="button" class="btn btn-danger cancel-btn">취 소</button>
 	               </div>
 	
 	            </form>

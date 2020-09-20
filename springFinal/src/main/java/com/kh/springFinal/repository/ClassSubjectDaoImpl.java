@@ -7,6 +7,9 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
@@ -59,7 +62,7 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		SemesterDto semester_no = this.getSemester(this_year, semester_type);
 		classSubjectDto.setSemester_no(semester_no.getSemester_no());		
 		
-		ClassSubjectDto subCheck = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
+		ClassSubjectDto subCheck = sqlSession.selectOne("classSubject.getCheckSub", classSubjectDto);
 		
 		return subCheck;
 	}
@@ -67,19 +70,21 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	
 	// 강의 등록
 	@Override
-	public int subjectRegist(ClassSubjectDto classSubjectDto) {
+	public int subjectRegist(ClassSubjectDto classSubjectDto, String this_year, String semester_type) {
 		
-		ClassSubjectDto classSubjectCheck = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
-		int class_sub_no;
-		if(classSubjectCheck == null) {
+		
+		// 교수 강의 중복 검자(등록시 해당요일에 같은 시간에 등록 되어 있는지)
+		ClassSubjectDto classSubCheck = this.getSubCheck(classSubjectDto, this_year, semester_type);
+
+		if(classSubCheck == null) {
 			// 시퀀스 생성
-			class_sub_no = sqlSession.selectOne("classSubject.classSubSeq");
-			
+			int  class_sub_no = sqlSession.selectOne("classSubject.classSubSeq");
 			classSubjectDto.setClass_sub_no(class_sub_no);
+			
 			sqlSession.insert("classSubject.regist", classSubjectDto);
 			return class_sub_no;
-			
 		}
+		
 		return 0;
 		
 	}
@@ -112,13 +117,6 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		return list;
 	}
 	
-	// 수강 등록 강의 중 해당 교수 강의
-	@Override
-	public List<ClassSubjectDto> geApplyMytList(int profe_no) {
-		return sqlSession.selectList("classSubject.applyMyList", profe_no);
-	}
-	
-	
 	// 강의 검색
 	@Override
 	public List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch,	String majorSearch, String classSubSearch) {
@@ -135,6 +133,28 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 		return searchList;
 	}
 
+	// 수강 등록 강의 중 해당 교수 강의
+	@Override
+	public List<ClassSubjectDto> geApplyMytList(int profe_no) {
+		return sqlSession.selectList("classSubject.applyMyList", profe_no);
+	}
+	
+	// 수강 강의 목록 검색(교수)
+	@Override
+	public List<ClassSubjectDto> geApplyMytList(int profe_no, String yearSearch, String semesterSearch, String typeSearch,
+			String classSubSearch) {
+		
+		Map<String , Object> map = new HashMap<>();
+		map.put("profe_no", profe_no);
+		map.put("yearSearch", yearSearch);
+		map.put("semesterSearch", semesterSearch);
+		map.put("typeSearch", typeSearch);
+		map.put("classSubSearch", classSubSearch);
+		
+		List<ClassSubjectDto> applySearchList = sqlSession.selectList("classSubject.applySearchMyList", map);
+		
+		return applySearchList;
+	}
 	
 	// 강의 계획서 조회
 	@Override
@@ -152,6 +172,7 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	// 강의 수정
 	@Override
 	public void classSubEdit(ClassSubjectDto classSubjectDto) {
+		
 		sqlSession.update("classSubject.classSubEdit", classSubjectDto);
 	}
 
@@ -167,6 +188,23 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	@Override
 	public ProfessorDto getProfeMajor(ProfessorDto professorDto) {
 		return sqlSession.selectOne("classSubject.getProfeMajor", professorDto);
+	}
+
+	// 관리자 강의 검색
+	@Override
+	public List<ClassSubjectDto> getList(String yearSearch, String semesterSearch, String typeSearch,	
+														String profeSearch, String majorSearch, String classSubSearch) {
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("yearSearch", yearSearch);
+		map.put("semesterSearch", semesterSearch);
+		map.put("typeSearch", typeSearch);
+		map.put("profeSearch", profeSearch);
+		map.put("majorSearch", majorSearch);
+		map.put("classSubSearch", classSubSearch);
+		
+		return  sqlSession.selectList("classSubject.AdminSearchClassSub", map);
 	}
 
 	
