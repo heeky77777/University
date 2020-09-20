@@ -16,6 +16,12 @@
 			location.href="${pageContext.request.contextPath}/attendance/attendList/" + class_sub_no + "/" + subject_apply_no;
 			
 		})
+		$('.score-btn').click(function() {
+			var subject_apply_no = $(this).prev().prev().prev().val();
+			var class_sub_no = $(this).prev().prev().val();
+			location.href="${pageContext.request.contextPath}/score/list/" + class_sub_no + "/" + subject_apply_no;
+			
+		})
 		
 	})
 
@@ -28,13 +34,15 @@
 	}
 	
 	.sub-btn,
-	.stuCkeck-btn {
+	.stuCkeck-btn,
+	.score-btn {
 	    background-color: #063E7A;
 	    border-color: #063E7A;
 	}
 
 	.sub-btn:hover,
-	stuCkeck-btn:hover {
+	.stuCkeck-btn:hover,
+	.score-btn:hover {
 	    background-color: #1D5798;
 	}
 	
@@ -114,7 +122,7 @@
 	                            <th>이수구분</th>
 	                            <th>강의시간</th>
 	                            <th>제한인원</th>
-	                            <th width="10%">기타</th>
+	                            <th width="15%">기타</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
@@ -146,6 +154,8 @@
 		                            	<input type="hidden" value="${classSubjectDto.subject_apply_no}" id="subject_apply_no">
 		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}" id="class_sub_no">
 		                            	<button type="button" class="btn btn-primary btn-sm stuCkeck-btn">출석확인</button>
+		                            	&sol;
+		                            	<button type="button" class="btn btn-primary btn-sm score-btn">성적입력</button>
 		                            </td>
 		                        </tr>
 							</c:forEach>

@@ -22,9 +22,9 @@
 <div class="row-empty"></div>
 
 <div class="row">
-	<div class="offset-4 col-4">
+	<div class="offset-3 col-6">
 		<h4></h4>
-		<img src="${pageContext.request.contextPath}/resources/img/404.png" width="700px" height="700px">
+		<img src="${pageContext.request.contextPath}/resources/img/404.png" width="1000px" height="700px">
 	</div>
 </div>
 	

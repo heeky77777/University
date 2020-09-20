@@ -22,13 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!--성적 등록-->
-	<insert id="regist" parameterType="classScoreDto">
+	<insert id="regist" parameterType="map">
 		INSERT INTO CLASS_SCORE values(class_score_seq.nextval,
 										#{subject_apply_no},
-										#{profe_no},
 										#{student_no},
-										#{major_no},
-										#{semester_no},
 										#{class_score},
 										#{class_score_type},
 										SYSDATE)	
@@ -36,8 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 신청 강의 번호 단일 조회 -->
-	<select id="getClassSubNo" parameterType="int" resultType="smcDto">
-		SELECT sa.* FROM SUBJECT_APPLY sa INNER JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO WHERE cs.CLASS_SUB_NO =#{class_sub_no} 
+	<select id="getClassSubNo" parameterType="int" resultType="classScoreDto">
+		SELECT * FROM class_score cl LEFT OUTER JOIN subject_apply sa ON cl.subject_apply_no = sa.subject_apply_no left outer JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO left outer join student stu on cl.student_no = stu.student_no WHERE sa.CLASS_SUB_NO = #{class_sub_no} 
+<!-- SELECT * FROM SUBJECT_APPLY sa left outer JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO left outer join student stu on sa.student_no = stu.student_no WHERE sa.CLASS_SUB_NO = #{class_sub_no} 	 -->
 	</select>
 	
 	<!--성적 목록-->
@@ -45,9 +43,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT*FROM CLASS_SCORE WHERE CLASS_SUB_NO=#{class_sub_no}
 	</select>	
 	
-	<!-- 성적 입력 리스트 -->
-	<select id="getStudentList" resultType="smcDto">
-		SELECT*FROM SMC WHERE CLASS_SUB_NO=#{class_sub_no} ORDER BY STUDENT_NAME DESC 	
+<!-- 	성적 입력 리스트 -->
+	<select id="getStudentList" parameterType="int" resultType="classScoreDto">
+		SELECT * FROM SUBJECT_APPLY sa left outer JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO left outer join student stu on sa.student_no = stu.student_no WHERE sa.CLASS_SUB_NO = #{class_sub_no} 	
 	</select>
 
 
@@ -59,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="on_list" parameterType="int" resultType="smcDto">
 	
 <!-- 	select * from smc where student_no=#{student_no} -->
-select * from smc sm LEFT OUTER JOIN CLASS_SUBJECT cs ON sm.CLASS_SUB_NO = cs.CLASS_SUB_NO where student_no = #{student_no}
+	select * from smc sm LEFT OUTER JOIN CLASS_SUBJECT cs ON sm.CLASS_SUB_NO = cs.CLASS_SUB_NO where student_no = #{student_no}
 	
 	</select>
 

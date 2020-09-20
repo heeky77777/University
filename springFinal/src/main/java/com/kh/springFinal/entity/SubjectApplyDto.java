@@ -34,5 +34,10 @@ public class SubjectApplyDto {
 	private String searchDay;
 	private String searchDate;
 	
+	private String student_name;
+	private int student_numb;
+	private int class_score;
+	private String class_score_type;
+	
 
 }

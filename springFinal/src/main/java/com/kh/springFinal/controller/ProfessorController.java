@@ -104,7 +104,7 @@ public class ProfessorController {
 		//파일이있으면 지우고 추가
 		if(professorFile != null) {
 			professorDao.delFile(profe_no);
-			File target = new File("D:/upload", String.valueOf(professorFile.getProfe_file_no()));
+			File target = new File("C:/Users/ASUS/Desktop/upload", String.valueOf(professorFile.getProfe_file_no()));
 			target.delete();// 파일 지워
 			professorService.add(professorFileDto, file, profe_no);
 		}
@@ -140,7 +140,7 @@ public class ProfessorController {
 	   response.setHeader("Content-Disposition", "attachment; filename=\""+URLEncoder.encode(professorFileDto.getProfe_file_name(), "UTF-8")+"\"");
 	   response.setHeader("Content-Length", String.valueOf(professorFileDto.getProfe_file_size()));
 	   
-	   File target = new File("D:/upload", String.valueOf(professorFileDto.getProfe_file_no()));
+	   File target = new File("C:/Users/ASUS/Desktop/upload", String.valueOf(professorFileDto.getProfe_file_no()));
 	   byte[]data = FileUtils.readFileToByteArray(target);
 	   response.getOutputStream().write(data);
 

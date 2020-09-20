@@ -95,6 +95,7 @@
 		<table class="table table-striped table-bordered table-hover table-condensed">
 	        <thead>
 	            <tr class="center">
+	                
 	                <th>월</th>
 	                <th>화</th>
 	                <th>수</th>
@@ -108,7 +109,7 @@
 	    		<c:forEach var = "b" items="${schedule}">
 	        		<td style="width: 10%; height: 150px;" class="center">
 	    			<c:if test="${b != null}">
-						<label style="color: green;">강의 이름 : ${b.class_sub_name}/</label>
+						<label style="color: green;">${b.class_sub_name}/</label>
 						<label style="color: blue;">${b.class_sub_type}</label><br>
 						<label style="color: red;">학점  ${b.class_sub_point}</label><br>
 						<c:if test="${b.class_sub_time1 != 0}">
