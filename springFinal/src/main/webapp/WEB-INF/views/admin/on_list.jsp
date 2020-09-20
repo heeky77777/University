@@ -34,6 +34,13 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+	
+	
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css"
+ href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">	
+	
 <!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
 <script>
 
@@ -41,10 +48,10 @@
 
 $(function() {
 	
-	var stu_state = $('#student_state').val();
+	/* var stu_state = $('#student_state').val();
 	if(stu_state != "재학"){
 		$('.modify-btn').show();
-	}
+	} */
 	
 		
 	$('.modify-btn').click(function() {
@@ -76,15 +83,17 @@ $(function() {
 		
 	});	
 });
-
+$(function(){
+    $("#tablesort").dataTable();
+});   
 
 	
 	</script>
 	
-	<style>
+<!-- 	<style>
 		.modify-btn{
 			display: none;
-		}
+		} -->
 	
 	</style>
 
@@ -92,7 +101,7 @@ $(function() {
 	<div class="row">
 		<div class="offset-2 col-8">
 		
-			<table class="table table-sm table-hover">
+			<table class="table table-sm table-hover" id="tablesort">
 				<thead class="thead-dark" style="text-align: center">
 					<tr style="">
 						<th>이름</th>
@@ -121,7 +130,11 @@ $(function() {
 
 								<td>
 									<input type="hidden" value="${schoolReturnDto.student_no}" name="student_no" >
+									
+									<c:if test="${schoolReturnDto.student_state eq '휴학'}">
 									<button type="submit" class="btn btn-primary btn-sm modify-btn" data-no="${schoolReturnDto.student_no}" >승인</button>
+									</c:if>
+									
 									<input type="hidden" value="${schoolReturnDto.student_state}" id="student_state">
 								</td>
 								<td>

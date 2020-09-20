@@ -2,6 +2,7 @@ package com.kh.springFinal.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springFinal.entity.SMCDto;
+import com.kh.springFinal.entity.SchoolReturnDto;
 import com.kh.springFinal.repository.ClassScoreDao;
 
 @Controller
@@ -22,6 +24,8 @@ public class ClassScoreController {
 	@Autowired
 	private ClassScoreDao classScoreDao;
 	
+	@Autowired
+	private SqlSession sqlSession;
 	
 	
 	@GetMapping("/list")
@@ -57,7 +61,15 @@ public class ClassScoreController {
 		 return "socre/insert";
 		 
 	 }
+	 @GetMapping("/mylist")
+		public String list(Model model, @RequestParam int student_no) {
+			List<SMCDto> list = sqlSession.selectList("score.on_list", student_no);
 
+			model.addAttribute("mylist", list);
+
+			return "score/mylist";
+
+		}
 	 
 }
 	
