@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
     <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
@@ -34,7 +33,7 @@
 			<thead class="text-center">	
 				<tr>
 					<th>학번</th>
-					<th>학과</th>
+					<th>과목이름</th>
 					<th>이름</th>
 					<th>점수</th>
 					<th>등급</th>
@@ -44,11 +43,11 @@
 		<tbody class="form-group" style="text-align: center">
 			<c:forEach var="SMCDto" items="${StudentList}">
 			<tr>
-				<td>${SMCDto.student_numb}</td>
-				<td>${SMCDto.major_type}</td>
 				<td>${SMCDto.student_name}</td>
+				<td>${SMCDto.student_numb}</td>
+				<td>${SMCDto.class_sub_name}</td>
 				<td><select name="class_score" class="form-control" disabled>
-					<option>선택</option>
+					<option>${SMCDto.class_score}</option>
 					<option ${SMCDto.class_score=='4'?'selected':''}>4</option>
 					<option ${SMCDto.class_score=='3'?'selected':''}>3</option>
 					<option ${SMCDto.class_score=='2'?'selected':''}>2</option>
@@ -56,7 +55,7 @@
 					<option ${SMCDto.class_score=='0'?'selected':''}>0</option>
 					</select></td>
 				<td><select name="class_score_type" class="form-control" disabled>
-					<option>선택</option>
+					<option>${SMCDto.class_score_type}</option>
 					<option ${SMCDto.class_score_type=='A'?'selected':''}>A</option>
 					<option ${SMCDto.class_score_type=='B'?'selected':''}>B</option>
 					<option ${SMCDto.class_score_type=='C'?'selected':''}>C</option>
@@ -73,7 +72,7 @@
 			<div class="row">
 				<div class="col">
 					<!-- <input type="submit" class=" btn btn-primary btn-block" value="수정"> -->
-					 <a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/score/insert?class_sub_no=${class_sub_no}" style="color:white">입력</a>
+					 <a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/score/insert/${class_sub_no}/${subject_apply_no}" style="color:white">입력</a>
 					 <a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/score/edit?class_sub_no=${class_sub_no}" style="color:white">수정</a>
 				</div>
 		</div>
