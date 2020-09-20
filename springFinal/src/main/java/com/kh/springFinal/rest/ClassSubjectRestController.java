@@ -81,14 +81,16 @@ public class ClassSubjectRestController {
 	}
 	
 	
-	
 	// 교수 학과 조회
 	@GetMapping("profeCheck")
 	public ProfessorDto profeCheck(@ModelAttribute ProfessorDto professorDto) {
 		return classSubjectDao.getProfeMajor(professorDto);
 	}
 	
-	
+	@GetMapping("mySub")
+	public List<ClassSubjectDto> mySub(@RequestParam int profe_no) {
+		return classSubjectDao.getList(profe_no);
+	}
 
 	
 }

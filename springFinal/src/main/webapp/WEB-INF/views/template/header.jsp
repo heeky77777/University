@@ -119,6 +119,9 @@
 		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/major_add" style="color:white">학과등록</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/classSubList" style="color:white">강의목록</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
 		                            <a class="nav-link" href="#" style="color:white">휴학/복학관리</a>
 		                        </li>
 		                    </ul>

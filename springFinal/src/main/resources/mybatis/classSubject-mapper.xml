@@ -160,6 +160,31 @@
 		where class_sub_no = #{class_sub_no}
 	</update>
 	
+	<!-- 관리자 강의 검색 -->
+	<select id="AdminSearchClassSub" parameterType="map" resultType="classSubjectDto">
+		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no
+		where 1=1 
+		<if test="yearSearch != 'null'">
+			and to_char(s.semester_start, 'yyyy') = #{yearSearch}			
+		</if>
+		<if test="semesterSearch != 'all'">
+			and s.semester_type = #{semesterSearch} 
+		</if>
+		<if test="typeSearch != 'all'">
+			and cs.class_sub_type = #{typeSearch} 
+		</if>
+		<if test="profeSearch != 'null'">
+			and instr(p.profe_name, #{profeSearch}) <![CDATA[>]]> 0 
+		</if>
+		<if test="majorSearch != 'all'">
+			and m.major_type = #{majorSearch} 
+		</if>
+		<if test="classSubSearch != 'null'">
+			and instr(cs.class_sub_name, #{classSubSearch}) <![CDATA[>]]> 0 
+		</if>
+		order by class_sub_no desc
+	</select>
+	
 	
 
 

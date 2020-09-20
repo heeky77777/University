@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,16 +14,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.MajorDto;
-import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.SchoolOffDto;
-import com.kh.springFinal.entity.StudentinfoDto;
+import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.repository.AdminDao;
+import com.kh.springFinal.repository.ClassSubjectDao;
 import com.kh.springFinal.repository.MajorDao;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/admin")
+@Slf4j
 public class AdminController {
 	
 	@Autowired
@@ -33,6 +34,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminDao adminDao;
+	
+	@Autowired
+	private ClassSubjectDao classSubjectDao;
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -118,4 +122,64 @@ public class AdminController {
 		
 		return "admin/off_list";
 	}
+	
+	
+	// 강의 목록
+	@GetMapping("classSubList")
+	public String classSubList(Model model) {
+		
+		List<MajorDto> majorList = majorDao.major_list();
+		List<ClassSubjectDto> classSubList = classSubjectDao.getList();
+		
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("classSubList", classSubList);
+		
+		return "admin/classSubList";
+	}
+
+	
+	// 강의 검색
+	@PostMapping("classSubList")
+	public String classSubSearchList(
+							@RequestParam (required = false, defaultValue = "null") String yearSearch,
+							@RequestParam (required = false, defaultValue = "all") String semesterSearch,
+							@RequestParam (required = false, defaultValue = "all") String typeSearch,
+							@RequestParam (required = false, defaultValue = "null") String profeSearch,
+						    @RequestParam (required = false, defaultValue = "all") String majorSearch,
+							@RequestParam (required = false, defaultValue = "null") String classSubSearch,
+							Model model) {
+		
+		List<MajorDto> majorList = majorDao.major_list();
+		List<ClassSubjectDto> classSubList = classSubjectDao.getList(yearSearch, semesterSearch, typeSearch, profeSearch, majorSearch, classSubSearch);
+		
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("classSubList", classSubList);
+		
+		return "admin/classSubList";
+	}
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

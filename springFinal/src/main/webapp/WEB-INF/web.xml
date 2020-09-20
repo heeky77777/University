@@ -55,20 +55,34 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 
 		필터 대행 등록(Proxy Filter)
 		- 어떤 필더든지 등록되는 형태는 다음과 같다
 		- org.springframework.web.filter.DelegatingFilterProxy
 		- fliter-name에 내가 등록시킬 필터의 bean name을 적는다
 	 -->
-<!-- 	<filter> -->
-<!-- 		<filter-name>testFilter</filter-name> -->
-<!-- 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>testFilter</filter-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/member/*</url-pattern>
+		<url-pattern>/admin/*</url-pattern>
+		<url-pattern>/attendance/*</url-pattern>
+		<url-pattern>/class_subject/*</url-pattern>
+		<url-pattern>/client/*</url-pattern>
+		<url-pattern>/email/*</url-pattern>
+		<url-pattern>/professor/*</url-pattern>
+		<url-pattern>/student/*</url-pattern>
+		<url-pattern>/schoolonoff/*</url-pattern>
+	</filter-mapping>
+	
+	    
+    <error-page>
+    	<error-code>404</error-code>
+    	<location>/WEB-INF/views/error/404.jsp</location>
+    </error-page>
 
 </web-app>

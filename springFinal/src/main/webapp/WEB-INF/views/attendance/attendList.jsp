@@ -10,15 +10,13 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 <script>
-	
+
 	$(function() {
-		$('.attendRegist-btn').click(function() {
-			location.href = "${pageContext.request.contextPath}/attendance/attendRegist";
-		})
-		
+
 		$('.applyList-btn').click(function() {
 			location.href = "${pageContext.request.contextPath}/class_subject/profeApplyList";
 		})
+		
 	})
 	
 	
@@ -70,7 +68,7 @@
 	
 			<div class="text-right">
 				<button type="button" class="btn btn-primary applyList-btn">수강 목록</button>
-				<button type="button" class="btn btn-primary attendRegist-btn">출결 등록</button>
+				<button type="submit" class="btn btn-primary attendRegist-btn">출결 등록</button>
 			</div>
 			<div class="row-empty"></div>
 			<table class="table">

@@ -43,9 +43,6 @@ public class ClassSubjectController {
 	@Autowired
 	private MajorDao majorDao;
 	
-	@Autowired
-	private SubjectApplyDao subjectApplyDao;
-	
 	
 	// 현재 년도
 	Calendar cal = Calendar.getInstance();
