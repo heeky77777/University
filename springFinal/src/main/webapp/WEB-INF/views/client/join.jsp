@@ -4,10 +4,17 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"
 	integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A=="
 	crossorigin="anonymous"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
 
 <script>
 	function checkphone() {
@@ -98,8 +105,27 @@
 
 
 				<div class="form-group">
-					<label>생년월일 :</label> <input class="form-control" type="date"
+					<label>생년월일 :</label> <input id="Datepicker" class="form-control" type="text"
 						name="stu_apply_birth" required>
+						<script type="text/javascript">
+						$(function() {
+							$("#Datepicker").datepicker({
+								showOn : "button",
+								dateFormat : 'yy-mm-dd', //날짜 형식 변환
+								maxDate : new Date, //미래 날짜 비활성화
+								minDate : '1920-01-01',//최소 날짜 설정
+								changeMonth : true, //월 이동
+								changeYear : true, //년 이동
+								nextText : '다음 달',
+								prevText : '이전 달',
+								showButtonPanel : true, //닫기버튼 생성
+								closeText : '닫기'
+
+							})
+						})
+						
+						
+						</script>
 				</div>
 
 				<div class="form-group">

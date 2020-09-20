@@ -68,7 +68,7 @@ public class ProfessorController {
 		
 		/*
 		 * int profe_no = professorDao.regist(professorDto); //return받은 profe_no
-		 * professorService.add(professorFileDto, file, profe_no);
+		 * professorService.add ( professorFileDto, file, profe_no);
 		 */
 		
 		
@@ -171,6 +171,6 @@ public class ProfessorController {
 		ProfessorDto professorEdit = professorDao.get(profe_no);
 		return "redirect:detail"; //detail로 redirect
 	}
-	
+	 
 	
 }

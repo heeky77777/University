@@ -19,6 +19,8 @@ public interface ClassScoreDao {
 	//신청 강의 번호
 	int getClassSubNo();
 
+
 	//수정
 	void edit(ClassScoreDto classScoreDto);
+
 }

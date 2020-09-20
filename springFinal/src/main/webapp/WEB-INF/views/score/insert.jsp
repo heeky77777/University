@@ -17,6 +17,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="row-empty">
+
 			<div class="offset-2 col-8">
 			<div><br><br>
 				<h1 class="text-center">성적 입력</h1>
@@ -73,3 +74,6 @@
 		</div>	
 	</div>
 </body>
+
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

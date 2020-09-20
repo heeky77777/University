@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springFinal.entity.ClassScoreDto;
 import com.kh.springFinal.entity.SMCDto;
+import com.kh.springFinal.entity.SchoolReturnDto;
 import com.kh.springFinal.repository.ClassScoreDao;
 
 import lombok.Builder;
@@ -28,6 +30,10 @@ public class ClassScoreController {
 
 	@Autowired
 	private ClassScoreDao classScoreDao;
+s
+	@Autowired
+	private SqlSession sqlSession;
+	
 
 	@GetMapping("/list")
 	public String list(@RequestParam int class_sub_no, Model model, RedirectAttributes attr, HttpSession session) {
@@ -90,10 +96,23 @@ public class ClassScoreController {
 
 		List<SMCDto> StudentList = classScoreDao.StudentList(class_sub_no);
 		model.addAttribute("StudentList", StudentList);
-		attr.addAttribute("class_sub_no", class_sub_no);
 
-		return "score/edit";
-	}
+	
+		return "score/insert";
+	 }
+	 
+	 @PostMapping("/insert")
+	 public String StudentList(@RequestParam int class_sub_no) {
+		
+		 
+		 
+		 return "socre/insert";
+		 
+	 }
+	 @GetMapping("/mylist")
+		public String list(Model model, @RequestParam int student_no) {
+			List<SMCDto> list = sqlSession.selectList("score.on_list", student_no);
+
 
 	@PostMapping("/edit")
 	public String getEditList(@ModelAttribute SMCDto smcDto, Model model,

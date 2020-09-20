@@ -23,4 +23,7 @@ public class SMCDto {
 	private int subject_apply_no;
 	private int semester_no;
 	private int major_no;
+	
+	//디티오추가 아웃터조인
+	private String class_sub_name;
 }
