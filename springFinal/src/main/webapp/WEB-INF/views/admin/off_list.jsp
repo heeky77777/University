@@ -99,8 +99,11 @@ $(function(){
 
 <div class="container-fluid">
 	<div class="row">
+	
 		<div class="offset-2 col-8">
-
+			<br>
+				<h1 style="text-align: center">휴학신청 전체리스트</h1>
+			<br>
 			<table class="table table-sm table-hover" id="tablesort" >
 				<thead class="thead-dark" style="text-align: center">
 					<tr>

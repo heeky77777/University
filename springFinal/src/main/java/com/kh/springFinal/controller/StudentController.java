@@ -37,7 +37,9 @@ import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
 import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.StudentFileDto;
+import com.kh.springFinal.entity.StudentinfoDto;
 import com.kh.springFinal.repository.StudentDao;
+import com.kh.springFinal.repository.StudentinfoDao;
 import com.kh.springFinal.entity.SubjectApplyDto;
 import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.repository.SubjectApplyDao;
@@ -59,6 +61,9 @@ public class StudentController {
 	private SubjectApplyDao subjectapplyDao;
 	
 	@Autowired
+	private StudentinfoDao studentinfoDao;
+	
+	@Autowired
 	private MajorDao majorDao;
 	
 	@Autowired
@@ -69,25 +74,51 @@ public class StudentController {
 		return "student/test";
 	}
 	
+	@GetMapping("/student_result")
+	public String student_result() {		
+
+		   return "student/student_result";
+		}
+	
 	@GetMapping("/student_join")
-	public String join(Model model) {
+	public String join(Model model,@RequestParam int stu_apply_no) {
+		
+		StudentinfoDto studentinfoDto = studentinfoDao.get_stu_info(stu_apply_no);
+		
+		MajorDto majorDto = majorDao.get_major(studentinfoDto.getMajor_no());
+		
+		Calendar cal = Calendar.getInstance();
+		
+		String year = String.valueOf(cal.get(Calendar.YEAR));
+		int a = majorDto.getMajor_number();
+
+		String b = String.valueOf(a);
+		String e = String.format("%03d", studentinfoDto.getStu_numb());
+		String c = year + b + e;
+		
+		model.addAttribute("c",c);
+		
 		List<MajorDto> majorList = majorDao.major_list();
-		
+		StudentinfoDto student_info = studentinfoDao.get_stu_info(stu_apply_no);
+		model.addAttribute("student_info",student_info);
+		model.addAttribute("majorDto",majorDto);
 		model.addAttribute("majorList", majorList);
-		
+		 
 		return "student/student_join";
+		
 	}
-	@PostMapping("/student_join")
+	
+	@PostMapping("/student_signup")
 	public String join(@ModelAttribute StudentDto studentDto) {
 		StudentDto student = sqlSession.selectOne("student.numb", studentDto);
 		
 		if(student==null) {
 			sqlSession.insert("student.signup", studentDto);
-			return "redirect:student_join";
+			return "redirect:student_result";
 			
 		}
 		else {
-			return "redirect:student_join?error";
+			return "redirect:student_result?error";
 		}		
 	}
 

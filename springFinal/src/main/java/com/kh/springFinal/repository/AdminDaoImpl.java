@@ -27,6 +27,13 @@ public class AdminDaoImpl implements AdminDao{
 		
 		return sqlSession.selectList("admin.student_list");
 	}
+
+
+	@Override
+	public List<StudentDto> get_major_list(StudentDto studentDto) {
+		List<StudentDto> Student = sqlSession.selectList("studentinfo.get_number",studentDto);
+		return Student;
+	}
 	
 	
 	

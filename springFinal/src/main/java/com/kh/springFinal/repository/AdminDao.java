@@ -9,4 +9,6 @@ public interface AdminDao {
 	AdminDto admin_login(AdminDto adminDto);
 
 	List<StudentDto> student_list();
+	
+	List<StudentDto> get_major_list(StudentDto studentDto);
 }

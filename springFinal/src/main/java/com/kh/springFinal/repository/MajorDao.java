@@ -11,4 +11,5 @@ public interface MajorDao {
 	MajorDto get(MajorDto majorDto);
 	void major_delete(int major_no);
 	
+	MajorDto get_major(int major_no);
 }

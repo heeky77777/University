@@ -38,4 +38,10 @@ public class MajorDaoImpl implements MajorDao{
 		
 	}
 
+	@Override
+	public MajorDto get_major(int major_no) {
+		MajorDto majorDto = sqlSession.selectOne("studentinfo.get_major",major_no);
+		return majorDto;
+	}
+
 }

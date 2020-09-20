@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.StudentinfoDto;
+import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.repository.StudentinfoDao;
 
 
@@ -27,6 +28,9 @@ public class StudentinfoController {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private MajorDao majorDao;
 	
 	@GetMapping("/result")
 	public String result() {
@@ -39,7 +43,11 @@ public class StudentinfoController {
 	}
 	
 	@GetMapping("/join")
-	public String join() {
+	public String join(Model model) {
+		
+		List<MajorDto> majorList = majorDao.major_list();
+		model.addAttribute("majorList",majorList);
+		
 		return "client/join";
 	}
 	
@@ -49,7 +57,7 @@ public class StudentinfoController {
 		
 		if(studentinfo==null) {
 		sqlSession.insert("studentinfo.join", studentinfoDto);
-		return "redirect:result";
+		return "redirect:list";
 	}
 		else {
 			return "redirect:error";
