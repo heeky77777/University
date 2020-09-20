@@ -27,14 +27,26 @@
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
 
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css"
+ href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">   
+ 
+ <script>
+ $(function(){
+	    $("#tablesort").dataTable();
+	});  
+ </script>
 <div class="container-fluid">
 	<div class="row">
 		<div class="offset-2 col-8">
-
-			<table class="table table-sm table-hover">
+			<br>
+				<h1 class="form-group" style="text-align: center">입학신청 정보리스트</h1>
+			<br>	
+			<table class="table table-sm table-hover" id="tablesort">
 				<thead class="thead-dark">
 					<tr>
-						<th>번호</th>
+						
 						<th>이름</th>
 						<th>성별</th>
 						<th>생년월일</th>
@@ -43,12 +55,13 @@
 						<th>우편번호</th>
 						<th>주소</th>
 						<th>상세주소</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="studentinfoDto" items="${list}">
 						<tr>
-							<td>${studentinfoDto.stu_apply_no}</td>
+							
 							<td>${studentinfoDto.stu_apply_name}</td>
 							<td>${studentinfoDto.stu_apply_gender}</td>
 							<td>
@@ -61,27 +74,31 @@
 							<td>${studentinfoDto.stu_apply_post}</td>
 							<td>${studentinfoDto.stu_apply_addr}</td>
 							<td>${studentinfoDto.stu_apply_extra_addr}</td>
-
+							<td>
+								<a href="${pageContext.request.contextPath}/student/student_join?stu_apply_no=${studentinfoDto.stu_apply_no}">회원가입</a>
+							</td>
+							
 						</tr>
 					</c:forEach>
 				</tbody>
-			</table>
+<!-- 			</table> -->
 
-			<!-- 검색창 -->
-			<form action="union" method="post">
+<!-- 			<!-- 검색창 -->
+<!-- 			<form action="union" method="post"> -->
 
-				<select name="type">
-					<option value="stu_apply_name"
-						${param.type == 'stu_apply_name' ? 'selected':''}>이름</option>
-					<option value="stu_apply_phone"
-						${param.type == 'stu_apply_phone' ? 'selected':''}>전화번호</option>
-				</select> <input type="text" name="keyword" placeholder="검색어"
-					value="${param.keyword}"> <input type="submit" value="검색">
+<!-- 				<select name="type"> -->
+<!-- 					<option value="stu_apply_name" -->
+<%-- 						${param.type == 'stu_apply_name' ? 'selected':''}>이름</option> --%>
+<!-- 					<option value="stu_apply_phone" -->
+<%-- 						${param.type == 'stu_apply_phone' ? 'selected':''}>전화번호</option> --%>
+<!-- 				</select> <input type="text" name="keyword" placeholder="검색어" -->
+<%-- 					value="${param.keyword}"> <input type="submit" value="검색"> --%>
 
-				</tr>
-				</tbody>
+<!-- 				</tr> -->
+<!-- 				</tbody> -->
 				</table>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 		</div>
 	</div>
 </div>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -29,6 +29,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{profe_file_no}, #{profe_no}, #{profe_file_name}, #{profe_file_type}, #{profe_file_size})
 	</insert>
 
+	<!-- 이미지 파일 리스트-->
+	<select id="getFile" parameterType="int" resultType="professorFileDto">
+		SELECT*FROM professor_file where profe_no=#{profe_no} 
+	</select>
+	
+	<!-- 이미지 다운-->
+	<select id="getImg" parameterType="int" resultType="professorFileDto">
+		SELECT*FROM professor_file WHERE profe_file_no=#{profe_file_no}
+	</select>
+	
+	<!-- 기존 사진 수정 -->
+	<update id="getEdit" parameterType="professorFileDto">
+		MERGE INTO PROFESSOR_FILE pf USING DUAL ON(pf.PROFE_NO=${profe_no}) WHEN MATCHED THEN UPDATE SET pf.PROFE_FILE_NAME =${profe_file_name}, 
+		pf.PROFE_FILE_TYPE =${profe_file_type}, pf.PROFE_FILE_SIZE =${profe_file_size}
+	</update>
+	
+	<!-- 사진 삭제 -->
+	<delete id="delete" parameterType="int">
+	 DELETE PROFESSOR_FILE WHERE PROFE_FILE_NO=${profe_file_no}
+	</delete>
+	
+	<delete id="del_profe_file" parameterType="int">
+	 DELETE PROFESSOR_FILE WHERE PROFE_NO=${profe_no}
+	</delete>
 </mapper>
 
 

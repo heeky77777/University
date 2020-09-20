@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 /* /////////////////////////////헤더//////////////////////////////////////// */
   /*
@@ -8,6 +9,11 @@
             toggle : 두 가지 상태를 왔다갔다 하는 것
             활성화가 되어있으면 나타나고 아니면 사라지게 만든다 (활성화 상태 : .on 또는 .active)
         */
+      
+      	* {
+		font-family: 'Noto Sans KR', sans-serif;      
+      		}
+      
         html, body {
             margin: 0;
             padding: 0;
@@ -88,7 +94,7 @@
             color: #52a6ef;;
         }
         .list-group-item:hover{
-            background-color: #BEC3C7;
+            background-color: #536976;
             color: white;
         }
         .btn_slide{
@@ -236,19 +242,27 @@
         }
         .nav-item{
             border: 1px #aaa;
+            
+         .nav-item:hover{
+        	background-color:#b8c5d6;
+        	color:white;
+        	opacity: 0.5;
+        	cursor:pointer;
+        }   
+        
         }
         .nav-list-list{
             position: relative;
             display: block;
-            background-color: #BEC3C7;
+            background-color: #465881; /*네비 윗단 학생 */
             width: 250px;
-            color: white;
+            color: white; /*학생 글씨 색깔*/
             cursor: pointer;
             
         }
         
         .nav-list-list:hover{
-            background-color: #3B6272;
+            background-color: #3c70a4; /*학생호버색깔*/
             color: white;
             cursor: pointer;
             
@@ -256,14 +270,15 @@
         }
 
        .nav-empty{
-        background-color: #536976; /*왼쪽 바 밑단 색깔 */
+        background-color: #43505d; /*왼쪽 바 밑단 색깔 */
         width: 250px;
         height: 800px;
        }
        .nav-item-list{
-           background-color: #3B6272;
+           background-color: #465881; /*네비바 목록 색깔*/
        }
-        
+       
+               
         
 /*     ////////////////////////// 푸터//////////////////////////// */
 
@@ -476,5 +491,77 @@ article.w-10 {
 .btn_home {
 	background-color: #43505d;
 	text-align: center;
+	float:left;
+	width:50%;
 }
+.btn_home:hover {
+	background-color:#6c7b95;
+	cursor: pointer;
+}
+
+.btn_edit {
+	background-color: #43505d;
+	text-align: center; 
+	float:right;
+	width:50%;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               7
+}
+
+.btn_edit:hover {
+	background-color:#6c7b95;
+	cursor: pointer;
+}
+
+.btn_fileadd {
+/* 	background-color: #a9c6de; */
+	text-align: center;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                7
+}
+
+.btn_fileadd:hover {
+/* 	background-color:#eaf5ff; */
+/* 	cursor: pointer; */
+}
+
+.student_photo {
+	float: left;
+	display: inline;	
+}
+
+.student_name {
+	display: inline;
+	float: left;
+	margin-left: 30px;
+/* 	width : 395px; */
+	width : 50%;
+}
+
+.student_numb {
+	display: inline;
+	float: left;
+	margin-left: 30px;
+/* 	width : 395px; */
+	width : 50%;
+}
+
+.student_photoadd {
+	display:inline;
+	float: left;
+	width : 200px;
+}
+ 
+.btn_fileadd {
+/* 	display: inline; */
+/* 	float: left; */
+	width : 85px;
+	cursor: pointer;
+}
+
+.student_photoadd3 {
+	display:inline;
+/* 	float: right; */
+/* 	width : 100px; */
+}
+
+
+
+
         

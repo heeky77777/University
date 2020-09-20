@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -67,10 +68,7 @@
                              <a class="nav-link" href="${pageContext.request.contextPath}/student/student_schedule?student_no=${userinfo.student_no}" style="color:white">시간표</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">성적확인</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">강의평가</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/score/mylist?student_no=${userinfo.student_no}" style="color:white">성적확인</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/off?student_no=${userinfo.student_no}" style="color:white">휴학신청</a>
@@ -86,7 +84,7 @@
 	                <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle2();">교수</a>
 	                    <ul class="nav flex-column sidebar_toggle2 nav-item-list">
 	                        <li class="nav-item" style="margin-left: 30px;">
-	                            <a class="nav-link" href="#" style="color:white">교수정보</a>
+	                            <a class="nav-link" href="${pageContext.request.contextPath}/professor/detail?profe_no=${profeinfo.profe_no}" style="color:white">교수정보</a>
 	                        </li>
 	                        <li class="nav-item" style="margin-left: 30px;">
 	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/regist" style="color:white">강의등록</a>
@@ -104,10 +102,13 @@
 	                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle3();">관리자</a>
 		                    <ul class="nav flex-column sidebar_toggle3 nav-item-list">
 		                        <li class="nav-item" style="margin-left: 30px;">
-		                            <a class="nav-link" href="#" style="color:white">입학학생 신청관리</a>
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/client/list" style="color:white">입학학생 신청관리</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
-		                            <a class="nav-link" href="#" style="color:white">교수 회원가입</a>
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/client/join" style="color:white">학생 회원가입</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/professor/regist" style="color:white">교수 회원가입</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
 		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/admin_student_list" style="color:white">학생 정보관리</a>
@@ -123,6 +124,10 @@
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
 		                            <a class="nav-link" href="#" style="color:white">휴학/복학관리</a>
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/off_list" style="color:white">휴학관리</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/on_list" style="color:white">복학관리</a>
 		                        </li>
 		                    </ul>
 	                    </c:if>
@@ -155,4 +160,5 @@
 <!-- 	                </span> -->
 	                
 <!-- 	        	</form> -->
+
 

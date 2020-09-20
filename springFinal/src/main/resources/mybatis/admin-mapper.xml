@@ -57,10 +57,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       LEFT OUTER JOIN student st ON so.student_no = st.student_no 
 	</select>
 	
-	<select id="return_List" resultType="schoolReturnDto">
-		SELECT * FROM SCHOOL_Return
-		ORDER BY
-		school_return_no DESC
+	<select id="on_List" resultType="schoolReturnDto">
+		SELECT * FROM SCHOOL_RETURN so
+      LEFT OUTER JOIN student st ON so.student_no = st.student_no 
 	</select>
 	
 	
@@ -73,5 +72,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 	order by school_off_no desc
 	</select>
+
+	
+	<select id="unionList2" resultType="schoolReturnDto" parameterType="map">
+	
+	SELECT * FROM SCHOOL_Return so
+      LEFT OUTER JOIN student st ON so.student_no = st.student_no
+	<if test="type !=null and keyword !=null">
+	where instr(${type}, #{keyword}) >0
+	</if>
+	order by school_return_no desc
+	</select>
+	
+   	
+   	<update id="update" parameterType="int">
+   	update student set student_state = '휴학' where student_no = #{student_no}
+   	</update>
+   	<update id="update2" parameterType="int">
+   	update student set student_state = '재학' where student_no = #{student_no}
+   	</update>
+   	
+   	<select id="get" resultType="studentDto" parameterType="studentDto">
+		SELECT * FROM student WHERE student_no = #{student_no}
+   	</select>
+   	
+   	<delete id="delete" parameterType="int">
+		DELETE school_off WHERE student_no=#{student_no} 
+	</delete>
+	
+	<delete id="delete2" parameterType="int">
+		DELETE school_Return WHERE student_no=#{student_no} 
+	</delete>
 </mapper>
+
 

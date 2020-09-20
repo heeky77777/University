@@ -17,18 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.SchoolOffDto;
+import com.kh.springFinal.entity.SchoolReturnDto;
 import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.repository.AdminDao;
 import com.kh.springFinal.repository.ClassSubjectDao;
 import com.kh.springFinal.repository.MajorDao;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
 @RequestMapping("/admin")
-@Slf4j
 public class AdminController {
-	
+
 	@Autowired
 	private MajorDao majorDao;
 
@@ -43,34 +41,35 @@ public class AdminController {
 
 
 
+
+
 	@GetMapping("/major_add")
 	public String major_add(Model model) {
-		
+
 		List<MajorDto> major_list = majorDao.major_list();
-		model.addAttribute("major_list",major_list);
+		model.addAttribute("major_list", major_list);
 		return "admin/major_add";
 	}
-	
+
 	@PostMapping("/major_add")
 	public String major_add(@ModelAttribute MajorDto majorDto) {
 		MajorDto major = majorDao.get(majorDto);
-		
-		if(major == null) {			
+
+		if (major == null) {
 			majorDao.regist(majorDto);
 			return "redirect:major_add";
-		}
-		else {
+		} else {
 			return "redirect:major_add?error";
 		}
 	}
-	
+
 	@PostMapping("/major_delete")
 	public String major_delete(@RequestParam int major_no) {
 		majorDao.major_delete(major_no);
-		
+
 		return "redirect:major_add";
 	}
-	
+
 	@GetMapping("/admin_student_edit")
 	public String student_edit(@RequestParam int student_no,
 								Model model) {
@@ -98,29 +97,57 @@ public class AdminController {
 		return "admin/admin_student_list";
 	}	
 	
+
 	@GetMapping("/off_list")
 	public String list(Model model) {
 		List<SchoolOffDto> list = sqlSession.selectList("admin.off_List");
-		
+
 		model.addAttribute("list", list);
-		
+
 		return "admin/off_list";
 
 	}
-	
+
+
+
+
+	@GetMapping("/on_list")
+	public String oNlist(Model model) {
+		List<SchoolReturnDto> list = sqlSession.selectList("admin.on_List");
+
+		model.addAttribute("list", list);
+
+		return "admin/on_list";
+
+	}
+
+
+
 	@RequestMapping("/union")
-	public String union(
-			@RequestParam(required=false) String type,
-			@RequestParam(required=false) String keyword,
+	public String union(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,
+			Model model) {
+		Map<String, Object> map = new HashMap<>(); 
+		map.put("type", type);
+		map.put("keyword", keyword);
+
+		List<SchoolOffDto> list = sqlSession.selectList("admin.unionList", map);
+		model.addAttribute("list", list);
+
+		return "admin/off_list";
+	}
+	
+	
+	@RequestMapping("/union2")
+	public String union2(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,
 			Model model) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("type", type);
 		map.put("keyword", keyword);
-		
-		List<SchoolOffDto> list = sqlSession.selectList("admin.unionList", map);
+
+		List<SchoolReturnDto> list = sqlSession.selectList("admin.unionList2", map);
 		model.addAttribute("list", list);
-		
-		return "admin/off_list";
+
+		return "admin/on_list";
 	}
 	
 	
@@ -138,6 +165,7 @@ public class AdminController {
 	}
 
 	
+
 	// 강의 검색
 	@PostMapping("classSubList")
 	public String classSubSearchList(
@@ -157,8 +185,6 @@ public class AdminController {
 		
 		return "admin/classSubList";
 	}
-	
-	
 	
 	
 	

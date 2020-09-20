@@ -20,7 +20,9 @@
 			
 				
 		
-			
+			<div>
+				<a href="${pageContext.request.contextPath}/schoolonoff/list?student_no=${userinfo.student_no}">자신의 휴학신청 확인하기</a>
+			</div>
 			
 			
 

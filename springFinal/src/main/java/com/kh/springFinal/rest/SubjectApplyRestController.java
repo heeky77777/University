@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.springFinal.entity.ClassSubjectDto;
 import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.SemesterDto;
+import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.SubjectApplyDto;
+import com.kh.springFinal.repository.AdminDao;
 import com.kh.springFinal.repository.MajorDao;
+import com.kh.springFinal.repository.StudentDao;
+import com.kh.springFinal.repository.StudentinfoDao;
 import com.kh.springFinal.repository.SubjectApplyDao;
 
 @RestController
@@ -31,6 +35,9 @@ public class SubjectApplyRestController {
 	@Autowired
 	private MajorDao majorDao;
 	
+	@Autowired
+	private AdminDao adminDao;
+	
 	@GetMapping("get_semester")
 	public SemesterDto get_semester(@ModelAttribute SemesterDto semesterDto) {
 		SemesterDto semester = subjectApplyDao.get_semester(semesterDto);
@@ -41,6 +48,12 @@ public class SubjectApplyRestController {
 	public MajorDto get_major(@ModelAttribute MajorDto majorDto) {
 		MajorDto major = majorDao.get(majorDto);
 		return major;
+	}
+	
+	@GetMapping("/get_std_number")
+	public List<StudentDto> get_std_number(@ModelAttribute StudentDto studentDto){
+		List<StudentDto> student = adminDao.get_major_list(studentDto);
+		return student;
 	}
 	
 	@GetMapping("/subject_list")

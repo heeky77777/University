@@ -44,8 +44,12 @@ public class StudentinfoDaoImpl implements StudentinfoDao{
 		List<StudentinfoDto> list = sqlSession.selectList("studentinfo.getList");
 		return list;
 	}
+
+	@Override
+	public StudentinfoDto get_stu_info(int stu_apply_no) {
+		StudentinfoDto Studentinfo = sqlSession.selectOne("studentinfo.get_stu_info", stu_apply_no);
+		return Studentinfo;
+	}
 	
-	
-	
-	
+
 	}

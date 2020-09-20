@@ -1,13 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"
 	integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A=="
 	crossorigin="anonymous"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
 
 <script>
 	function checkphone() {
@@ -71,14 +78,49 @@
                 document.getElementById("stu_apply_extra_addr").focus();
             }
         }).open();
-    } 
+    }
+	
+	function major_get(){
+		
+		var major_numb = document.querySelector("#major_no");
+		var major_numb_value = document.querySelector("#major_no").value;
+// 		var std_major_value = document.querySelector("#std_major").value;
+		console.log(major_numb_value);
+// 		console.log(std_major_value);
+		
+		
+		axios({
+			url:"${pageContext.request.contextPath}/apply/get_major?major_type="+major_numb_value,
+			method:"get"
+		}).then(function (response){
+			var major_no = document.querySelector("#major_no2");
+			console.log(response);
+			major_no.value = response.data.major_no;
+			var major_type = response.data.major_type;
+			
+			axios({
+				url:"${pageContext.request.contextPath}/apply/get_std_number?major_no="+major_type,
+				method:"get"
+			}).then(function (response){
+				console.log(response);
+		 		
+		 		var stu_numb = document.querySelector("#std_number");
+		 		stu_numb.value = response.data.length + 1;
+		 		console.log(stu_numb.value);
+				
+			})
+		})
+		
+		
+	}
+	
 </script>
 <div class="container-fluid">
 	<div class="form">
 		<div class="offset-md-4 col-md-4">
 			<br> <br>
 
-			<h1 class="form-group" style="text-align: center">정보입력</h1>
+			<h1 class="form-group" style="text-align: center">학생정보입력</h1>
 			<br>
 
 			<form action="join" method="post">
@@ -87,19 +129,46 @@
 					<label>이름</label> <input class="form-control" type="text"
 						name="stu_apply_name">
 				</div>
-
+				<div  class="form-group">	
+		       	<label>학과</label> 
+			    	 <select  id="major_no" class="form-control" required onchange="major_get();">
+	                    <option value="" ${param.major_no == '' ? 'selected':''}>학과 선택</option>
+	                    <c:forEach var="majorDto" items="${majorList}">
+	                     		<option ${param.major_no == majorDto.major_no ? 'selected':''}>${majorDto.major_type}</option>
+	                    </c:forEach>
+	     			</select>
+		   		</div>
 				<div class="form-group">
 					<label>성별 :</label> <select class="form-control"
 						name="stu_apply_gender">
-						<option>남</option>
-						<option>녀</option>
+						<option>남자</option>
+						<option>여자</option>
 					</select>
 				</div>
 
 
 				<div class="form-group">
-					<label>생년월일 :</label> <input class="form-control" type="date"
+					<label>생년월일 :</label> <input id="Datepicker" class="form-control" type="text"
 						name="stu_apply_birth" required>
+						<script type="text/javascript">
+						$(function() {
+							$("#Datepicker").datepicker({
+								showOn : "button",
+								dateFormat : 'yy-mm-dd', //날짜 형식 변환
+								maxDate : new Date, //미래 날짜 비활성화
+								minDate : '1920-01-01',//최소 날짜 설정
+								changeMonth : true, //월 이동
+								changeYear : true, //년 이동
+								nextText : '다음 달',
+								prevText : '이전 달',
+								showButtonPanel : true, //닫기버튼 생성
+								closeText : '닫기'
+
+							})
+						})
+						
+						
+						</script>
 				</div>
 
 				<div class="form-group">
@@ -125,8 +194,8 @@
 			<div class="form-group">   	
 		    	<input class="form-control" type="text" name="stu_apply_extra_addr" placeholder="상세주소" id="stu_apply_extra_addr">
 		   </div> 	
-		   
-
+		   		<input type="hidden" name="major_no" id="major_no2">
+				<input type="hidden" name="stu_numb" id="std_number">
 				<div class="form-group">
 					<input class="form-control btn btn-primary btn-block" type="submit"
 						value="등 록" style="background-color: #063e7a">
