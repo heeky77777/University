@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 신청 강의 번호 단일 조회 -->
-	<select id="getClassSubNo" parameterType="int" resultType="SMCDto">
+	<select id="getClassSubNo" parameterType="int" resultType="smcDto">
 		SELECT sa.* FROM SUBJECT_APPLY sa INNER JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO WHERE cs.CLASS_SUB_NO =#{class_sub_no} 
 	</select>
 	

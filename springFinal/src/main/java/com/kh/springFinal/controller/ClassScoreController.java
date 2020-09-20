@@ -30,7 +30,7 @@ public class ClassScoreController {
 
 	@Autowired
 	private ClassScoreDao classScoreDao;
-s
+
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -72,7 +72,7 @@ s
 	}
 
 	@PostMapping("/insert")
-	public String StudScoreRegist(@ModelAttribute SMCDto smcDto, Model model, RedirectAttributes attr) {
+	public String StudScoreRegist(@ModelAttribute SMCDto smcDto, Model model/* , RedirectAttributes attr */) {
 
 		// 1. smcDto 교수가 입력한 점수, 등급 등 성적 테이블에 추가해야 할 정보가 들어옴. -> smcDto
 		// 2. 그러면 해당 교수가 입력한 성적의 대상인 학생의 번호를 이용해서 해당 학생의 정보를 받아와야 해. -> smcDto 학생 번호 ->
@@ -82,7 +82,10 @@ s
 				.subject_apply_no(smcDto.getSubject_apply_no()).profe_no(smcDto.getProfe_no())
 				.student_no(smcDto.getStudent_no()).major_no(smcDto.getMajor_no()).class_score(smcDto.getClass_score())
 				.class_score_type(smcDto.getClass_score_type()).build();
-
+System.out.println("=============================");
+		System.out.println(classScoreDto);
+		System.out.println("=============================");
+		
 		classScoreDao.regist(classScoreDto);
 
 //		attr.addAttribute("class_sub_no", class_sub_no);
@@ -101,18 +104,15 @@ s
 		return "score/insert";
 	 }
 	 
-	 @PostMapping("/insert")
-	 public String StudentList(@RequestParam int class_sub_no) {
-		
-		 
-		 
-		 return "socre/insert";
-		 
-	 }
+
 	 @GetMapping("/mylist")
 		public String list(Model model, @RequestParam int student_no) {
 			List<SMCDto> list = sqlSession.selectList("score.on_list", student_no);
+			
+			model.addAttribute("mylist", list);
 
+			return "score/mylist";
+	 }
 
 	@PostMapping("/edit")
 	public String getEditList(@ModelAttribute SMCDto smcDto, Model model,
