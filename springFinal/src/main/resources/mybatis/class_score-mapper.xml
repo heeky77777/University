@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+		- namespace : 영역을 외부에서 부르기 위한 별칭
+ -->
+ <mapper namespace="score">
+
+
+	
+<!-- 	알아야 할 설정값
+	- id : 구문을 외부에서 호출하기 위한 식별값
+	- parameterType : 구문을 실행하기 위해 필요한 데이터 유형(매개변수와 유사)
+	- resultType : 구문이 실행된 결과 유형(반환형과 유사)
+ -->
+
+	<!--성적 번호  -->
+	<select id="getSeq" resultType="int">
+		SELECT CLASS_SCORE_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<!--성적 등록-->
+	<insert id="write" parameterType="classScoreDto">
+		INSERT INTO CLASS_SCORE values(#{class_score_no},
+										#{SUBJECT_APPLY_no},
+										#{profe_no},
+										#{student_no},
+										#{major_no},
+										#{semester_no},
+										#{class_score},
+										#{class_score_type},
+										SYSDATE)	
+	</insert>
+	
+	
+	<!-- 신청 강의 번호 단일 조회 -->
+	<select id="getClassSubNo" resultType="int">
+		SELECT sa.CLASS_SUB_NO FROM SUBJECT_APPLY sa INNER JOIN CLASS_SUBJECT cs ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO 
+	</select>
+	
+	<!--성적 목록-->
+	<select id="getScoreList" parameterType="int" resultType="classScoreDto">
+		SELECT*FROM CLASS_SCORE WHERE CLASS_SUB_NO=#{class_sub_no}
+	</select>
+	
+	<!-- 성적 입력 리스트 -->
+	<select id="getStudentList" parameterType="int" resultType="smcDto">
+		SELECT*FROM SMC WHERE CLASS_SUB_NO=#{class_sub_no}	
+	</select>
+
+
+	<!--성적 수정-->
+	<update id="editScore" parameterType="classScoreDto">
+		UPDATE CLASS_SCORE SET CLASS_SCORE =#{CLASS_SCORE}, CLASS_SCORE_TYPE =#{CLASS_SCORE_TYPE} WHERE CLASS_SCORE_NO =#{CLASS_SCORE_NO};
+	</update>
+
+</mapper>
+
+

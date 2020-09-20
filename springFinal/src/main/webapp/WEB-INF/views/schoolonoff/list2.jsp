@@ -39,7 +39,7 @@
 						<td><fmt:parseDate value="${on_list.school_return_date}"
 								var="time" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
 								value="${time}" pattern="yyyy-MM-dd" /></td>
-						<td>${on_list.school_return_type}</td>
+						<td>${userinfo.student_state}</td>
 					</tr>
 
 				</tbody>

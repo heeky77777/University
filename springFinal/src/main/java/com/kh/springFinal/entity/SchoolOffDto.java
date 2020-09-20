@@ -19,7 +19,7 @@ public class SchoolOffDto {
 	private int student_numb;
 	private String major_no;
 	
-	
+	private String student_state;
 	
 	
 }

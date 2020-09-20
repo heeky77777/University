@@ -30,24 +30,35 @@
 			<h1 class="form-group" style="text-align: center"> 마이페이지 </h1><hr><br>
 
     		<form action="student_info" method="post" enctype="multipart/form-data">
-		    <div class="form-group" align="center">
-				<img src="${pageContext.request.contextPath}/student/studentImg/${studentDto.student_no}" name="student_img" class="rounded mx-auto d-block" border="0" width="150" height="150">
-				<br><hr>
-				<label >학생 사진 등록</label><br>
-				<input type="hidden" name="student_no" value="${studentDto.student_no}">
-				<input class="n-form n-theme" type="file" name="file" accept=".jpg, .png, .gif">
-				<input class="btn btn-outline-info" type="submit" value="사진등록">
-		    </div>
 		    <div class="form-group">
+		     <div class="student_photo">
+				<img src="${pageContext.request.contextPath}/student/studentImg/${studentDto.student_no}" name="student_img" class="rounded mx-auto d-block" border="0" width="150" height="150">
+		    </div>
+			<div class="student_name form-group">
 		    	<label>학생이름</label>  
 		    	<input class="form-control" type="text" name="student_name" value="${studentDto.student_name}" readonly>
-		    </div>
-		    <div class="form-group">    
+			</div>				
+		    <div class="student_numb form-group">    
 		    	<label>학번</label>  
 		    	<input class="form-control" type="text" name="student_numb" onblur="checkNumb();" value="${studentDto.student_numb}" readonly>
 		    	<span class="bool_red" style="color:red"></span>
 		    	<span class="bool_blue" style="color:blue"></span>
 		    </div>		    
+			<br><br>
+				<input type="hidden" name="student_no" value="${studentDto.student_no}">
+		    <div class="student_photoadd form-group">
+<!-- 				<label >학생 사진 등록</label><br> -->
+		    </div>
+		    <div class="btn_fileadd form-group">
+				<input class="btn_fileadd n-form n-theme" type="file" name="file" accept=".jpg, .png, .gif">
+			</div>
+			
+			<div class="student_photoadd3 form-group">
+				<input class="form-control" type="submit" value="사진등록">
+		    </div>		    
+		    </div>
+		    <br>
+		    <hr>
 		    <div class="form-group">    
 		    	<label>학년</label>  
 		    	<input class="form-control" type="text" name="student_grade" value="${studentDto.student_grade}학년" readonly>
@@ -98,12 +109,10 @@
 		    	<label>병역여부</label> 
 		    	<input class="form-control" name="student_milliy" value="${studentDto.student_milliy}" readonly>		    	
 		   </div> 	
-		   <div class="form-group">
-		    	<a class="form-control btn btn-primary btn-block" href="${pageContext.request.contextPath}/student/student_edit?student_no=${userinfo.student_no}" style="color:white">내정보수정하기</a>		    	
-		    </div>		
 		    <div class="form-group">
-		    	<a class="btn_home form-control" href="${pageContext.request.contextPath}/member/main?student_no=${userinfo.student_no}" style="color:white">홈으로</a>		    	
-		    </div>	   
+		    	<a class="btn_home form-control" href="${pagecontext.request.contextpath}/member/main?student_no=${userinfo.student_no}" style="color:white">홈으로</a>
+		    	<a class="btn_edit form-control" href="${pageContext.request.contextPath}/student/student_edit?student_no=${userinfo.student_no}" style="color:white">내정보수정하기</a>
+		    </div><br><br><br>
 		    </form>
 		    
     	</div>

@@ -33,16 +33,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
+	<select id="getList2" resultType="schoolReturnDto">
+		SELECT * FROM SCHOOL_RETURN so
+		LEFT OUTER JOIN student st ON so.student_no = st.student_no
+		ORDER BY
+		SCHOOL_RETURN_no DESC
+	</select>
+
 
 	<select id="getList" resultType="schoolOffDto">
-		SELECT * FROM SCHOOL_OFF
+		SELECT * FROM SCHOOL_OFF so
+		LEFT OUTER JOIN student st ON so.student_no = st.student_no
 		ORDER BY
 		school_off_no DESC
 	</select>
 
-	<select id="numb2" parameterType="int" resultType="schoolReturnDto">
-		SELECT * FROM
-		SCHOOL_Return WHERE student_no=#{student_no}
+	<select id="numb2" parameterType="int"
+		resultType="schoolReturnDto">
+		SELECT * FROM SCHOOL_Return WHERE student_no=#{student_no}
 	</select>
 
 	<insert id="return" parameterType="schoolReturnDto">

@@ -2,6 +2,7 @@ package com.kh.springFinal.controller;
 
 
 
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.io.File;
@@ -348,6 +349,7 @@ public class StudentController {
 		return "student/student_info";
 	}
 	
+
 	@GetMapping("/student_apply_wait")
 	public String student_apply_wait() {
 		
