@@ -1,4 +1,4 @@
-package com.kh.springFinal.Filter;
+package com.kh.springFinal.filter;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class LoginFilter implements Filter {
 		
 		StudentDto studentDto = (StudentDto) session.getAttribute("userinfo");
 		ProfessorDto professorDto = (ProfessorDto) session.getAttribute("profeinfo");
-		AdminDto adminDto = (AdminDto) session.getAttribute("admin");
+		AdminDto adminDto = (AdminDto) session.getAttribute("admininfo");
 		
 		
 		log.info("=====================");

@@ -10,16 +10,23 @@
 
 <style>
 
+	.row-empty {
+		height: 20px;
+	}
 
 </style> 
 
+<div class="row-empty"></div>
+<div class="row-empty"></div>
+<div class="row-empty"></div>
+<div class="row-empty"></div>
 
-			<div class="row">
-				<div class="offset-4 col-4">
-					<h4></h4>
-					<img src="http://placehold.it/500x500?text=TEST">
-				</div>
-			</div>
+<div class="row">
+	<div class="offset-4 col-4">
+		<h4></h4>
+		<img src="${pageContext.request.contextPath}/resources/img/404.png" width="700px" height="700px">
+	</div>
+</div>
 	
     
     
