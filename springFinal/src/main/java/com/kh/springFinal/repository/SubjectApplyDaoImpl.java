@@ -40,8 +40,6 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 	@Override
 	public void class_apply(int class_sub_no, int major_no, int student_no, String subject_apply_name) {
 		
-		
-		
 		Map<String, Object> map = new HashMap<>();
 		map.put("class_sub_no", class_sub_no);
 		map.put("major_no", major_no);
@@ -125,6 +123,12 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 	public List<SubjectApplyDto> profeList(int profe_no) {
 		return sqlSession.selectList("subjectApply.getProfeApplyList", profe_no);
 
+	}
+
+	@Override
+	public SubjectApplyDto get_apply_check(SubjectApplyDto subjectApplyDto) {
+		SubjectApplyDto subjectApply = sqlSession.selectOne("subjectApply.get_apply_check",subjectApplyDto);
+		return subjectApply;
 	}
 
 }

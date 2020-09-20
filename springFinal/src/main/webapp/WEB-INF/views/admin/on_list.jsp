@@ -100,7 +100,7 @@ $(function(){
 <div class="container-fluid">
 	<div class="row">
 		<div class="offset-2 col-8">
-		
+		<h1 style="text-align: center">복학신청 전체리스트</h1>
 			<table class="table table-sm table-hover" id="tablesort">
 				<thead class="thead-dark" style="text-align: center">
 					<tr style="">
@@ -162,7 +162,8 @@ $(function(){
 
 			</tbody>
 
-			<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+			
 		</div>
 	</div>
 </div>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

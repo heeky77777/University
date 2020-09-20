@@ -16,7 +16,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		stu_apply_email,
 		stu_apply_post,
 		stu_apply_addr,
-		stu_apply_extra_addr
+		stu_apply_extra_addr,
+		major_no,
+		stu_numb
 		)
 		VALUES(
 		stu_apply_seq.nextval,
@@ -27,7 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{stu_apply_email},
 		#{stu_apply_post},
 		#{stu_apply_addr},
-		#{stu_apply_extra_addr}
+		#{stu_apply_extra_addr},
+		#{major_no},
+		#{stu_numb}
 
 		)
 	</insert>
@@ -60,9 +64,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 	order by stu_apply_no desc
 	</select>
-
 	
-
+	<select id="get_stu_info" parameterType="int" resultType="studentinfoDto">
+		select * from stu_info where stu_apply_no = #{stu_info_no}
+	</select>
+	
+	<select id="get_number" parameterType="studentDto" resultType="studentDto">
+		select * from student where major_no = #{major_no}
+	</select>
+	
+	<select id="get_major" parameterType="int" resultType="majorDto">
+		select * from major where major_no = #{major_no}
+	</select>
 </mapper>
 
 

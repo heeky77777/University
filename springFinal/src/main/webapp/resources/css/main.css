@@ -173,11 +173,7 @@
             bottom: 0;
             width: 150px;
             margin-left: -250px;
-<<<<<<< HEAD
-            margin-top: -250px;
-=======
-            margin-top: -280px;
->>>>>>> refs/remotes/origin/master
+            margin-top: -345px;
             transition: margin-top 0.5s ease-in-out; 
             
             
