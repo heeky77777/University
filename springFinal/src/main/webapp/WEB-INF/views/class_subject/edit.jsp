@@ -173,7 +173,7 @@
 
 	    /* 수정 버튼 */
 		$('.modify-btn').click(function() {
-			var class_sub_no = $('input[name=class_sub_no]').val();
+			var class_sub_no = $('#class_sub_no').val();
 			console.log(class_sub_no);
 			$(window).off('beforeunload');
 			var modifyCheck = confirm("수정하시겠습니까??");
@@ -182,6 +182,7 @@
 			}
 			else {
 				return true;
+				
 			}
 		})
 	    
@@ -202,7 +203,7 @@
 	    
 	    /* 첨부 파일 삭제 */
 	    $('.delete-btn').click(function() {
-	    	var class_sub_no = $('input[name=class_sub_no]').val();
+	    	var class_sub_no = $('#class_sub_no').val();
 	    	var sub_file_no = $('#subFileNo').val();
   			var isFile = $("#subFileNo").val();
 	    	$.ajax({
@@ -220,7 +221,7 @@
 
 	    
 		/* 강의 시간 조회 후 표시 */
-	    var class_sub_no = $('input[name=class_sub_no]').val();
+	    var class_sub_no = $('#class_sub_no').val();
 		var classSubTime2 = $('#classSubTime2').val();
 		var classSubTime3 = $('#classSubTime3').val();
 		var classSubTime4 = $('#classSubTime4').val();
@@ -378,7 +379,7 @@
     } 
     
     .subtime {
-    	margin-left: 458px;
+    	margin-left: 490px;
     }
     
     .addSelect1,
@@ -404,7 +405,7 @@
 	
 	   <div class="row">
 	       <div class="offset-md-3 col-md-6">
-	           <form action="edit" class="form" method="post" enctype="multipart/form-data">
+	           <form action="${pageContext.request.contextPath}/class_subject/edit/${classSubjectDto.class_sub_no}" class="form" method="post" enctype="multipart/form-data">
 	               <div class="form-group">
 	                   <label>강의 명</label>
 	                   <input type="text" name="class_sub_name" class='form-control' value="${classSubjectDto.class_sub_name}" required autocomplete="off">
@@ -509,8 +510,8 @@
 							<option value="4" ${classSubjectDto.class_sub_time4 == '4' ? 'selected':''}>4교시</option>		
 							<option value="5" ${classSubjectDto.class_sub_time4 == '5' ? 'selected':''}>5교시</option>		
 							<option value="6" ${classSubjectDto.class_sub_time4 == '6' ? 'selected':''}>6교시</option>		
-							<option value="7" ${classSubjectDto.class_sub_time4 == '7' ? 'selected':''}>6교시</option>		
-							<option value="8" ${classSubjectDto.class_sub_time4 == '8' ? 'selected':''}>6교시</option>
+							<option value="7" ${classSubjectDto.class_sub_time4 == '7' ? 'selected':''}>7교시</option>		
+							<option value="8" ${classSubjectDto.class_sub_time4 == '8' ? 'selected':''}>8교시</option>
                         </select>
                         <button type='button' class="btn btn-secondary btn-sm del-btn3">삭제</button>
                     </div>
@@ -553,7 +554,7 @@
 	                   </div>
 	                   
 	               </div>
-	               <input type="hidden" name="class_sub_no" value="${classSubjectDto.class_sub_no}">
+	               <input type="hidden" id="class_sub_no" value="${classSubjectDto.class_sub_no}">
 	               <div class="row-empty"></div>
 	               <div class="form-group form-inline">
 		               <button type="submit" class="btn btn-primary modify-btn">수 정</button>

@@ -78,15 +78,6 @@
 			                
 							<div class="row">
 			                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
-			                        <label>학과&nbsp;</label>
-		                            <select name="majorSearch" id="" class="form-control">
-		                                <option value="all" ${param.majorSearch == 'all' ? 'selected':''}>전체</option>
-		                                <c:forEach var="majorDto" items="${majorList}">
-			                                <option ${param.majorSearch == majorDto.major_type ? 'selected':''}>${majorDto.major_type}</option>
-		                                </c:forEach>
-		                            </select>
-			                    </div>
-			                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline ">
 			                        <div class="form-inline mr-5">
 				                        <label>구분&nbsp;</label>
 				                        <select name="typeSearch" class="form-control">
@@ -96,8 +87,11 @@
 				                            <option ${param.typeSearch == '교필' ? 'selected':''}>교필</option>
 				                        </select>
 			                        </div>
+			                    </div>
+			                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline ">
 			                        <div class="form-inline mr-auto">
-		                                <input type="text" name="classSubSearch" placeholder="강의 명" class="form-control" value="${param.classSubSearch}">
+			                        	<label>강의&nbsp;</label>
+		                                <input type="text" name="classSubSearch" class="form-control" value="${param.classSubSearch}">
 		                                <button type="submit" class="btn btn-primary btn-sm search-btn sub-btn">검색</button>
 		                            </div>
 		                            

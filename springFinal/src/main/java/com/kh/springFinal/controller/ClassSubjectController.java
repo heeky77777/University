@@ -43,9 +43,6 @@ public class ClassSubjectController {
 	@Autowired
 	private MajorDao majorDao;
 	
-	@Autowired
-	private SubjectApplyDao subjectApplyDao;
-	
 	
 	// 현재 년도
 	Calendar cal = Calendar.getInstance();
@@ -87,7 +84,7 @@ public class ClassSubjectController {
 		return "redirect:list";
 		
 	}
-	
+
 
 	// 강의 목록
 	@GetMapping("list")
@@ -133,7 +130,7 @@ public class ClassSubjectController {
 		return "class_subject/list";
 	}
 	
-	// 수강 목록
+	// 수강 목록(교수)
 	@GetMapping("profeApplyList")
 	public String profeApplyList(Model model, HttpSession session) {
 		
@@ -150,6 +147,27 @@ public class ClassSubjectController {
 		
 		return "class_subject/profeApplyList";
 	}
+	
+	// 수강 검색(교수)
+		@PostMapping("profeApplyList")
+		public String searchProfeApplyList(
+				@RequestParam (required = false, defaultValue = "null") String yearSearch,
+				@RequestParam (required = false, defaultValue = "all") String semesterSearch,
+				@RequestParam (required = false, defaultValue = "all") String typeSearch,
+				@RequestParam (required = false, defaultValue = "null") String classSubSearch,
+				Model model, HttpSession session) {
+			
+			ProfessorDto professorDto = (ProfessorDto) session.getAttribute("profeinfo");
+			
+			List<MajorDto> majorList = majorDao.major_list();
+			List<ClassSubjectDto> applySearchList = classSubjectDao.geApplyMytList(professorDto.getProfe_no(), yearSearch, semesterSearch, typeSearch, classSubSearch);
+			
+			
+			model.addAttribute("majorList", majorList);
+			model.addAttribute("applyList", applySearchList);
+			
+			return "class_subject/profeApplyList";
+		}
 	
 
 	// 강의 삭제
@@ -189,12 +207,12 @@ public class ClassSubjectController {
 						MultipartFile file) throws IllegalStateException, IOException {
 		
 		ClassSubjectDto classSubDto = classSubjectService.getConfirm(classSubjectDto, this_year, semester_type);
-		boolean isClassSubNo = classSubDto.getClass_sub_no() == classSubjectDto.getClass_sub_no();
+		
+		log.info("classSubDto = {}", classSubDto);
 		
 		
-		if (!isClassSubNo && classSubDto != null) {	// 중복되는 강의가 있으면
-			attr.addAttribute("class_sub_no", class_sub_no);
-			return "redirect:/class_subject/edit";
+		if (classSubDto != null && classSubDto.getClass_sub_no() != classSubjectDto.getClass_sub_no()) {	// 중복되는 강의가 있으면
+			return "class_subject/edit/" + class_sub_no;
 		}
 		else {
 			classSubjectDao.classSubEdit(classSubjectDto);
@@ -203,7 +221,7 @@ public class ClassSubjectController {
 				classSubjectService.addFile(classSubjectFileDto, file, classSubjectDto.getClass_sub_no());
 			}
 			
-			return "class_subject/list";
+			return "redirect:/class_subject/list";
 		}
 		
 	}
