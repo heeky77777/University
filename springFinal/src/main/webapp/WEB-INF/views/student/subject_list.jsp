@@ -37,7 +37,7 @@
 			console.log(url);
 			if(url.indexOf(findString) != -1) {
 				history.replaceState({}, null, location.pathname);
-				alert("신청된 강의 입니다.");
+				alert("강의교시가 중복되었거나 신청된 강의 입니다.");
 			}
 	    	
 	    	var regist_year = document.querySelector("#regist_year").value;

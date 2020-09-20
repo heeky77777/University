@@ -442,7 +442,7 @@ public class StudentController {
 	
 	
 	
-	File target = new File("D:/upload1", String.valueOf(studentFileDto.getStudent_file_no()));
+	File target = new File("C:/Users/ASUS/Desktop/upload", String.valueOf(studentFileDto.getStudent_file_no()));
 	byte[]data = FileUtils.readFileToByteArray(target);
 	response.getOutputStream().write(data);
 	}
