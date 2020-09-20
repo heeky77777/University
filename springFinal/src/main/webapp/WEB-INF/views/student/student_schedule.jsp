@@ -14,6 +14,40 @@
         	.center{
         		text-align: center;
         	}
+        	        .hacademy-scheduler * {
+            box-sizing: border-box;
+        }
+
+        .hacademy-scheduler {
+            position: relative;
+        }
+
+        .hacademy-scheduler>.scheduler-row-header,
+        .hacademy-scheduler>.scheduler-column-header,
+        .hacademy-scheduler>.scheduler-task {
+            position: absolute;
+        }
+
+        .hacademy-scheduler>.scheduler-row-header.border,
+        .hacademy-scheduler>.scheduler-column-header.border,
+        .hacademy-scheduler>.scheduler-task.border {
+            border: 1px solid black;
+        }
+
+        .hacademy-scheduler>.scheduler-row-header>span,
+        .hacademy-scheduler>.scheduler-column-header>span,
+        .hacademy-scheduler>.scheduler-task>span {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 100%;
+            text-align: center;
+            transform: translate(-50%, -50%);
+            white-space: pre;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 	        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -41,11 +75,10 @@
 	    	})    	
 	    	
 	    }
-	    
-	window.onload=get_semester;
-	</script>
+	 window.onload=get_semester;
+    </script>
+
 	<body>
-		<table class="table table-striped table-bordered table-hover">
 			<h1>시간표</h1>
 			<div class="form-group form-inline">
 					<form action="student_schedule" method="post">
@@ -60,29 +93,48 @@
 							<input type="submit" value="강의조회"  class="btn btn-primary" style="background-color :#063e7a">
 					</form>		
 	        </div>
-        <thead>
-            <tr>
-            	<th></th>
-                <th>월</th>
-                <th>화</th>
-                <th>수</th>
-                <th>목</th>
-                <th>금</th> 
-            </tr>
-        </thead>
-        <tbody>
-        <c:forEach var = "schedule" items="${schedule}">
-    		<tr>
-    		<c:forEach var = "b" items="${schedule}">
-        		<td>
-					${b.class_sub_name}
-        		</td>
-		    </c:forEach>
-		    </tr>
-		</c:forEach>
-        </tbody>
-
+		<table class="table table-striped table-bordered table-hover table-condensed">
+	        <thead>
+	            <tr>
+	                <th>월</th>
+	                <th>화</th>
+	                <th>수</th>
+	                <th>목</th>
+	                <th>금</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        <c:forEach var = "schedule" items="${schedule}">
+	    		<tr>
+	    		<c:forEach var = "b" items="${schedule}">
+	        		<td style="width: 10%; height: 150px;" class="center">
+	    			<c:if test="${b != null}">
+						<label style="color: green;">강의 이름 : ${b.class_sub_name}/</label>
+						<label style="color: blue;">${b.class_sub_type}</label><br>
+						<label style="color: red;">학점  ${b.class_sub_point}</label><br>
+						<c:if test="${b.class_sub_time1 != 0}">
+							<label>${b.class_sub_time1}교시</label>
+						</c:if>
+						<c:if test="${b.class_sub_time2 != 0}">
+							<label>${b.class_sub_time2}교시</label>
+						</c:if>
+						<c:if test="${b.class_sub_time3 != 0}">
+							<label>${b.class_sub_time3}교시</label>
+						</c:if>
+						<c:if test="${b.class_sub_time4 != 0}">
+							<label>${b.class_sub_time4}교시</label>
+						</c:if>
+						<br>
+						<label>강의실(${b.class_sub_room})</label>
+	        		</c:if>
+	        		</td>
+			    </c:forEach>
+			    </tr>
+			</c:forEach>
+	        </tbody>
 		</table>
+
+
 	</body>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

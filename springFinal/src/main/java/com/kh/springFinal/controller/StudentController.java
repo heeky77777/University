@@ -107,7 +107,7 @@ public class StudentController {
 		
 		model.addAttribute("now_year", year);
 		
-		ClassSubjectDto[][] data= new ClassSubjectDto[9][6];
+		ClassSubjectDto[][] data= new ClassSubjectDto[8][5];
 		   List<ClassSubjectDto> list = studentDao.get_schedule(classSubjectDto);
 //		   data에 list에 있는 값을 칸에 맞게 저장
 		   
@@ -123,69 +123,69 @@ public class StudentController {
 			   
 //		      dto를 data에 추가(위치에 맞게)
 //		      data[?][?] = dto;
-			   for(int i=1; i<=8; i++) {				   
-				   if(week.equals("월") && sub_time1 == i) { 
+			   for(int i=0; i<=7; i++) {				   
+				   if(week.equals("월") && sub_time1 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time1 == i+1) { 
 					   data[i][1] = dto;
 				   }
-				   if(week.equals("화") && sub_time1 == i) { 
+				   if(week.equals("수") && sub_time1 == i+1) { 
 					   data[i][2] = dto;
 				   }
-				   if(week.equals("수") && sub_time1 == i) { 
+				   if(week.equals("목") && sub_time1 == i+1) { 
 					   data[i][3] = dto;
 				   }
-				   if(week.equals("목") && sub_time1 == i) { 
+				   if(week.equals("금") && sub_time1 == i+1) { 
 					   data[i][4] = dto;
-				   }
-				   if(week.equals("금") && sub_time1 == i) { 
-					   data[i][5] = dto;
 				   }
 				   
-				   if(week.equals("월") && sub_time2 == i) { 
+				   if(week.equals("월") && sub_time2 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time2 == i+1) { 
 					   data[i][1] = dto;
 				   }
-				   if(week.equals("화") && sub_time2 == i) { 
+				   if(week.equals("수") && sub_time2 == i+1) { 
 					   data[i][2] = dto;
 				   }
-				   if(week.equals("수") && sub_time2 == i) { 
+				   if(week.equals("목") && sub_time2 == i+1) { 
 					   data[i][3] = dto;
 				   }
-				   if(week.equals("목") && sub_time2 == i) { 
+				   if(week.equals("금") && sub_time2 == i+1) { 
 					   data[i][4] = dto;
-				   }
-				   if(week.equals("금") && sub_time2 == i) { 
-					   data[i][5] = dto;
 				   }
 				   
-				   if(week.equals("월") && sub_time3 == i) { 
+				   if(week.equals("월") && sub_time3 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time3 == i+1) { 
 					   data[i][1] = dto;
 				   }
-				   if(week.equals("화") && sub_time3 == i) { 
+				   if(week.equals("수") && sub_time3 == i+1) { 
 					   data[i][2] = dto;
 				   }
-				   if(week.equals("수") && sub_time3 == i) { 
+				   if(week.equals("목") && sub_time3 == i+1) { 
 					   data[i][3] = dto;
 				   }
-				   if(week.equals("목") && sub_time3 == i) { 
+				   if(week.equals("금") && sub_time3 == i+1) { 
 					   data[i][4] = dto;
-				   }
-				   if(week.equals("금") && sub_time3 == i) { 
-					   data[i][5] = dto;
 				   }
 				   
-				   if(week.equals("월") && sub_time4 == i) { 
+				   if(week.equals("월") && sub_time4 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time4 == i+1) { 
 					   data[i][1] = dto;
 				   }
-				   if(week.equals("화") && sub_time4 == i) { 
+				   if(week.equals("수") && sub_time4 == i+1) { 
 					   data[i][2] = dto;
 				   }
-				   if(week.equals("수") && sub_time4 == i) { 
+				   if(week.equals("목") && sub_time4 == i+1) { 
 					   data[i][3] = dto;
 				   }
-				   if(week.equals("목") && sub_time4 == i) { 
+				   if(week.equals("금") && sub_time4 == i+1) { 
 					   data[i][4] = dto;
-				   }
-				   if(week.equals("금") && sub_time4 == i) { 
-					   data[i][5] = dto;
 				   }
 			   }
 
@@ -273,18 +273,19 @@ public class StudentController {
 										@RequestParam int semester_no,
 										@RequestParam int regist_date,
 										@ModelAttribute ClassSubjectDto classSubjectDto,
+										@ModelAttribute SubjectApplyDto subjectApplyDto,
 										RedirectAttributes attr ,Model model) {
 		
-		SubjectApplyDto sub_check = subjectapplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
-		model.addAttribute("sub_check",sub_check);
+//		SubjectApplyDto sub_check = subjectapplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
+		SubjectApplyDto sub_check = subjectapplyDao.get_apply_check(subjectApplyDto);
+		System.out.println("sub_check =" + sub_check);
+//		model.addAttribute("sub_check",sub_check);
 		
 		if(sub_check==null) {
 			subjectapplyDao.class_apply(class_sub_no, major_no, student_no, subject_apply_name);
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
-			
-			
-						
+					
 			attr.addAttribute("regist_date",regist_date);
 			attr.addAttribute("major_no",major_no);
 			attr.addAttribute("semester_no",semester_no);
@@ -306,7 +307,7 @@ public class StudentController {
 	public String st_class_apply_list(Model model){
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
-	
+		
 		model.addAttribute("now_year", year);
 		
 		return "student/st_class_apply_list";

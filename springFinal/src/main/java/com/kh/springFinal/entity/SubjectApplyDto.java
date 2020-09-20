@@ -25,10 +25,10 @@ public class SubjectApplyDto {
 	private int class_sub_point;
 	private String class_sub_room;
 	private String class_sub_week;
-	private String class_sub_time1;
-	private String class_sub_time2;
-	private String class_sub_time3;
-	private String class_sub_time4;
+	private int class_sub_time1;
+	private int class_sub_time2;
+	private int class_sub_time3;
+	private int class_sub_time4;
 	
 	
 	private String searchDay;

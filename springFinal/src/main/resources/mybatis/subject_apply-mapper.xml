@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	</select>
    	
    	<select id="st_class_apply_list" parameterType="classSubjectDto" resultType="classSubjectDto">
-   		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO WHERE cs.SEMESTER_NO = #{semester_no} and sa.STUDENT_NO = #{student_no}
+   		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE cs.SEMESTER_NO = #{semester_no} and sa.STUDENT_NO = #{student_no}
    	</select>
    	
    	<delete id="st_class_apply_list_del" parameterType="int">
@@ -91,6 +91,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	<select id="getProfeApplyList" parameterType="int" resultType="subjectapplyDto">
    		select * from subject_apply sa left outer join class_subject cs on sa.class_sub_no = cs.class_sub_no inner join major m on sa.major_no = m.major_no inner join semester s on cs.semester_no = s.semester_no where cs.profe_no = #{profe_no}
    	</select>
+	
+	<!-- 강의 중복 검사 조회 -->
+	<select id="get_apply_check" resultType="subjectapplyDto" parameterType="subjectapplyDto">
+<!-- 		select * from CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO where cs.SEMESTER_NO = #{semester_no} and sa.student_no = #{student_no} and cs.class_sub_week = #{class_sub_week} and cs.class_sub_time1 = #{class_sub_time1} -->
+<!-- 		 select * from subject_apply sa left outer join class_subject cs on sa.class_sub_no = cs.class_sub_no where sa.student_no = #{student_no} and cs.semester_no = #{semester_no} and cs.class_sub_week = #{class_sub_week} and cs.class_sub_time1 = #{class_sub_time1} -->
+<!-- 		<if test="class_sub_time2 != '0'"> -->
+<!-- 			and cs.class_sub_time2 = #{class_sub_time2}  -->
+<!-- 		</if> -->
+<!-- 		<if test="class_sub_time3 != '0'"> -->
+<!-- 			and cs.class_sub_time3 = #{class_sub_time3}  -->
+<!-- 		</if> -->
+<!-- 		<if test="class_sub_time4 != '0'"> -->
+<!-- 			and cs.class_sub_time4 = #{class_sub_time4}  -->
+<!-- 		</if> -->
+<!--   select * from subject_apply sa left outer join class_subject cs on sa.class_sub_no = cs.class_sub_no where sa.student_no = #{student_no} and cs.semester_no = #{semester_no} and cs.class_sub_week = #{class_sub_week} and (cs.class_sub_time1 = #{class_sub_time1} or cs.class_sub_time2 = #{class_sub_time1} or cs.class_sub_time3 = #{class_sub_time1} or cs.class_sub_time4 = #{class_sub_time1})  -->
+<!-- 	<if test="class_sub_time2 != '0'"> -->
+<!-- 		and (cs.class_sub_time1 = #{class_sub_time2} -->
+<!-- 		or cs.class_sub_time2 = #{class_sub_time2} -->
+<!-- 		or cs.class_sub_time3 = #{class_sub_time2} -->
+<!-- 		or cs.class_sub_time4 = #{class_sub_time2}) -->
+<!-- 	</if> -->
+<!-- 	<if test="class_sub_time3 != '0'"> -->
+<!-- 		and (cs.class_sub_time1 = #{class_sub_time3} -->
+<!-- 		or cs.class_sub_time2 = #{class_sub_time3} -->
+<!-- 		or cs.class_sub_time3 = #{class_sub_time3} -->
+<!-- 		or cs.class_sub_time4 = #{class_sub_time3}) -->
+<!-- 	</if> -->
+<!-- 	<if test="class_sub_time4 != '0'"> -->
+<!-- 		and (cs.class_sub_time1 = #{class_sub_time4} -->
+<!-- 		or cs.class_sub_time2 = #{class_sub_time4} -->
+<!-- 		or cs.class_sub_time3 = #{class_sub_time4} -->
+<!-- 		or cs.class_sub_time4 =#{class_sub_time4}) -->
+<!-- 	</if> -->
+select * from (select * from subject_apply sa left outer join class_subject cs on sa.class_sub_no = cs.class_sub_no where sa.student_no = #{student_no} and cs.semester_no = #{semester_no} and cs.class_sub_week = #{class_sub_week}) a where 
+a.class_sub_time1 = #{class_sub_time1} or a.class_sub_time1 = #{class_sub_time2} or a.class_sub_time1 = #{class_sub_time3} or a.class_sub_time1 = #{class_sub_time4} AND 
+a.class_sub_time2 = #{class_sub_time1} or a.class_sub_time2 = #{class_sub_time2} or a.class_sub_time2 = #{class_sub_time3} or a.class_sub_time2 = #{class_sub_time4} AND 
+a.class_sub_time3 = #{class_sub_time1} or a.class_sub_time3 = #{class_sub_time2} or a.class_sub_time3 = #{class_sub_time3} or a.class_sub_time3 = #{class_sub_time4} AND 
+a.class_sub_time4 = #{class_sub_time1} or a.class_sub_time4 = #{class_sub_time2} or a.class_sub_time4 = #{class_sub_time3} or a.class_sub_time4 = #{class_sub_time4}
+	</select>
 	
 </mapper>
 

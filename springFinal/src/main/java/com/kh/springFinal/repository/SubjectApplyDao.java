@@ -37,6 +37,7 @@ public interface SubjectApplyDao {
 
 	List<SubjectApplyDto> profeList(int profe_no);
 	
+	SubjectApplyDto get_apply_check(SubjectApplyDto subjectApplyDto);
 //	List<ClassSubjectDto> get_list_after(ClassSubjectDto classSubjectDto);
 	
 	
