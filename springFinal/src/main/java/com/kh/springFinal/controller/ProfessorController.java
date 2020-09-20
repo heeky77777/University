@@ -68,7 +68,7 @@ public class ProfessorController {
 		
 		/*
 		 * int profe_no = professorDao.regist(professorDto); //return받은 profe_no
-		 * professorService.add( professorFileDto, file, profe_no);
+		 * professorService.add ( professorFileDto, file, profe_no);
 		 */
 		
 		
