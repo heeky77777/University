@@ -153,7 +153,7 @@ $(function(){
 			</table>
 
 			<!-- 검색창 -->
-			<form action="union" method="post">
+		<%-- 	<form action="union" method="post">
 
 				<select name="type">
 					<option value="student_name"
@@ -162,7 +162,7 @@ $(function(){
 						${param.type == 'major_no' ? 'selected':''}>전공</option>
 				</select> <input type="text" name="keyword" placeholder="검색어"
 					value="${param.keyword}"> <input type="submit" value="검색">
-			</form>
+			</form> --%>
 
 			</tbody>
 
