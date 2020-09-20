@@ -3,6 +3,7 @@ package com.kh.springFinal.repository;
 import java.util.List;
 
 import com.kh.springFinal.entity.ClassScoreDto;
+import com.kh.springFinal.entity.ProfessorDto;
 import com.kh.springFinal.entity.SMCDto;
 
 public interface ClassScoreDao {
@@ -18,4 +19,8 @@ public interface ClassScoreDao {
 
 	//신청 강의 번호
 	int getClassSubNo();
+	
+	
+	
+
 }
