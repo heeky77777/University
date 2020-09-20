@@ -52,6 +52,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/student/**"/>
+			<mapping path="/schoolonoff/**"/>
 			<exclude-mapping path="/student/student_join"/>
 			<beans:bean class="com.kh.springFinal.interceptor.StudentLoginInterceptor"></beans:bean>
 		</interceptor>
@@ -59,12 +60,16 @@
 			<mapping path="/professor/**"/>
 			<mapping path="/class_subject/**"/>
 			<mapping path="/attendance/**"/>
+			<mapping path="/score/**"/>
+			<exclude-mapping path="/score/mylist"/>
+			<exclude-mapping path="/professor/regist"/>
 			<beans:bean class="com.kh.springFinal.interceptor.ProfessorLoginInterceptor"></beans:bean>
 		</interceptor>
 		<interceptor>
 			<mapping path="/admin/**"/>
 			<mapping path="/email/**"/>
 			<mapping path="/client/**"/>
+			<mapping path="/professor/regist"/>
 			<mapping path="/student/student_join"/>
 			<beans:bean class="com.kh.springFinal.interceptor.AdminLoginInterceptor"></beans:bean>
 		</interceptor>
