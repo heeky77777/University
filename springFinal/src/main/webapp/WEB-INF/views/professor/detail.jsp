@@ -49,12 +49,12 @@ function preview() {
 					<div class="form-group">
 						<form action="detail" method="post" enctype="multipart/form-data">
 						<label>사진</label>
-						<input type="text" name="title">
+						<input type="hidden" name="title">
 						<br>
 						<input type="file" class="form-control-file" name="file" accept=".jpg, .gif, .png"  multiple onchange="preview()">
 						<br>
 						<img name="profe_img" class="rounded mx-auto d-block" border="0" width="200" height="200"/>
-						<input type="submit" value="등록">
+						<input type="submit" class="btn btn-primary" value="등록">
 						</form>
 					</div> 
 			
@@ -162,12 +162,13 @@ function preview() {
 					 <a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/professor/edit?profe_no=${profeinfo.profe_no}" style="color:white">수정</a>
 				</div>
 				<div class="col">
-					<input type="button" class=" btn btn-primary btn-block" value="취소">
+					<!-- <input type="button" class=" btn btn-primary btn-block" value="취소"> -->
+					 <a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/professor/detail?profe_no=${profeinfo.profe_no}" style="color:white">취소</a>
 				</div>
 		</div>
 		</c:when>
 	<c:otherwise>
-			<input type="button" class=" btn btn-primary btn-block" value="취소">
+			<a class="btn btn-primary btn-block" href="${pageContext.request.contextPath}/professor/detail?profe_no=${profeinfo.profe_no}" style="color:white">취소</a>
 	</c:otherwise>
 	</c:choose>
 	</div>
