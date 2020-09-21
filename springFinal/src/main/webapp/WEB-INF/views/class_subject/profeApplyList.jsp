@@ -16,6 +16,12 @@
 			location.href="${pageContext.request.contextPath}/attendance/attendList/" + class_sub_no + "/" + subject_apply_no;
 			
 		})
+		$('.score-btn').click(function() {
+			var subject_apply_no = $(this).prev().prev().prev().val();
+			var class_sub_no = $(this).prev().prev().val();
+			location.href="${pageContext.request.contextPath}/score/list/" + class_sub_no + "/" + subject_apply_no;
+			
+		})
 		
 	})
 
@@ -28,13 +34,15 @@
 	}
 	
 	.sub-btn,
-	.stuCkeck-btn {
+	.stuCkeck-btn,
+	.score-btn {
 	    background-color: #063E7A;
 	    border-color: #063E7A;
 	}
 
 	.sub-btn:hover,
-	stuCkeck-btn:hover {
+	.stuCkeck-btn:hover,
+	.score-btn:hover {
 	    background-color: #1D5798;
 	}
 	
@@ -78,15 +86,6 @@
 			                
 							<div class="row">
 			                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
-			                        <label>학과&nbsp;</label>
-		                            <select name="majorSearch" id="" class="form-control">
-		                                <option value="all" ${param.majorSearch == 'all' ? 'selected':''}>전체</option>
-		                                <c:forEach var="majorDto" items="${majorList}">
-			                                <option ${param.majorSearch == majorDto.major_type ? 'selected':''}>${majorDto.major_type}</option>
-		                                </c:forEach>
-		                            </select>
-			                    </div>
-			                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline ">
 			                        <div class="form-inline mr-5">
 				                        <label>구분&nbsp;</label>
 				                        <select name="typeSearch" class="form-control">
@@ -96,8 +95,11 @@
 				                            <option ${param.typeSearch == '교필' ? 'selected':''}>교필</option>
 				                        </select>
 			                        </div>
+			                    </div>
+			                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline ">
 			                        <div class="form-inline mr-auto">
-		                                <input type="text" name="classSubSearch" placeholder="강의 명" class="form-control" value="${param.classSubSearch}">
+			                        	<label>강의&nbsp;</label>
+		                                <input type="text" name="classSubSearch" class="form-control" value="${param.classSubSearch}">
 		                                <button type="submit" class="btn btn-primary btn-sm search-btn sub-btn">검색</button>
 		                            </div>
 		                            
@@ -120,7 +122,7 @@
 	                            <th>이수구분</th>
 	                            <th>강의시간</th>
 	                            <th>제한인원</th>
-	                            <th width="10%">기타</th>
+	                            <th width="15%">기타</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
@@ -152,6 +154,8 @@
 		                            	<input type="hidden" value="${classSubjectDto.subject_apply_no}" id="subject_apply_no">
 		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}" id="class_sub_no">
 		                            	<button type="button" class="btn btn-primary btn-sm stuCkeck-btn">출석확인</button>
+		                            	&sol;
+		                            	<button type="button" class="btn btn-primary btn-sm score-btn">성적입력</button>
 		                            </td>
 		                        </tr>
 							</c:forEach>

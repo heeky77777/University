@@ -10,12 +10,7 @@
 <script>
 
 	$(function() {
-		
-		/* 강의 등록 이동 */
-        $('.add-btn').click(function() {
-        	location.href="${pageContext.request.contextPath}/class_subject/regist";
-        });
-        
+		        
         /* 파일 다운로드 */
 		$('.plan-btn').click(function() {
 			var subNo = $(this).prev().val();
@@ -32,42 +27,7 @@
 				}				
 			});
 		});
-		
-		/* 강의 수정 이동 */
-        $('.edit-btn').click(function() {
-        	var subNo = $(this).parent().prev().children().val();
-        	location.href="${pageContext.request.contextPath}/class_subject/edit/"+ subNo;
-        });
-		
-		/* 강의 삭제 */
-		$('.del-btn').click(function() {
-			var subNo = $(this).parent().prev().children().val();
-			var subCheck = confirm('강의를 삭제 하시겠습니까??');
-				if (!subCheck){
-					return false;
-				}
-				else {
-					location.href="${pageContext.request.contextPath}/class_subject/delete/"+ subNo;
-				}
-		});
 
-		
-		
-// 		$('.allSub-btn').click(function() {
-// 			location.href="${pageContext.request.contextPath}/class_subject/list";
-// 			$('.mySub-btn').show();
-// 			$('.allSub-btn').hide();
-// 		})
-		
-		/* 교수 강의 조회 */
-		$('.mySub-btn').click(function() {
-			var profe_no = ${profeinfo.profe_no};
- 			location.href="${pageContext.request.contextPath}/class_subject/list?profe_no=" + profe_no;
-//  			$('.mySub-btn').remove();
-//  			$('.allSub-btn').show();					
-			
-		});
-		
 
 	});
 
@@ -81,18 +41,12 @@
 	    height: 20px;
 	}
 	
-	.sub-btn,
-	.edit-btn,
-	.mySub-btn,
-	.allSub-btn {
+	.sub-btn {
 	    background-color: #063E7A;
 	    border-color: #063E7A;
 	}
 	
-	.sub-btn:hover,
-	.edit-btn:hover,
-	.mySub-btn:hover,
-	allSub-btn:hover {
+	.sub-btn:hover {
 	    background-color: #1D5798;
 	}
 	
@@ -100,13 +54,13 @@
 	.form-control {
 	    margin: 5px;
 	}
+
+	.margin-div {
+		margin-right: 40px;
+	}
 	
 	.form-group {
 	    margin-bottom: 10px;
-	}
-	
-	.allSub-btn {
-		display: none;
 	}
 	
 </style>
@@ -121,7 +75,7 @@
                 
                 <div class="row-empty"></div>
                 
-		                <form action="list" method="post">
+		                <form action="classSubList" method="post">
 			                <div class="row">
 			                    <div class="col-xs-12 col-sm-3 col-md-3 form-inline">
 			                        <label>년도&nbsp;</label>
@@ -129,14 +83,19 @@
 			                    </div>
 			                    
 			                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline">
+			                    	<div class="form-inline margin-div">
 			                        <label>학기&nbsp;</label>
 			                        <select name="semesterSearch" class="form-control">
 			                        	<option value="all" ${param.majorSearch == 'all' ? 'selected':''}>전체</option>
 			                            <option ${param.semesterSearch == '1학기' ? 'selected':''}>1학기</option>
 			                            <option ${param.semesterSearch == '2학기' ? 'selected':''}>2학기</option>
 			                        </select>
+			                    	</div>
+			                        <div class="form-inline">
+			                        	<label>교수&nbsp;</label>
+		                                <input type="text" name="profeSearch" class="form-control" value="${param.profeSearch}">
+		                            </div>
 			                    </div>
-			                    
 			                </div>
 			                
 							<div class="row">
@@ -151,7 +110,7 @@
 			                    </div>
 			                    <div class="col-xs-12 col-sm-9 col-md-9 form-inline ">
 			                        <div class="form-inline mr-5">
-				                        <label>구분&nbsp;</label>
+				                        <label >구분&nbsp;</label>
 				                        <select name="typeSearch" class="form-control">
 				                            <option value="all" ${param.majorSearch == 'all' ? 'selected':''}>전체</option>
 				                            <option ${param.typeSearch == '전공' ? 'selected':''}>전공</option>
@@ -164,18 +123,9 @@
 		                                <input type="text" name="classSubSearch" class="form-control" value="${param.classSubSearch}">
 		                                <button type="submit" class="btn btn-primary btn-sm search-btn sub-btn">검색</button>
 		                            </div>
-		                            
-				                    <div class="form-inline" id="button-div">
-				                            <button type="button" class="btn btn-primary btn-sm allSub-btn">전체 목록</button>
-				                            <button type="button" class="btn btn-primary btn-sm mySub-btn">내 강의</button>
-				                            <button type="button" class="btn btn-primary btn-sm add-btn sub-btn">강의 등록</button>
-			                        </div>
-			                        
 			                    </div>
 		                    </div>
 					    </form>
-	            
-	            		
 			    
 			    
 			    
@@ -187,6 +137,7 @@
 	                        <tr>
 	                            <th>강의 번호</th>
 	                            <th>전공</th>
+	                            <th>학기</th>
 	                            <th width="20%">강의 명</th>
 	                            <th>담당교수</th>
 	                            <th>학점</th>
@@ -194,14 +145,14 @@
 	                            <th>강의시간</th>
 	                            <th>제한인원</th>
 	                            <th>강의계획서</th>
-	                            <th>기타</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-							<c:forEach var="classSubjectDto" items="${list}">
+							<c:forEach var="classSubjectDto" items="${classSubList}">
 		                        <tr>
 		                            <td>${classSubjectDto.class_sub_no}</td>
 		                            <td>${classSubjectDto.major_type}</td>
+		                            <td>${classSubjectDto.semester_type}</td>
 		                            <td>${classSubjectDto.class_sub_name}</td>
 		                            <td>${classSubjectDto.profe_name}</td>
 		                            <td>${classSubjectDto.class_sub_point}</td>
@@ -225,18 +176,6 @@
 		                            <td>
 		                            	<input type="hidden" value="${classSubjectDto.class_sub_no}">
 		                                <button type="button" class="btn btn-primary btn-sm plan-btn sub-btn">강의계획서</button>
-		                            </td>
-		                            <td>
-		                            	<c:choose>
-		                            		<c:when test="${profeinfo.profe_no == classSubjectDto.profe_no}">
-				                            	<button type="button" class="btn btn-primary btn-sm edit-btn">수정</button>
-				                            	&sol;
-				                            	<button type="button" class="btn btn-danger btn-sm del-btn">삭제</button>
-		                            		</c:when>
-		                            		<c:otherwise>
-		                            		&ndash;
-		                            		</c:otherwise>
-		                            	</c:choose>
 		                            </td>
 		                        </tr>
 							</c:forEach>

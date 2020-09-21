@@ -82,7 +82,7 @@
 		   <div class="form-group">	
 		    	<label>생년월일</label> <!-- 시간 안나오게 설정하는방법 알아보기 -->
 		    	<fmt:parseDate value="${studentDto.student_birth}" var="birth" pattern="yyyy-MM-dd HH:mm:ss" />
-	            <input type="date" name="student_birth" id="student_birth" class="form-control" value="<fmt:formatDate value="${birth}" pattern="yyyy-MM-dd" />" readonly>
+	            <input type="date" name="student_birth" id="student_birth" class="form-control" value="<fmt:formatDate value="${birth}" pattern="yyyy-MM-dd" />">
 		    	
 		   </div> 	
 		   <div class="form-group">
@@ -110,7 +110,7 @@
 		    	<input class="form-control" name="student_milliy" value="${studentDto.student_milliy}" readonly>		    	
 		   </div> 	
 		    <div class="form-group">
-		    	<a class="btn_home form-control" href="${pagecontext.request.contextpath}/member/main?student_no=${userinfo.student_no}" style="color:white">홈으로</a>
+		    	<a class="btn_home form-control" href="${pageContext.request.contextPath}/member/main" style="color:white">홈으로</a>
 		    	<a class="btn_edit form-control" href="${pageContext.request.contextPath}/student/student_edit?student_no=${userinfo.student_no}" style="color:white">내정보수정하기</a>
 		    </div><br><br><br>
 		    </form>
@@ -119,4 +119,5 @@
     </div>
 </div>
 
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
     

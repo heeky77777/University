@@ -70,13 +70,27 @@ public class ClassSubjectRestController {
 		return classSubjectDao.getSub(class_sub_no);
 	}
 	
+	
+	// 교수 강의 중복 검자(등록시 해당요일에 같은 시간에 등록 되어 있는지)
+	@GetMapping("getCheckSubTime")
+	public ClassSubjectDto getCheckSubTime(
+			@ModelAttribute ClassSubjectDto classSubjectDto,
+			@RequestParam String this_year,
+			@RequestParam String semester_type) {
+		return classSubjectDao.getSubCheck(classSubjectDto, this_year, semester_type);
+	}
+	
+	
 	// 교수 학과 조회
 	@GetMapping("profeCheck")
 	public ProfessorDto profeCheck(@ModelAttribute ProfessorDto professorDto) {
 		return classSubjectDao.getProfeMajor(professorDto);
 	}
 	
-	
+	@GetMapping("mySub")
+	public List<ClassSubjectDto> mySub(@RequestParam int profe_no) {
+		return classSubjectDao.getList(profe_no);
+	}
 
 	
 }

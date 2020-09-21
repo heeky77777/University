@@ -10,12 +10,16 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 <script>
-	
+
 	$(function() {
-		$('.attendRegist-btn').click(function() {
-			location.href="${pageContext.request.contextPath}/attendance/attendRegist";
+
+		$('.applyList-btn').click(function() {
+			location.href = "${pageContext.request.contextPath}/class_subject/profeApplyList";
 		})
+		
 	})
+	
+	
 
 
 </script>
@@ -26,12 +30,14 @@
 	    height: 20px;
 	}
 	
-	.attendRegist-btn {
+	.attendRegist-btn,
+	.applyList-btn {
 	    background-color: #063E7A;
 	    border-color: #063E7A;
 	}
 
-	.attendRegist-btn:hover {
+	.attendRegist-btn:hover,
+	.applyList-btn:hover {
 	    background-color: #1D5798;
 	}
 	
@@ -58,11 +64,13 @@
 	<div class="row-empty"></div>
 	
 	<div class="text-center">
-		<form action="attendList" method="post">
+		<form action="${pageContext.request.contextPath}/attendance/attendList/${class_sub_no}/${subject_apply_no}" method="post">
 	
 			<div class="text-right">
-				<button class="btn btn-primary btn-sm attendRegist-btn">출결 등록</button>
+				<button type="button" class="btn btn-primary applyList-btn">수강 목록</button>
+				<button type="submit" class="btn btn-primary attendRegist-btn">출결 등록</button>
 			</div>
+			<div class="row-empty"></div>
 			<table class="table">
 				<thead>
 					<tr>

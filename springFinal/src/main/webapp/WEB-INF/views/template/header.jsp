@@ -71,9 +71,6 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/score/mylist?student_no=${userinfo.student_no}" style="color:white">성적확인</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link" href="#" style="color:white">강의평가</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link" href="${pageContext.request.contextPath}/schoolonoff/off?student_no=${userinfo.student_no}" style="color:white">휴학신청</a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
@@ -98,9 +95,6 @@
 	                        <li class="nav-item" style="margin-left: 30px;">
 	                            <a class="nav-link" href="${pageContext.request.contextPath}/class_subject/profeApplyList" style="color:white">수강목록</a>
 	                        </li>
-	                        <li class="nav-item" style="margin-left: 30px;">
-	                             <a class="nav-link" href="#" style="color:white">성적등록</a>
-	                        </li>
 	                    </ul>
 	                 </c:if>
 	                 
@@ -108,7 +102,13 @@
 	                 <a class="nav-link nav-list-list" href="#" onclick="sidebar_toggle3();">관리자</a>
 		                    <ul class="nav flex-column sidebar_toggle3 nav-item-list">
 		                        <li class="nav-item" style="margin-left: 30px;">
-		                            <a class="nav-link" href="#" style="color:white">입학학생 신청관리</a>
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/email/send" style="color:white">입학 신청 email</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/client/list" style="color:white">입학학생 신청관리</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/client/join" style="color:white">학생 회원가입</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
 		                            <a class="nav-link" href="${pageContext.request.contextPath}/professor/regist" style="color:white">교수 회원가입</a>
@@ -123,7 +123,14 @@
 		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/major_add" style="color:white">학과등록</a>
 		                        </li>
 		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/classSubList" style="color:white">강의목록</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
 		                            <a class="nav-link" href="#" style="color:white">휴학/복학관리</a>
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/off_list" style="color:white">휴학관리</a>
+		                        </li>
+		                        <li class="nav-item" style="margin-left: 30px;">
+		                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/on_list" style="color:white">복학관리</a>
 		                        </li>
 		                    </ul>
 	                    </c:if>

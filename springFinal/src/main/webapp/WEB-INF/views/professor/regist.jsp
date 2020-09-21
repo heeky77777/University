@@ -1,3 +1,4 @@
+
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -319,10 +320,8 @@
 
 				
 
-					<div class="row-empty">
-							<button type="submit" class=" btn btn-primary btn-block">등록</button>
-	
-				
+					<div class="row justify-content-center">
+							<button type="submit" class=" btn btn-primary" style="margin-right:5px;">등 록</button>		
 					</div>
 					
 				</form>

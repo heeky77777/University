@@ -37,7 +37,9 @@ import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.ClassSubjectFileDto;
 import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.StudentFileDto;
+import com.kh.springFinal.entity.StudentinfoDto;
 import com.kh.springFinal.repository.StudentDao;
+import com.kh.springFinal.repository.StudentinfoDao;
 import com.kh.springFinal.entity.SubjectApplyDto;
 import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.repository.SubjectApplyDao;
@@ -59,50 +61,170 @@ public class StudentController {
 	private SubjectApplyDao subjectapplyDao;
 	
 	@Autowired
+	private StudentinfoDao studentinfoDao;
+	
+	@Autowired
 	private MajorDao majorDao;
 	
 	@Autowired
 	private StudentDao studentDao;
 	
-	@GetMapping("/student_join")
-	public String join(Model model) {
-		List<MajorDto> majorList = majorDao.major_list();
-		
-		model.addAttribute("majorList", majorList);
-		
-		return "student/student_join";
+	@GetMapping("/test")
+	public String test() {
+		return "student/test";
 	}
-	@PostMapping("/student_join")
+	
+	@GetMapping("/student_result")
+	public String student_result() {		
+
+		   return "student/student_result";
+		}
+	
+	@GetMapping("/student_join")
+	public String join(Model model,@RequestParam int stu_apply_no) {
+		
+		StudentinfoDto studentinfoDto = studentinfoDao.get_stu_info(stu_apply_no);
+		
+		MajorDto majorDto = majorDao.get_major(studentinfoDto.getMajor_no());
+		
+		Calendar cal = Calendar.getInstance();
+		
+		String year = String.valueOf(cal.get(Calendar.YEAR));
+		int a = majorDto.getMajor_number();
+
+		String b = String.valueOf(a);
+		String e = String.format("%03d", studentinfoDto.getStu_numb());
+		String c = year + b + e;
+		
+		model.addAttribute("c",c);
+		
+		List<MajorDto> majorList = majorDao.major_list();
+		StudentinfoDto student_info = studentinfoDao.get_stu_info(stu_apply_no);
+		model.addAttribute("student_info",student_info);
+		model.addAttribute("majorDto",majorDto);
+		model.addAttribute("majorList", majorList);
+		 
+		return "student/student_join";
+		
+	}
+	
+	@PostMapping("/student_signup")
 	public String join(@ModelAttribute StudentDto studentDto) {
 		StudentDto student = sqlSession.selectOne("student.numb", studentDto);
 		
 		if(student==null) {
 			sqlSession.insert("student.signup", studentDto);
-			return "redirect:student_join";
+			return "redirect:student_result";
 			
 		}
 		else {
-			return "redirect:student_join?error";
+			return "redirect:student_result?error";
 		}		
 	}
 
-	
 	@GetMapping("/student_schedule")
-	public String student_schedule(@ModelAttribute SubjectApplyDto subjectApplyDto,Model model) {
+	public String student_schedule(Model model) {		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
 		
-	List<SubjectApplyDto> sub_list = subjectapplyDao.sub_list(subjectApplyDto);
+		model.addAttribute("now_year", year);	
+		
+		   return "student/student_schedule";
+		}
 	
-//	System.out.println("sub_list="+sub_list);
-//	
-//	for(SubjectApplyDto sjadto : sub_list) {
-//		ClassSubjectDto csdto = subjectapplyDao.class_get(sjadto.getClass_sub_no());
-//		model.addAttribute("csdto", csdto);
-//		System.out.println("class_list="+csdto);
-//	}
-
+	@PostMapping("/student_schedule")
+	public String student_scheduel(@ModelAttribute ClassSubjectDto classSubjectDto,Model model) {
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
 		
-		return "student/student_schedule";
-	}
+		model.addAttribute("now_year", year);
+		
+		ClassSubjectDto[][] data= new ClassSubjectDto[8][5];
+		   List<ClassSubjectDto> list = studentDao.get_schedule(classSubjectDto);
+//		   data에 list에 있는 값을 칸에 맞게 저장
+		   
+		   for(ClassSubjectDto dto : list){
+			   
+//		      dto의 시간을 조회
+			   String week = dto.getClass_sub_week();
+			   int sub_time1 = dto.getClass_sub_time1();
+			   int sub_time2 = dto.getClass_sub_time2();
+			   int sub_time3 = dto.getClass_sub_time3();
+			   int sub_time4 = dto.getClass_sub_time4();
+			   String sub_name = dto.getClass_sub_name();
+			   
+//		      dto를 data에 추가(위치에 맞게)
+//		      data[?][?] = dto;
+			   for(int i=0; i<=7; i++) {				   
+				   if(week.equals("월") && sub_time1 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time1 == i+1) { 
+					   data[i][1] = dto;
+				   }
+				   if(week.equals("수") && sub_time1 == i+1) { 
+					   data[i][2] = dto;
+				   }
+				   if(week.equals("목") && sub_time1 == i+1) { 
+					   data[i][3] = dto;
+				   }
+				   if(week.equals("금") && sub_time1 == i+1) { 
+					   data[i][4] = dto;
+				   }
+				   
+				   if(week.equals("월") && sub_time2 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time2 == i+1) { 
+					   data[i][1] = dto;
+				   }
+				   if(week.equals("수") && sub_time2 == i+1) { 
+					   data[i][2] = dto;
+				   }
+				   if(week.equals("목") && sub_time2 == i+1) { 
+					   data[i][3] = dto;
+				   }
+				   if(week.equals("금") && sub_time2 == i+1) { 
+					   data[i][4] = dto;
+				   }
+				   
+				   if(week.equals("월") && sub_time3 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time3 == i+1) { 
+					   data[i][1] = dto;
+				   }
+				   if(week.equals("수") && sub_time3 == i+1) { 
+					   data[i][2] = dto;
+				   }
+				   if(week.equals("목") && sub_time3 == i+1) { 
+					   data[i][3] = dto;
+				   }
+				   if(week.equals("금") && sub_time3 == i+1) { 
+					   data[i][4] = dto;
+				   }
+				   
+				   if(week.equals("월") && sub_time4 == i+1) { 
+					   data[i][0] = dto;
+				   }
+				   if(week.equals("화") && sub_time4 == i+1) { 
+					   data[i][1] = dto;
+				   }
+				   if(week.equals("수") && sub_time4 == i+1) { 
+					   data[i][2] = dto;
+				   }
+				   if(week.equals("목") && sub_time4 == i+1) { 
+					   data[i][3] = dto;
+				   }
+				   if(week.equals("금") && sub_time4 == i+1) { 
+					   data[i][4] = dto;
+				   }
+			   }
+
+			  }
+		   model.addAttribute("schedule", data);
+		   return "student/student_schedule";
+		   }
 	
 	@GetMapping("/student_class_apply")
 	public String student_class_apply(Model model) {
@@ -183,18 +305,20 @@ public class StudentController {
 										@RequestParam int semester_no,
 										@RequestParam int regist_date,
 										@ModelAttribute ClassSubjectDto classSubjectDto,
+										@ModelAttribute SubjectApplyDto subjectApplyDto,
 										RedirectAttributes attr ,Model model) {
 		
-		SubjectApplyDto sub_check = subjectapplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
-		model.addAttribute("sub_check",sub_check);
+//		SubjectApplyDto sub_check = subjectapplyDao.get(class_sub_no, major_no, student_no, subject_apply_name);
+		SubjectApplyDto sub_check = subjectapplyDao.get_apply_check(subjectApplyDto);
+		List<SubjectApplyDto> list_check = subjectapplyDao.get_list_size(class_sub_no);	
+		System.out.println("sub_check =" + sub_check);
+//		model.addAttribute("sub_check",sub_check);
 		
 		if(sub_check==null) {
 			subjectapplyDao.class_apply(class_sub_no, major_no, student_no, subject_apply_name);
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
-			
-			
-						
+					
 			attr.addAttribute("regist_date",regist_date);
 			attr.addAttribute("major_no",major_no);
 			attr.addAttribute("semester_no",semester_no);
@@ -216,7 +340,7 @@ public class StudentController {
 	public String st_class_apply_list(Model model){
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
-	
+		
 		model.addAttribute("now_year", year);
 		
 		return "student/st_class_apply_list";
@@ -319,7 +443,7 @@ public class StudentController {
 	
 	
 	
-	File target = new File("D:/upload1", String.valueOf(studentFileDto.getStudent_file_no()));
+	File target = new File("C:/Users/ASUS/Desktop/upload", String.valueOf(studentFileDto.getStudent_file_no()));
 	byte[]data = FileUtils.readFileToByteArray(target);
 	response.getOutputStream().write(data);
 	}

@@ -14,10 +14,13 @@
    <div class="row">
       <div class="offset-2 col-8">
 
-   <br>
+   <br><br><br><br><br><br>
          
-         <h1 class="form-group" style="text-align: center">정보 입력이 완료되었습니다. 감사합니다.</h1>
-         
+         <h1 style="text-align: center">정보 입력이 완료되었습니다. 감사합니다.</h1>
+         <br><br><br><br><br><br>
+		<div style="text-align: center;">
+			<a class="btn btn-primary" href="${pageContext.request.contextPath}/member/main" style="color:white; width: 30%">홈으로</a>
+		</div>
 </div>
 </div>
 </div>

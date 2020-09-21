@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
@@ -39,7 +39,8 @@
 		function error_page(){
 			var url = location.search.substr(location.search.indexOf("?") + 1);
 			console.log(url);
-			if(url!="") {
+			if(url=='error') {
+				history.replaceState({}, null, location.pathname);
 				alert("이미 등록된 학생입니다");
 			}
 			
@@ -85,6 +86,15 @@
 		        }).open();
 		    } 
 		 
+		 function get_semester(){
+		    	
+		    	
+					history.replaceState({}, null, location.pathname);
+					
+				}
+		 
+		 
+		 window.onload=get_semester; 
 	</script>
 <div class="container-fluid">
 	<div class="form">
@@ -92,15 +102,15 @@
 			<br><br>
 			<h1 class="form-group" style="text-align: center"> 학 생 등 록 </h1><hr><br><br>
 
-    		<form action="student_join" method="post">
+    		<form action="student_signup" method="post">
 		    <div class="form-group">
 		    	<label>학생이름</label>  
-		    	<input class="form-control" type="text" name="student_name">
+		    	<input class="form-control" type="text" name="student_name" value="${student_info.stu_apply_name}">
 		    </div>
 		    
 		    <div class="form-group">    
 		    	<label>학번</label>  
-		    	<input class="form-control" type="text" name="student_numb" onblur="checkNumb();">
+		    	<input class="form-control" type="text" name="student_numb" value="${c}" onblur="checkNumb();">
 		    	<span class="bool_red" style="color:red"></span>
 		    	<span class="bool_blue" style="color:blue"></span>
 		    </div>
@@ -120,7 +130,7 @@
 		    <div  class="form-group">	
 		       	<label>학과</label> 
 		    	 <select name="major_no" id="major_no" class="form-control" required onchange="get_semester();">
-                    <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
+                    <option>${majorDto.major_type}</option>
                     <c:forEach var="majorDto" items="${majorList}">
                      <option ${param.major_type == '${majorDto.major_type}' ? 'selected':''}>${majorDto.major_type}</option>
                     </c:forEach>
@@ -143,33 +153,34 @@
 		   </div>	
 		   <div class="form-group">
 		   		<label>성별</label>
-		    	   <select class ="form-control" name="student_gender">
+		    	   <select class ="form-control" name="student_gender" value="${student_info.stu_apply_gender}">
 		    			<option>남자</option>
 		    			<option>여자</option>
 		    		</select>
 		   </div> 	
 		   <div class="form-group">	
 		    	<label>생년월일</label> 
-		    	<input class="form-control" type="date" name="student_birth">
+		    	<fmt:parseDate value="${student_info.stu_apply_birth}" var="birth" pattern="yyyy-MM-dd HH:mm:ss" />
+		    	<input type="date" name="student_birth" id="student_birth" class="form-control" value="<fmt:formatDate value="${birth}" pattern="yyyy-MM-dd" />">
 		   </div> 	
 		   <div class="form-group">
 		    	<label>연락처</label> 
-		    	<input class="form-control" type="text" name="student_phone" placeholder="- 제외하고 입력하세요" >
+		    	<input class="form-control" type="text" name="student_phone" placeholder="- 제외하고 입력하세요" value="${student_info.stu_apply_phone}">
 		   </div>
 		   <div class="form-group"> 	
 		    	<label>이메일 주소</label> 
-		    	<input class="form-control" type="text" name="student_email">
+		    	<input class="form-control" type="text" name="student_email" value="${student_info.stu_apply_email}">
 		   </div>
 		    <div class="form-group">
 		       	<label>주소</label>
-		      	<input class="form-control" type="text" name="student_post" placeholder="우편번호" id="student_post"><br>
+		      	<input class="form-control" type="text" name="student_post" placeholder="우편번호" id="student_post" value="${student_info.stu_apply_post}"><br>
 		    	<input class="form-control" type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()" size=10 style="background-color:#D6E0F0">
 	    	</div> 
 		   <div class="form-group">		    	
-		    	<input class="form-control" type="text" name="student_addr" placeholder="기본주소" id="student_addr">		 	
+		    	<input class="form-control" type="text" name="student_addr" placeholder="기본주소" id="student_addr" value="${student_info.stu_apply_addr}">		 	
 			</div>
 			<div class="form-group">   	
-		    	<input class="form-control" type="text" name="student_extra_addr" placeholder="상세주소" id="student_extra_addr">
+		    	<input class="form-control" type="text" name="student_extra_addr" placeholder="상세주소" id="student_extra_addr" value="${student_info.stu_apply_extra_addr}">
 		   </div> 	
 		   
 		   <div class="form-group">
@@ -188,6 +199,5 @@
     </div>
 </div>
 
-
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>   
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 

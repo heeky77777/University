@@ -40,7 +40,7 @@
 	</select>
 	
 	<!-- 출석 체크 -->
-	<update id="attendCheck" parameterType="attendanceDto">
+	<update id="getAttendCheck" parameterType="map">
 		update attendance set attend_type = #{attend_type} where attend_no = #{attend_no}
 	</update>
 

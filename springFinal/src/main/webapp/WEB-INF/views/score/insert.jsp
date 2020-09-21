@@ -17,14 +17,16 @@
 <body>
 	<div class="container-fluid">
 		<div class="row-empty">
-			<div>
-				<h1 >성적 입력</h1>
-			</div>
+
+			<div class="offset-2 col-8">
+			<div><br><br>
+				<h1 class="text-center">성적 입력</h1>
+			</div><br>
 	
-	<form action="insert" method="post">
 	<div class="form-group">
-		<table class="table">
-			<thead>
+			<form action="${pageContext.request.contextPath}/score/insert/${class_sub_no}/${subject_apply_no}" method="post">
+		<table class="table table-lg table-hover">
+			<thead class="text-center">
 				<tr>
 					<th>학번</th>
 					<th>학과</th>
@@ -34,36 +36,41 @@
 				</tr>
 			</thead>
 			
-		<tbody class="form-group">
+		<tbody class="form-group" style="text-align: center">
 			<c:forEach var="SMCDto" items="${StudentList}">
 			<tr>
-				<td>${SMCDto.student_numb}</td>
-				<td>${SMCDto.major_type}</td>
+				<td><input type="hidden" name="student_no" value="${SMCDto.student_no}"></td>
 				<td>${SMCDto.student_name}</td>
+				<td>${SMCDto.student_numb}</td>
+				<td>${SMCDto.class_sub_name}</td>
 				<td><select name="class_score" class="form-control">
-					<option value="4">4</option>
-					<option value="3">3</option>
-					<option value="2">2</option>
-					<option value="1">1</option>
-					<option value="0">0</option>
+					<option>선택</option>
+					<option>4</option>
+					<option>3</option>
+					<option>2</option>
+					<option>1</option>
+					<option>0</option>
 					</select></td>
 				<td><select name="class_score_type" class="form-control">
-					<option value="A">A</option>
-					<option value="B">B</option>
-					<option value="C">C</option>
-					<option value="D">D</option>
-					<option value="F">F</option>
+					<option>선택</option>
+					<option>A</option>
+					<option>B</option>
+					<option>C</option>
+					<option>D</option>
+					<option>F</option>
 					</select></td>
-			</tr>
-			</c:forEach>
+				</tr>
+				</c:forEach>
 			</tbody>
 		</table>	
-			<input type="submit" value="입력" class="btn btn-primary btn-block">
+				<input type="submit" value="입력" class="btn btn-primary">
+				</form>
 	</div>
-	</form>
-	
+		<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+					<div>	
+				</div>	
+			</div>
 		</div>	
-		</div>	
+	</div>
 </body>
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

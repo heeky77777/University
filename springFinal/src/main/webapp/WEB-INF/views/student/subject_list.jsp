@@ -37,7 +37,7 @@
 			console.log(url);
 			if(url.indexOf(findString) != -1) {
 				history.replaceState({}, null, location.pathname);
-				alert("신청된 강의 입니다.");
+				alert("강의교시가 중복되었거나 신청된 강의 입니다.");
 			}
 	    	
 	    	var regist_year = document.querySelector("#regist_year").value;
@@ -174,7 +174,7 @@
 				<tbody>
 
 				<c:forEach var="classSubjectDto" items="${apply_list}" varStatus="status"> 
-
+					
 					<form action="student_class_apply" method="post">
 
 					<tr>
@@ -183,6 +183,11 @@
 						<input type="hidden" name="student_no" id="student_no" value="${userinfo.student_no}">
 						<input type="hidden" name="subject_apply_name" id="subject_apply_name" value="${classSubjectDto.class_sub_name}">
 						<input type="hidden" name="semester_no" id="semester_no" value="${classSubjectDto.semester_no}">
+						<input type="hidden" name="class_sub_week" id="class_sub_week" value="${classSubjectDto.class_sub_week}">
+						<input type="hidden" name="class_sub_time1" id="class_sub_time1" value="${classSubjectDto.class_sub_time1}">
+						<input type="hidden" name="class_sub_time2" id="class_sub_time2" value="${classSubjectDto.class_sub_time2}">
+						<input type="hidden" name="class_sub_time3" id="class_sub_time3" value="${classSubjectDto.class_sub_time3}">
+						<input type="hidden" name="class_sub_time4" id="class_sub_time4" value="${classSubjectDto.class_sub_time4}">
 						<input type="hidden" name="regist_date" id="regist_year" value="${now_year}" class="form-control">
 						<td>${classSubjectDto.class_sub_name}</td>
 						<td>${classSubjectDto.profe_name}</td>
@@ -193,25 +198,33 @@
 		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
 		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
 		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
-		                            	<c:if test="${class_sub_time2 != 'null'}">
+		                            	<c:if test="${class_sub_time2 != 0}">
 		                            		${classSubjectDto.class_sub_time2} 
 		                            	</c:if>
-		                            	<c:if test="${class_sub_time3 != 'null'}">
+		                            	<c:if test="${class_sub_time3 != 0}">
 		                            		${classSubjectDto.class_sub_time3} 
 		                            	</c:if>
-		                            	<c:if test="${class_sub_time4 != 'null'}">
+		                            	<c:if test="${class_sub_time4 != 0}">
 		                            		${classSubjectDto.class_sub_time4} 
 		                            	</c:if>
 		                            	(${classSubjectDto.class_sub_room})
 						</td>
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
-						<c:if test="${apply_check[status.index].student_no != userinfo.student_no }">
-							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn">
-						</c:if>
-						<c:if test="${userinfo.student_no eq apply_check[status.index].student_no && apply_check[status.index].subject_apply_state eq '신청'}">
-							<span class="btn btn-danger btn-block regist-btn" >신청완료</span>
-						</c:if>
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${apply_check[status.count].student_no != userinfo.student_no }"> --%>
+								<input type="submit" onclick="return apply_check();" class="btn btn-primary btn-block regist-btn" value="강의신청">
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
+<!-- 								<button type="button" class="btn btn-danger btn-block regist-btn" >신청완료</button> -->
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
+<%-- 						<c:if test="${apply_check[status.index].student_no != userinfo.student_no }"> --%>
+<!-- 							<input type="submit" value="강의신청" onclick="return apply_check();"  class="btn btn-primary btn-block regist-btn"> -->
+<%-- 						</c:if> --%>
+<%-- 						<c:if test="${userinfo.student_no eq apply_check[status.index].student_no && apply_check[status.index].subject_apply_state eq '신청'}"> --%>
+<!-- 							<button type="button" class="btn btn-danger btn-block regist-btn" >신청완료</button>  -->
+<%-- 						</c:if> --%>
 						</td>
 					</tr>
 					</form>

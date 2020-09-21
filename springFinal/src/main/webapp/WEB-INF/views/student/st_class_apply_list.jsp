@@ -14,6 +14,15 @@
 	        	.center{
 	        		text-align: center;
 	        	}
+	        	
+	        	.btn,
+				.form-control {
+				    margin: 5px;
+				}
+				
+				.form-group {
+				    margin-bottom: 10px;
+				}
 	        </style>
 	        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 	        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -97,13 +106,17 @@
 	    window.onload=get_semester;
 	    
 	    </script>
+	    
+	    <div class="row-empty"></div>
+	    
+	    
 			<h1>내가 신청한 강의 목록</h1>
 			
+	    <div class="row-empty"></div>
 		
 			<div class="form-group form-inline">
 					<form action="st_class_apply_list" method="post">
-	                       <input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">
-	                          <label>년도</label>
+	                       <label><input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">년도</label>
 	                       <select name="semester_type" id="semester_type" class="form-control" onchange="get_semester();">
 	                         <option ${param.semester_type == '1학기' ? 'selected':''}>1학기</option>      
 	                         <option ${param.semester_type == '2학기' ? 'selected':''}>2학기</option>      
@@ -147,13 +160,13 @@
 		                            	<c:set var="class_sub_time3" value="${classSubjectDto.class_sub_time3}"/>
 		                            	<c:set var="class_sub_time4" value="${classSubjectDto.class_sub_time4}"/>
 		                            	${classSubjectDto.class_sub_week} ${classSubjectDto.class_sub_time1} 
-		                            	<c:if test="${class_sub_time2 != 'null'}">
+		                            	<c:if test="${class_sub_time2 != 0}">
 		                            		${classSubjectDto.class_sub_time2} 
 		                            	</c:if>
-		                            	<c:if test="${class_sub_time3 != 'null'}">
+		                            	<c:if test="${class_sub_time3 != 0}">
 		                            		${classSubjectDto.class_sub_time3} 
 		                            	</c:if>
-		                            	<c:if test="${class_sub_time4 != 'null'}">
+		                            	<c:if test="${class_sub_time4 != 0}">
 		                            		${classSubjectDto.class_sub_time4} 
 		                            	</c:if>
 		                            	(${classSubjectDto.class_sub_room})

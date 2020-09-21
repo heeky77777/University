@@ -22,13 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!--성적 등록-->
-	<insert id="write" parameterType="classScoreDto">
-		INSERT INTO CLASS_SCORE values(#{class_score_no},
-										#{SUBJECT_APPLY_no},
-										#{profe_no},
+	<insert id="regist" parameterType="map">
+		INSERT INTO CLASS_SCORE values(class_score_seq.nextval,
+										#{subject_apply_no},
 										#{student_no},
-										#{major_no},
-										#{semester_no},
 										#{class_score},
 										#{class_score_type},
 										SYSDATE)	
@@ -36,33 +33,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 신청 강의 번호 단일 조회 -->
-	<select id="getClassSubNo" resultType="int">
-		SELECT sa.CLASS_SUB_NO FROM SUBJECT_APPLY sa INNER JOIN CLASS_SUBJECT cs ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO 
+	<select id="getClassSubNo" parameterType="int" resultType="classScoreDto">
+		SELECT * FROM class_score cl LEFT OUTER JOIN subject_apply sa ON cl.subject_apply_no = sa.subject_apply_no left outer JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO left outer join student stu on cl.student_no = stu.student_no WHERE sa.CLASS_SUB_NO = #{class_sub_no} 
+<!-- SELECT * FROM SUBJECT_APPLY sa left outer JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO left outer join student stu on sa.student_no = stu.student_no WHERE sa.CLASS_SUB_NO = #{class_sub_no} 	 -->
 	</select>
 	
 	<!--성적 목록-->
 	<select id="getScoreList" parameterType="int" resultType="classScoreDto">
 		SELECT*FROM CLASS_SCORE WHERE CLASS_SUB_NO=#{class_sub_no}
-	</select>
+	</select>	
 	
-	<!-- 성적 입력 리스트 -->
-	<select id="getStudentList" parameterType="int" resultType="smcDto">
-		SELECT*FROM SMC WHERE CLASS_SUB_NO=#{class_sub_no}	
+<!-- 	성적 입력 리스트 -->
+	<select id="getStudentList" parameterType="int" resultType="classScoreDto">
+		SELECT * FROM SUBJECT_APPLY sa left outer JOIN CLASS_SUBJECT cs ON cs.class_sub_NO = sa.class_sub_NO left outer join student stu on sa.student_no = stu.student_no WHERE sa.CLASS_SUB_NO = #{class_sub_no} 	
 	</select>
 
 
 	<!--성적 수정-->
 	<update id="editScore" parameterType="classScoreDto">
-		UPDATE CLASS_SCORE SET CLASS_SCORE =#{CLASS_SCORE}, CLASS_SCORE_TYPE =#{CLASS_SCORE_TYPE} WHERE CLASS_SCORE_NO =#{CLASS_SCORE_NO};
+		UPDATE CLASS_SCORE SET CLASS_SCORE =#{class_score}, CLASS_SCORE_TYPE =#{class_score_type} WHERE CLASS_SCORE_NO =#{class_score_no};
 	</update>
 	
 	<select id="on_list" parameterType="int" resultType="smcDto">
 	
 <!-- 	select * from smc where student_no=#{student_no} -->
-select * from smc sm LEFT OUTER JOIN CLASS_SUBJECT cs ON sm.CLASS_SUB_NO = cs.CLASS_SUB_NO where student_no = #{student_no}
+	select * from smc sm LEFT OUTER JOIN CLASS_SUBJECT cs ON sm.CLASS_SUB_NO = cs.CLASS_SUB_NO where student_no = #{student_no}
 	
 	</select>
 
 </mapper>
-
-

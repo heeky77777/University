@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <script
@@ -78,14 +78,49 @@
                 document.getElementById("stu_apply_extra_addr").focus();
             }
         }).open();
-    } 
+    }
+	
+	function major_get(){
+		
+		var major_numb = document.querySelector("#major_no");
+		var major_numb_value = document.querySelector("#major_no").value;
+// 		var std_major_value = document.querySelector("#std_major").value;
+		console.log(major_numb_value);
+// 		console.log(std_major_value);
+		
+		
+		axios({
+			url:"${pageContext.request.contextPath}/apply/get_major?major_type="+major_numb_value,
+			method:"get"
+		}).then(function (response){
+			var major_no = document.querySelector("#major_no2");
+			console.log(response);
+			major_no.value = response.data.major_no;
+			var major_type = response.data.major_type;
+			
+			axios({
+				url:"${pageContext.request.contextPath}/apply/get_std_number?major_no="+major_type,
+				method:"get"
+			}).then(function (response){
+				console.log(response);
+		 		
+		 		var stu_numb = document.querySelector("#std_number");
+		 		stu_numb.value = response.data.length + 1;
+		 		console.log(stu_numb.value);
+				
+			})
+		})
+		
+		
+	}
+	
 </script>
 <div class="container-fluid">
 	<div class="form">
 		<div class="offset-md-4 col-md-4">
 			<br> <br>
 
-			<h1 class="form-group" style="text-align: center">정보입력</h1>
+			<h1 class="form-group" style="text-align: center">학생정보입력</h1>
 			<br>
 
 			<form action="join" method="post">
@@ -94,12 +129,20 @@
 					<label>이름</label> <input class="form-control" type="text"
 						name="stu_apply_name">
 				</div>
-
+				<div  class="form-group">	
+		       	<label>학과</label> 
+			    	 <select  id="major_no" class="form-control" required onchange="major_get();">
+	                    <option value="" ${param.major_no == '' ? 'selected':''}>학과 선택</option>
+	                    <c:forEach var="majorDto" items="${majorList}">
+	                     		<option ${param.major_no == majorDto.major_no ? 'selected':''}>${majorDto.major_type}</option>
+	                    </c:forEach>
+	     			</select>
+		   		</div>
 				<div class="form-group">
 					<label>성별 :</label> <select class="form-control"
 						name="stu_apply_gender">
-						<option>남</option>
-						<option>녀</option>
+						<option>남자</option>
+						<option>여자</option>
 					</select>
 				</div>
 
@@ -151,15 +194,15 @@
 			<div class="form-group">   	
 		    	<input class="form-control" type="text" name="stu_apply_extra_addr" placeholder="상세주소" id="stu_apply_extra_addr">
 		   </div> 	
-		   
-
+		   		<input type="hidden" name="major_no" id="major_no2">
+				<input type="hidden" name="stu_numb" id="std_number">
 				<div class="form-group">
 					<input class="form-control btn btn-primary btn-block" type="submit"
 						value="등 록" style="background-color: #063e7a">
 
 				</div>
 			</form>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 		</div>
 	</div>
 </div>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

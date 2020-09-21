@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService{
 		if(student_File_check != null) {
 			studentDao.delFile(student_no);
 			
-			File target = new File("D:/upload1",String.valueOf(student_File_check.getStudent_file_no()));
+			File target = new File("C:/Users/ASUS/Desktop/upload",String.valueOf(student_File_check.getStudent_file_no()));
 			target.delete();
 			
 			studentFileDto.setStudent_no(student_no);
@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService{
 			studentFileDto.setStudent_file_type(file.getContentType());
 			
 			int student_file_no = studentDao.student_file_add(studentFileDto);
-			File target2 = new File("D:/upload1",String.valueOf(student_file_no));
+			File target2 = new File("C:/Users/ASUS/Desktop/upload",String.valueOf(student_file_no));
 			file.transferTo(target2);
 		}
 		//없으면 만들기
@@ -54,7 +54,7 @@ public class StudentServiceImpl implements StudentService{
 			studentFileDto.setStudent_file_type(file.getContentType());
 			
 			int student_file_no = studentDao.student_file_add(studentFileDto);
-			File target = new File("D:/upload1",String.valueOf(student_file_no));
+			File target = new File("C:/Users/ASUS/Desktop/upload",String.valueOf(student_file_no));
 			file.transferTo(target);
 		}
 		
@@ -70,7 +70,7 @@ public class StudentServiceImpl implements StudentService{
 			return ResponseEntity.notFound().build();
 		}
 		else { //정보가 있으면
-				File target = new File("D:/upload",String.valueOf(student_file_no));
+				File target = new File("C:/Users/ASUS/Desktop/upload",String.valueOf(student_file_no));
 				byte[] data = FileUtils.readFileToByteArray(target);
 				ByteArrayResource res = new ByteArrayResource(data);
 					

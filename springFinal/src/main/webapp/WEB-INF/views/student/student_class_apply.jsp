@@ -14,6 +14,16 @@
 	        	.center{
 	        		text-align: center;
 	        	}
+	        	
+	        	.btn,
+				.form-control {
+				    margin: 5px;
+				}
+				
+				.form-group {
+				    margin-bottom: 10px;
+				}
+				
 	        </style>
 	        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 	        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -27,7 +37,7 @@
 			
 			var socket;
 			
-				var uri = "ws://localhost:8080/spring97/go";
+				var uri = "ws://localhost:8080/springFinal/go";
 				socket = new WebSocket(uri);
 				
 //		 		연결이 되었는지 안되었는지 확인할 수 있도록 예약 작업(콜백)을 설정
@@ -146,26 +156,31 @@
 	    
 	    </script>
 	    <body onload="now_apply();">
+	    
+	    <div class="row-empty"></div>
+	    
 			<h1>강의신청</h1>
+			
+			<div class="row-empty"></div>
+			
 			<div class="form-group form-inline">
 					<form action="subject_list" method="post">
-	                       <input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">
-	                          <label>년도</label>
-	                       <select name="semester_type" id="semester_type" class="form-control" onchange="get_semester();">
-	                         <option ${param.semester_type == '1학기' ? 'selected':''}>1학기</option>      
-	                         <option ${param.semester_type == '2학기' ? 'selected':''}>2학기</option>      
-	                       </select>&nbsp;&nbsp;&nbsp;
-	                       <select name="major_type" id="major_type" class="form-control" required onchange="get_semester();">
-                                <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
-                                <c:forEach var="majorDto" items="${majorList}">
-	                                <option ${param.major_type == majorDto.major_type ? 'selected':''}>${majorDto.major_type}</option>
-                                </c:forEach>
-                            </select>
-	                      <input type="hidden" name="major_no" id="major_no">&nbsp;&nbsp;&nbsp;
-	                      <input type="hidden" name="semester_no" id="semester_no">
-	                      <input type="hidden" name="student_no" value="${userinfo.student_no }">
-<!-- 	                      <button class="btn btn-secondary btn-sm" onclick="get_list();">강의조회</button> -->
-							<input type="submit" value="강의조회"  class="btn btn-primary" style="background-color :#063e7a">
+	               		<label><input type="text" name="regist_date" id="regist_year" value="${now_year}" class="form-control">년도</label>
+		                       <select name="semester_type" id="semester_type" class="form-control" onchange="get_semester();">
+		                         <option ${param.semester_type == '1학기' ? 'selected':''}>1학기</option>      
+		                         <option ${param.semester_type == '2학기' ? 'selected':''}>2학기</option>      
+		                       </select>&nbsp;&nbsp;&nbsp;
+		                       <select name="major_type" id="major_type" class="form-control" required onchange="get_semester();">
+	                                <option value="" ${param.majorSearch == '' ? 'selected':''}>학과 선택</option>
+	                                <c:forEach var="majorDto" items="${majorList}">
+		                                <option ${param.major_type == majorDto.major_type ? 'selected':''}>${majorDto.major_type}</option>
+	                                </c:forEach>
+	                            </select>
+		                      <input type="hidden" name="major_no" id="major_no">&nbsp;&nbsp;&nbsp;
+		                      <input type="hidden" name="semester_no" id="semester_no">
+		                      <input type="hidden" name="student_no" value="${userinfo.student_no }">
+	<!-- 	                      <button class="btn btn-secondary btn-sm" onclick="get_list();">강의조회</button> -->
+							  <input type="submit" value="강의조회"  class="btn btn-primary" style="background-color :#063e7a">
 					</form>		
 	                  </div>   
                   <div class="form-group form-inline">

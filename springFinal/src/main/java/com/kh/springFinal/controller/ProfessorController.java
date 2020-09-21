@@ -56,7 +56,7 @@ public class ProfessorController {
 		 professorDao.regist(professorDto);
 		 int profe_no = professorDto.getProfe_no();
 		 
-		 return "redirect:professor/detail?profe_no="+profe_no;
+		 return "redirect:/professor/detail?profe_no="+profe_no;
 	}	
 	
 	//교수 디테일 페이지
@@ -104,7 +104,7 @@ public class ProfessorController {
 		//파일이있으면 지우고 추가
 		if(professorFile != null) {
 			professorDao.delFile(profe_no);
-			File target = new File("D:/upload", String.valueOf(professorFile.getProfe_file_no()));
+			File target = new File("C:/Users/ASUS/Desktop/upload", String.valueOf(professorFile.getProfe_file_no()));
 			target.delete();// 파일 지워
 			professorService.add(professorFileDto, file, profe_no);
 		}
@@ -140,7 +140,7 @@ public class ProfessorController {
 	   response.setHeader("Content-Disposition", "attachment; filename=\""+URLEncoder.encode(professorFileDto.getProfe_file_name(), "UTF-8")+"\"");
 	   response.setHeader("Content-Length", String.valueOf(professorFileDto.getProfe_file_size()));
 	   
-	   File target = new File("D:/upload", String.valueOf(professorFileDto.getProfe_file_no()));
+	   File target = new File("C:/Users/ASUS/Desktop/upload", String.valueOf(professorFileDto.getProfe_file_no()));
 	   byte[]data = FileUtils.readFileToByteArray(target);
 	   response.getOutputStream().write(data);
 
@@ -151,7 +151,8 @@ public class ProfessorController {
 	
 	//정보 수정
 	@GetMapping("/edit")
-	public String edit(Model model, @RequestParam int profe_no, @ModelAttribute ProfessorDto professorDto) {
+	public String edit(Model model, @RequestParam int profe_no, 
+					@ModelAttribute ProfessorDto professorDto, RedirectAttributes attr) {
 		
 		ProfessorDto professorDto2 = professorDao.get(profe_no);
 		model.addAttribute("professorDto", professorDto2);
@@ -161,7 +162,7 @@ public class ProfessorController {
 		String semester_type = semesterDto.getSemester_type();
 		model.addAttribute("semester_type",semester_type);//학기명 보내기
 
-	
+		attr.addAttribute("profe_no", profe_no);
 		return "professor/edit";
 	}
 	
@@ -170,6 +171,6 @@ public class ProfessorController {
 		ProfessorDto professorEdit = professorDao.get(profe_no);
 		return "redirect:detail"; //detail로 redirect
 	}
-	
+	 
 	
 }

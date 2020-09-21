@@ -65,16 +65,16 @@ public class AttendanceController {
 	// 출석 체크
 	@PostMapping("attendList/{class_sub_no}/{subject_apply_no}")
 	public String attendList(
+								@PathVariable int class_sub_no,
+								@PathVariable int subject_apply_no,
 								@RequestParam List<String> attend_no,
 								@RequestParam List<String> attend_type) {
+
 		
-		System.out.println("-----------------------------------");
-		log.info("attend_no = {}", attend_no.size());
-		System.out.println("-----------------------------------");
-		log.info("attend_type = {}", attend_type.size());
-		System.out.println("-----------------------------------");
+		attendanceService.attendCheck(attend_no, attend_type);
 		
-		return "redirect:/attendance/attendList";
+		
+		return "redirect:/attendance/attendList/" + class_sub_no + "/" + subject_apply_no;
 	}
 	
 	

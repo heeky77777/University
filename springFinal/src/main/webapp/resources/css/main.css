@@ -173,11 +173,7 @@
             bottom: 0;
             width: 150px;
             margin-left: -250px;
-<<<<<<< HEAD
-            margin-top: -250px;
-=======
-            margin-top: -280px;
->>>>>>> refs/remotes/origin/master
+            margin-top: -345px;
             transition: margin-top 0.5s ease-in-out; 
             
             
@@ -228,7 +224,7 @@
             bottom: 0;
             width: 150px;
             margin-left: -250px;
-            margin-top: -336px;
+            margin-top: -600px;
             transition: margin-top 0.5s ease-in-out; 
             
         }
@@ -276,7 +272,7 @@
        .nav-empty{
         background-color: #43505d; /*왼쪽 바 밑단 색깔 */
         width: 250px;
-        height: 800px;
+        height: 1200px;
        }
        .nav-item-list{
            background-color: #465881; /*네비바 목록 색깔*/
