@@ -19,7 +19,6 @@ public class StudentLoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		
 		StudentDto studentDto = (StudentDto) session.getAttribute("userinfo");
-		System.out.println("studentDto = " + studentDto);
 		if(studentDto != null) {
 			return true;
 		}

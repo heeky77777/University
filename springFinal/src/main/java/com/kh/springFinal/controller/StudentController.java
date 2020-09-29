@@ -364,9 +364,11 @@ public class StudentController {
 	}
 	
 	@PostMapping("/st_class_apply_list_del")
-	public String st_class_apply_list_del(@RequestParam int class_sub_no) {
+	public String st_class_apply_list_del(
+									@RequestParam int student_no,
+									@RequestParam int subject_apply_no) {
 		
-		subjectapplyDao.st_class_apply_list_del(class_sub_no);
+		subjectapplyDao.st_class_apply_list_del(student_no, subject_apply_no);
 		
 		
 		return "redirect:st_class_apply_list";

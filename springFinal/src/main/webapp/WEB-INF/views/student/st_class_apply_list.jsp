@@ -34,7 +34,6 @@
 	    function get_semester(){
 	    	
 	    	var url = location.search.substr(location.search.indexOf("?") + 1);
-			console.log(url);
 			if(url=='error') {
 				history.replaceState({}, null, location.pathname);
 				alert("신청된 강의 입니다.");
@@ -42,9 +41,7 @@
 			
 	    	
 	    	var regist_year = document.querySelector("#regist_year").value;
-	    	console.log(regist_year);
 	    	var semester_type = document.querySelector("#semester_type").value;
-	    	console.log(semester_type);
 	    	
 	    	
 	    	axios({			
@@ -54,7 +51,6 @@
 				
 				var semester_no =  document.querySelector("#semester_no");
 				semester_no.value = response.data.semester_no;
-				console.log(semester_no.value);
 	    	})
 	    	
 	    	var major_type = document.querySelector("#major_type").value;
@@ -67,7 +63,6 @@
 				
 				var major_no =  document.querySelector("#major_no");
 				major_no.value = response.data.major_no;
-				console.log(major_no.value);
 	    	})
 	    	
 	    	
@@ -75,7 +70,9 @@
 	    
 
 		function del_check(){
-      		var class_sub_no = document.querySelector("#class_sub_no").value;
+// 			var class_sub_no = document.querySelector("#class_sub_no").value;
+      		var stu_no = document.querySelector("#student_no").value;
+      		var subject_apply_no = document.querySelector("#subject_apply_no").value;
         	var result = confirm("정말 삭제하시겠습니까??");
             if (!result){ 
 //                 document.form.submit();
@@ -86,7 +83,7 @@
 
 
 			axios({			
-				url:"${pageContext.request.contextPath}/apply/st_class_apply_list_del?class_sub_no=" + class_sub_no,
+				url:"${pageContext.request.contextPath}/apply/st_class_apply_list_del?student_no=" + stu_no + "&subject_apply_no=" + subject_apply_no,
 				method:"get"
 			}).then(function(response){
 				
@@ -174,6 +171,7 @@
 						<td>${classSubjectDto.class_sub_person}</td>
 						<td>
 <!-- 							<input type="submit" value="강의취소" onclick="del_check();" class="btn btn-primary btn-block regist-btn">								 -->
+							<input type="hidden" value="${classSubjectDto.subject_apply_no}" id="subject_apply_no">
 							<button onclick="del_check();" class="btn btn-primary btn-block regist-btn">강의취소</button>
 						</td>
 					</tr>

@@ -75,8 +75,16 @@
 		<url-pattern>/client/*</url-pattern>
 		<url-pattern>/email/*</url-pattern>
 		<url-pattern>/professor/*</url-pattern>
-		<url-pattern>/student/*</url-pattern>
 		<url-pattern>/schoolonoff/*</url-pattern>
+		<url-pattern>/student/st_class_apply_list.jsp</url-pattern>
+		<url-pattern>/student/student_apply_wait.jsp</url-pattern>
+		<url-pattern>/student/student_class_apply.jsp</url-pattern>
+		<url-pattern>/student/student_edit.jsp</url-pattern>
+		<url-pattern>/student/student_error.jsp</url-pattern>
+		<url-pattern>/student/student_info.jsp</url-pattern>
+		<url-pattern>/student/result.jsp</url-pattern>
+		<url-pattern>/student/schedule.jsp</url-pattern>
+		<url-pattern>/student/list.jsp</url-pattern>
 	</filter-mapping>
 	
 	    

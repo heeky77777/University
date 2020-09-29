@@ -44,6 +44,11 @@
 		update attendance set attend_type = #{attend_type} where attend_no = #{attend_no}
 	</update>
 
+	<!-- 출석 체크 삭제 -->
+	<delete id="delete" parameterType="map">
+		delete attendance where student_no = #{student_no} and subject_apply_no = #{subject_apply_no} 
+	</delete>
+	
 
 
 

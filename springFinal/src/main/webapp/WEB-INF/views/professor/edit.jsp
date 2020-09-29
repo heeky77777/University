@@ -219,7 +219,7 @@ function findAddr() {
 				if(thisVal.length>0){
 				$(this).attr("checked",true);
 				}
-	 		 }
+	 		 })
 		})
 		  
 	</script> 

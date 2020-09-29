@@ -18,6 +18,7 @@ import com.kh.springFinal.entity.SemesterDto;
 import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.SubjectApplyDto;
 import com.kh.springFinal.repository.AdminDao;
+import com.kh.springFinal.repository.AttendanceDao;
 import com.kh.springFinal.repository.MajorDao;
 import com.kh.springFinal.repository.StudentDao;
 import com.kh.springFinal.repository.StudentinfoDao;
@@ -86,9 +87,11 @@ public class SubjectApplyRestController {
 //	}
 	
 	@GetMapping("/st_class_apply_list_del")
-	public void st_class_apply_list_del(@RequestParam int class_sub_no) {
+	public void st_class_apply_list_del(
+									@RequestParam int student_no,
+									@RequestParam int subject_apply_no) {
 		
-		subjectApplyDao.st_class_apply_list_del(class_sub_no);
+		subjectApplyDao.st_class_apply_list_del(student_no, subject_apply_no);
 		
 		
 	}

@@ -42,8 +42,6 @@ public class AttendanceController {
 		
 		log.info("attendanceDto = {}", attendanceDto);
 		
-		// 출결 등록
-		attendanceService.attendRegist(attendanceDto);
 		// 학생 목록 출력
 		List<StudentDto> attendanceStuList = attendanceDao.getStuList(class_sub_no);
 		// 출결 타입

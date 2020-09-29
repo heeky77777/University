@@ -12,6 +12,8 @@ import com.kh.springFinal.entity.AttendanceDto;
 import com.kh.springFinal.entity.StudentDto;
 import com.kh.springFinal.entity.SubjectApplyDto;
 
+import lombok.Builder;
+
 @Repository
 public class AttendanceDaoImpl implements AttendanceDao {
 
@@ -51,6 +53,17 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	@Override
 	public List<SubjectApplyDto> getDateList(AttendanceDto attendanceDto) {
 
+		return sqlSession.selectList("attendance.getSubApplyDate", attendanceDto);
+	}
+	
+	@Override
+	public List<SubjectApplyDto> getDateList(int class_sub_no, int subject_apply_no) {
+		
+		AttendanceDto attendanceDto = AttendanceDto.builder()
+																			.class_sub_no(class_sub_no)
+																			.subject_apply_no(subject_apply_no)
+																			.build();
+		
 		return sqlSession.selectList("attendance.getSubApplyDate", attendanceDto);
 	}
 	

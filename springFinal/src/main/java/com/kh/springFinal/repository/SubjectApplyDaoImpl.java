@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.springFinal.entity.AttendanceDto;
 import com.kh.springFinal.entity.ClassSubjectDto;
-import com.kh.springFinal.entity.MajorDto;
 import com.kh.springFinal.entity.SemesterDto;
 import com.kh.springFinal.entity.SubjectApplyDto;
 
@@ -18,6 +18,10 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private AttendanceDao attendanceDao;
+	
 	
 	@Override
 	public SemesterDto get_semester(SemesterDto semesterDto) {
@@ -40,13 +44,31 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 	@Override
 	public void class_apply(int class_sub_no, int major_no, int student_no, String subject_apply_name) {
 		
+		int subject_apply_no = sqlSession.selectOne("subjectApply.apply_seq");
+		
 		Map<String, Object> map = new HashMap<>();
+		map.put("subject_apply_no", subject_apply_no);
 		map.put("class_sub_no", class_sub_no);
 		map.put("major_no", major_no);
 		map.put("student_no", student_no);
 		map.put("subject_apply_name", subject_apply_name);
 		
 		sqlSession.insert("subjectApply.apply_class",map);
+		
+		
+		List<SubjectApplyDto> getDateList = attendanceDao.getDateList(class_sub_no, subject_apply_no);
+				
+		for (int i = 0; i < getDateList.size(); i++) {
+			int attendSeq = attendanceDao.getSeq();
+			AttendanceDto attendanceDto = AttendanceDto.builder()
+																				.attend_no(attendSeq)
+																				.subject_apply_no(subject_apply_no)
+																				.student_no(student_no)
+																				.attend_date(getDateList.get(i).getSearchDate())
+																				.build();
+			attendanceDao.attendRegist(attendanceDto);
+			
+		}
 		
 	}
 
@@ -93,12 +115,20 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 		return st_class_apply_list;
 	}
 
+	
 	@Override
-	public void st_class_apply_list_del(int class_sub_no) {
+	public void st_class_apply_list_del(int student_no, int subject_apply_no) {
 		
-		sqlSession.delete("subjectApply.st_class_apply_list_del", class_sub_no);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("student_no", student_no);
+		map.put("subject_apply_no", subject_apply_no);
+		sqlSession.delete("attendance.delete", map);
+		
+		sqlSession.delete("subjectApply.st_class_apply_list_del", map);
 		
 	}
+	
 
 	@Override
 	public SubjectApplyDto get_subject(int class_sub_no, int student_no) {
@@ -136,6 +166,7 @@ public class SubjectApplyDaoImpl implements SubjectApplyDao{
 		List<SubjectApplyDto> get_list_size = sqlSession.selectList("subjectApply.get_list_size",class_sub_no);
 		return get_list_size;
 	}
+
 
 	
 

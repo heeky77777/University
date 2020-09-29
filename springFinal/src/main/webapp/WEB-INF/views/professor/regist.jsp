@@ -244,19 +244,19 @@
 
 					<div class="form-group">
 						<label>아이디</label>
-						<input type="text" name="profe_id" id="profe_id" class="form-control" onblur="checkId()" placeholder="5~15자리의 영어 소문자와 숫자를 입력하세요" required>
+						<input type="text" name="profe_id" id="profe_id" class="form-control" onblur="checkId();" placeholder="5~15자리의 영어 소문자와 숫자를 입력하세요" required>
 						<span id="idCheck"></span>
 					</div>
 
 					<div class="form-group">
 						<label>비밀번호</label>
-						 <input type="password" name="profe_pw" onblur="checkPw()" class="form-control" placeholder="8~16자의 영문 대소문자와 숫자로만 입력하세요" required>
+						 <input type="password" name="profe_pw" onblur="checkPw();" class="form-control" placeholder="8~16자의 영문 대소문자와 숫자로만 입력하세요" required>
 						 <span id="pwCheck"></span>
 					</div>
 
 					<div class="form-group">
 						<label>비밀번호 재확인</label>
-						 <input type="password" name="profe_pw_check" onblur="recheckPw()" class="form-control" placeholder="비밀번호를 확인하세요" required>
+						 <input type="password" name="profe_pw_check" onblur="recheckPw();" class="form-control" placeholder="비밀번호를 확인하세요" required>
 						 <span id="reCheck"></span>
 					</div>
 					

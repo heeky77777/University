@@ -22,6 +22,7 @@ public interface AttendanceDao {
 	
 	// 수강 강의 날짜 조회
 	List<SubjectApplyDto> getDateList(AttendanceDto attendanceDto);
+	List<SubjectApplyDto> getDateList(int class_sub_no, int subject_apply_no);
 	
 	// 해당 수강에 대한 출결 타입 목록(이름 가나다순)
 	List<AttendanceDto> getAttendTypeList(int class_sub_no);

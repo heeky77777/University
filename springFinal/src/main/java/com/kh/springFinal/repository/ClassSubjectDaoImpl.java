@@ -49,9 +49,22 @@ public class ClassSubjectDaoImpl implements ClassSubjectDao{
 	@Override
 	public ClassSubjectDto getConfirm(ClassSubjectDto classSubjectDto) {
 		
-		ClassSubjectDto subDto = sqlSession.selectOne("classSubject.getConfirm", classSubjectDto);
+		ClassSubjectDto getTime1 = sqlSession.selectOne("classSubject.getTime1", classSubjectDto);
+		if(getTime1 == null) {
+			ClassSubjectDto getTime2 = sqlSession.selectOne("classSubject.getTime2", classSubjectDto);
+			if(getTime2 == null) {
+				ClassSubjectDto getTime3 = sqlSession.selectOne("classSubject.getTime3", classSubjectDto);
+				if(getTime3 == null) {
+					ClassSubjectDto getTime4 = sqlSession.selectOne("classSubject.getTime4", classSubjectDto);
+					return getTime4;
+				}
+				return getTime3;
+			}
+			return getTime2;
+		}
+		return getTime1;
+		
 
-		return subDto;
 	}
 	
 	

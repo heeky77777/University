@@ -16,10 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  -->
  
 <mapper namespace="subjectApply">	
-	  <insert id="apply_class" parameterType="subjectapplyDto">
+	  <insert id="apply_class" parameterType="map">
    
       INSERT INTO subject_apply VALUES(
-      					subject_apply_no_seq.nextval, 
+      					#{subject_apply_no}, 
                         #{class_sub_no},
                         #{major_no},
                         #{student_no},
@@ -80,8 +80,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		SELECT * FROM CLASS_SUBJECT cs LEFT OUTER JOIN SUBJECT_APPLY sa ON cs.CLASS_SUB_NO = sa.CLASS_SUB_NO LEFT OUTER JOIN PROFESSOR pr ON cs.PROFE_NO = pr.PROFE_NO WHERE cs.SEMESTER_NO = #{semester_no} and sa.STUDENT_NO = #{student_no}
    	</select>
    	
-   	<delete id="st_class_apply_list_del" parameterType="int">
-   		delete subject_apply where class_sub_no = #{class_sub_no}
+   	<delete id="st_class_apply_list_del" parameterType="map">
+   		delete subject_apply where student_no = #{student_no} and subject_apply_no = #{subject_apply_no}
    	</delete>
    	
    	<select id="get_subject" parameterType="subjectapplyDto" resultType="subjectapplyDto" >

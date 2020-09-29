@@ -379,7 +379,7 @@
 	
 	   <div class="row">
 	       <div class="offset-md-3 col-md-6">
-	           <form action="regist" class="form" method="post" enctype="multipart/form-data">
+	           <form action="${pageContext.request.contextPath}/class_subject/regist" class="form" method="post" enctype="multipart/form-data">
 	               <div class="form-group">
 	                   <label>강의 명</label>
 	                   <input type="text" name="class_sub_name" class='form-control' value="${param.class_sub_name}" required autocomplete="off">

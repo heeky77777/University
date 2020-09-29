@@ -32,36 +32,82 @@
 		select * from class_subject cs inner join semester s on cs.semester_no = s.semester_no inner join major m on cs.major_no = m.major_no left outer join professor p on cs.profe_no = p.profe_no where class_sub_no = #{class_sub_no}
 	</select>
 		
-	<!-- 강의실 중복 검사 조회 -->
-	<select id="getConfirm" resultType="classSubjectDto" parameterType="classSubjectDto">
-		select * from class_subject where class_sub_room = #{class_sub_room} and class_sub_week = #{class_sub_week} and semester_no = #{semester_no} and class_sub_time1 = #{class_sub_time1} 
-		<if test="class_sub_time2 != '0'">
-			and class_sub_time2 = #{class_sub_time2} 
-		</if>
-		<if test="class_sub_time3 != '0'">
-			and class_sub_time3 = #{class_sub_time3} 
-		</if>
-		<if test="class_sub_time4 != '0'">
-			and class_sub_time4 = #{class_sub_time4} 
-		</if>
+	<!-- 강의실 중복 검사 조회(1) -->
+	<select id="getTime1" resultType="classSubjectDto" parameterType="classSubjectDto">
+		select * from (select * from class_subject where semester_no = #{semester_no} and class_sub_week = #{class_sub_week} and class_sub_room = #{class_sub_room}) 
+				where class_sub_time1 = #{class_sub_time1}
+				<if test="class_sub_time2 != 0">
+					or class_sub_time1 = #{class_sub_time2} 
+				</if> 
+				<if test="class_sub_time3 != 0">
+					or class_sub_time1 = #{class_sub_time3} 
+				</if> 
+				<if test="class_sub_time4 != 0">
+					or class_sub_time1 = #{class_sub_time4} 
+				</if> 
+	</select>
+	
+	<!-- 강의실 중복 검사 조회(2) -->
+	<select id="getTime2" resultType="classSubjectDto" parameterType="classSubjectDto">
+		select * from (select * from class_subject where semester_no = #{semester_no} and class_sub_week = #{class_sub_week} and class_sub_room = #{class_sub_room}) 
+				where class_sub_time2 = #{class_sub_time1} 
+				<if test="class_sub_time2 != 0">
+					or class_sub_time2 = #{class_sub_time2} 
+				</if> 
+				<if test="class_sub_time3 != 0">
+					or class_sub_time2 = #{class_sub_time3} 
+				</if> 
+				<if test="class_sub_time4 != 0">
+					or class_sub_time2 = #{class_sub_time4} 
+				</if> 
+	</select>
+	
+	<!-- 강의실 중복 검사 조회(3) -->
+	<select id="getTime3" resultType="classSubjectDto" parameterType="classSubjectDto">
+		select * from (select * from class_subject where semester_no = #{semester_no} and class_sub_week = #{class_sub_week} and class_sub_room = #{class_sub_room}) 
+				where class_sub_time3 = #{class_sub_time1} 
+				<if test="class_sub_time2 != 0">
+					or class_sub_time3 = #{class_sub_time2} 
+				</if> 
+				<if test="class_sub_time3 != 0">
+					or class_sub_time3 = #{class_sub_time3} 
+				</if> 
+				<if test="class_sub_time4 != 0">
+					or class_sub_time3 = #{class_sub_time4} 
+				</if> 
+	</select>
+	
+	<!-- 강의실 중복 검사 조회(4) -->
+	<select id="getTime4" resultType="classSubjectDto" parameterType="classSubjectDto">
+		select * from (select * from class_subject where semester_no = #{semester_no} and class_sub_week = #{class_sub_week} and class_sub_room = #{class_sub_room}) 
+				where class_sub_time4 = #{class_sub_time1} 
+				<if test="class_sub_time2 != 0">
+					or class_sub_time4 = #{class_sub_time2} 
+				</if> 
+				<if test="class_sub_time3 != 0">
+					or class_sub_time4 = #{class_sub_time3} 
+				</if> 
+				<if test="class_sub_time4 != 0">
+					or class_sub_time4 = #{class_sub_time4} 
+				</if> 
 	</select>
 	
 	<!-- 강의 시간 중복 검사 -->
 	<select id="getCheckSub" parameterType="classSubjectDto" resultType="classSubjectDto">
 		select * from (select * from class_subject where profe_no = #{profe_no} and semester_no = #{semester_no} and class_sub_week = #{class_sub_week}) where class_sub_time1 = #{class_sub_time1} and class_sub_time1 = #{class_sub_time2} and class_sub_time1 = #{class_sub_time3} and class_sub_time1 = #{class_sub_time4} 
-		<if test="class_sub_time2 != '0'">
+		<if test="class_sub_time2 != 0">
 			and class_sub_time2 = #{class_sub_time1} 
 			or class_sub_time2 = #{class_sub_time2} 
 			or class_sub_time2 = #{class_sub_time3} 
 			or class_sub_time2 = #{class_sub_time4} 
 		</if>
-		<if test="class_sub_time3 != '0'">
+		<if test="class_sub_time3 != 0">
 			and class_sub_time3 = #{class_sub_time1} 
 			or class_sub_time3 = #{class_sub_time2} 
 			or class_sub_time3 = #{class_sub_time3} 
 			or class_sub_time3 = #{class_sub_time4} 
 		</if>
-		<if test="class_sub_time4 != '0'">
+		<if test="class_sub_time4 != 0">
 			and class_sub_time4 = #{class_sub_time1} 
 			or class_sub_time4 = #{class_sub_time2} 
 			or class_sub_time4 = #{class_sub_time3} 

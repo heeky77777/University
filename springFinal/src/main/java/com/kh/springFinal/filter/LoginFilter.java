@@ -19,7 +19,6 @@ import com.kh.springFinal.entity.StudentDto;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 public class LoginFilter implements Filter {
 
@@ -34,17 +33,6 @@ public class LoginFilter implements Filter {
 		StudentDto studentDto = (StudentDto) session.getAttribute("userinfo");
 		ProfessorDto professorDto = (ProfessorDto) session.getAttribute("profeinfo");
 		AdminDto adminDto = (AdminDto) session.getAttribute("admininfo");
-		
-		
-		log.info("=====================");
-		log.info("session = {}", session);
-		log.info("=====================");
-		log.info("studentDto = {}", studentDto);
-		log.info("=====================");
-		log.info("professorDto = {}", professorDto);
-		log.info("=====================");
-		log.info("adminDto = {}", adminDto);
-		log.info("=====================");
 		
 		
 		boolean isLogin = studentDto != null || professorDto != null || adminDto != null;
